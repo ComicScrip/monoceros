@@ -1,5 +1,6 @@
 .header {
   border-bottom: 1px solid #e2e8f0;
+  background-color: black;
 }
 
 .navbar {
@@ -7,6 +8,67 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
+  width: 100%;
+}
+
+.navlogo {
+  font-size: 2.1rem;
+  font-weight: 500;
+  color: white;
+  text-transform: uppercase;
+}
+
+.navmenu {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  right: -100%;
+  top: 70px;
+  flex-direction: column;
+  background-color: #959595c7;
+  width: 50%;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.navmenu.active {
+  right: 0;
+}
+
+.navitem {
+  margin: 1rem 0;
+  list-style-type: none;
+  display: flex;
+  align-items: flex-start;
+}
+
+.navmenu h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.navlink {
+  font-weight: 400;
+  color: white;
+  background-color: black;
+  padding: 0.2rem 0.6rem;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  width: 95px;
+  position: relative;
+  left: -20px;
+}
+
+.borderBottom {
+  height: 0.2rem;
+  width: 90%;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.hamburger {
+  display: block;
+  cursor: pointer;
 }
 
 .bar {
@@ -16,44 +78,7 @@
   margin: 5px auto;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  background-color: #222222;
-}
-
-.navmenu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  left: -100%;
-  top: 5rem;
-  flex-direction: column;
-  background-color: #fff;
-  width: 100%;
-  border-radius: 10px;
-  text-align: center;
-  transition: 0.3s;
-}
-
-.navmenu.active {
-  left: 0;
-}
-
-.navitem {
-  margin: 2.5rem 0;
-}
-
-.navlink {
-  font-weight: 400;
-  color: #475569;
-}
-
-.navlink:hover {
-  color: #482ff7;
-}
-
-.hamburger {
-  display: block;
-  cursor: pointer;
+  background-color: #e77981;
 }
 
 .hamburger.active .bar:nth-child(2) {
@@ -68,9 +93,4 @@
 .hamburger.active .bar:nth-child(3) {
   -webkit-transform: translateY(-8px) rotate(-45deg);
   transform: translateY(-8px) rotate(-45deg);
-}
-
-.navlogo {
-  font-size: 2.1rem;
-  font-weight: 500;
 }

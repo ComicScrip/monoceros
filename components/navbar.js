@@ -23,31 +23,42 @@ export default function Navbar() {
             <h1 className={style.navlogo}>Monoceros</h1>
           </a>
         </Link>
-        <ul
+        <div
           className={
             isOpen === false
               ? style.navmenu
               : style.navmenu + " " + style.active
           }
         >
-          {MENU_LIST.map((menu) => (
-            <li className={style.navitem} key={menu.href}>
-              <Link href={menu.href}>
-                <a
-                  href={menu.href}
-                  className={
-                    isOpen === false
-                      ? style.navlink
-                      : style.navlink + " " + style.active
-                  }
-                  onClick={openMenu}
-                >
-                  {menu.text}
-                </a>
-              </Link>
-            </li>
-          ))}
-        </ul>
+          {" "}
+          <h2 className="menuTitle">MENU</h2>
+          <ul>
+            {MENU_LIST.map((menu) => (
+              <li className={style.navitem} key={menu.href}>
+                <Link href={menu.href}>
+                  <a
+                    href={menu.href}
+                    className={
+                      isOpen === false
+                        ? style.navlink
+                        : style.navlink + " " + style.active
+                    }
+                    onClick={openMenu}
+                  >
+                    {menu.text}
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="borderBottom" />
+          <ul>
+            <li className="navTextBottom">View profile</li>
+            <li className="navTextBottom">Invite users</li>
+            <li className="navTextBottom">Sign Out</li>
+          </ul>
+        </div>
+
         <div
           className={
             isOpen === false
