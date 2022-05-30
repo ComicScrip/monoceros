@@ -2,16 +2,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import style from "./navbar.module.css";
 
-const MENU_LIST = [
-  { text: "Cockpit", href: "/" },
-  { text: "Products", href: "/products" },
-  { text: "Packages", href: "/packages" },
-  { text: "Delivery", href: "/deliveries" },
-  { text: "Inventory", href: "/inventory" },
-  { text: "Alarms", href: "/alarms" },
-  { text: "Settings", href: "/settings" },
-];
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const openMenu = () => setIsOpen(!isOpen);
@@ -20,7 +10,7 @@ export default function Navbar() {
       <nav className={style.navbar}>
         <Link href={"/"}>
           <a>
-            <h1 className={style.navlogo}>Monoceros</h1>
+            <h1 className={style.navlogo}>{isOpen ? "" : "Monoceros"}</h1>
           </a>
         </Link>
         <div
@@ -31,32 +21,125 @@ export default function Navbar() {
           }
         >
           {" "}
-          <h2 className="menuTitle">MENU</h2>
           <ul>
-            {MENU_LIST.map((menu) => (
-              <li className={style.navitem} key={menu.href}>
-                <Link href={menu.href}>
-                  <a
-                    href={menu.href}
-                    className={
-                      isOpen === false
-                        ? style.navlink
-                        : style.navlink + " " + style.active
-                    }
-                    onClick={openMenu}
-                  >
-                    {menu.text}
-                  </a>
-                </Link>
-              </li>
-            ))}
+            <li className={style.navitem}>
+              <Link href="/">
+                <a
+                  className={
+                    isOpen === false
+                      ? style.navlink
+                      : style.navlink + " " + style.active
+                  }
+                  onClick={openMenu}
+                >
+                  Cockpit
+                </a>
+              </Link>
+            </li>
+            <li className={style.navitem}>
+              <Link href="/products">
+                <a
+                  className={
+                    isOpen === false
+                      ? style.navlink
+                      : style.navlink + " " + style.active
+                  }
+                  onClick={openMenu}
+                >
+                  Products
+                </a>
+              </Link>
+            </li>
+            <div className={style.navitem}>
+              <p className={style.navlink}>Deliveries</p>
+            </div>
+            <li className={style.navitem}>
+              <Link href="/newdelivery">
+                <a
+                  className={
+                    isOpen === false
+                      ? style.navlink
+                      : style.navlink + " " + style.active
+                  }
+                  onClick={openMenu}
+                >
+                  New Delivery
+                </a>
+              </Link>
+            </li>
+            <li className={style.navitem}>
+              <Link href="/deliveries">
+                <a
+                  className={
+                    isOpen === false
+                      ? style.navlink
+                      : style.navlink + " " + style.active
+                  }
+                  onClick={openMenu}
+                >
+                  Delivery Overviews
+                </a>
+              </Link>
+            </li>
+            <li className={style.navitem}>
+              <Link href="/inventory">
+                <a
+                  className={
+                    isOpen === false
+                      ? style.navlink
+                      : style.navlink + " " + style.active
+                  }
+                  onClick={openMenu}
+                >
+                  Inventory
+                </a>
+              </Link>
+            </li>
+            <li className={style.navitem}>
+              <Link href="/alarms">
+                <a
+                  className={
+                    isOpen === false
+                      ? style.navlink
+                      : style.navlink + " " + style.active
+                  }
+                  onClick={openMenu}
+                >
+                  Alarms
+                </a>
+              </Link>
+            </li>
+            <li className={style.navitem}>
+              <Link href="/settings">
+                <a
+                  className={
+                    isOpen === false
+                      ? style.navlink
+                      : style.navlink + " " + style.active
+                  }
+                  onClick={openMenu}
+                >
+                  Settings
+                </a>
+              </Link>
+            </li>
+            <li className={style.navitem}>
+              <Link href="/help">
+                <a
+                  className={
+                    isOpen === false
+                      ? style.navlink
+                      : style.navlink + " " + style.active
+                  }
+                  onClick={openMenu}
+                >
+                  Help
+                </a>
+              </Link>
+            </li>
           </ul>
-          <div className="borderBottom" />
-          <ul>
-            <li className="navTextBottom">View profile</li>
-            <li className="navTextBottom">Invite users</li>
-            <li className="navTextBottom">Sign Out</li>
-          </ul>
+          <div className={style.borderBottom}></div>
+          <p className={style.navTextBottom}>Sign Out</p>
         </div>
 
         <div
