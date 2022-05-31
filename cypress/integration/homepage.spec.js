@@ -1,4 +1,3 @@
-/*
 /// <reference types="cypress" />
 
 // Welcome to Cypress!
@@ -17,4 +16,3 @@ describe("homepage", () => {
     cy.get("h1").should("not.be.empty");
   });
 });
-*/
