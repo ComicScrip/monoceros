@@ -5,7 +5,7 @@ import LogoForm from "../public/images/logo-monoceros.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import tokenContext, { tokenToRefresh } from "../lib/tokenContext";
-import { getTokens, getOneDelivery, getRefreshToken } from "../lib";
+import { getTokens, getOneDelivery } from "../lib";
 
 export default function LoginForm() {
   const { tokens, setTokens } = useContext(tokenContext);
@@ -17,29 +17,18 @@ export default function LoginForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    /*
-        const test = await getRefreshToken(tokenToRefresh)
-        setTokens(test)
-        */
     if (!loginIssues) {
-      try {
-        const newTokens = await getTokens(email, password);
+      const newTokens = await getTokens(email, password);
+      if (newTokens) {
         setTokens(newTokens);
         router.push("/inProgress");
-      } catch (err) {
+      } else {
         setLoginIssues(true);
       }
     }
   }
 
   async function handleCheckBox() {
-    try {
-      const oneDelivery = await getOneDelivery(tokens.access, 194);
-      console.log(oneDelivery);
-    } catch (err) {
-      console.log(err);
-    }
-    console.log(tokens);
     setIsChecked(!isChecked);
   }
 
