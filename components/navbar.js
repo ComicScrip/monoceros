@@ -17,7 +17,7 @@ export default function Navbar() {
             color: #ff455a;
             position: absolute;
             left: 0;
-            height: 30px;
+            height: 25px;
           }
           .active {
             background-color: black;
@@ -111,7 +111,7 @@ export default function Navbar() {
                     </ActiveLink>
                   </li>
                   <li className={style.navsubitem}>
-                    <ActiveLink activeClassName="active" href="">
+                    <ActiveLink activeClassName="active" href="/products">
                       <a
                         className={
                           isOpen === false

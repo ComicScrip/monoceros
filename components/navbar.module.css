@@ -48,12 +48,14 @@
 
 .navlogo {
   margin-left: 2rem;
+  padding-top: 2px;
 }
 
 .navitem {
   margin: 1rem 0;
   display: flex;
   justify-content: flex-start;
+  cursor: pointer;
 }
 
 .navoveritem {
