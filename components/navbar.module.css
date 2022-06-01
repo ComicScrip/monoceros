@@ -26,7 +26,7 @@
 
 .navmenu {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   position: fixed;
   right: -100%;
   top: 80px;
@@ -35,6 +35,7 @@
   width: 100%;
   text-align: center;
   transition: 0.3s;
+  height: calc(100% - 80px);
 }
 
 .navmenu.active {
@@ -46,6 +47,21 @@
   list-style-type: none;
   display: flex;
   justify-content: flex-start;
+}
+
+.navoveritem {
+  margin: 1rem 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.navsubitem {
+  margin: 1rem 0;
+  list-style-type: none;
+  text-align: left;
 }
 
 .navlink {
@@ -67,6 +83,8 @@
   margin: 1.2rem 0;
   text-align: left;
   padding-left: 1rem;
+  font-weight: bold;
+  letter-spacing: 1.5px;
 }
 
 .hamburger {
@@ -76,7 +94,7 @@
 
 .bar {
   display: block;
-  width: 60px;
+  width: 40px;
   height: 3px;
   margin: 5px auto;
   -webkit-transition: all 0.3s ease-in-out;
