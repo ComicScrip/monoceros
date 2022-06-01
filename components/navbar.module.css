@@ -16,6 +16,12 @@
   font-weight: 500;
   color: white;
   text-transform: uppercase;
+  height: 70px;
+}
+
+.monocerosLogo {
+  border-radius: 50%;
+  margin-top: 5px;
 }
 
 .navmenu {
@@ -23,7 +29,7 @@
   justify-content: space-between;
   position: fixed;
   right: -100%;
-  top: 55px;
+  top: 80px;
   flex-direction: column;
   background-color: rgb(23, 23, 23);
   width: 100%;
@@ -43,9 +49,10 @@
 }
 
 .navlink {
-  font-weight: 200;
+  font-weight: 300;
   color: white;
   padding: 0.2rem 0.6rem;
+  padding-left: 2rem;
 }
 
 .borderBottom {
@@ -69,7 +76,7 @@
 
 .bar {
   display: block;
-  width: 35px;
+  width: 60px;
   height: 3px;
   margin: 5px auto;
   -webkit-transition: all 0.3s ease-in-out;

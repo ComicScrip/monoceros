@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import style from "./navbar.module.css";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,19 @@ export default function Navbar() {
       <nav className={style.navbar}>
         <Link href={"/"}>
           <a>
-            <h1 className={style.navlogo}>{isOpen ? "" : "Monoceros"}</h1>
+            <h1 className={style.navlogo}>
+              {isOpen ? (
+                <Image
+                  src="/../public/images/monoceros-logo.jpeg"
+                  alt="logo"
+                  width={60}
+                  height={60}
+                  className={style.monocerosLogo}
+                />
+              ) : (
+                "Monoceros"
+              )}
+            </h1>
           </a>
         </Link>
         <div
