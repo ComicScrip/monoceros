@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import style from "./navbar.module.css";
 import Image from "next/image";
+import ActiveLink from "./activeLink";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,9 +10,25 @@ export default function Navbar() {
   return (
     <header className={style.header}>
       <nav className={style.navbar}>
+        <style jsx>{`
+          .active:before {
+            background-color: #ff455a;
+            content: ".";
+            color: #ff455a;
+            position: absolute;
+            left: 0;
+            height: 30px;
+          }
+          .active {
+            background-color: black;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+          }
+        `}</style>
         <Link href={"/"}>
           <a>
-            <h1 className={style.navlogo}>
+            <h1 className={style.headerlogo}>
               {isOpen ? (
                 <Image
                   src="/images/monoceros-logo.jpeg"
@@ -35,16 +52,41 @@ export default function Navbar() {
         >
           {" "}
           <ul>
-            <li className={style.navitem}>
-              <Image
-                src="/images/sliders-logo.svg"
-                alt="logo"
-                width={20}
-                height={20}
-                className={style.logo}
-              />
-              <Link href="/">
-                <a
+            <li className={style.navList}>
+              <ActiveLink activeClassName="active" href="/">
+                <div className={style.navitem}>
+                  <div className={style.navlogo}>
+                    <Image
+                      src="/images/sliders-logo.svg"
+                      alt="logo"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                  <a
+                    className={
+                      isOpen === false
+                        ? style.navlink
+                        : style.navlink + " " + style.active
+                    }
+                    onClick={openMenu}
+                  >
+                    Cockpit
+                  </a>
+                </div>
+              </ActiveLink>
+            </li>
+            <li className={style.navoveritem}>
+              <div className={style.navlogo}>
+                <Image
+                  src="/images/barcode-logo.png"
+                  alt="logo"
+                  width={20}
+                  height={20}
+                />
+              </div>
+              <div>
+                <p
                   className={
                     isOpen === false
                       ? style.navlink
@@ -52,113 +94,98 @@ export default function Navbar() {
                   }
                   onClick={openMenu}
                 >
-                  Cockpit
-                </a>
-              </Link>
+                  Products
+                </p>
+                <ul>
+                  <li className={style.navsubitem}>
+                    <ActiveLink activeClassName="active" href="">
+                      <a
+                        className={
+                          isOpen === false
+                            ? style.navlink
+                            : style.navlink + " " + style.active
+                        }
+                      >
+                        New Product
+                      </a>
+                    </ActiveLink>
+                  </li>
+                  <li className={style.navsubitem}>
+                    <ActiveLink activeClassName="active" href="">
+                      <a
+                        className={
+                          isOpen === false
+                            ? style.navlink
+                            : style.navlink + " " + style.active
+                        }
+                      >
+                        Products catalogue
+                      </a>
+                    </ActiveLink>
+                  </li>
+                </ul>
+              </div>
             </li>
             <li className={style.navoveritem}>
-              <Image
-                src="/images/barcode-logo.png"
-                alt="logo"
-                width={20}
-                height={20}
-                className={style.logo}
-              />
-              <p
-                className={
-                  isOpen === false
-                    ? style.navlink
-                    : style.navlink + " " + style.active
-                }
-                onClick={openMenu}
-              >
-                Products
-              </p>
-              <ul>
-                <li className={style.navsubitem}>
-                  <Link href="">
-                    <a
-                      className={
-                        isOpen === false
-                          ? style.navlink
-                          : style.navlink + " " + style.active
-                      }
-                    >
-                      New Product
-                    </a>
-                  </Link>
-                </li>
-                <li className={style.navsubitem}>
-                  <Link href="">
-                    <a
-                      className={
-                        isOpen === false
-                          ? style.navlink
-                          : style.navlink + " " + style.active
-                      }
-                    >
-                      Products catalogue
-                    </a>
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            <li className={style.navoveritem}>
-              <Image
-                src="/images/box-logo.svg"
-                alt="logo"
-                width={20}
-                height={20}
-                className={style.logo}
-              />
-              <p
-                className={
-                  isOpen === false
-                    ? style.navlink
-                    : style.navlink + " " + style.active
-                }
-                onClick={openMenu}
-              >
-                Deliveries
-              </p>
-              <ul>
-                <li className={style.navsubitem}>
-                  <Link href="">
-                    <a
-                      className={
-                        isOpen === false
-                          ? style.navlink
-                          : style.navlink + " " + style.active
-                      }
-                    >
-                      New Delivery
-                    </a>
-                  </Link>
-                </li>
-                <li className={style.navsubitem}>
-                  <Link href="">
-                    <a
-                      className={
-                        isOpen === false
-                          ? style.navlink
-                          : style.navlink + " " + style.active
-                      }
-                    >
-                      Deliveries overview
-                    </a>
-                  </Link>
-                </li>
-              </ul>
+              <div className={style.navlogo}>
+                <Image
+                  src="/images/box-logo.svg"
+                  alt="logo"
+                  width={30}
+                  height={30}
+                />
+              </div>
+              <div>
+                <p
+                  className={
+                    isOpen === false
+                      ? style.navlink
+                      : style.navlink + " " + style.active
+                  }
+                  onClick={openMenu}
+                >
+                  Deliveries
+                </p>
+                <ul>
+                  <li className={style.navsubitem}>
+                    <ActiveLink activeClassName="active" href="">
+                      <a
+                        className={
+                          isOpen === false
+                            ? style.navlink
+                            : style.navlink + " " + style.active
+                        }
+                      >
+                        New Delivery
+                      </a>
+                    </ActiveLink>
+                  </li>
+                  <li className={style.navsubitem}>
+                    <ActiveLink activeClassName="active" href="">
+                      <a
+                        className={
+                          isOpen === false
+                            ? style.navlink
+                            : style.navlink + " " + style.active
+                        }
+                      >
+                        Deliveries overview
+                      </a>
+                    </ActiveLink>
+                  </li>
+                </ul>
+              </div>
             </li>
             <li className={style.navitem}>
-              <Image
-                src="/images/graph-logo.svg"
-                alt="logo"
-                width={20}
-                height={20}
-                className={style.logo}
-              />
-              <Link href="/inventory">
+              <div className={style.navlogo}>
+                <Image
+                  src="/images/graph-logo.svg"
+                  alt="logo"
+                  width={20}
+                  height={20}
+                />
+              </div>
+              <ActiveLink activeClassName="active" href="/inventory">
                 <a
                   className={
                     isOpen === false
@@ -169,17 +196,18 @@ export default function Navbar() {
                 >
                   Inventory
                 </a>
-              </Link>
+              </ActiveLink>
             </li>
             <li className={style.navitem}>
-              <Image
-                src="/images/alarm-logo.svg"
-                alt="logo"
-                width={20}
-                height={20}
-                className={style.logo}
-              />
-              <Link href="/alarms">
+              <div className={style.navlogo}>
+                <Image
+                  src="/images/alarm-logo.svg"
+                  alt="logo"
+                  width={20}
+                  height={20}
+                />
+              </div>
+              <ActiveLink activeClassName="active" href="/alarms">
                 <a
                   className={
                     isOpen === false
@@ -190,17 +218,18 @@ export default function Navbar() {
                 >
                   Alarms
                 </a>
-              </Link>
+              </ActiveLink>
             </li>
             <li className={style.navitem}>
-              <Image
-                src="/images/settings-logo.svg"
-                alt="logo"
-                width={20}
-                height={20}
-                className={style.logo}
-              />
-              <Link href="/settings">
+              <div className={style.navlogo}>
+                <Image
+                  src="/images/settings-logo.svg"
+                  alt="logo"
+                  width={20}
+                  height={20}
+                />
+              </div>
+              <ActiveLink activeClassName="active" href="/settings">
                 <a
                   className={
                     isOpen === false
@@ -211,17 +240,18 @@ export default function Navbar() {
                 >
                   Settings
                 </a>
-              </Link>
+              </ActiveLink>
             </li>
             <li className={style.navitem}>
-              <Image
-                src="/images/help-logo.png"
-                alt="logo"
-                width={25}
-                height={20}
-                className={style.logo}
-              />
-              <Link href="/help">
+              <div className={style.navlogo}>
+                <Image
+                  src="/images/help-logo.png"
+                  alt="logo"
+                  width={25}
+                  height={20}
+                />
+              </div>
+              <ActiveLink activeClassName="active" href="/help">
                 <a
                   className={
                     isOpen === false
@@ -232,13 +262,12 @@ export default function Navbar() {
                 >
                   Help
                 </a>
-              </Link>
+              </ActiveLink>
             </li>
           </ul>
           <div className={style.borderBottom}></div>
           <p className={style.navTextBottom}>Sign Out</p>
         </div>
-
         <div
           className={
             isOpen === false
