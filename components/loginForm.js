@@ -18,17 +18,19 @@ export default function LoginForm() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!loginIssues) {
-      const newTokens = await getTokens(email, password);
-      if (newTokens) {
+      try {
+        const newTokens = await getTokens(email, password);
+        console.log(newTokens);
         setTokens(newTokens);
-        router.push("/inProgress");
-      } else {
+        router.push("/test");
+      } catch (err) {
         setLoginIssues(true);
+        console.log(err);
       }
     }
   }
 
-  async function handleCheckBox() {
+  function handleCheckBox() {
     setIsChecked(!isChecked);
   }
 
