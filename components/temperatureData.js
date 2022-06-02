@@ -1,18 +1,18 @@
 import Image from "next/image";
-import temperatureStyle from "../styles/temperature.module.css";
+import sensorDataStyle from "../styles/sensorData.module.css";
 
 const TemperatureData = () => {
   return (
-    <div className={temperatureStyle.global}>
-      <h3 className={temperatureStyle.titre}>Temp.</h3>
-      <div className={temperatureStyle.temperature}>
+    <div className={sensorDataStyle.global}>
+      <h3 className={sensorDataStyle.titre}>Temp.</h3>
+      <div className={sensorDataStyle.data}>
         <p>22 °C</p>
         <Image
           priority
           src="/images/temperature-logo.png"
-          height={12}
+          height={25}
           width={30}
-          alt="marqueur"
+          alt="temperature"
         />
       </div>
     </div>

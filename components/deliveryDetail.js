@@ -23,7 +23,7 @@ const DeliveryDetail = ({ deliveryDetail, access_token }) => {
   }
   useEffect(() => {
     getDeliveriesLocalisation();
-  });
+  }, []);
   return (
     <div className={deliveryDetailStyle.global}>
       <h1 className={deliveryDetailStyle.head}>{deliveryDetail.id}</h1>

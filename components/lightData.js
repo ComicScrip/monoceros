@@ -1,18 +1,18 @@
 import Image from "next/image";
-import lightStyle from "../styles/light.module.css";
+import sensorDataStyle from "../styles/sensorData.module.css";
 
 const LightData = () => {
   return (
-    <div className={lightStyle.global}>
-      <h3 className={lightStyle.titre}>Light</h3>
-      <div className={lightStyle.light}>
+    <div className={sensorDataStyle.global}>
+      <h3 className={sensorDataStyle.titre}>Light</h3>
+      <div className={sensorDataStyle.data}>
         <p>1000Lm</p>
         <Image
           priority
           src="/images/light-logo.png"
-          height={12}
+          height={30}
           width={30}
-          alt="marqueur"
+          alt="light"
         />
       </div>
     </div>

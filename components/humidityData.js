@@ -1,18 +1,18 @@
 import Image from "next/image";
-import humidityStyle from "../styles/humidity.module.css";
+import sensorDataStyle from "../styles/sensorData.module.css";
 
 const HumidityData = () => {
   return (
-    <div className={humidityStyle.global}>
-      <h3 className={humidityStyle.titre}>Humidity</h3>
-      <div className={humidityStyle.humidity}>
+    <div className={sensorDataStyle.global}>
+      <h3 className={sensorDataStyle.titre}>Humidity</h3>
+      <div className={sensorDataStyle.data}>
         <p>30 %</p>
         <Image
           priority
           src="/images/humidity-logo.png"
-          height={12}
+          height={25}
           width={30}
-          alt="marqueur"
+          alt="humidity"
         />
       </div>
     </div>

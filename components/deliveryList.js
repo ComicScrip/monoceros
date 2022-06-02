@@ -7,7 +7,7 @@ function DeliveryList({ allDeliveries }) {
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [showDetails, setShowDetails] = useState(false);
   const access_token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MTcwNzg0LCJqdGkiOiIwMWJiOGY5NzQwNmY0Y2VjYjkxYmQwODU4ZGZkZGNlMCIsInVzZXJfaWQiOjEwMH0.De2OTZ21Z5njveWBtx0ok6xeMo4fvEX_0_bZaVxtplc";
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MTg1NjQ4LCJqdGkiOiJkMDQ5OTIxNzRiOWE0NDFjYWNmZDg1ZjgxM2ZjNzEwYyIsInVzZXJfaWQiOjEwMH0.fcCF_p6I1j57zX4j35r6W5Tavk2QRHCM1XqJxscWQ0I";
   async function getDeliveryDetails(deliveryId) {
     await axios
       .get(
