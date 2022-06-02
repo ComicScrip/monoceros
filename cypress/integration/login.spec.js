@@ -1,3 +1,4 @@
+/*
 describe("login", () => {
   beforeEach(() => {
     cy.viewport("samsung-s10");
@@ -27,3 +28,4 @@ describe("login", () => {
     cy.contains("wrong credential(s)");
   });
 });
+*/
