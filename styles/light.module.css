@@ -1,0 +1,18 @@
+.global {
+  border-radius: 10px;
+  background-color: rgb(184, 218, 177);
+  width: 20%;
+  padding-top: 5px;
+  padding-left: 5px;
+  font-size: 10px;
+}
+
+.light {
+  display: flex;
+  justify-content: space-around;
+  font-size: 13px;
+}
+
+.titre {
+  margin: 0px;
+}

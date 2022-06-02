@@ -1,20 +1,17 @@
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import localisationStyle from "../styles/localisation.module.css";
 
 const DeliveryLocalisation = ({ deliveryId, deliveriesLoc }) => {
   const [delivery] = deliveriesLoc.filter((loc) => loc.id === deliveryId);
   let latitude = useRef("-");
   let longitude = useRef("-");
-  console.log(delivery);
-  // useEffect(() => {
-  //   delivery.location.gpsla
-  //     ? (latitude.current = delivery.location.gpsla)
-  //     : latitude;
-  //   delivery.location.gpslo
-  //     ? (longitude.current = delivery.location.gpslo)
-  //     : longitude;
-  // }, [delivery]);
+  useEffect(() => {
+    delivery.location ? (latitude.current = delivery.location.gpsla) : latitude;
+    delivery.location
+      ? (longitude.current = delivery.location.gpslo)
+      : longitude;
+  }, [delivery]);
 
   return (
     <div className={localisationStyle.localisation}>
