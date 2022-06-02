@@ -33,3 +33,7 @@
 .tRow:nth-child(even) {
   background: #fff;
 }
+
+.id {
+  cursor: pointer;
+}

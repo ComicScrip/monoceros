@@ -47,7 +47,7 @@ function DeliveryList({ allDeliveries }) {
           {allDeliveries.map((delivery) => (
             <tr className={deliveriesStyle.tRow} key={delivery.id}>
               <td
-                className={deliveriesStyle.tCell}
+                className={deliveriesStyle.tCell + " " + deliveriesStyle.id}
                 onClick={() => showDeliveryDetails(delivery.id)}
               >
                 {delivery.id}
