@@ -1,6 +1,5 @@
 import Image from "next/image";
 import logo from "../public/images/logo-monoceros.png";
-import tokenContext from "../lib/tokenContext";
 import { tokensTest } from "../lib/tokenContext";
 import useApiCall from "../hooks/useApiCall";
 import {
