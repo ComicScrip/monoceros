@@ -1,0 +1,84 @@
+.loginContainer {
+  background-color: #f7f7f7;
+  width: 70vw;
+  height: 45vh;
+  margin: 0 auto;
+  border-bottom-left-radius: 25px;
+  border-top-left-radius: 25px;
+  display: flex;
+  justify-content: center;
+  max-width: 400px;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 80%;
+  width: 80%;
+}
+
+.logoForm {
+  margin: 0px auto;
+  display: block;
+}
+
+.formButton {
+  border: 2px solid #c5bdbd;
+  height: 30px;
+  color: white;
+  background-color: #e16565;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+}
+
+.formButton:hover {
+  background-color: #e73c3c;
+  transition: all 0.5s;
+}
+
+.input {
+  border: 2px solid #c5bdbd;
+  height: 30px;
+}
+
+.label {
+  margin-bottom: 3px;
+}
+
+.lostPassword {
+  align-self: center;
+  font-size: 0.7em;
+  cursor: pointer;
+}
+
+.lostPassword:hover {
+  text-decoration: underline;
+}
+
+.loginIssues {
+  background-color: #e16565;
+  border-radius: 10px;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8vh;
+  max-width: 200px;
+  color: white;
+  text-align: center;
+  position: absolute;
+  bottom: 10%;
+  animation: pop 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@keyframes pop {
+  from {
+    bottom: 0%;
+  }
+
+  to {
+    bottom: 10%;
+  }
+}
