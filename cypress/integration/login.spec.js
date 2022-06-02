@@ -1,5 +1,3 @@
-import { email, password } from "../../lib/tokenContext";
-
 describe("login", () => {
   beforeEach(() => {
     cy.viewport("samsung-s10");
@@ -16,8 +14,8 @@ describe("login", () => {
   });
 
   it("can login with correct credentials", () => {
-    cy.get("[data-cy=email]").type(email);
-    cy.get("[data-cy=password]").type(password);
+    cy.get("[data-cy=email]").type(Cypress.env("EMAIL"));
+    cy.get("[data-cy=password]").type(Cypress.env("PASSWORD"));
     cy.get("[data-cy=loginBtn]").click();
     cy.contains("This page is under construction sorry !!");
   });

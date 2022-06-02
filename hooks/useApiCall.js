@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { getCurrentUserInfos, getRefreshTokens, getAllProducts } from "../lib";
+import { getCurrentUserInfos, getRefreshTokens } from "../lib";
 
 export default function useApiCall(token, request) {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
   const [loaded, setLoaded] = useState(false);
   const [isRefreshToken, setIsRefreshToken] = useState(false);
-  const [token, setToken] = useState(token);
+  const [tokens, setToken] = useState(token);
 
   useEffect(() => {
     const loadAsync = async () => {
@@ -19,7 +19,7 @@ export default function useApiCall(token, request) {
       }
       if (isRefreshToken) {
         try {
-          const response = await request(token);
+          const response = await request(tokens.access);
           setData(response);
         } catch (err) {
           setError(err);
@@ -27,7 +27,7 @@ export default function useApiCall(token, request) {
       }
       if (!isRefreshToken) {
         try {
-          const response = await request(token);
+          const response = await request(token.access);
           setData(response);
         } catch (err) {
           setError(err);
@@ -38,7 +38,5 @@ export default function useApiCall(token, request) {
     loadAsync();
   }, []);
 
-  return { data, error, loaded, token };
+  return { data, error, loaded, tokens };
 }
-
-const { data, error, loaded, token } = useApiCall(token, getAllProducts);

@@ -22,7 +22,7 @@ export default function LoginForm() {
         const newTokens = await getTokens(email, password);
         console.log(newTokens);
         setTokens(newTokens);
-        router.push("/test");
+        router.push("/inProgress");
       } catch (err) {
         setLoginIssues(true);
         console.log(err);
