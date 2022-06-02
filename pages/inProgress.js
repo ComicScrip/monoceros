@@ -2,7 +2,6 @@ import Image from "next/image";
 import logo from "../public/images/logo-monoceros.png";
 
 export default function InProgress() {
-  console.log(data, tokens);
   return (
     <div>
       <h1 className="text-center mt-8">
