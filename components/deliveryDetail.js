@@ -1,6 +1,6 @@
 import DeliveryLocalisation from "./deliveryLocalisation";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import TemperatureData from "./temperatureData";
 import HumidityData from "./humidityData";
 import LightData from "./lightData";
@@ -9,7 +9,7 @@ import deliveryDetailStyle from "../styles/deliveryDetail.module.css";
 
 const DeliveryDetail = ({ deliveryDetail, access_token }) => {
   const [deliveriesLoc, setDeliveriesLoc] = useState([]);
-  function getDeliveriesLocalisation() {
+  const getDeliveriesLocalisation = useCallback(() => {
     axios
       .get(
         "https://devbackend.monoceros-sas.com/api/deliveries/delivery-location/",
@@ -20,10 +20,10 @@ const DeliveryDetail = ({ deliveryDetail, access_token }) => {
         }
       )
       .then((res) => setDeliveriesLoc(res.data));
-  }
+  }, [access_token]);
   useEffect(() => {
     getDeliveriesLocalisation();
-  }, []);
+  }, [getDeliveriesLocalisation]);
   return (
     <div className={deliveryDetailStyle.global}>
       <h1 className={deliveryDetailStyle.head}>{deliveryDetail.id}</h1>
