@@ -1,11 +1,11 @@
 import "../styles/globals.css";
-import DeliveryIdContextProvider from "../lib/deliveryIdContext";
+import Layout from "../components/layout";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <DeliveryIdContextProvider>
+    <Layout>
       <Component {...pageProps} />
-    </DeliveryIdContextProvider>
+    </Layout>
   );
 }
 
