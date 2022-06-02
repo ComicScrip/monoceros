@@ -1,3 +1,4 @@
+/*
 import {
   getDeliveriesOverview,
   getOneDelivery,
@@ -13,11 +14,11 @@ export default function Test(props) {
   const { tokens, setTokens } = useContext(tokenContext);
   console.log(tokens);
   const { in_progress, delayed, completed, total } = props.overview;
-  /*
+  
   console.log(props.oneDelivery);
   console.log(props.userInfos);
   console.log(props.allProducts);
-    */
+    
 
   const deliveryId = props.oneDelivery.id;
   const deliveryPath = props.oneDelivery.delivery_path.shipment_paths;
@@ -49,3 +50,4 @@ export async function getStaticProps() {
     },
   };
 }
+*/
