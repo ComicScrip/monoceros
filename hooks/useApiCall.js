@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCurrentUserInfos, getRefreshTokens, getAllProducts } from "../lib";
+import { getCurrentUserInfos, getRefreshTokens } from "../lib";
 
 export default function useApiCall(token, request) {
   const [data, setData] = useState(null);
@@ -17,23 +17,26 @@ export default function useApiCall(token, request) {
         setToken(newToken);
         setIsRefreshToken(true);
       }
+
       if (isRefreshToken) {
         try {
-          const response = await request(token);
+          const response = await request(tokens.access);
           setData(response);
         } catch (err) {
           setError(err);
         }
       }
+
       if (!isRefreshToken) {
         try {
-          const response = await request(token);
+          const response = await request(token.access);
           setData(response);
         } catch (err) {
           setError(err);
         }
       }
       setLoaded(true);
+      console.log(tokens);
     };
     loadAsync();
   }, []);
