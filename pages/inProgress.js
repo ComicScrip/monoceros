@@ -1,20 +1,7 @@
 import Image from "next/image";
 import logo from "../public/images/logo-monoceros.png";
-import useApiCall from "../hooks/useApiCall";
-import {
-  getAllProducts,
-  getCurrentUserInfos,
-  getDeliveriesOverview,
-  getOneDelivery,
-} from "../lib";
-import { useContext } from "react";
 
 export default function InProgress() {
-  //const { token, setTokens } = useContext(tokenContext);
-  const { data, error, loaded, tokens } = useApiCall(
-    tokensTest,
-    getDeliveriesOverview
-  );
   console.log(data, tokens);
   return (
     <div>
