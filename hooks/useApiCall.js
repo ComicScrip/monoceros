@@ -1,42 +1,29 @@
 import { useEffect, useState } from "react";
 import { getCurrentUserInfos, getRefreshTokens } from "../lib";
 
-export default function useApiCall(token, request) {
+export default function useApiCall(token, request, ...args) {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
   const [loaded, setLoaded] = useState(false);
-  const [isRefreshToken, setIsRefreshToken] = useState(false);
   const [tokens, setToken] = useState(token);
 
   useEffect(() => {
     const loadAsync = async () => {
       try {
-        const tokenCheck = await getCurrentUserInfos(token.access);
+        const response = await request(tokens.access, ...args);
+        setData(response);
       } catch {
-        const newToken = await getRefreshTokens(token.refresh);
+        const newToken = await getRefreshTokens(tokens.refresh);
         setToken(newToken);
-        setIsRefreshToken(true);
-      }
-
-      if (isRefreshToken) {
         try {
-          const response = await request(tokens.access);
-          setData(response);
-        } catch (err) {
-          setError(err);
-        }
-      }
-
-      if (!isRefreshToken) {
-        try {
-          const response = await request(token.access);
+          console.log(tokens);
+          const response = await request(tokens.access, ...args);
           setData(response);
         } catch (err) {
           setError(err);
         }
       }
       setLoaded(true);
-      console.log(tokens);
     };
     loadAsync();
   }, []);

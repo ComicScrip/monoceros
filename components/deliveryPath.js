@@ -1,5 +1,4 @@
 import { FiPackage } from "react-icons/fi";
-import tokenContext from "../lib/tokenContext";
 import { useEffect, useState } from "react";
 
 export default function DeliveryPath({ deliveryPath, deliveryId }) {

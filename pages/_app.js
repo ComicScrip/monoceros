@@ -4,11 +4,15 @@ import { useState } from "react";
 import Layout from "../components/layout";
 
 function MyApp({ Component, pageProps }) {
-  const [tokens, setTokens] = useState({});
-
+  const [contextTokens, setContextTokens] = useState({});
   return (
     <Layout>
-      <tokenContext.Provider value={{ tokens: tokens, setTokens: setTokens }}>
+      <tokenContext.Provider
+        value={{
+          contextTokens: contextTokens,
+          setContextTokens: setContextTokens,
+        }}
+      >
         <Component {...pageProps} />;
       </tokenContext.Provider>
     </Layout>

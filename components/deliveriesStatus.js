@@ -1,14 +1,23 @@
-export default function DeliveriesStatus({
-  inProgress,
-  delayed,
-  completed,
-  total,
-}) {
+import { useEffect, useState } from "react";
+import { deliveriesOverview } from "../lib";
+
+export default function DeliveriesStatus() {
+  const [overview, setOverview] = useState({});
+  useEffect(() => {
+    async function request() {
+      const getData = await deliveriesOverview();
+      setOverview(getData.data);
+    }
+    request();
+  }, []);
+
+  const { total, in_progress, delayed, completed } = overview;
   const containerWidth = 70;
   const unit = containerWidth / total;
-  const inProgressWidth = Math.ceil(unit * inProgress);
+  const inProgressWidth = Math.ceil(unit * in_progress);
   const delayedWidth = Math.ceil(unit * delayed);
   const completedWidth = Math.ceil(unit * completed);
+
   return (
     <>
       <div className="flex flex-col w-5/6 mt-10">
@@ -23,7 +32,7 @@ export default function DeliveriesStatus({
               className="h-[15px] bg-red-600 rounded flex justify-end"
             >
               <span className="relative bottom-5 text-red-600">
-                {inProgress}
+                {in_progress}
               </span>
             </div>
           </div>

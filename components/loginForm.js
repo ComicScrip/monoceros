@@ -5,10 +5,10 @@ import LogoForm from "../public/images/logo-monoceros.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import tokenContext from "../lib/tokenContext";
-import { getTokens } from "../lib";
+import { getTokens, userContent, deliveriesOverview } from "../lib";
 
 export default function LoginForm() {
-  const { tokens, setTokens } = useContext(tokenContext);
+  const { setContextTokens } = useContext(tokenContext);
   const [isChecked, setIsChecked] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -20,8 +20,9 @@ export default function LoginForm() {
     if (!loginIssues) {
       try {
         const newTokens = await getTokens(email, password);
-        console.log(newTokens);
-        setTokens(newTokens);
+        setContextTokens(newTokens);
+        localStorage.setItem("access", newTokens.access);
+        localStorage.setItem("refresh", newTokens.refresh);
         router.push("/inProgress");
       } catch (err) {
         setLoginIssues(true);
