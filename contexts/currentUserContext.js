@@ -23,8 +23,6 @@ export default function CurrentUserContextProvider({ children }) {
     }
   }, [status]);
 
-  console.log(profile);
-
   return (
     <CurrentUserContext.Provider value={{ profile, status }}>
       {children}

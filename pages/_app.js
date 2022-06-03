@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <SessionProvider>
       <CurrentUserContextProvider>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </CurrentUserContextProvider>
     </SessionProvider>
   );

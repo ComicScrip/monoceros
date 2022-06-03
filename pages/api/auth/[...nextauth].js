@@ -17,8 +17,6 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize({ username: email, password }) {
-        console.log("opk");
-
         const validCredentials = await getTokensFromCredentials({
           email,
           password,
