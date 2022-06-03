@@ -19,8 +19,8 @@ export default function DeliveriesStatus() {
   const completedWidth = Math.ceil(unit * completed);
 
   return (
-    <>
-      <div className="flex flex-col w-5/6 mt-10">
+    <div className="flex justify-center w-[90%] bg-white mt-10">
+      <div className="flex flex-col w-[85%]">
         <h1 className="mb-[15px] text-lg font-bold">My deliveries</h1>
         <div className="mb-[15px] flex items-center justify-between">
           <p>In progress</p>
@@ -68,6 +68,6 @@ export default function DeliveriesStatus() {
           <span className="text-red-600 w-[70%]">{total}</span>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -11,23 +11,24 @@ export default function DeliveryPath({ id }) {
     }
     request();
   }, []);
+
   const steps = [];
-  for (const step of path) {
-    !steps.includes(step.origin.name) ? steps.push(step.origin.name) : null;
-    !steps.includes(step.destination.name)
-      ? steps.push(step.destination.name)
+  for (let i = 0; i < path.length; i++) {
+    !steps.includes(path[i].origin.name)
+      ? steps.push(path[i].origin.name)
+      : null;
+    !steps.includes(path[i].destination.name)
+      ? steps.push(path[i].destination.name)
       : null;
   }
-
   return (
-    <div className="mt-10 w-full flex flex-col items-center justify-between h-[15vh] text-xs">
-      {/*       
+    <div className="mt-10 bg-white flex flex-col items-center justify-between h-[15vh] w-[90%] text-xs mb-10">
       <div className="w-[80%] h-1 bg-[#e16565] relative top-[50%]"></div>
-      <h1 className="text-[#e16565] font-bold text-lg self-start">{id}</h1>
+      <h1 className="text-[#e16565] font-bold ml-5 text-lg self-start">{id}</h1>
       <div className="flex justify-between items-center h-[15vh] w-[90%]">
         <div className="bg-white flex flex-col items-center">
           <FiPackage style={{ fontSize: "2.5em", color: "black" }} />
-          <p className="mt-2 text-[#e16565]">{path[0]}</p>
+          <p className="mt-2 text-[#e16565]">{steps[0]}</p>
         </div>
         {steps.slice(1, steps.lenght).map((step, _) => (
           <div
@@ -41,7 +42,7 @@ export default function DeliveryPath({ id }) {
             <p className="mt-2 text-[#e16565]">{step}</p>
           </div>
         ))}
-      </div> */}
+      </div>
     </div>
   );
 }

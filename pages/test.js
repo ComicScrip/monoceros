@@ -7,6 +7,7 @@ import {
 } from "../lib";
 import DeliveriesStatus from "../components/deliveriesStatus";
 import DeliveryPath from "../components/deliveryPath";
+import ProductsList from "../components/productsList";
 
 export default function Test() {
   useEffect(() => {
@@ -21,9 +22,10 @@ export default function Test() {
   }, []);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center bg-[#efefef] h-[100vh]">
       <DeliveriesStatus />
       <DeliveryPath id={179} />
+      <ProductsList />
     </div>
   );
 }
