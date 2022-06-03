@@ -1,12 +1,13 @@
 .data {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.head {
-  color: indianred;
+.title {
+  color: #ff455a;
+  font-family: "Poppins";
   font-weight: bold;
   margin: 0px;
 }
@@ -17,4 +18,27 @@
   padding-top: 0px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.map {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detailBtn {
+  background-color: #ff455a;
+  font-family: "Poppins";
+  color: beige;
+  border-radius: 10px;
+  padding: 5px;
+  border: 0px;
+  height: 40px;
+  margin-top: auto;
+  margin-bottom: auto;
+  box-shadow: 3px 3px 3px lightgray;
 }

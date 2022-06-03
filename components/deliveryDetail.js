@@ -1,13 +1,17 @@
-import DeliveryLocalisation from "./deliveryLocalisation";
 import axios from "axios";
+import dynamic from "next/dynamic";
 import { useEffect, useState, useCallback } from "react";
 import TemperatureData from "./temperatureData";
 import HumidityData from "./humidityData";
 import LightData from "./lightData";
 import ShockData from "./shockData";
 import deliveryDetailStyle from "../styles/deliveryDetail.module.css";
+import Link from "next/link";
 
 const DeliveryDetail = ({ deliveryDetail, access_token }) => {
+  const MapWithNoSSR = dynamic(() => import("../components/map"), {
+    ssr: false,
+  });
   const [deliveriesLoc, setDeliveriesLoc] = useState([]);
   const getDeliveriesLocalisation = useCallback(() => {
     axios
@@ -26,7 +30,12 @@ const DeliveryDetail = ({ deliveryDetail, access_token }) => {
   }, [getDeliveriesLocalisation]);
   return (
     <div className={deliveryDetailStyle.global}>
-      <h1 className={deliveryDetailStyle.head}>{deliveryDetail.id}</h1>
+      <div className={deliveryDetailStyle.head}>
+        <h1 className={deliveryDetailStyle.title}>{deliveryDetail.id}</h1>
+        <button type="button" className={deliveryDetailStyle.detailBtn}>
+          <Link href={`/deliveries/${deliveryDetail.id}`}>Details</Link>
+        </button>
+      </div>
       <p>Delivery Status</p>
       <div className={deliveryDetailStyle.data}>
         <HumidityData />
@@ -34,12 +43,9 @@ const DeliveryDetail = ({ deliveryDetail, access_token }) => {
         <LightData />
         <TemperatureData />
       </div>
-      {deliveriesLoc.length !== 0 && (
-        <DeliveryLocalisation
-          deliveriesLoc={deliveriesLoc}
-          deliveryId={deliveryDetail.id}
-        />
-      )}
+      <div className={deliveryDetailStyle.map}>
+        <MapWithNoSSR location={deliveriesLoc} deliveryId={deliveryDetail.id} />
+      </div>
     </div>
   );
 };

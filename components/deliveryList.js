@@ -7,7 +7,7 @@ function DeliveryList({ allDeliveries }) {
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [showDetails, setShowDetails] = useState(false);
   const access_token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MTg1NjQ4LCJqdGkiOiJkMDQ5OTIxNzRiOWE0NDFjYWNmZDg1ZjgxM2ZjNzEwYyIsInVzZXJfaWQiOjEwMH0.fcCF_p6I1j57zX4j35r6W5Tavk2QRHCM1XqJxscWQ0I";
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MjU2MDQzLCJqdGkiOiI2YTU1MzU0Nzk4ZmM0ZGVlODA2YTk4NDA3Zjk3Nzk3NyIsInVzZXJfaWQiOjEwMH0.k7mourkROTXFTQpJP44DyE8MS15yfURw3HNwhbmkVEI";
   async function getDeliveryDetails(deliveryId) {
     await axios
       .get(
@@ -22,18 +22,26 @@ function DeliveryList({ allDeliveries }) {
   }
   async function showDeliveryDetails(id) {
     const idStrg = id.toString();
-    await getDeliveryDetails(idStrg).then(() => setShowDetails(!showDetails));
+    await getDeliveryDetails(idStrg).then(() => setShowDetails(true));
   }
   return (
     <>
       {showDetails && (
-        <DeliveryDetail
-          deliveryDetail={deliveryDetails}
-          access_token={access_token}
-        />
+        <div>
+          <span
+            onClick={() => setShowDetails(false)}
+            className={deliveriesStyle.closeBtn}
+          >
+            &times;
+          </span>
+          <DeliveryDetail
+            deliveryDetail={deliveryDetails}
+            access_token={access_token}
+          />
+        </div>
       )}
       <table className={deliveriesStyle.table}>
-        <thead>
+        <thead className={deliveriesStyle.allHead}>
           <tr>
             <th className={deliveriesStyle.tHeader}>ID</th>
             <th className={deliveriesStyle.tHeader}>Status</th>
@@ -55,7 +63,7 @@ function DeliveryList({ allDeliveries }) {
               <td className={deliveriesStyle.tCell}>{delivery.status}</td>
               <td className={deliveriesStyle.tCell}>Vert</td>
               <td className={deliveriesStyle.tCell}>
-                {delivery.delivery_path.shipment_paths[0].contact_name}
+                {delivery.delivery_path.shipment_paths[0].origin.contact_name}
               </td>
               <td className={deliveriesStyle.tCell}>
                 {delivery.delivery_path.shipment_paths[0].destination.city}
