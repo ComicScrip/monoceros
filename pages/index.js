@@ -3,18 +3,14 @@ import LoginForm from "../components/loginForm";
 import headLogo from "../public/images/logo-monoceros2.png";
 import Meta from "../components/meta";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 
 export default function Home() {
   return (
     <>
       <Meta pagetitle={"monoceros"} />
       <main className={styles.main}>
-        <header>
-          <Image src={headLogo} alt="head-logo" width="200px" height="100px" />
-        </header>
-        <div className={styles.loginContainer}>
-          <LoginForm />
-        </div>
+        <button onClick={() => signIn()}>Sign in</button>
       </main>
     </>
   );
