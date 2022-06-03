@@ -28,6 +28,11 @@
   margin-top: 5px;
 }
 
+.navbarTitle {
+  font-size: 1.8rem;
+  transform: translateY(50%);
+}
+
 .navmenu {
   display: flex;
   justify-content: space-around;
@@ -87,6 +92,10 @@
 
 .navsubmenuContainer {
   width: 80%;
+}
+
+.activeSection {
+  background-color: black;
 }
 
 .navsubmenu {
