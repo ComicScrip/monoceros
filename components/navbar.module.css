@@ -2,6 +2,9 @@
   border-bottom: 1px solid #e2e8f0;
   background-color: rgb(23, 23, 23);
   height: 100px;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .navbar {
@@ -44,6 +47,7 @@
 
 .navList {
   list-style-type: none;
+  position: relative;
 }
 
 .navlogo {
@@ -56,6 +60,7 @@
   display: flex;
   justify-content: flex-start;
   cursor: pointer;
+  padding-top: 10px;
 }
 
 .navoveritem {
@@ -66,10 +71,27 @@
   align-items: flex-start;
 }
 
+.sectionClose {
+  display: none;
+}
+
+.sectionOpen {
+  display: initial;
+}
+
 .navsubitem {
   margin: 1rem 0;
   list-style-type: none;
   text-align: left;
+}
+
+.navsubmenuContainer {
+  width: 80%;
+}
+
+.navsubmenu {
+  display: flex;
+  justify-content: space-between;
 }
 
 .navlink {

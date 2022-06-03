@@ -6,7 +6,15 @@ import ActiveLink from "./activeLink";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [openingSectionProduct, setOpeningSectionProduct] = useState(false);
+  const [openingSectionDelivery, setOpeningSectionDelivery] = useState(false);
+
   const openMenu = () => setIsOpen(!isOpen);
+  const openSectionProduct = () =>
+    setOpeningSectionProduct(!openingSectionProduct);
+  const openSectionDelivery = () =>
+    setOpeningSectionDelivery(!openingSectionDelivery);
+
   return (
     <header className={style.header}>
       <nav className={style.navbar}>
@@ -17,13 +25,23 @@ export default function Navbar() {
             color: #ff455a;
             position: absolute;
             left: 0;
-            height: 25px;
+            height: 40px;
+            top: 0;
           }
           .active {
             background-color: black;
             width: 100%;
-            height: 100%;
+            height: 40px;
             cursor: pointer;
+          }
+          .activeSubitem:before {
+              background-color: #ff455a;
+              content: ".";
+              color: #ff455a;
+              position: absolute;
+              left: 55px;
+              height: 20px;
+            }
           }
         `}</style>
         <Link href={"/"}>
@@ -79,26 +97,54 @@ export default function Navbar() {
             <li className={style.navoveritem}>
               <div className={style.navlogo}>
                 <Image
-                  src="/images/barcode-logo.png"
+                  src="/images/product-logo.svg"
                   alt="logo"
                   width={20}
                   height={20}
                 />
               </div>
-              <div>
-                <p
+              <div
+                className={
+                  openingSectionProduct
+                    ? style.navsubmenuContainer + " " + style.activeSection
+                    : style.navsubmenuContainer
+                }
+              >
+                <div className={style.navsubmenu}>
+                  <p
+                    className={
+                      isOpen === false
+                        ? style.navlink
+                        : style.navlink + " " + style.active
+                    }
+                    onClick={openMenu}
+                  >
+                    Products
+                  </p>
+                  <Image
+                    src={
+                      openingSectionProduct
+                        ? "/images/chevron-up.svg"
+                        : "/images/chevron-down.svg"
+                    }
+                    alt="logo"
+                    width={20}
+                    height={20}
+                    onClick={openSectionProduct}
+                  />
+                </div>
+                <ul
                   className={
-                    isOpen === false
-                      ? style.navlink
-                      : style.navlink + " " + style.active
+                    openingSectionProduct
+                      ? style.sectionOpen
+                      : style.sectionClose
                   }
-                  onClick={openMenu}
                 >
-                  Products
-                </p>
-                <ul>
                   <li className={style.navsubitem}>
-                    <ActiveLink activeClassName="active" href="">
+                    <ActiveLink
+                      activeClassName="activeSubitem"
+                      href="/newproduct"
+                    >
                       <a
                         className={
                           isOpen === false
@@ -111,7 +157,10 @@ export default function Navbar() {
                     </ActiveLink>
                   </li>
                   <li className={style.navsubitem}>
-                    <ActiveLink activeClassName="active" href="/products">
+                    <ActiveLink
+                      activeClassName="activeSubitem"
+                      href="/products"
+                    >
                       <a
                         className={
                           isOpen === false
@@ -131,24 +180,46 @@ export default function Navbar() {
                 <Image
                   src="/images/box-logo.svg"
                   alt="logo"
-                  width={30}
-                  height={30}
+                  width={20}
+                  height={20}
                 />
               </div>
-              <div>
-                <p
+              <div className={style.navsubmenuContainer}>
+                <div className={style.navsubmenu}>
+                  <p
+                    className={
+                      isOpen === false
+                        ? style.navlink
+                        : style.navlink + " " + style.active
+                    }
+                    onClick={openMenu}
+                  >
+                    Deliveries
+                  </p>
+                  <Image
+                    src={
+                      openingSectionDelivery
+                        ? "/images/chevron-up.svg"
+                        : "/images/chevron-down.svg"
+                    }
+                    alt="logo"
+                    width={20}
+                    height={20}
+                    onClick={openSectionDelivery}
+                  />
+                </div>
+                <ul
                   className={
-                    isOpen === false
-                      ? style.navlink
-                      : style.navlink + " " + style.active
+                    openingSectionDelivery
+                      ? style.sectionOpen
+                      : style.sectionClose
                   }
-                  onClick={openMenu}
                 >
-                  Deliveries
-                </p>
-                <ul>
                   <li className={style.navsubitem}>
-                    <ActiveLink activeClassName="active" href="">
+                    <ActiveLink
+                      activeClassName="activeSubitem"
+                      href="/newdelivery"
+                    >
                       <a
                         className={
                           isOpen === false
@@ -161,7 +232,10 @@ export default function Navbar() {
                     </ActiveLink>
                   </li>
                   <li className={style.navsubitem}>
-                    <ActiveLink activeClassName="active" href="">
+                    <ActiveLink
+                      activeClassName="activeSubitem"
+                      href="/deliveries"
+                    >
                       <a
                         className={
                           isOpen === false
@@ -176,92 +250,100 @@ export default function Navbar() {
                 </ul>
               </div>
             </li>
-            <li className={style.navitem}>
-              <div className={style.navlogo}>
-                <Image
-                  src="/images/graph-logo.svg"
-                  alt="logo"
-                  width={20}
-                  height={20}
-                />
-              </div>
+            <li className={style.navList}>
               <ActiveLink activeClassName="active" href="/inventory">
-                <a
-                  className={
-                    isOpen === false
-                      ? style.navlink
-                      : style.navlink + " " + style.active
-                  }
-                  onClick={openMenu}
-                >
-                  Inventory
-                </a>
+                <div className={style.navitem}>
+                  <div className={style.navlogo}>
+                    <Image
+                      src="/images/graph-logo.svg"
+                      alt="logo"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                  <a
+                    className={
+                      isOpen === false
+                        ? style.navlink
+                        : style.navlink + " " + style.active
+                    }
+                    onClick={openMenu}
+                  >
+                    Inventory
+                  </a>
+                </div>
               </ActiveLink>
             </li>
-            <li className={style.navitem}>
-              <div className={style.navlogo}>
-                <Image
-                  src="/images/alarm-logo.svg"
-                  alt="logo"
-                  width={20}
-                  height={20}
-                />
-              </div>
+            <li className={style.navList}>
               <ActiveLink activeClassName="active" href="/alarms">
-                <a
-                  className={
-                    isOpen === false
-                      ? style.navlink
-                      : style.navlink + " " + style.active
-                  }
-                  onClick={openMenu}
-                >
-                  Alarms
-                </a>
+                <div className={style.navitem}>
+                  <div className={style.navlogo}>
+                    <Image
+                      src="/images/alarm-logo.svg"
+                      alt="logo"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                  <a
+                    className={
+                      isOpen === false
+                        ? style.navlink
+                        : style.navlink + " " + style.active
+                    }
+                    onClick={openMenu}
+                  >
+                    Alarm
+                  </a>
+                </div>
               </ActiveLink>
             </li>
-            <li className={style.navitem}>
-              <div className={style.navlogo}>
-                <Image
-                  src="/images/settings-logo.svg"
-                  alt="logo"
-                  width={20}
-                  height={20}
-                />
-              </div>
+            <li className={style.navList}>
               <ActiveLink activeClassName="active" href="/settings">
-                <a
-                  className={
-                    isOpen === false
-                      ? style.navlink
-                      : style.navlink + " " + style.active
-                  }
-                  onClick={openMenu}
-                >
-                  Settings
-                </a>
+                <div className={style.navitem}>
+                  <div className={style.navlogo}>
+                    <Image
+                      src="/images/settings-logo.svg"
+                      alt="logo"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                  <a
+                    className={
+                      isOpen === false
+                        ? style.navlink
+                        : style.navlink + " " + style.active
+                    }
+                    onClick={openMenu}
+                  >
+                    Settings
+                  </a>
+                </div>
               </ActiveLink>
             </li>
-            <li className={style.navitem}>
-              <div className={style.navlogo}>
-                <Image
-                  src="/images/help-logo.png"
-                  alt="logo"
-                  width={25}
-                  height={20}
-                />
-              </div>
+            <li className={style.navList}>
               <ActiveLink activeClassName="active" href="/help">
-                <a
-                  className={
-                    isOpen === false
-                      ? style.navlink
-                      : style.navlink + " " + style.active
-                  }
-                  onClick={openMenu}
-                >
-                  Help
-                </a>
+                <div className={style.navitem}>
+                  <div className={style.navlogo}>
+                    <Image
+                      src="/images/help-logo.svg"
+                      alt="logo"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                  <a
+                    className={
+                      isOpen === false
+                        ? style.navlink
+                        : style.navlink + " " + style.active
+                    }
+                    onClick={openMenu}
+                  >
+                    Help
+                  </a>
+                </div>
               </ActiveLink>
             </li>
           </ul>
