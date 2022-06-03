@@ -2,6 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import deliveriesStyle from "../styles/deliveries.module.css";
 import DeliveryList from "../components/deliveryList";
+import Layout from "../components/Layout";
 
 export default function Deliveries() {
   const MapWithNoSSR = dynamic(() => import("../components/map"), {
@@ -9,12 +10,12 @@ export default function Deliveries() {
   });
 
   return (
-    <main>
+    <Layout>
       <h1>DELIVERIES OVERVIEW</h1>
       <div className={deliveriesStyle.map}>
         <MapWithNoSSR />
       </div>
       <DeliveryList />
-    </main>
+    </Layout>
   );
 }
