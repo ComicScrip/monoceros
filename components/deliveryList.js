@@ -7,7 +7,7 @@ function DeliveryList({ allDeliveries }) {
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [showDetails, setShowDetails] = useState(false);
   const access_token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MjU2MDQzLCJqdGkiOiI2YTU1MzU0Nzk4ZmM0ZGVlODA2YTk4NDA3Zjk3Nzk3NyIsInVzZXJfaWQiOjEwMH0.k7mourkROTXFTQpJP44DyE8MS15yfURw3HNwhbmkVEI";
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0MjcwOTc4LCJqdGkiOiJlNDliMGZlYzU4M2Q0YTc4YjNlMTEwZTBkNDg3NjVjOCIsInVzZXJfaWQiOjEwMH0.Gym3BX2XawiWettAH3I0RmxKNWfVxMWOPMtUhJWJ1i8";
   async function getDeliveryDetails(deliveryId) {
     await axios
       .get(
@@ -53,13 +53,12 @@ function DeliveryList({ allDeliveries }) {
         </thead>
         <tbody>
           {allDeliveries.map((delivery) => (
-            <tr className={deliveriesStyle.tRow} key={delivery.id}>
-              <td
-                className={deliveriesStyle.tCell + " " + deliveriesStyle.id}
-                onClick={() => showDeliveryDetails(delivery.id)}
-              >
-                {delivery.id}
-              </td>
+            <tr
+              className={deliveriesStyle.tRow + " " + deliveriesStyle.id}
+              key={delivery.id}
+              onClick={() => showDeliveryDetails(delivery.id)}
+            >
+              <td className={deliveriesStyle.tCell}>{delivery.id}</td>
               <td className={deliveriesStyle.tCell}>{delivery.status}</td>
               <td className={deliveriesStyle.tCell}>Vert</td>
               <td className={deliveriesStyle.tCell}>
