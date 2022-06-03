@@ -5,6 +5,8 @@ import {
   userContent,
   allProducts,
 } from "../lib";
+import DeliveriesStatus from "../components/deliveriesStatus";
+import DeliveryPath from "../components/deliveryPath";
 
 export default function Test() {
   useEffect(() => {
@@ -18,5 +20,10 @@ export default function Test() {
     getData();
   }, []);
 
-  return <h1 className="text-xl text-center">test</h1>;
+  return (
+    <div className="flex justify-center">
+      <DeliveriesStatus />
+      <DeliveryPath id={179} />
+    </div>
+  );
 }

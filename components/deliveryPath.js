@@ -1,27 +1,35 @@
 import { FiPackage } from "react-icons/fi";
 import { useEffect, useState } from "react";
+import { oneDelivery } from "../lib";
 
-export default function DeliveryPath({ deliveryPath, deliveryId }) {
-  const path = [];
-  for (const step of deliveryPath) {
-    !path.includes(step.origin.name) ? path.push(step.origin.name) : null;
-    !path.includes(step.destination.name)
-      ? path.push(step.destination.name)
+export default function DeliveryPath({ id }) {
+  const [path, setPath] = useState({});
+  useEffect(() => {
+    async function request() {
+      const getData = await oneDelivery(id);
+      setPath(getData.data.delivery_path.shipment_paths);
+    }
+    request();
+  }, []);
+  const steps = [];
+  for (const step of path) {
+    !steps.includes(step.origin.name) ? steps.push(step.origin.name) : null;
+    !steps.includes(step.destination.name)
+      ? steps.push(step.destination.name)
       : null;
   }
-  console.log(path);
+
   return (
     <div className="mt-10 w-full flex flex-col items-center justify-between h-[15vh] text-xs">
+      {/*       
       <div className="w-[80%] h-1 bg-[#e16565] relative top-[50%]"></div>
-      <h1 className="text-[#e16565] font-bold text-lg self-start">
-        {deliveryId}
-      </h1>
+      <h1 className="text-[#e16565] font-bold text-lg self-start">{id}</h1>
       <div className="flex justify-between items-center h-[15vh] w-[90%]">
         <div className="bg-white flex flex-col items-center">
           <FiPackage style={{ fontSize: "2.5em", color: "black" }} />
           <p className="mt-2 text-[#e16565]">{path[0]}</p>
         </div>
-        {path.slice(1, path.lenght).map((step, _) => (
+        {steps.slice(1, steps.lenght).map((step, _) => (
           <div
             key={_}
             className="flex flex-col min-w-[10%] min-h-[10%] items-center z-10"
@@ -33,7 +41,7 @@ export default function DeliveryPath({ deliveryPath, deliveryId }) {
             <p className="mt-2 text-[#e16565]">{step}</p>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
