@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { createContext, useEffect, useState } from "react";
-import { getCurrentUserProfile, updateTokens } from "../lib/monocerosAPI";
+import { getCurrentUserProfile } from "../lib/monocerosAPI";
+import { updateTokens } from "../lib/customAxios";
 
 export const CurrentUserContext = createContext();
 
