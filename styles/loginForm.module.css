@@ -1,5 +1,5 @@
 .loginContainer {
-  background-color: #f7f7f7;
+  background-color: #efefef;
   width: 70vw;
   height: 45vh;
   margin: 0 auto;
@@ -19,6 +19,7 @@
 }
 
 .logoForm {
+  border-radius: 50%;
   margin: 0px auto;
   display: block;
 }

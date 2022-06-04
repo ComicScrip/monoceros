@@ -1,9 +1,8 @@
 import Meta from "../components/meta";
-import Image from "next/image";
 import { signIn } from "next-auth/react";
+import { useEffect } from "react";
 
 export default function Home() {
-  const email = process.env.NEXT_PUBLIC_EMAIL;
   return (
     <>
       <Meta pagetitle="Monoceros - HomePage" />
