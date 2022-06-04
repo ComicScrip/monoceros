@@ -62,6 +62,7 @@ export default function Navbar() {
                   width={60}
                   height={60}
                   className={style.monocerosLogo}
+                  onClick={setIsOpen(false)}
                 />
               ) : (
                 <h1 className={style.navbarTitle}>Monoceros</h1>
