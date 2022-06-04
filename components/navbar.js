@@ -44,6 +44,12 @@ export default function Navbar() {
               left: 55px;
               height: 20px;
             }
+            .activeSubitem {
+            background-color: black;
+            width: 100vh;
+            height: 40px;
+            cursor: pointer;
+            }
           }
         `}</style>
         <Link href={"/"}>
@@ -141,7 +147,13 @@ export default function Navbar() {
                 </ul>
               </div>
             </li>
-            <li className={style.navoveritem}>
+            <li
+              className={
+                router.pathname.includes("deliver")
+                  ? style.navoveritem + " " + style.activeSection
+                  : style.navoveritem
+              }
+            >
               <div className={style.navlogo}>
                 <Image
                   src="/images/box-logo.svg"

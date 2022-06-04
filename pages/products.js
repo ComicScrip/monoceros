@@ -1,9 +1,9 @@
-import Navbar from "../components/navbar";
+import Meta from "../components/meta";
 
 const Products = () => {
   return (
     <>
-      <Navbar />
+      <Meta pagetitle="Monoceros - Products" />
       <h1>Products</h1>
     </>
   );

@@ -35,7 +35,7 @@
 
 .navmenu {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   position: fixed;
   right: -100%;
   top: 80px;
@@ -65,7 +65,7 @@
   display: flex;
   justify-content: flex-start;
   cursor: pointer;
-  padding-top: 10px;
+  padding-top: 6px;
 }
 
 .navoveritem {
@@ -113,7 +113,7 @@
 .borderBottom {
   width: 90%;
   height: 1px;
-  margin: 28px 23px 16.5px 24px;
+  margin: 15px;
   border: solid 1px #fff;
 }
 
