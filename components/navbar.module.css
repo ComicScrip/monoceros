@@ -50,6 +50,10 @@
   right: 0;
 }
 
+.sectionContainer {
+  position: relative;
+}
+
 .navList {
   list-style-type: none;
   position: relative;
@@ -57,19 +61,19 @@
 
 .navlogo {
   margin-left: 2rem;
-  padding-top: 2px;
+  padding-top: 0.6rem;
 }
 
 .navitem {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   display: flex;
   justify-content: flex-start;
   cursor: pointer;
-  padding-top: 6px;
+  padding: 3px 0;
 }
 
 .navoveritem {
-  margin: 1rem 0;
+  margin-top: 0.5rem;
   list-style-type: none;
   display: flex;
   justify-content: flex-start;
@@ -98,6 +102,15 @@
   background-color: black;
 }
 
+.activeSection:before {
+  background-color: #ff455a;
+  content: ".";
+  color: #ff455a;
+  position: absolute;
+  left: 0;
+  height: 40px;
+}
+
 .navsubmenu {
   display: flex;
   justify-content: space-between;
@@ -106,7 +119,7 @@
 .navlink {
   font-weight: 300;
   color: white;
-  padding: 0.2rem 0.6rem;
+  padding-top: 0.6rem;
   padding-left: 2rem;
 }
 
@@ -153,4 +166,13 @@
 .hamburger.active .bar:nth-child(3) {
   -webkit-transform: translateY(-8px) rotate(-45deg);
   transform: translateY(-8px) rotate(-45deg);
+}
+
+.chevronDown {
+  transition: 0.2s;
+}
+
+.chevronUp {
+  transform: rotate(180deg);
+  transition: 0.2s;
 }

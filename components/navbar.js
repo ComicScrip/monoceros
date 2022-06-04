@@ -75,7 +75,7 @@ export default function Navbar() {
           }
         >
           {" "}
-          <ul>
+          <ul className={style.sectionContainer}>
             <li className={style.navList}>
               <ActiveLink activeClassName="active" href="/">
                 <div className={style.navitem}>
@@ -87,7 +87,9 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink}>Cockpit</a>
+                  <a className={style.navlink} onClick={openMenu}>
+                    Cockpit
+                  </a>
                 </div>
               </ActiveLink>
             </li>
@@ -110,15 +112,16 @@ export default function Navbar() {
                 <div className={style.navsubmenu}>
                   <p className={style.navlink}>Products</p>
                   <Image
-                    src={
-                      openingSectionProduct
-                        ? "/images/chevron-up.svg"
-                        : "/images/chevron-down.svg"
-                    }
+                    src={"/images/chevron-down.svg"}
                     alt="logo"
                     width={20}
                     height={20}
                     onClick={openSectionProduct}
+                    className={
+                      openingSectionProduct
+                        ? style.chevronUp
+                        : style.chevronDown
+                    }
                   />
                 </div>
                 <ul
@@ -133,7 +136,9 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/newproduct"
                     >
-                      <a className={style.navlink}>New Product</a>
+                      <a className={style.navlink} onClick={openMenu}>
+                        New Product
+                      </a>
                     </ActiveLink>
                   </li>
                   <li className={style.navsubitem}>
@@ -141,7 +146,9 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/products"
                     >
-                      <a className={style.navlink}>Products catalogue</a>
+                      <a className={style.navlink} onClick={openMenu}>
+                        Products catalogue
+                      </a>
                     </ActiveLink>
                   </li>
                 </ul>
@@ -166,15 +173,16 @@ export default function Navbar() {
                 <div className={style.navsubmenu}>
                   <p className={style.navlink}>Deliveries</p>
                   <Image
-                    src={
-                      openingSectionDelivery
-                        ? "/images/chevron-up.svg"
-                        : "/images/chevron-down.svg"
-                    }
+                    src={"/images/chevron-down.svg"}
                     alt="logo"
                     width={20}
                     height={20}
                     onClick={openSectionDelivery}
+                    className={
+                      openingSectionDelivery
+                        ? style.chevronUp
+                        : style.chevronDown
+                    }
                   />
                 </div>
                 <ul
@@ -189,7 +197,9 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/newdelivery"
                     >
-                      <a className={style.navlink}>New Delivery</a>
+                      <a className={style.navlink} onClick={openMenu}>
+                        New Delivery
+                      </a>
                     </ActiveLink>
                   </li>
                   <li className={style.navsubitem}>
@@ -197,7 +207,9 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/deliveries"
                     >
-                      <a className={style.navlink}>Deliveries overview</a>
+                      <a className={style.navlink} onClick={openMenu}>
+                        Deliveries overview
+                      </a>
                     </ActiveLink>
                   </li>
                 </ul>
@@ -214,7 +226,9 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink}>Inventory</a>
+                  <a className={style.navlink} onClick={openMenu}>
+                    Inventory
+                  </a>
                 </div>
               </ActiveLink>
             </li>
@@ -229,7 +243,9 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink}>Alarm</a>
+                  <a className={style.navlink} onClick={openMenu}>
+                    Alarm
+                  </a>
                 </div>
               </ActiveLink>
             </li>
@@ -244,7 +260,9 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink}>Settings</a>
+                  <a className={style.navlink} onClick={openMenu}>
+                    Settings
+                  </a>
                 </div>
               </ActiveLink>
             </li>
@@ -259,7 +277,9 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink}>Help</a>
+                  <a className={style.navlink} onClick={openMenu}>
+                    Help
+                  </a>
                 </div>
               </ActiveLink>
             </li>
