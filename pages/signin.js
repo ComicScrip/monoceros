@@ -6,12 +6,14 @@ import Meta from "../components/meta";
 import Image from "next/image";
 import LogoForm from "../public/images/logo-monoceros.png";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { getCurrentUserProfile } from "../lib/monocerosAPI";
 
 export default function Signin({ csrfToken }) {
   const { status } = useSession();
+  useEffect(() => {
+    console.log(status);
+  }, []);
   const [isChecked, setIsChecked] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -19,17 +21,16 @@ export default function Signin({ csrfToken }) {
   const router = useRouter();
 
   async function handleSubmit(e) {
-    /*
-    router.push("/deliveries");
-    console.log(status, loginIssues);
-    if (!loginIssues && status !== "unauthenticated") {
-      //router.push("/deliveries");
-    } else {
+    if (status === "loading") {
       e.preventDefault();
       setLoginIssues(true);
       return;
     }
-    */
+    if (status === "authenticated") {
+      router.push("/deliveries");
+    }
+
+    console.log(status);
   }
 
   function handleCheckBox() {

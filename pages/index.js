@@ -6,7 +6,13 @@ export default function Home() {
   return (
     <>
       <Meta pagetitle="Monoceros - HomePage" />
-      <button onClick={() => signIn()}>Sign in</button>
+      <button
+        onClick={() =>
+          signIn(("credentials", { redirect: false, password: "password" }))
+        }
+      >
+        Sign in
+      </button>
     </>
   );
 }
