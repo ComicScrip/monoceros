@@ -18,7 +18,7 @@ export default function Test() {
       const data4 = await allProducts();
       console.log(data1, data2, data3, data4);
     }
-    getData();
+    //getData();
   }, []);
 
   return (
