@@ -1,31 +1,54 @@
 /* eslint-disable */
 
 import { useEffect, useState } from "react";
-import { allProducts, getAllWarehouses, getAllCountries } from "../lib";
-import wharehouseSelect from "./warehouseSelect";
+import {
+  getAllProducts,
+  getAllCountries,
+  getWarehouses,
+  getProductsByCountry,
+  getProductsByCountryAndWarehouse,
+  getProductsByWarehouse,
+} from "../lib";
 import CountrySelect from "./countrySelect";
-import WharehouseSelect from "./warehouseSelect";
+import WarehouseSelect from "./warehouseSelect";
 
 export default function ProductsList() {
-  const [countrySelect, seCountrySelect] = useState("");
-  const [wharehouseSelect, setWarehouseSelect] = useState("");
+  const [countrySelect, setCountrySelect] = useState("");
+  const [warehouseSelect, setWareHouseSelect] = useState("");
   const [countriesList, setCountriesList] = useState([]);
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     async function request() {
-      if (wharehouseSelect === "" && countrySelect === "") {
-        const products = await allProducts();
+      if (!warehouseSelect && !countrySelect) {
+        const products = await getAllProducts();
         setProducts(products.data.results);
-        const wharehouses = await getAllWarehouses();
-        setWarehousesList(wharehouses.data.results);
+        const warehouses = await getWarehouses();
+        setWarehousesList(warehouses.data);
         const countries = await getAllCountries();
         setCountriesList(countries.data);
+        setWareHouseSelect;
+      } else if (countrySelect && !warehouseSelect) {
+        const warehousesList = await getWarehouses(countrySelect);
+        setWarehousesList(warehousesList.data);
+        const products = await getProductsByCountry(countrySelect);
+        setProducts(products.data.results);
+      } else if (warehouseSelect && !countrySelect) {
+        const products = await getProductsByWarehouse(warehouseSelect);
+        setProducts(products.data.results);
+      } else if (warehouseSelect && countrySelect) {
+        const warehousesList = await getWarehouses(countrySelect);
+        setWarehousesList(warehousesList.data);
+        const products = await getProductsByCountryAndWarehouse(
+          countrySelect,
+          warehouseSelect
+        );
+        setProducts(products.data.results);
       }
     }
     request();
-  }, []);
-  console.log(countriesList);
+  }, [countrySelect, warehouseSelect]);
   const tableHead = [
     "Product",
     "Expiration",
@@ -38,17 +61,26 @@ export default function ProductsList() {
   ];
   return (
     <>
-      <div className="flex flex-col items-center mb-10 w-[90vw] text-center">
-        <h1 className="text-xl w-full font-bold mb-5">Catalogue produits</h1>
-        <div className="flex flex-col items-center w-[90vw]">
-          <CountrySelect selectName={"Country"} countries={countriesList} />
-          <WharehouseSelect
+      <div className="flex flex-col items-center mb-10 text-center">
+        <h1 className="text-xl w-full font-bold mb-5 text-[#e16565]">
+          Products catalogue
+        </h1>
+        <div className="flex flex-col items-center">
+          <CountrySelect
+            selectName={"Country"}
+            countries={countriesList}
+            selectCountry={setCountrySelect}
+            country={countrySelect}
+          />
+          <WarehouseSelect
             selectName={"Warehouse"}
-            wharehouses={warehousesList}
+            warehouses={warehousesList}
+            selectWharehouse={setWareHouseSelect}
+            warehouse={warehouseSelect}
           />
         </div>
       </div>
-      <div className="w-[90vw] bg-white">
+      <div className="w-[95vw] bg-white">
         <table className="w-[100%]">
           <tbody>
             <tr className="bg-[#efefef]">
@@ -85,6 +117,13 @@ export default function ProductsList() {
             ))}
           </tbody>
         </table>
+        {products.length < 1 ? (
+          <div className="flex items-center justify-center bg-white w-[90vw] h-24 ">
+            <p>No data</p>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

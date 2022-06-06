@@ -1,12 +1,12 @@
 import { FiPackage } from "react-icons/fi";
 import { useEffect, useState } from "react";
-import { oneDelivery } from "../lib";
+import { getOneDelivery } from "../lib";
 
 export default function DeliveryPath({ id }) {
   const [path, setPath] = useState({});
   useEffect(() => {
     async function request() {
-      const getData = await oneDelivery(id);
+      const getData = await getOneDelivery(id);
       setPath(getData.data.delivery_path.shipment_paths);
     }
     request();

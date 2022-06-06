@@ -1,20 +1,34 @@
-export default function WharehouseSelect({ selectName, wharehouses }) {
-  console.log(wharehouses);
+export default function WarehouseSelect({
+  selectName,
+  warehouses,
+  selectWharehouse,
+  warehouse,
+}) {
   return (
     <>
-      <select className="bg-white w-[90vw] h-10 mb-5">
-        <option value="" disabled selected hidden>
-          {selectName}
-        </option>
-        {wharehouses.map((wharehouses) => (
-          <option
-            key={wharehouses.storage.name}
-            value={wharehouses.storage.name}
-          >
-            {wharehouses.storage.name}
+      <div className="flex h-10">
+        <select
+          type="search"
+          onChange={(e) => selectWharehouse(e.target.value)}
+          value={warehouse}
+          className="bg-white w-[90vw] h-10 mb-5 "
+        >
+          <option value="" className="text-gray-300" disabled selected hidden>
+            {selectName}
           </option>
-        ))}
-      </select>
+          {warehouses.map((warehouses) => (
+            <option key={warehouses.id} value={warehouses.id}>
+              {warehouses.name}
+            </option>
+          ))}
+        </select>
+        <button
+          onClick={() => selectWharehouse("")}
+          className="ml-3 bg-[#e16565] text-white border-white border-2 w-10"
+        >
+          X
+        </button>
+      </div>
     </>
   );
 }

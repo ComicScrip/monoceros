@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import {
-  oneDelivery,
-  deliveriesOverview,
-  userContent,
-  allProducts,
+  getOneDelivery,
+  getDeliveriesOverview,
+  getUserContent,
+  getAllProducts,
 } from "../lib";
 import DeliveriesStatus from "../components/deliveriesStatus";
 import DeliveryPath from "../components/deliveryPath";
@@ -12,10 +12,10 @@ import ProductsList from "../components/productsList";
 export default function Test() {
   useEffect(() => {
     async function getData() {
-      const data1 = await oneDelivery(194);
-      const data2 = await deliveriesOverview();
-      const data3 = await userContent();
-      const data4 = await allProducts();
+      const data1 = await getOneDelivery(194);
+      const data2 = await getDeliveriesOverview();
+      const data3 = await getUserContent();
+      const data4 = await getAllProducts();
       console.log(data1, data2, data3, data4);
     }
     //getData();

@@ -5,7 +5,7 @@ import LogoForm from "../public/images/logo-monoceros.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import tokenContext from "../lib/tokenContext";
-import { getTokens, userContent, deliveriesOverview } from "../lib";
+import getTokens from "../lib";
 
 export default function LoginForm() {
   const { setContextTokens } = useContext(tokenContext);
@@ -21,8 +21,9 @@ export default function LoginForm() {
       try {
         const newTokens = await getTokens(email, password);
         setContextTokens(newTokens);
-        localStorage.setItem("access", newTokens.access);
-        localStorage.setItem("refresh", newTokens.refresh);
+        console.log(newTokens.data);
+        localStorage.setItem("access", newTokens.data.access);
+        localStorage.setItem("refresh", newTokens.data.refresh);
         router.push("/inProgress");
       } catch (err) {
         setLoginIssues(true);

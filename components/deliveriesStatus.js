@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { deliveriesOverview } from "../lib";
+import { getDeliveriesOverview } from "../lib";
 
 export default function DeliveriesStatus() {
   const [overview, setOverview] = useState({});
   useEffect(() => {
     async function request() {
-      const getData = await deliveriesOverview();
+      const getData = await getDeliveriesOverview();
       setOverview(getData.data);
     }
     request();
