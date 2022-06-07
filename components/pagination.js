@@ -1,4 +1,5 @@
 export default function Pagination({ index, setCurrentPage, currentPage }) {
+  if (index < 0) index = 5;
   console.log(index - 1);
   return (
     <nav className="bg-white h-15 flex justify-center items-center text-lg cursor-pointer w-[20%] mb-5">
@@ -8,7 +9,7 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
       >
         ←
       </span>
-      {new Array(5)
+      {new Array(index)
         .fill()
         .map((_, i) => i + 1)
         .map((page) => {
@@ -17,8 +18,8 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
               key={page}
               className={
                 page === currentPage
-                  ? "m-2 hover:underline text-[#e16565]"
-                  : "m-2 hover:underline"
+                  ? "m-2 hover:underline font-bold underline decoration-[#e16565]"
+                  : "m-2 hover:underline font-thin"
               }
               onClick={(e) => {
                 e.preventDefault();
