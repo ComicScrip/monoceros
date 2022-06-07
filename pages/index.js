@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Meta from "../components/meta";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function Home() {
+  const { t } = useTranslation("home");
   return (
     <>
       <Meta pagetitle="Monoceros - HomePage" />
-      <h1>Welcome</h1>
+      <h1>{t("title")}</h1>
       <div
         style={{
           display: "flex",
@@ -22,8 +25,17 @@ export default function Home() {
           alt="en construction"
           style={{ zIndex: -1 }}
         />
-        <p>Page under construction ...</p>
+        <p>{t("description")}</p>
       </div>
     </>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common", "home"])),
+      // Will be passed to the page component as props
+    },
+  };
 }
