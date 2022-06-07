@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Meta from "../components/meta";
+import Meta from "../../components/meta";
 
-const NewDelivery = () => {
+const Alarms = () => {
   return (
     <>
-      <Meta pagetitle="Monoceros - New Delivery" />
-      <h1>New Delivery</h1>
+      <Meta pagetitle="Monoceros - Alarms" />
+      <h1>Alarms</h1>
       <div
         style={{
           display: "flex",
@@ -28,4 +28,4 @@ const NewDelivery = () => {
   );
 };
 
-export default NewDelivery;
+export default Alarms;

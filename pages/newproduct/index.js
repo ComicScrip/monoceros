@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Meta from "../components/meta";
+import Meta from "../../components/meta";
 
-export default function Inventory() {
+const NewProduct = () => {
   return (
     <>
-      <Meta pagetitle="Monoceros - Inventory" />
-      <h1>Inventory</h1>
+      <Meta pagetitle="Monoceros - New Product" />
+      <h1>New Product</h1>
       <div
         style={{
           display: "flex",
@@ -15,6 +15,7 @@ export default function Inventory() {
         }}
       >
         <Image
+          priority
           src="/images/enconstruction.png"
           height={200}
           width={200}
@@ -25,4 +26,6 @@ export default function Inventory() {
       </div>
     </>
   );
-}
+};
+
+export default NewProduct;

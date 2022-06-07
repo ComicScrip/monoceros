@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Meta from "../components/meta";
+import Meta from "../../components/meta";
 
-const Alarms = () => {
+export default function Inventory() {
   return (
     <>
-      <Meta pagetitle="Monoceros - Alarms" />
-      <h1>Alarms</h1>
+      <Meta pagetitle="Monoceros - Inventory" />
+      <h1>Inventory</h1>
       <div
         style={{
           display: "flex",
@@ -15,7 +15,6 @@ const Alarms = () => {
         }}
       >
         <Image
-          priority
           src="/images/enconstruction.png"
           height={200}
           width={200}
@@ -26,6 +25,4 @@ const Alarms = () => {
       </div>
     </>
   );
-};
-
-export default Alarms;
+}

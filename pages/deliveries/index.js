@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Meta from "../components/meta";
+import Meta from "../../components/meta";
 
 const Deliveries = () => {
   return (
     <>
-      <Meta pagetitle="Monoceros - Deliveries" />
-      <h1>Products</h1>
+      <Meta pagetitle="Monoceros - Deliveries Overview" />
+      <h1>Deliveries Overview</h1>
       <div
         style={{
           display: "flex",

@@ -1,18 +1,17 @@
 import Image from "next/image";
-import Meta from "../components/meta";
+import Meta from "../../components/meta";
 
-const Settings = () => {
+const NewDelivery = () => {
   return (
     <>
-      <Meta pagetitle="Monoceros - Settings" />
-      <h1>Settings</h1>
+      <Meta pagetitle="Monoceros - New Delivery" />
+      <h1>New Delivery</h1>
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          position: "relative",
         }}
       >
         <Image
@@ -29,4 +28,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default NewDelivery;

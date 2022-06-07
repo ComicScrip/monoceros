@@ -244,7 +244,7 @@ export default function Navbar() {
                     />
                   </div>
                   <a className={style.navlink} onClick={openMenu}>
-                    Alarm
+                    Alarms
                   </a>
                 </div>
               </ActiveLink>
