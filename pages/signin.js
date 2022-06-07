@@ -10,29 +10,21 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function Signin({ csrfToken }) {
-  const { status } = useSession();
   useEffect(() => {
     console.log(status);
-  }, []);
+  });
   const [isChecked, setIsChecked] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [loginIssues, setLoginIssues] = useState(false);
   const router = useRouter();
+  const { status } = useSession();
 
   async function handleSubmit(e) {
-    /*
-    if (status === "loading") {
-      e.preventDefault();
-      setLoginIssues(true);
-      return;
-    }
+    console.log(status);
     if (status === "authenticated") {
       router.push("/deliveries");
     }
-
-    console.log(status);
-    */
   }
 
   function handleCheckBox() {
@@ -69,7 +61,7 @@ export default function Signin({ csrfToken }) {
                   />
                 </div>
                 <form
-                  // onSubmit={(e) => handleSubmit(e)}
+                  onSubmit={(e) => handleSubmit(e)}
                   method="post"
                   action="/api/auth/callback/credentials"
                   data-cy="loginForm"
@@ -90,7 +82,6 @@ export default function Signin({ csrfToken }) {
                       value={email}
                       className={styles.input}
                       id="email"
-                      placeholder=""
                       name="username"
                       required
                     />
@@ -148,10 +139,32 @@ export default function Signin({ csrfToken }) {
   );
 }
 
+const getCsrfTokenAndSetCookies = async ({ res, query }) => {
+  // to make it work on Vercel
+  let baseUrl = process.env.NEXTAUTH_URL || `https://${process.env.VERCEL_URL}`;
+  console.log(baseUrl);
+  // capturing the callback url if any, which should include the current domain for security ?
+  const callbackUrlIsPresent = typeof query?.callbackUrl === "string";
+  const callbackUrlIsValid =
+    callbackUrlIsPresent && query?.callbackUrl.startsWith(baseUrl);
+  const host = callbackUrlIsValid ? query?.callbackUrl : baseUrl;
+  const redirectURL = encodeURIComponent(host);
+  // getting both the csrf form token and (next-auth.csrf-token cookie + next-auth.callback-url cookie)
+  const csrfUrl = `${baseUrl}/api/auth/csrf?callbackUrl=${redirectURL}`;
+  const csrfResponse = await fetch(csrfUrl);
+  const { csrfToken } = await csrfResponse.json();
+  const { headers } = csrfResponse;
+  // placing the cookies
+  const [csrfCookie, redirectCookie] = headers.get("set-cookie").split(",");
+  res.setHeader("set-cookie", [csrfCookie, redirectCookie]);
+  // placing form csrf token
+  return csrfToken;
+};
+
 export async function getServerSideProps(context) {
   return {
     props: {
-      csrfToken: await getCsrfToken(context),
+      csrfToken: await getCsrfTokenAndSetCookies(context),
     },
   };
 }
