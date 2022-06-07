@@ -22,7 +22,7 @@ export default function Test() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center bg-[#efefef] h-[100vh]">
+    <div className="flex flex-col items-center bg-[#efefef]">
       <DeliveriesStatus />
       <DeliveryPath id={179} />
       <ProductsList />

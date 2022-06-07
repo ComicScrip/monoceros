@@ -23,9 +23,9 @@ export default function CountrySelect({
         </select>
         <button
           onClick={() => selectCountry("")}
-          className="ml-3 bg-[#e16565] text-white border-white border-2 w-10"
+          className="ml-3 bg-[#e16565] text-white text-xl border-white border-2 w-10"
         >
-          X
+          ✗
         </button>
       </div>
     </>

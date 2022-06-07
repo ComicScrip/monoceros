@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { useEffect, useState } from "react";
 import {
   getAllProducts,
@@ -28,7 +26,6 @@ export default function ProductsList() {
         setWarehousesList(warehouses.data);
         const countries = await getAllCountries();
         setCountriesList(countries.data);
-        setWareHouseSelect;
       } else if (countrySelect && !warehouseSelect) {
         const warehousesList = await getWarehouses(countrySelect);
         setWarehousesList(warehousesList.data);
@@ -62,7 +59,7 @@ export default function ProductsList() {
   return (
     <>
       <div className="flex flex-col items-center mb-10 text-center">
-        <h1 className="text-xl w-full font-bold mb-5 text-[#e16565]">
+        <h1 className="text-2xl w-full font-bold mb-5 text-[#e16565]">
           Products catalogue
         </h1>
         <div className="flex flex-col items-center">
@@ -80,10 +77,10 @@ export default function ProductsList() {
           />
         </div>
       </div>
-      <div className="w-[95vw] bg-white">
-        <table className="w-[100%]">
+      <div className="w-[95vw] bg-white ">
+        <table className="w-[100%] overflow-scroll">
           <tbody>
-            <tr className="bg-[#efefef]">
+            <tr className="bg-[#efefef] text-center">
               {tableHead.map((item) => (
                 <td key={item}>{item}</td>
               ))}
@@ -91,7 +88,7 @@ export default function ProductsList() {
             {products.map((product, _) => (
               <tr
                 key={_}
-                className="border-y-[15px] collapse h-24 border-[#efefef]"
+                className="border-y-[15px] collapse h-24 border-[#efefef] text-center"
               >
                 <td>{product.name}</td>
                 <td>
@@ -112,14 +109,16 @@ export default function ProductsList() {
                   {product.shock_min} / {product.shock_max}
                 </td>
                 <td>{product.unit_cost}</td>
-                {/* <td>{lead_time_average ? lead_time_average : ""}</td> */}
+                <td>
+                  {product.lead_time_average ? product.lead_time_average : ""}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
         {products.length < 1 ? (
           <div className="flex items-center justify-center bg-white w-[90vw] h-24 ">
-            <p>No data</p>
+            <p>No products</p>
           </div>
         ) : (
           ""
