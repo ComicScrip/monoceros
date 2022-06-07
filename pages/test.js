@@ -8,7 +8,7 @@ import {
 import DeliveriesStatus from "../components/deliveriesStatus";
 import DeliveryPath from "../components/deliveryPath";
 import ProductsList from "../components/productsList";
-
+import PackagesList from "../components/packagesList";
 export default function Test() {
   useEffect(() => {
     async function getData() {
@@ -26,6 +26,7 @@ export default function Test() {
       <DeliveriesStatus />
       <DeliveryPath id={179} />
       <ProductsList />
+      <PackagesList />
     </div>
   );
 }
