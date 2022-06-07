@@ -1,17 +1,18 @@
 import Image from "next/image";
-import Meta from "../components/meta";
+import Meta from "../../components/meta";
 
-export default function Home() {
+const Settings = () => {
   return (
     <>
-      <Meta pagetitle="Monoceros - HomePage" />
-      <h1>Welcome</h1>
+      <Meta pagetitle="Monoceros - Settings" />
+      <h1>Settings</h1>
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          position: "relative",
         }}
       >
         <Image
@@ -26,4 +27,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Settings;
