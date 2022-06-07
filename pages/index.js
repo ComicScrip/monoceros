@@ -8,7 +8,7 @@ export default function Home() {
       <Meta pagetitle="Monoceros - HomePage" />
       <button
         onClick={() =>
-          signIn(("credentials", { redirect: false, password: "password" }))
+          signIn("credentials", { username: "jsmith", password: "1234" })
         }
       >
         Sign in

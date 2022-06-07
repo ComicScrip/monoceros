@@ -21,6 +21,7 @@ export default function Signin({ csrfToken }) {
   const router = useRouter();
 
   async function handleSubmit(e) {
+    /*
     if (status === "loading") {
       e.preventDefault();
       setLoginIssues(true);
@@ -31,6 +32,7 @@ export default function Signin({ csrfToken }) {
     }
 
     console.log(status);
+    */
   }
 
   function handleCheckBox() {
@@ -67,7 +69,7 @@ export default function Signin({ csrfToken }) {
                   />
                 </div>
                 <form
-                  onSubmit={(e) => handleSubmit(e)}
+                  // onSubmit={(e) => handleSubmit(e)}
                   method="post"
                   action="/api/auth/callback/credentials"
                   data-cy="loginForm"
