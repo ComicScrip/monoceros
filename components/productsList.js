@@ -9,6 +9,7 @@ import {
 } from "../lib";
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
+import Pagination from "./pagination";
 
 export default function ProductsList() {
   const [countrySelect, setCountrySelect] = useState("");
@@ -16,11 +17,23 @@ export default function ProductsList() {
   const [countriesList, setCountriesList] = useState([]);
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 5;
+  const [numberOfProducts, setNumberOfProducts] = useState(null);
+
+  async function getProductsNumber() {
+    const pnbr = await getAllProducts(1, 0);
+    setNumberOfProducts(pnbr.data.count);
+  }
 
   useEffect(() => {
     async function request() {
+      await getProductsNumber();
       if (!warehouseSelect && !countrySelect) {
-        const products = await getAllProducts();
+        const products = await getAllProducts(
+          productsPerPage,
+          currentPage * productsPerPage
+        );
         setProducts(products.data.results);
         const warehouses = await getWarehouses();
         setWarehousesList(warehouses.data);
@@ -45,7 +58,7 @@ export default function ProductsList() {
       }
     }
     request();
-  }, [countrySelect, warehouseSelect]);
+  }, [countrySelect, warehouseSelect, currentPage]);
   const tableHead = [
     "Product",
     "Expiration",
@@ -124,6 +137,11 @@ export default function ProductsList() {
           ""
         )}
       </div>
+      <Pagination
+        index={Math.ceil(numberOfProducts / productsPerPage - 1)}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </>
   );
 }
