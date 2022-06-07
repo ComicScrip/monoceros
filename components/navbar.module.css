@@ -5,6 +5,7 @@
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 100;
 }
 
 .navbar {
@@ -13,6 +14,7 @@
   align-items: center;
   padding: 1rem 1.5rem;
   width: 100%;
+  z-index: 100;
 }
 
 .headerlogo {
@@ -44,6 +46,7 @@
   width: 100%;
   transition: 0.5s;
   height: calc(100% - 80px);
+  z-index: 100;
 }
 
 .navmenu.active {
