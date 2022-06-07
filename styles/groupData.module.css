@@ -1,0 +1,29 @@
+.container {
+  background-color: white;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  padding: 15px 15px 0px 15px;
+  border-bottom: 2px solid lightgray;
+}
+
+.data {
+  cursor: pointer;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ff455a;
+}
+
+.graph {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

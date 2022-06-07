@@ -1,0 +1,29 @@
+.list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  margin: 15px 0px 0px 15px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 95%;
+  border-radius: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 50px;
+}
+
+.headList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: blueviolet; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  width: 95%;
+  border-radius: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  /* height: 50px; */
+}
