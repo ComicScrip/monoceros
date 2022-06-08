@@ -1,28 +1,17 @@
 import deliveriesStyle from "../styles/deliveries.module.css";
-import DeliveryDetail from "./deliveryDetail";
+import DeliveryOverview from "./deliveryOverview";
 import { useState } from "react";
-import axios from "axios";
+import { getDeliveryOverview } from "../lib/deliveriesAPI";
 
 function DeliveryList({ allDeliveries }) {
-  const [deliveryDetails, setDeliveryDetails] = useState({});
+  const [deliveryOverview, setDeliveryOverview] = useState({});
   const [showDetails, setShowDetails] = useState(false);
-  const access_token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0Njg2ODUyLCJqdGkiOiI3YzEwNWU0MWQ0NTQ0NTY2OGU1YWI1NDIzMzRkYWI5MyIsInVzZXJfaWQiOjEwMH0.8FkfuI8SiTgcR4_oXJtbxTyfMcGfTf_iM8aL1_GwbJ4";
-  async function getDeliveryDetails(deliveryId) {
-    await axios
-      .get(
-        `https://devbackend.monoceros-sas.com/api/deliveries/deliveries/${deliveryId}/`,
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        }
-      )
-      .then((res) => setDeliveryDetails(res.data));
-  }
-  async function showDeliveryDetails(id) {
+
+  async function showDeliveryOverview(id) {
     const idStrg = id.toString();
-    await getDeliveryDetails(idStrg).then(() => setShowDetails(true));
+    await getDeliveryOverview(idStrg)
+      .then(setDeliveryOverview)
+      .then(() => setShowDetails(true));
   }
   return (
     <>
@@ -34,10 +23,7 @@ function DeliveryList({ allDeliveries }) {
           >
             &times;
           </span>
-          <DeliveryDetail
-            deliveryDetail={deliveryDetails}
-            access_token={access_token}
-          />
+          <DeliveryOverview deliveryDetail={deliveryOverview} />
         </div>
       )}
       <table className={deliveriesStyle.table}>
@@ -56,7 +42,7 @@ function DeliveryList({ allDeliveries }) {
             <tr
               className={deliveriesStyle.tRow + " " + deliveriesStyle.id}
               key={delivery.id}
-              onClick={() => showDeliveryDetails(delivery.id)}
+              onClick={() => showDeliveryOverview(delivery.id)}
             >
               <td className={deliveriesStyle.tCell}>{delivery.id}</td>
               <td className={deliveriesStyle.tCell}>{delivery.status}</td>

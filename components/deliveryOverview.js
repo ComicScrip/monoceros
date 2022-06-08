@@ -1,34 +1,22 @@
-import axios from "axios";
 import dynamic from "next/dynamic";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import TemperatureData from "./temperatureData";
 import HumidityData from "./humidityData";
 import LightData from "./lightData";
 import ShockData from "./shockData";
 import deliveryDetailStyle from "../styles/deliveryDetail.module.css";
 import { useRouter } from "next/router";
+import { getDeliveriesLocalisation } from "../lib/sensorDataAPI";
 
-const DeliveryDetail = ({ deliveryDetail, access_token }) => {
-  const MapWithNoSSR = dynamic(() => import("../components/map"), {
+const DeliveryOverview = ({ deliveryDetail }) => {
+  const MapWithNoSSR = dynamic(() => import("./map"), {
     ssr: false,
   });
   const [deliveriesLoc, setDeliveriesLoc] = useState([]);
   const router = useRouter();
-  const getDeliveriesLocalisation = useCallback(() => {
-    axios
-      .get(
-        "https://devbackend.monoceros-sas.com/api/deliveries/delivery-location/",
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        }
-      )
-      .then((res) => setDeliveriesLoc(res.data));
-  }, [access_token]);
   useEffect(() => {
-    getDeliveriesLocalisation();
-  }, [getDeliveriesLocalisation]);
+    getDeliveriesLocalisation().then(setDeliveriesLoc);
+  }, []);
   return (
     <div className={deliveryDetailStyle.global}>
       <div className={deliveryDetailStyle.head}>
@@ -60,4 +48,4 @@ const DeliveryDetail = ({ deliveryDetail, access_token }) => {
   );
 };
 
-export default DeliveryDetail;
+export default DeliveryOverview;
