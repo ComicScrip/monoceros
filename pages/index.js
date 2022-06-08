@@ -1,4 +1,4 @@
-import { getCsrfToken, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import style from "../styles/home.module.css";
 import styles from "../styles/loginForm.module.css";
 import headLogo from "../public/images/logo-monoceros2.png";
@@ -8,6 +8,7 @@ import LogoForm from "../public/images/logo-monoceros.png";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 export default function Signin({ csrfToken }) {
   useEffect(() => {
@@ -149,16 +150,17 @@ const getCsrfTokenAndSetCookies = async ({ res, query }) => {
     callbackUrlIsPresent && query?.callbackUrl.startsWith(baseUrl);
   const host = callbackUrlIsValid ? query?.callbackUrl : baseUrl;
   const redirectURL = encodeURIComponent(host);
+  console.log(redirectURL);
   // getting both the csrf form token and (next-auth.csrf-token cookie + next-auth.callback-url cookie)
   const csrfUrl = `${baseUrl}/api/auth/csrf?callbackUrl=${redirectURL}`;
-  const csrfResponse = await fetch(csrfUrl);
-  const { csrfToken } = await csrfResponse.json();
+  const csrfResponse = await axios.get(csrfUrl);
+  const {
+    data: { csrfToken },
+  } = await csrfResponse;
   const { headers } = csrfResponse;
-  console.log(headers);
-  console.log(headers.get("set-cookie"));
   // placing the cookies
-  //const [csrfCookie, redirectCookie] = headers.get("set-cookie").split(",");
-  //res.setHeader("set-cookie", [csrfCookie, redirectCookie]);
+  const [csrfCookie, redirectCookie] = headers["set-cookie"];
+  res.setHeader("set-cookie", [csrfCookie, redirectCookie]);
   // placing form csrf token
   return csrfToken;
 };
