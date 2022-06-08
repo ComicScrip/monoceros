@@ -4,14 +4,20 @@ import { CurrentUserContext } from "../contexts/currentUserContext";
 import Navbar from "./navbar";
 import styles from "../styles/Layout.module.css";
 import Footer from "./footer";
+import { signIn } from "next-auth/react";
 
 const Layout = ({ children }) => {
   const { profile } = useContext(CurrentUserContext);
   if (!profile)
     return (
-      <h1 className="text-center mt-20 underline text-2xl">
-        you are not authenticated
-      </h1>
+      <>
+        <div className="flex flex-col items-center justify-center mt-20">
+          <h1 className="underline text-2xl">you are not authenticated</h1>
+          <button onClick={() => signIn()} className="bg-slate-400 mt-5">
+            Login Page
+          </button>
+        </div>
+      </>
     );
   return (
     <>
