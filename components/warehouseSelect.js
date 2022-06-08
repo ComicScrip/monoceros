@@ -1,20 +1,25 @@
 export default function WarehouseSelect({
-  selectName,
   warehouses,
   selectWharehouse,
   warehouse,
 }) {
+  console.log(warehouses);
+  if (!warehouses) {
+    warehouses = [{ name: "no option", id: 0 }];
+  }
+
   return (
     <>
       <div className="flex h-10">
+        {warehouses === [] ? <p>not w</p> : null}
         <select
           type="search"
           onChange={(e) => selectWharehouse(e.target.value)}
           value={warehouse}
           className="bg-white w-[90vw] h-10 mb-5 "
         >
-          <option value="" className="text-gray-300" disabled selected hidden>
-            {selectName}
+          <option value="" className="text-gray-300" disabled hidden>
+            Warehouses
           </option>
           {warehouses.map((warehouses) => (
             <option key={warehouses.id} value={warehouses.id}>

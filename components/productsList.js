@@ -28,7 +28,7 @@ export default function ProductsList() {
 
   useEffect(() => {
     async function request() {
-      await getProductsNumber();
+      getProductsNumber();
       if (!warehouseSelect && !countrySelect) {
         const products = await getAllProducts(
           productsPerPage,
@@ -77,13 +77,11 @@ export default function ProductsList() {
         </h1>
         <div className="flex flex-col items-center">
           <CountrySelect
-            selectName={"Country"}
             countries={countriesList}
             selectCountry={setCountrySelect}
             country={countrySelect}
           />
           <WarehouseSelect
-            selectName={"Warehouse"}
             warehouses={warehousesList}
             selectWharehouse={setWareHouseSelect}
             warehouse={warehouseSelect}
@@ -134,14 +132,15 @@ export default function ProductsList() {
             <p>No products</p>
           </div>
         ) : (
-          ""
+          <div className="flex justify-center bg-[#efefef]">
+            <Pagination
+              index={Math.ceil(numberOfProducts / productsPerPage - 1)}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+            />
+          </div>
         )}
       </div>
-      <Pagination
-        index={Math.ceil(numberOfProducts / productsPerPage - 1)}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-      />
     </>
   );
 }

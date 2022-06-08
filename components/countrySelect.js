@@ -1,9 +1,4 @@
-export default function CountrySelect({
-  selectName,
-  countries,
-  selectCountry,
-  country,
-}) {
+export default function CountrySelect({ countries, selectCountry, country }) {
   return (
     <>
       <div className="flex h-10 m-2">
@@ -12,8 +7,8 @@ export default function CountrySelect({
           value={country}
           className="bg-white w-[90vw] h-10 mb-5"
         >
-          <option value="" disabled selected hidden>
-            {selectName}
+          <option value="" hidden>
+            Country
           </option>
           {countries.map((country) => (
             <option key={country.country} value={country.country}>
