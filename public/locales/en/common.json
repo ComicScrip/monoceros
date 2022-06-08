@@ -1,7 +1,3 @@
 {
-  "title": "Welcome",
-  "login": "Log In",
-  "logout": "Log out",
-  "profile": "Profile",
-  "home": "Home"
+  "titleSite": "Monoceros"
 }

@@ -1,7 +1,3 @@
 {
-  "title": "Bienvvenu",
-  "login": "Se connecter",
-  "logout": "Se déconnecter",
-  "profile": "Profil",
-  "home": "Accueil"
+  "titleSite": "Monoceros"
 }

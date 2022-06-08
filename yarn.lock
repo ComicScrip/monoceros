@@ -10,7 +10,7 @@
     "core-js-pure" "^3.20.2"
     "regenerator-runtime" "^0.13.4"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.13.17", "@babel/runtime@^7.14.5", "@babel/runtime@^7.14.6", "@babel/runtime@^7.16.3", "@babel/runtime@^7.17.2":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.13.17", "@babel/runtime@^7.14.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.17.2":
   "integrity" "sha512-YMQvx/6nKEaucl0MY56mwIG483xk8SDNdlUwb2Ts6FUpr7fm85DxEmsY18LXBNhcTz6tO6JwZV8w1W06v8UKeg=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.18.0.tgz"
   "version" "7.18.0"
@@ -1526,19 +1526,12 @@
   "resolved" "https://registry.npmjs.org/husky/-/husky-8.0.1.tgz"
   "version" "8.0.1"
 
-"i18next-browser-languagedetector@^6.1.4":
-  "integrity" "sha512-wukWnFeU7rKIWT66VU5i8I+3Zc4wReGcuDK2+kuFhtoxBRGWGdvYI9UQmqNL/yQH1KogWwh+xGEaIPH8V/i2Zg=="
-  "resolved" "https://registry.npmjs.org/i18next-browser-languagedetector/-/i18next-browser-languagedetector-6.1.4.tgz"
-  "version" "6.1.4"
-  dependencies:
-    "@babel/runtime" "^7.14.6"
-
 "i18next-fs-backend@^1.1.4":
   "integrity" "sha512-/MfAGMP0jHonV966uFf9PkWWuDjPYLIcsipnSO3NxpNtAgRUKLTwvm85fEmsF6hGeu0zbZiCQ3W74jwO6K9uXA=="
   "resolved" "https://registry.npmjs.org/i18next-fs-backend/-/i18next-fs-backend-1.1.4.tgz"
   "version" "1.1.4"
 
-"i18next@^21.6.14", "i18next@^21.8.8", "i18next@>= 19.0.0":
+"i18next@^21.6.14", "i18next@>= 19.0.0":
   "integrity" "sha512-iN/5JuWStyivyBgmUgy5BRiFs0lZrgCRaeV9q4yVH/eR9NID7pZSMt3rpF8C16GplchoEjDP0JalKwZMJ1CJAA=="
   "resolved" "https://registry.npmjs.org/i18next/-/i18next-21.8.8.tgz"
   "version" "21.8.8"
@@ -2063,11 +2056,6 @@
     "i18next-fs-backend" "^1.1.4"
     "react-i18next" "^11.16.2"
 
-"next-translate@^1.4.0":
-  "integrity" "sha512-FWheoN83fWTTfZ2g+a77GBcXRDVfSDP45iA0+G5wRZYE3xPYMy/6X+1I5j+ouczoJ2JI54vH59W/veZ1tZDRGQ=="
-  "resolved" "https://registry.npmjs.org/next-translate/-/next-translate-1.4.0.tgz"
-  "version" "1.4.0"
-
 "next@>= 10.0.0", "next@>=10.2.0", "next@12.1.6":
   "integrity" "sha512-cebwKxL3/DhNKfg9tPZDQmbRKjueqykHHbgaoG4VBRH3AHQJ2HO0dbKFiS1hPhe1/qgc2d/hFeadsbPicmLD+A=="
   "resolved" "https://registry.npmjs.org/next/-/next-12.1.6.tgz"
@@ -2422,7 +2410,7 @@
   "resolved" "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   "version" "1.2.3"
 
-"react-dom@^17.0.2 || ^18.0.0-0", "react-dom@18.1.0":
+"react-dom@^17.0.2 || ^18.0.0-0", "react-dom@^18.1.0":
   "integrity" "sha512-fU1Txz7Budmvamp7bshe4Zi32d0ll7ect+ccxNu9FlObT605GOEB8BfO4tmRJ39R5Zj831VCpvQ05QPBW5yb+w=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.1.0.tgz"
   "version" "18.1.0"
@@ -2430,7 +2418,7 @@
     "loose-envify" "^1.1.0"
     "scheduler" "^0.22.0"
 
-"react-i18next@^11.16.2", "react-i18next@^11.17.0":
+"react-i18next@^11.16.2":
   "integrity" "sha512-ewq2S4bVUTRqOMAdM/XvzCn9xUPIryzeBQRghmJ8lC6VI/8Kp7z1GwoLyt8j7GB2ywhN2SjPk7LU4sHzVeu7aw=="
   "resolved" "https://registry.npmjs.org/react-i18next/-/react-i18next-11.17.0.tgz"
   "version" "11.17.0"
