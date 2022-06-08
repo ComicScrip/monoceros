@@ -10,7 +10,6 @@ const DeliveryDetail = () => {
   const [packages, setPackages] = useState([]);
   const router = useRouter();
   const { id } = router.query;
-  console.log("id", id);
 
   async function showDeliveryDetails(id) {
     const detail = await getDeliveryDetails(id);
@@ -28,9 +27,6 @@ const DeliveryDetail = () => {
       setPackages(deliveryDetail.packages);
     }
   }, [deliveryDetail]);
-
-  console.log(deliveryDetail);
-  console.log(deliveryDetail.packages);
   return (
     <>
       {packages ? (
