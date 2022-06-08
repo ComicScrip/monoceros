@@ -9,24 +9,21 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { getTokensFromCredentials } from "../lib/monocerosAPI";
 
 export default function Signin({ csrfToken }) {
-  useEffect(() => {
-    console.log(status);
-  });
   const [isChecked, setIsChecked] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [loginIssues, setLoginIssues] = useState(false);
   const router = useRouter();
   const { status } = useSession();
-
-  async function handleSubmit(e) {
-    console.log(status);
+  useEffect(() => {
     if (status === "authenticated") {
       router.push("/deliveries");
     }
-  }
+  });
+  async function handleSubmit(e) {}
 
   function handleCheckBox() {
     setIsChecked(!isChecked);

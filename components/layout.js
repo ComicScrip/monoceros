@@ -7,7 +7,12 @@ import Footer from "./footer";
 
 const Layout = ({ children }) => {
   const { profile } = useContext(CurrentUserContext);
-  if (!profile) return "loading";
+  if (!profile)
+    return (
+      <h1 className="text-center mt-20 underline text-2xl">
+        you are not authenticated
+      </h1>
+    );
   return (
     <>
       <Meta />
