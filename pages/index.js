@@ -143,7 +143,6 @@ export default function Signin({ csrfToken }) {
 const getCsrfTokenAndSetCookies = async ({ res, query }) => {
   // to make it work on Vercel
   let baseUrl = process.env.NEXTAUTH_URL || `https://${process.env.VERCEL_URL}`;
-  console.log(baseUrl);
   // capturing the callback url if any, which should include the current domain for security ?
   const callbackUrlIsPresent = typeof query?.callbackUrl === "string";
   const callbackUrlIsValid =
