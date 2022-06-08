@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Meta from "../../components/meta";
+import Layout from "../../components/layout";
 
 export default function Inventory() {
   return (
-    <>
+    <Layout>
       <Meta pagetitle="Monoceros - Inventory" />
       <h1>Inventory</h1>
       <div
@@ -23,6 +24,6 @@ export default function Inventory() {
         />
         <p>Page under construction ...</p>
       </div>
-    </>
+    </Layout>
   );
 }

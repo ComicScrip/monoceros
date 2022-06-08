@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Meta from "../../components/meta";
+import Layout from "../../components/layout";
 
 const NewDelivery = () => {
   return (
-    <>
+    <Layout>
       <Meta pagetitle="Monoceros - New Delivery" />
       <h1>New Delivery</h1>
       <div
@@ -24,7 +25,7 @@ const NewDelivery = () => {
         />
         <p>Page under construction ...</p>
       </div>
-    </>
+    </Layout>
   );
 };
 

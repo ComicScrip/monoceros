@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Meta from "../../components/meta";
+import Layout from "../../components/layout";
 
 const Help = () => {
   return (
-    <>
+    <Layout>
       <Meta pagetitle="Monoceros - Help" />
       <h1>Help</h1>
       <div
@@ -24,7 +25,7 @@ const Help = () => {
         />
         <p>Page under construction ...</p>
       </div>
-    </>
+    </Layout>
   );
 };
 
