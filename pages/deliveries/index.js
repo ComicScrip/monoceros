@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Meta from "../../components/meta";
 import Layout from "../../components/layout";
+import Meta from "../../components/meta";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 

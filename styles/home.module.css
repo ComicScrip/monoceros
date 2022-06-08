@@ -1,0 +1,17 @@
+.main {
+  background-color: black;
+  height: 100vh;
+}
+
+.loginContainer {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+  background-image: url("https://www.generixgroup.com/sites/default/files/2022-01/pageWMSs.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
