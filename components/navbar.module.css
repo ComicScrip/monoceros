@@ -1,0 +1,181 @@
+.header {
+  border-bottom: 1px solid #e2e8f0;
+  background-color: rgb(23, 23, 23);
+  height: 100px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  z-index: 100;
+}
+
+.headerlogo {
+  font-size: 2.1rem;
+  font-weight: 500;
+  color: white;
+  text-transform: uppercase;
+  height: 70px;
+}
+
+.monocerosLogo {
+  border-radius: 50%;
+  margin-top: 5px;
+}
+
+.navbarTitle {
+  font-size: 1.8rem;
+  transform: translateY(50%);
+}
+
+.navmenu {
+  display: flex;
+  justify-content: space-evenly;
+  position: fixed;
+  right: -100%;
+  top: 80px;
+  flex-direction: column;
+  background-color: rgb(23, 23, 23);
+  width: 100%;
+  transition: 0.5s;
+  height: calc(100% - 80px);
+  z-index: 100;
+}
+
+.navmenu.active {
+  right: 0;
+}
+
+.sectionContainer {
+  position: relative;
+}
+
+.navList {
+  list-style-type: none;
+  position: relative;
+}
+
+.navlogo {
+  margin-left: 2rem;
+  padding-top: 0.6rem;
+}
+
+.navitem {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: flex-start;
+  cursor: pointer;
+  padding: 3px 0;
+}
+
+.navoveritem {
+  margin-top: 0.5rem;
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.sectionClose {
+  display: none;
+}
+
+.sectionOpen {
+  display: initial;
+}
+
+.navsubitem {
+  margin: 1rem 0;
+  list-style-type: none;
+  text-align: left;
+}
+
+.navsubmenuContainer {
+  width: 80%;
+}
+
+.activeSection {
+  background-color: black;
+}
+
+.activeSection:before {
+  background-color: #ff455a;
+  content: ".";
+  color: #ff455a;
+  position: absolute;
+  left: 0;
+  height: 40px;
+}
+
+.navsubmenu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navlink {
+  font-weight: 300;
+  color: white;
+  padding-top: 0.6rem;
+  padding-left: 2rem;
+}
+
+.borderBottom {
+  width: 90%;
+  height: 1px;
+  margin: 15px;
+  border: solid 1px #fff;
+}
+
+.navTextBottom {
+  color: #e77981;
+  margin: 1.2rem 0;
+  text-align: left;
+  padding-left: 1rem;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.hamburger {
+  display: block;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: #e77981;
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(1) {
+  -webkit-transform: translateY(8px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(3) {
+  -webkit-transform: translateY(-8px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.chevronDown {
+  transition: 0.2s;
+}
+
+.chevronUp {
+  transform: rotate(180deg);
+  transition: 0.2s;
+}

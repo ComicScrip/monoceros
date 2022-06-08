@@ -6,13 +6,14 @@ import HumidityData from "./humidityData";
 import LightData from "./lightData";
 import ShockData from "./shockData";
 import deliveryDetailStyle from "../styles/deliveryDetail.module.css";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const DeliveryDetail = ({ deliveryDetail, access_token }) => {
   const MapWithNoSSR = dynamic(() => import("../components/map"), {
     ssr: false,
   });
   const [deliveriesLoc, setDeliveriesLoc] = useState([]);
+  const router = useRouter();
   const getDeliveriesLocalisation = useCallback(() => {
     axios
       .get(
@@ -32,8 +33,17 @@ const DeliveryDetail = ({ deliveryDetail, access_token }) => {
     <div className={deliveryDetailStyle.global}>
       <div className={deliveryDetailStyle.head}>
         <h1 className={deliveryDetailStyle.title}>{deliveryDetail.id}</h1>
-        <button type="button" className={deliveryDetailStyle.detailBtn}>
-          <Link href={`/deliveries/${deliveryDetail.id}`}>Details</Link>
+        <button
+          type="button"
+          className={deliveryDetailStyle.detailBtn}
+          onClick={() => {
+            router.push({
+              pathname: "/deliveries/[delivery_id]",
+              query: { delivery_id: deliveryDetail.id },
+            });
+          }}
+        >
+          Details
         </button>
       </div>
       <p>Delivery Status</p>

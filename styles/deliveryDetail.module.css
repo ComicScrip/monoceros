@@ -28,6 +28,7 @@
 .head {
   display: flex;
   justify-content: space-between;
+  margin: 10px 0 10px 0;
 }
 
 .detailBtn {
@@ -41,4 +42,5 @@
   margin-top: auto;
   margin-bottom: auto;
   box-shadow: 3px 3px 3px lightgray;
+  cursor: pointer;
 }

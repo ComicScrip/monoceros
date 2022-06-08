@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Meta from "../components/meta";
+import Meta from "../../components/meta";
 
-export default function Home() {
+const NewDelivery = () => {
   return (
     <>
-      <Meta pagetitle="Monoceros - HomePage" />
-      <h1>Welcome</h1>
+      <Meta pagetitle="Monoceros - New Delivery" />
+      <h1>New Delivery</h1>
       <div
         style={{
           display: "flex",
@@ -26,4 +26,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default NewDelivery;

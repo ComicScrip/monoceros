@@ -23,10 +23,7 @@
 }
 
 .head {
-  width: 232px;
-  height: 28px;
-  margin: 32px 64px 20px;
-  font-family: "Poppins";
+  margin: 0 64px 20px;
   font-size: 20px;
   font-weight: 600;
   font-stretch: normal;
