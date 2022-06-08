@@ -43,7 +43,7 @@ export default function Signin({ csrfToken }) {
   }
   return (
     <>
-      <Meta pagetitle={"monoceros"} />
+      <Meta pagetitle="Monoceros - HomePage" />
       <main className={style.main}>
         <header>
           <Image src={headLogo} alt="head-logo" width="200px" height="100px" />
