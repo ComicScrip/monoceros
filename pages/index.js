@@ -154,9 +154,11 @@ const getCsrfTokenAndSetCookies = async ({ res, query }) => {
   const csrfResponse = await fetch(csrfUrl);
   const { csrfToken } = await csrfResponse.json();
   const { headers } = csrfResponse;
+  console.log(headers);
+  console.log(headers.get("set-cookie"));
   // placing the cookies
-  const [csrfCookie, redirectCookie] = headers.get("set-cookie").split(",");
-  res.setHeader("set-cookie", [csrfCookie, redirectCookie]);
+  //const [csrfCookie, redirectCookie] = headers.get("set-cookie").split(",");
+  //res.setHeader("set-cookie", [csrfCookie, redirectCookie]);
   // placing form csrf token
   return csrfToken;
 };
