@@ -5,7 +5,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 export default function Home() {
-  const { t } = useTranslation("home");
+  const { t } = useTranslation("common");
   return (
     <Layout>
       <Meta pagetitle="Monoceros - HomePage" />
@@ -35,7 +35,7 @@ export default function Home() {
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "home"])),
+      ...(await serverSideTranslations(locale, ["common", "home", "navbar"])),
     },
   };
 }

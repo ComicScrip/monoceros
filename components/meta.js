@@ -14,7 +14,7 @@ export default function Meta({ pagetitle, keywords, description }) {
 }
 
 Meta.defaultProps = {
-  title: "Monoceros",
+  pageTitle: "Monoceros",
   keywords: "packages, deliveries, sensor",
   description: "Web site created using create-next-app",
 };
