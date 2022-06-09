@@ -1,11 +1,16 @@
 import deliveriesStyle from "../styles/deliveries.module.css";
 import DeliveryOverview from "./deliveryOverview";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getDeliveryOverview } from "../lib/deliveriesAPI";
+import { getDeliveries } from "../lib/deliveriesAPI";
 
-function DeliveryList({ allDeliveries }) {
+function DeliveryList() {
   const [deliveryOverview, setDeliveryOverview] = useState({});
   const [showDetails, setShowDetails] = useState(false);
+  const [allDeliveries, setAllDeliveries] = useState([]);
+  useEffect(() => {
+    getDeliveries().then(setAllDeliveries);
+  }, []);
 
   async function showDeliveryOverview(id) {
     const idStrg = id.toString();
