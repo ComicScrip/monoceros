@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import style from "./navbar.module.css";
+import style from "../styles/navbar.module.css";
 import Image from "next/image";
 import ActiveLink from "./activeLink";
 import { useRouter } from "next/router";
