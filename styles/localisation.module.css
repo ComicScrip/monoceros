@@ -1,0 +1,23 @@
+.localisation {
+  border-radius: 10px;
+  box-shadow: 5px gray;
+  background-color: #f78f8f;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  padding-left: 10px;
+  padding-bottom: 20px;
+}
+
+.coordonnees {
+  display: flex;
+  justify-content: space-around;
+  font-size: 13px;
+  height: 20px;
+}
+
+.head {
+  margin: 0px;
+  font-size: 10px;
+}

@@ -1,39 +1,18 @@
-import React from "react";
-import { getDeliveries } from "../../lib/monocerosAPI";
-//import Link from "next/link";
-import { useRouter } from "next/router";
+import Layout from "../../components/layout";
+import Meta from "../../components/meta";
+import DeliveryList from "../../components/deliveryList";
+import deliveriesStyle from "../../styles/deliveries.module.css";
 
-export default function Deliveries({ allDeliveries }) {
-  const router = useRouter();
-  console.log(allDeliveries);
+const Deliveries = () => {
   return (
-    <div>
-      {allDeliveries.map((delivery) => (
-        <div key={delivery.id} style={{ display: "flex" }}>
-          <p>{delivery.id}</p>
-          <p>{delivery.delivery_path.shipment_paths[0].destination.city}</p>
-          <button
-            type="button"
-            onClick={() => {
-              router.push({
-                pathname: "/deliveries/[did]",
-                query: { did: delivery.id },
-              });
-            }}
-          >
-            Details
-          </button>
-        </div>
-      ))}
-    </div>
+    <>
+      <Meta pagetitle="Monoceros - Deliveries Overview" />
+      <Layout>
+        <h1 className={deliveriesStyle.head}>DELIVERIES OVERVIEW</h1>
+        <DeliveryList />
+      </Layout>
+    </>
   );
-}
+};
 
-export async function getStaticProps() {
-  const allDeliveries = await getDeliveries();
-  return {
-    props: {
-      allDeliveries,
-    },
-  };
-}
+export default Deliveries;

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import idStyle from "../../styles/id.module.css";
 import GroupData from "../../components/groupData";
+import Layout from "../../components/layout";
 
 const DeliveryDetail = () => {
   const [deliveryDetail, setDeliveryDetail] = useState({});
@@ -28,7 +29,7 @@ const DeliveryDetail = () => {
     }
   }, [deliveryDetail]);
   return (
-    <>
+    <Layout>
       {packages ? (
         <div>
           <h2>Delivery - Package view</h2>
@@ -63,7 +64,7 @@ const DeliveryDetail = () => {
       ) : (
         <div>Loading</div>
       )}
-    </>
+    </Layout>
   );
 };
 
