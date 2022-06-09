@@ -3,19 +3,25 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
 
-const Map = () => {
+const Map = ({ location, deliveryId }) => {
+  const [delivery] = location.filter((loc) => loc.id === deliveryId);
   return (
     <div>
       <MapContainer
-        center={[45.764043, 4.835659]}
+        center={
+          delivery?.location
+            ? [delivery.location.gpsla, delivery.location.gpslo]
+            : [46.388392427843584, 6.5068032539801255]
+        }
         zoom={14}
         scrollWheelZoom={false}
         style={{
-          height: 400,
-          width: "95%",
+          height: 200,
+          width: "100%",
           marginLeft: "auto",
           marginRight: "auto",
           marginBottom: "10px",
+          borderRadius: "10px",
         }}
       >
         <TileLayer
@@ -23,7 +29,11 @@ const Map = () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <Marker
-          position={[45.764043, 4.835659]}
+          position={
+            delivery?.location
+              ? [delivery.location.gpsla, delivery.location.gpslo]
+              : [46.388392427843584, 6.5068032539801255]
+          }
           draggable={true}
           animate={true}
         >
