@@ -12,6 +12,13 @@ export default function Navbar() {
   const [openingSectionProduct, setOpeningSectionProduct] = useState(false);
   const [openingSectionDelivery, setOpeningSectionDelivery] = useState(false);
   const router = useRouter();
+  const onSelectChange = (e) => {
+    const locale = e.target.value;
+    router.push(router.asPath, router.asPath, {
+      locale,
+      scroll: false,
+    });
+  };
 
   const openMenu = () => setIsOpen(!isOpen);
   const openSectionProduct = () =>
@@ -287,7 +294,22 @@ export default function Navbar() {
             </li>
           </ul>
           <div className={style.borderBottom}></div>
-          <p className={style.navTextBottom}>{t("signOut")}</p>
+          <div className={style.bottomContainer}>
+            <p className={style.navTextBottom}>{t("signOut")}</p>
+            <select
+              name="languages"
+              id="language-select"
+              onChange={onSelectChange}
+              // value={router.locale}
+              className={style.selectLanguage}
+            >
+              {router.locales.map((language) => (
+                <option value={language} key={language}>
+                  {language === "en" ? "EN" : language === "fr" ? "FR" : null}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <div
           className={
@@ -304,4 +326,6 @@ export default function Navbar() {
       </nav>
     </header>
   );
+
+  // onclick sur option avec router.push
 }
