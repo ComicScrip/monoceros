@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import style from "../styles/home.module.css";
 import styles from "../styles/loginForm.module.css";
 import headLogo from "../public/images/logo-monoceros2.png";
@@ -9,21 +9,15 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { getTokensFromCredentials } from "../lib/monocerosAPI";
+import { useContext } from "react";
+import { CurrentUserContext } from "../contexts/currentUserContext";
 
 export default function Signin({ csrfToken }) {
+  const { profile } = useContext(CurrentUserContext);
   const [isChecked, setIsChecked] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [loginIssues, setLoginIssues] = useState(false);
-  const router = useRouter();
-  const { status } = useSession();
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/deliveries");
-    }
-  });
-  async function handleSubmit(e) {}
 
   function handleCheckBox() {
     setIsChecked(!isChecked);
@@ -38,6 +32,7 @@ export default function Signin({ csrfToken }) {
     setLoginIssues(false);
     setPassword(e.target.value);
   }
+
   return (
     <>
       <Meta pagetitle="Monoceros - HomePage" />
@@ -58,71 +53,87 @@ export default function Signin({ csrfToken }) {
                     height={60}
                   />
                 </div>
-                <form
-                  onSubmit={(e) => handleSubmit(e)}
-                  method="post"
-                  action="/api/auth/callback/credentials"
-                  data-cy="loginForm"
-                  className={styles.formContent}
-                  id="loginForm"
-                >
-                  <input
-                    name="csrfToken"
-                    defaultValue={csrfToken}
-                    type="hidden"
-                  />
-                  <div className="flex flex-col">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      onChange={(e) => handleEmailChange(e)}
-                      data-cy="email"
-                      type="email"
-                      value={email}
-                      className={styles.input}
-                      id="email"
-                      name="username"
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className={styles.label} htmlFor="password">
-                      Password
-                    </label>
-                    <input
-                      onChange={(e) => handlePasswordChange(e)}
-                      value={password}
-                      className={styles.input}
-                      data-cy="password"
-                      type="password"
-                      id="password"
-                      name="password"
-                      required
-                    />
-                  </div>
-                  <p>
-                    <input
-                      data-cy="rememberBox"
-                      onChange={handleCheckBox}
-                      value={isChecked}
-                      type="checkbox"
-                      id="remember"
-                    />
-                    <label htmlFor="remember"> Remember me</label>
-                  </p>
-                  <button
-                    type="submit"
-                    form="loginForm"
-                    data-cy="loginBtn"
-                    className={styles.formButton}
+                {profile ? (
+                  <>
+                    <p>Connecté en tant que {profile.email}</p>
+                    <button data-cy="disconnectBtn" onClick={() => signOut()}>
+                      Se déconnecter
+                    </button>
+                  </>
+                ) : (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      // From https://next-auth.js.org/configuration/pages#credentials-sign-in :
+                      // "You can also use the signIn() function which will handle obtaining the CSRF token for you"
+                      signIn("credentials", {
+                        username: e.target.elements.username.value,
+                        password: e.target.elements.password.value,
+                      });
+                    }}
+                    method="post"
+                    data-cy="loginForm"
+                    className={styles.formContent}
+                    id="loginForm"
                   >
-                    Login
-                  </button>
-                  <Link href={"/inProgress"}>
-                    <p data-cy="lostPassword" className={styles.lostPassword}>
-                      Lost your password ?
+                    <input
+                      name="csrfToken"
+                      defaultValue={csrfToken}
+                      type="hidden"
+                    />
+                    <div className="flex flex-col">
+                      <label htmlFor="email">Email</label>
+                      <input
+                        onChange={(e) => handleEmailChange(e)}
+                        data-cy="email"
+                        type="email"
+                        value={email}
+                        className={styles.input}
+                        id="email"
+                        name="username"
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <label className={styles.label} htmlFor="password">
+                        Password
+                      </label>
+                      <input
+                        onChange={(e) => handlePasswordChange(e)}
+                        value={password}
+                        className={styles.input}
+                        data-cy="password"
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                      />
+                    </div>
+                    <p>
+                      <input
+                        data-cy="rememberBox"
+                        onChange={handleCheckBox}
+                        value={isChecked}
+                        type="checkbox"
+                        id="remember"
+                      />
+                      <label htmlFor="remember"> Remember me</label>
                     </p>
-                  </Link>
-                </form>
+                    <button
+                      type="submit"
+                      form="loginForm"
+                      data-cy="loginBtn"
+                      className={styles.formButton}
+                    >
+                      Login
+                    </button>
+                    <Link href={"/inProgress"}>
+                      <p data-cy="lostPassword" className={styles.lostPassword}>
+                        Lost your password ?
+                      </p>
+                    </Link>
+                  </form>
+                )}
               </div>
             </div>
             {loginIssues ? (
