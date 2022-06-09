@@ -1,33 +1,18 @@
-import Image from "next/image";
+import React from "react";
 import Layout from "../../components/layout";
 import Meta from "../../components/meta";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import DeliveryList from "../../components/deliveryList";
+import deliveriesStyle from "../../styles/deliveries.module.css";
 
 const Deliveries = () => {
   const { t } = useTranslation("common");
   return (
     <Layout>
       <Meta pagetitle="Monoceros - Deliveries Overview" />
-      <h1>Deliveries Overview</h1>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Image
-          priority
-          src="/images/enconstruction.png"
-          height={200}
-          width={200}
-          alt="en construction"
-          style={{ zIndex: -1 }}
-        />
-        <p>{t("description")}</p>
-      </div>
+      <h1 className={deliveriesStyle.head}>DELIVERIES OVERVIEW</h1>
+      <DeliveryList />
     </Layout>
   );
 };
