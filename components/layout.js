@@ -7,7 +7,8 @@ import Footer from "./footer";
 import { signIn } from "next-auth/react";
 
 const Layout = ({ children }) => {
-  const { profile } = useContext(CurrentUserContext);
+  const { profile, status } = useContext(CurrentUserContext);
+  if (status === "loading") return "loading...";
   if (!profile)
     return (
       <>
