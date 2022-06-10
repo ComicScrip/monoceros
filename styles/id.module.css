@@ -28,3 +28,7 @@
   padding-right: 15px;
   /* height: 50px; */
 }
+
+.showGraph {
+  border-left: 3px solid #ff455a;
+}

@@ -34,8 +34,6 @@ const IdComponent = () => {
       setPackageId(packages[0]?.id);
     }
   }, [packages]);
-  // console.log(packages);
-  //console.log(packages[0]);
   return (
     <>
       {packages ? (
@@ -49,7 +47,11 @@ const IdComponent = () => {
           {packages.map((colis) => (
             <div
               key={colis.id}
-              className={idStyle.list}
+              className={
+                packageId === colis.id
+                  ? idStyle.list + " " + idStyle.showGraph
+                  : idStyle.list
+              }
               onClick={() => setPackageId(colis.id)}
             >
               <div>{colis.id}</div>
