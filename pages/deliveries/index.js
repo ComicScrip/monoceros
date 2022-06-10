@@ -7,11 +7,11 @@ import DeliveryList from "../../components/deliveryList";
 import deliveriesStyle from "../../styles/deliveries.module.css";
 
 const Deliveries = () => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("deliveries");
   return (
     <Layout>
-      <Meta pagetitle="Monoceros - Deliveries Overview" />
-      <h1 className={deliveriesStyle.head}>DELIVERIES OVERVIEW</h1>
+      <Meta pagetitle={t("pageTitle")} />
+      <h1 className={deliveriesStyle.head}>{t("overview")}</h1>
       <DeliveryList />
     </Layout>
   );
@@ -22,7 +22,12 @@ export default Deliveries;
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "home", "navbar"])),
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "home",
+        "navbar",
+        "deliveries",
+      ])),
     },
   };
 }

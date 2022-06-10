@@ -1,4 +1,5 @@
 {
-  "title": "Welcome",
-  "description": "Page under construction ..."
+  "description": "Page under construction ...",
+  "authenticated": "You are not authenticated",
+  "login": "Login Page"
 }

@@ -1,7 +1,10 @@
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Image from "next/image";
 import Layout from "../../components/layout";
 
 const DeliveryDetail = () => {
+  const { t } = useTranslation("common");
   return (
     <Layout>
       <div
@@ -19,10 +22,23 @@ const DeliveryDetail = () => {
           width={200}
           alt="en construction"
         />
-        <p>Page under construction ...</p>
+        <p>{t("description")}</p>
       </div>
     </Layout>
   );
 };
 
 export default DeliveryDetail;
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "home",
+        "navbar",
+        "deliveries",
+      ])),
+    },
+  };
+}

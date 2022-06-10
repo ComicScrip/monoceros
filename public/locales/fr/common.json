@@ -1,4 +1,5 @@
 {
-  "title": "Bienvenue",
-  "description": "Page en cours de construction ..."
+  "description": "Page en cours de construction ...",
+  "authenticated": "Vous n'êtes pas authentifié",
+  "login": "Page de connexion"
 }

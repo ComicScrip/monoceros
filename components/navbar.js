@@ -300,7 +300,7 @@ export default function Navbar() {
               name="languages"
               id="language-select"
               onChange={onSelectChange}
-              // value={router.locale}
+              value={router.locale}
               className={style.selectLanguage}
             >
               {router.locales.map((language) => (
