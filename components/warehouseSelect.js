@@ -3,7 +3,6 @@ export default function WarehouseSelect({
   selectWharehouse,
   warehouse,
 }) {
-  console.log(warehouses);
   if (!warehouses) {
     warehouses = [{ name: "no option", id: 0 }];
   }
@@ -11,7 +10,6 @@ export default function WarehouseSelect({
   return (
     <>
       <div className="flex h-10">
-        {warehouses === [] ? <p>not w</p> : null}
         <select
           type="search"
           onChange={(e) => selectWharehouse(e.target.value)}
@@ -29,7 +27,8 @@ export default function WarehouseSelect({
         </select>
         <button
           onClick={() => selectWharehouse("")}
-          className="ml-3 bg-[#e16565] text-white text-xl border-white border-2 w-10"
+          className="ml-3 text-white text-xl border-white border-2 w-10"
+          style={{ backgroundColor: "var(--main-color)" }}
         >
           ✗
         </button>
