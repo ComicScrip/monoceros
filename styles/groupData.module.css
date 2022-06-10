@@ -6,23 +6,20 @@
   border-radius: 5px;
 }
 
-.head {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-  margin-bottom: 15px;
-  padding: 15px 15px 0px 15px;
-  border-bottom: 2px solid lightgray;
-}
-
 .data {
   cursor: pointer;
   padding-bottom: 10px;
-  border-bottom: 2px solid #ff455a;
+  padding-top: 20px;
+  border-bottom: 2px solid lightgray;
 }
 
 .graph {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   align-items: center;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  padding: 15px 15px 0px 15px;
 }

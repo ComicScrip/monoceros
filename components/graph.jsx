@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import moment from "moment";
 
 ChartJS.register(
   CategoryScale,
@@ -21,42 +22,26 @@ ChartJS.register(
   Legend
 );
 
-const Graph = () => {
+const Graph = ({ sensorData }) => {
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        display: false,
       },
       title: {
-        display: true,
-        text: "Temperature",
+        display: false,
       },
     },
   };
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
+  const labels = sensorData.map((data) => moment(data.date).format("DD-MM-YY"));
   const data = {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
-        data: [23, 28, 12, 9, 25, 18, 22],
+        data: sensorData.map((data) => data.sensor_value),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Dataset 2",
-        data: [15, 35, 22, 11, 32, 34, 40],
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
     ],
   };

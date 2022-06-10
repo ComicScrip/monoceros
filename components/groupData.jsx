@@ -1,37 +1,41 @@
 import { useEffect, useState } from "react";
-import { getSensorData } from "../lib/monocerosAPI";
+import { getSensorData } from "../lib/sensorDataAPI";
 import groupDataStyle from "../styles/groupData.module.css";
 import Graph from "./graph";
 
-const GroupData = () => {
+const GroupData = ({ delivery_id, package_id }) => {
   const [temperatureData, setTemperatureData] = useState([]);
   const [humidityData, setHumidityData] = useState([]);
   const [lightData, setLightData] = useState([]);
   const [vibrationData, setVibrationData] = useState([]);
   function getData() {
-    getSensorData("177", "225", "temperature").then(setTemperatureData);
-    getSensorData("177", "225", "humidity").then(setHumidityData);
-    getSensorData("177", "225", "shock").then(setVibrationData);
-    getSensorData("177", "225", "light").then(setLightData);
+    getSensorData(delivery_id, package_id, "temperature").then(
+      setTemperatureData
+    );
+    getSensorData(delivery_id, package_id, "humidity").then(setHumidityData);
+    getSensorData(delivery_id, package_id, "shock").then(setVibrationData);
+    getSensorData(delivery_id, package_id, "light").then(setLightData);
   }
   useEffect(() => {
     getData();
   }, []);
-  console.log("temp", temperatureData);
-  console.log("hum", humidityData);
-  console.log("light", lightData);
-  console.log("shock", vibrationData);
+  console.log(temperatureData);
   return (
     <div className={groupDataStyle.container}>
-      <div className={groupDataStyle.head}>
-        <div className={groupDataStyle.data}>Temperature</div>
-        <div className={groupDataStyle.data}>Humidity</div>
-        <div className={groupDataStyle.data}>Light</div>
-        <div className={groupDataStyle.data}>Vibration</div>
-      </div>
-      <div className={groupDataStyle.graph}>
-        <Graph />
-      </div>
+      {temperatureData.length !== 0 ? (
+        <div className={groupDataStyle.graph}>
+          <div className={groupDataStyle.data}>Temperature</div>
+          <Graph sensorData={temperatureData} />
+          <div className={groupDataStyle.data}>Humidity</div>
+          <Graph sensorData={humidityData} />
+          <div className={groupDataStyle.data}>Light</div>
+          <Graph sensorData={lightData} />
+          <div className={groupDataStyle.data}>Vibration</div>
+          <Graph sensorData={vibrationData} />
+        </div>
+      ) : (
+        <div className={groupDataStyle.graph}>Pas de données</div>
+      )}
     </div>
   );
 };
