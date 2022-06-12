@@ -18,22 +18,23 @@ export default function ProductsList() {
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 6;
+  const productsPerPage = 10;
   const [numberOfProducts, setNumberOfProducts] = useState(null);
 
   async function getProductsNumber() {
-    const pnbr = await getAllProducts(1, 0);
+    const pnbr = await getAllProducts(50, 0);
     setNumberOfProducts(pnbr.data.count);
   }
 
   useEffect(() => {
     async function request() {
-      getProductsNumber();
+      //getProductsNumber();
       if (!warehouseSelect && !countrySelect) {
         const products = await getAllProducts(
           productsPerPage,
-          currentPage * productsPerPage
+          (currentPage - 1) * productsPerPage + 1
         );
+        setNumberOfProducts(products.data.count);
         setProducts(products.data.results);
         const warehouses = await getWarehouses();
         setWarehousesList(warehouses.data);
@@ -42,18 +43,31 @@ export default function ProductsList() {
       } else if (countrySelect && !warehouseSelect) {
         const warehousesList = await getWarehouses(countrySelect);
         setWarehousesList(warehousesList.data);
-        const products = await getProductsByCountry(countrySelect);
+        const products = await getProductsByCountry(
+          countrySelect,
+          productsPerPage,
+          (currentPage - 1) * (productsPerPage + 1)
+        );
+        setNumberOfProducts(products.data.count);
         setProducts(products.data.results);
       } else if (warehouseSelect && !countrySelect) {
-        const products = await getProductsByWarehouse(warehouseSelect);
+        const products = await getProductsByWarehouse(
+          warehouseSelect,
+          productsPerPage,
+          (currentPage - 1) * (productsPerPage + 1)
+        );
+        setNumberOfProducts(products.data.count);
         setProducts(products.data.results);
       } else if (warehouseSelect && countrySelect) {
         const warehousesList = await getWarehouses(countrySelect);
         setWarehousesList(warehousesList.data);
         const products = await getProductsByCountryAndWarehouse(
           countrySelect,
-          warehouseSelect
+          warehouseSelect,
+          productsPerPage,
+          (currentPage - 1) * (productsPerPage + 1)
         );
+        setNumberOfProducts(products.data.count);
         setProducts(products.data.results);
       }
     }
@@ -84,22 +98,24 @@ export default function ProductsList() {
               countries={countriesList}
               selectCountry={setCountrySelect}
               country={countrySelect}
+              setCurrentPage={setCurrentPage}
             />
             <WarehouseSelect
               warehouses={warehousesList}
               selectWharehouse={setWareHouseSelect}
               warehouse={warehouseSelect}
+              setCurrentPage={setCurrentPage}
             />
           </div>
         </div>
         <div className="w-[95vw] bg-white flex flex-col justify-around items-center">
           {products.map((product, _) => (
             <div
-              className="h-36 overflow-x-scroll w-[100%]"
+              className="h-24 overflow-x-scroll w-[100%]"
               style={{ backgroundColor: "var(--main-bg-color)" }}
               key={_}
             >
-              <table className="w-[95vw] h-28">
+              <table className="w-[95vw] h-20">
                 <tbody className="bg-white">
                   <tr className="text-center text-[0.6rem]">
                     {tableHead.map((item) => (
@@ -145,9 +161,12 @@ export default function ProductsList() {
               <p>No products</p>
             </div>
           ) : (
-            <div className="flex justify-center w-full mt-5">
+            <div
+              className="flex justify-center w-full"
+              style={{ backgroundColor: "var(--main-bg-color)" }}
+            >
               <Pagination
-                index={Math.ceil(numberOfProducts / productsPerPage - 1)}
+                index={Math.ceil(numberOfProducts / productsPerPage)}
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
               />

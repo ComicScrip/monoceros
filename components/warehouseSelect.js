@@ -2,7 +2,12 @@ export default function WarehouseSelect({
   warehouses,
   selectWharehouse,
   warehouse,
+  setCurrentPage,
 }) {
+  function handleClick() {
+    selectWharehouse("");
+    setCurrentPage(1);
+  }
   if (!warehouses) {
     warehouses = [{ name: "no option", id: 0 }];
   }
@@ -26,7 +31,7 @@ export default function WarehouseSelect({
           ))}
         </select>
         <button
-          onClick={() => selectWharehouse("")}
+          onClick={() => handleClick()}
           className="ml-3 text-white text-xl border-white border-2 w-10"
           style={{ backgroundColor: "var(--main-color)" }}
         >

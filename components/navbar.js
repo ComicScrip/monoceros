@@ -4,6 +4,7 @@ import style from "../styles/navbar.module.css";
 import Image from "next/image";
 import ActiveLink from "./activeLink";
 import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -102,6 +103,7 @@ export default function Navbar() {
             >
               <div className={style.navlogo}>
                 <Image
+                  style={{ width: "75%" }}
                   src="/images/product-logo.svg"
                   alt="logo"
                   width={20}
@@ -285,7 +287,12 @@ export default function Navbar() {
             </li>
           </ul>
           <div className={style.borderBottom}></div>
-          <p className={style.navTextBottom}>Sign Out</p>
+          <p
+            className={style.navTextBottom}
+            onClick={() => signOut({ callbackUrl: "/" })}
+          >
+            Sign Out
+          </p>
         </div>
         <div
           className={

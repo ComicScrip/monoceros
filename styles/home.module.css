@@ -11,7 +11,7 @@
   justify-content: center;
   border-bottom-left-radius: 50px;
   border-top-left-radius: 50px;
-  background-image: url("https://www.generixgroup.com/sites/default/files/2022-01/pageWMSs.jpg");
+  background-image: url("../public/images/main_bg.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
