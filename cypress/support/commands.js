@@ -17,7 +17,7 @@ Cypress.Commands.add("login", ({ email }) => {
     statusCode: 200,
     body: { email },
   });
-  cy.intercept("**/api/tokens", {
+  cy.intercept("**/api/tokens/", {
     statusCode: 200,
     body: {
       refresh: "refreshToken",

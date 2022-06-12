@@ -18,17 +18,11 @@ export default function ProductsList() {
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 10;
+  const productsPerPage = 8;
   const [numberOfProducts, setNumberOfProducts] = useState(null);
-
-  async function getProductsNumber() {
-    const pnbr = await getAllProducts(50, 0);
-    setNumberOfProducts(pnbr.data.count);
-  }
 
   useEffect(() => {
     async function request() {
-      //getProductsNumber();
       if (!warehouseSelect && !countrySelect) {
         const products = await getAllProducts(
           productsPerPage,
@@ -115,11 +109,11 @@ export default function ProductsList() {
         <div className="w-[95vw] bg-white flex flex-col items-center justify-center">
           {products.map((product, _) => (
             <div
-              className="h-24 overflow-x-scroll w-[100%]"
+              className="h-16 overflow-x-scroll w-[100%]"
               style={{ backgroundColor: "var(--main-bg-color)" }}
               key={_}
             >
-              <table className="w-[95vw] h-20">
+              <table className="w-[95vw] h-14">
                 <tbody className="bg-white">
                   <tr className="text-[0.6rem]">
                     {tableHead.map((item) => (
@@ -158,12 +152,12 @@ export default function ProductsList() {
           ))}
 
           {products.length < 1 ? (
-            <div className="flex items-center justify-center bg-white w-[90vw] h-24 ">
+            <div className="flex items-center justify-center bg-white w-[90vw] h-16">
               <p>No products</p>
             </div>
           ) : (
             <div
-              className="flex justify-center w-full"
+              className="flex justify-center w-full absolute bottom-5 mt-3"
               style={{ backgroundColor: "var(--main-bg-color)" }}
             >
               <Pagination

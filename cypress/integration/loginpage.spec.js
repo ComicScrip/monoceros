@@ -16,7 +16,7 @@ describe("login", () => {
   });
 
   describe("when logged in", () => {
-    it("should display the current user email and a disconnect button", () => {
+    it("should display the deliveries page", () => {
       cy.login({ email: "test@gmail.com" });
       cy.visit("/");
       cy.contains("Deliveries Overview");
