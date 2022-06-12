@@ -2,7 +2,7 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
   if (index < 0) index = 5;
   const pages = new Array(index).fill().map((_, i) => i + 1);
   return (
-    <nav className="bg-white h-15 flex justify-center items-center text-lg cursor-pointer w-[20%] mb-5">
+    <nav className="bg-white h-15 flex justify-center items-center text-lg cursor-pointer w-[200px] mb-5">
       <span
         className="text-xl ml-3 mr-3"
         onClick={currentPage > 1 ? () => setCurrentPage(currentPage - 1) : null}

@@ -8,6 +8,11 @@ export default function WarehouseSelect({
     selectWharehouse("");
     setCurrentPage(1);
   }
+
+  function handleSelectChange(e) {
+    selectWharehouse(e.target.value);
+    setCurrentPage(1);
+  }
   if (!warehouses) {
     warehouses = [{ name: "no option", id: 0 }];
   }
@@ -17,7 +22,7 @@ export default function WarehouseSelect({
       <div className="flex h-7 w-[90vw]">
         <select
           type="search"
-          onChange={(e) => selectWharehouse(e.target.value)}
+          onChange={(e) => handleSelectChange(e)}
           value={warehouse}
           className="bg-white w-[90vw] h-7 mb-5"
           style={{ fontSize: "10px" }}

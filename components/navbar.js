@@ -175,6 +175,7 @@ export default function Navbar() {
                 <div className={style.navsubmenu}>
                   <p className={style.navlink}>Deliveries</p>
                   <Image
+                    data-cy="expand-deliveries-nav"
                     src={"/images/chevron-down.svg"}
                     alt="logo"
                     width={20}
@@ -209,7 +210,11 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/deliveries"
                     >
-                      <a className={style.navlink} onClick={openMenu}>
+                      <a
+                        data-cy="deliveries-overview"
+                        className={style.navlink}
+                        onClick={openMenu}
+                      >
                         Deliveries overview
                       </a>
                     </ActiveLink>
@@ -295,6 +300,7 @@ export default function Navbar() {
           </p>
         </div>
         <div
+          data-cy="hamburger"
           className={
             isOpen === false
               ? style.hamburger

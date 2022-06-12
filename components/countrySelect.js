@@ -8,11 +8,17 @@ export default function CountrySelect({
     selectCountry("");
     setCurrentPage(1);
   }
+
+  function handleSelectChange(e) {
+    selectCountry(e.target.value);
+    setCurrentPage(1);
+  }
+
   return (
     <>
       <div className="flex h-7 m-2 w-[90vw]">
         <select
-          onChange={(e) => selectCountry(e.target.value)}
+          onChange={(e) => handleSelectChange(e)}
           value={country}
           className="bg-white w-[90vw] h-7 mb-5"
           style={{ fontSize: "10px" }}
