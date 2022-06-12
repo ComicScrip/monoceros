@@ -114,6 +114,7 @@ export default function Navbar() {
                 <div className={style.navsubmenu}>
                   <p className={style.navlink}>Products</p>
                   <Image
+                    data-cy="expand-products"
                     src={"/images/chevron-down.svg"}
                     alt="logo"
                     width={20}
@@ -148,7 +149,11 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/products"
                     >
-                      <a className={style.navlink} onClick={openMenu}>
+                      <a
+                        data-cy="products-catalogue"
+                        className={style.navlink}
+                        onClick={openMenu}
+                      >
                         Products catalogue
                       </a>
                     </ActiveLink>

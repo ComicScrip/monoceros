@@ -32,7 +32,6 @@ describe("login", () => {
       cy.visit("/deliveries");
       cy.get("[data-cy=hamburger]").click();
       cy.contains("Deliveries");
-      //cy.contains("Deliveries Overview");
     });
   });
 });
