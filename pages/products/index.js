@@ -5,12 +5,12 @@ import Layout from "../../components/layout";
 const Products = () => {
   return (
     <>
-      <div className="bg-[#efefef] flex justify-center">
-        <Layout>
-          <Meta pagetitle="Monoceros - Products Catalogue" />
+      <Layout>
+        <Meta pagetitle="Monoceros - Products Catalogue" />
+        <div className="flex justify-center flex-col items-center">
           <ProductsList />
-        </Layout>
-      </div>
+        </div>
+      </Layout>
     </>
   );
 };

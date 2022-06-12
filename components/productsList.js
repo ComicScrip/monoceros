@@ -88,10 +88,14 @@ export default function ProductsList() {
       <div>
         <div className="flex flex-col h-full items-center mb-10 text-center">
           <h1
-            className="text-2xl w-full font-bold mb-5"
-            style={{ color: "var(--main-color)" }}
+            className="w-full mb-5"
+            style={{
+              color: "var(--main-color)",
+              fontSize: "20px",
+              fontWeight: "600",
+            }}
           >
-            Products catalogue
+            PRODUCTS CATALOGUE
           </h1>
           <div className="flex flex-col items-center justify-center w-[95]">
             <CountrySelect
@@ -108,7 +112,7 @@ export default function ProductsList() {
             />
           </div>
         </div>
-        <div className="w-[95vw] bg-white flex flex-col justify-around items-center">
+        <div className="w-[95vw] bg-white flex flex-col items-center justify-center">
           {products.map((product, _) => (
             <div
               className="h-24 overflow-x-scroll w-[100%]"
@@ -117,38 +121,35 @@ export default function ProductsList() {
             >
               <table className="w-[95vw] h-20">
                 <tbody className="bg-white">
-                  <tr className="text-center text-[0.6rem]">
+                  <tr className="text-[0.6rem]">
                     {tableHead.map((item) => (
                       <td key={item}>{item}</td>
                     ))}
                   </tr>
-                  <tr
-                    key={_}
-                    className="collapse text-center font-bold text-[0.8rem]"
-                  >
-                    <td className="min-w-[150px]">{product.name}</td>
-                    <td className="min-w-[150px]">
+                  <tr key={_} className="collapse font-bold text-[10px]">
+                    <td className="min-w-[120px]">{product.name}</td>
+                    <td className="min-w-[90px]">
                       {product.expiration_date
                         ? product.expiration_date.slice(0, 10)
                         : ""}
                     </td>
-                    <td className="min-w-[110px]">
+                    <td className="min-w-[90px]">
                       {product.temperature_min} / {product.temperature_max}
                     </td>
-                    <td className="min-w-[110px]">
+                    <td className="min-w-[90px]">
                       {product.humidity_min} / {product.humidity_max}
                     </td>
-                    <td className="min-w-[110px]">
+                    <td className="min-w-[90px]">
                       {product.light_min} / {product.light_max}
                     </td>
-                    <td className="min-w-[110px]">
+                    <td className="min-w-[90px]">
                       {product.shock_min} / {product.shock_max}
                     </td>
-                    <td className="min-w-[110px]">{product.unit_cost}</td>
-                    <td className="min-w-[110px]">
+                    <td className="min-w-[90px]">{product.unit_cost}</td>
+                    <td className="min-w-[90px]">
                       {product.lead_time_average
                         ? product.lead_time_average
-                        : ""}
+                        : 0}
                     </td>
                   </tr>
                 </tbody>

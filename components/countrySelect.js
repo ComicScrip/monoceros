@@ -10,13 +10,14 @@ export default function CountrySelect({
   }
   return (
     <>
-      <div className="flex h-10 m-2">
+      <div className="flex h-7 m-2 w-[90vw]">
         <select
           onChange={(e) => selectCountry(e.target.value)}
           value={country}
-          className="bg-white w-[90vw] h-10 mb-5"
+          className="bg-white w-[90vw] h-7 mb-5"
+          style={{ fontSize: "10px" }}
         >
-          <option value="" hidden>
+          <option className="font-xs" value="" hidden>
             Country
           </option>
           {countries.map((country) => (
@@ -27,7 +28,7 @@ export default function CountrySelect({
         </select>
         <button
           onClick={() => handleClick()}
-          className="ml-3 text-white text-xl border-white border-2 w-10"
+          className="ml-3 text-white text-l border-white border-2 w-7"
           style={{ backgroundColor: "var(--main-color)" }}
         >
           ✗

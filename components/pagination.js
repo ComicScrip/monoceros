@@ -4,7 +4,7 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
   return (
     <nav className="bg-white h-15 flex justify-center items-center text-lg cursor-pointer w-[20%] mb-5">
       <span
-        className="text-2xl ml-3 mr-3"
+        className="text-xl ml-3 mr-3"
         onClick={currentPage > 1 ? () => setCurrentPage(currentPage - 1) : null}
       >
         ←
@@ -15,8 +15,8 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
             key={page}
             className={
               page === currentPage
-                ? "m-2 hover:underline font-bold underline decoration-[#e16565]"
-                : "m-2 hover:underline font-thin"
+                ? "m-2 hover:underline font-bold text-xs underline decoration-[#e16565]"
+                : "m-2 hover:underline font-thin text-xs"
             }
             onClick={(e) => {
               e.preventDefault();
@@ -29,7 +29,7 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
       })}
       {index > 5 ? <span>...</span> : null}
       <span
-        className="text-2xl mr-3 ml-3"
+        className="text-xl mr-3 ml-3"
         onClick={
           currentPage < index ? () => setCurrentPage(currentPage + 1) : null
         }

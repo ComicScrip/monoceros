@@ -14,12 +14,13 @@ export default function WarehouseSelect({
 
   return (
     <>
-      <div className="flex h-10">
+      <div className="flex h-7 w-[90vw]">
         <select
           type="search"
           onChange={(e) => selectWharehouse(e.target.value)}
           value={warehouse}
-          className="bg-white w-[90vw] h-10 mb-5 "
+          className="bg-white w-[90vw] h-7 mb-5"
+          style={{ fontSize: "10px" }}
         >
           <option value="" className="text-gray-300" disabled hidden>
             Warehouses
@@ -32,7 +33,7 @@ export default function WarehouseSelect({
         </select>
         <button
           onClick={() => handleClick()}
-          className="ml-3 text-white text-xl border-white border-2 w-10"
+          className="ml-3 text-white text-l border-white border-2 w-7"
           style={{ backgroundColor: "var(--main-color)" }}
         >
           ✗
