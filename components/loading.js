@@ -7,7 +7,7 @@ const Screen = styled.div`
   width: 100%;
   opacity: 0;
   animation: fade 0.4s ease-in forwards;
-  background: white;
+  background: black;
 
   @keyframes fade {
     0% {
@@ -33,7 +33,7 @@ const Balls = styled.div`
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background: #ff455a;
+    background: #1b5299;
     margin: 0 6px 0 0;
     animation: oscillate 0.7s ease-in forwards infinite;
   }
@@ -61,7 +61,7 @@ const Balls = styled.div`
   }
 `;
 
-const LoadingScreen = () => {
+const Loading = () => {
   return (
     <Screen>
       <Balls>
@@ -73,4 +73,4 @@ const LoadingScreen = () => {
   );
 };
 
-export default LoadingScreen;
+export default Loading;

@@ -3,11 +3,13 @@ import DeliveryOverview from "./deliveryOverview";
 import { useState, useEffect } from "react";
 import { getDeliveryOverview } from "../lib/deliveriesAPI";
 import { getDeliveries } from "../lib/deliveriesAPI";
+import Loading from "./loading";
 
 function DeliveryList() {
   const [deliveryOverview, setDeliveryOverview] = useState({});
   const [showDetails, setShowDetails] = useState(false);
   const [allDeliveries, setAllDeliveries] = useState([]);
+
   useEffect(() => {
     getDeliveries().then(setAllDeliveries);
   }, []);
@@ -42,26 +44,32 @@ function DeliveryList() {
             <th className={deliveriesStyle.tHeader}>Date</th>
           </tr>
         </thead>
-        <tbody>
-          {allDeliveries.map((delivery) => (
-            <tr
-              className={deliveriesStyle.tRow + " " + deliveriesStyle.id}
-              key={delivery.id}
-              onClick={() => showDeliveryOverview(delivery.id)}
-            >
-              <td className={deliveriesStyle.tCell}>{delivery.id}</td>
-              <td className={deliveriesStyle.tCell}>{delivery.status}</td>
-              <td className={deliveriesStyle.tCell}>Vert</td>
-              <td className={deliveriesStyle.tCell}>
-                {delivery.delivery_path.shipment_paths[0].origin.contact_name}
-              </td>
-              <td className={deliveriesStyle.tCell}>
-                {delivery.delivery_path.shipment_paths[0].destination.city}
-              </td>
-              <td className={deliveriesStyle.tCell}>{delivery.end_date}</td>
-            </tr>
-          ))}
-        </tbody>
+        {allDeliveries.length !== 0 ? (
+          <tbody>
+            {allDeliveries.map((delivery) => (
+              <tr
+                className={deliveriesStyle.tRow + " " + deliveriesStyle.id}
+                key={delivery.id}
+                onClick={() => showDeliveryOverview(delivery.id)}
+              >
+                <td className={deliveriesStyle.tCell}>{delivery.id}</td>
+                <td className={deliveriesStyle.tCell}>{delivery.status}</td>
+                <td className={deliveriesStyle.tCell}>Vert</td>
+                <td className={deliveriesStyle.tCell}>
+                  {delivery.delivery_path.shipment_paths[0].origin.contact_name}
+                </td>
+                <td className={deliveriesStyle.tCell}>
+                  {delivery.delivery_path.shipment_paths[0].destination.city}
+                </td>
+                <td className={deliveriesStyle.tCell}>{delivery.end_date}</td>
+              </tr>
+            ))}
+          </tbody>
+        ) : (
+          <tbody>
+            <Loading />
+          </tbody>
+        )}
       </table>
     </>
   );
