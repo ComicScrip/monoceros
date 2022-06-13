@@ -15,7 +15,11 @@ const Layout = ({ children }) => {
       <>
         <div className="flex flex-col items-center justify-center mt-20">
           <h1 className="underline text-2xl">you are not authenticated</h1>
-          <button onClick={() => signIn()} className="bg-slate-400 mt-5">
+          <button
+            onClick={() => signIn()}
+            style={{ backgroundColor: "var(--main-color)" }}
+            className="mt-5 text-white font-bold py-2 px-4 rounded"
+          >
             Login Page
           </button>
         </div>
