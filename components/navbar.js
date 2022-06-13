@@ -295,6 +295,7 @@ export default function Navbar() {
           </p>
         </div>
         <div
+          data-cy="hamburger"
           className={
             isOpen === false
               ? style.hamburger

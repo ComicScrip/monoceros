@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import style from "../styles/home.module.css";
 import styles from "../styles/loginForm.module.css";
 import headLogo from "../public/images/logo-monoceros2.png";
@@ -9,7 +9,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { getTokensFromCredentials } from "../lib/monocerosAPI";
 
 export default function Signin({ csrfToken }) {
   const [isChecked, setIsChecked] = useState(false);
@@ -19,11 +18,19 @@ export default function Signin({ csrfToken }) {
   const router = useRouter();
   const { status } = useSession();
   useEffect(() => {
+    if (router.asPath.includes("error")) {
+      router.push("/");
+      setLoginIssues(true);
+    }
     if (status === "authenticated") {
       router.push("/deliveries");
     }
   });
-  async function handleSubmit(e) {}
+  async function handleSubmit(e) {
+    console.log(router.error);
+
+    console.log(password, email);
+  }
 
   function handleCheckBox() {
     setIsChecked(!isChecked);
@@ -59,7 +66,7 @@ export default function Signin({ csrfToken }) {
                   />
                 </div>
                 <form
-                  onSubmit={handleSubmit}
+                  // onSubmit={(e) => handleSubmit(e)}
                   method="post"
                   action="/api/auth/callback/credentials"
                   data-cy="loginForm"
