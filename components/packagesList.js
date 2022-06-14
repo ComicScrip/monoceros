@@ -7,7 +7,7 @@ import { getAllPackages } from "../lib/packagesAPI";
 export default function PackagesList() {
   const [packages, setPackages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const packagesPerPage = 9;
+  const packagesPerPage = 8;
   const [numberOfPackages, setNumberOfPackages] = useState(null);
 
   useEffect(() => {

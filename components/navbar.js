@@ -14,12 +14,23 @@ export default function Navbar() {
   const router = useRouter();
 
   const openMenu = () => setIsOpen(!isOpen);
-  const openSectionProduct = () =>
+  const openSectionProduct = () => {
     setOpeningSectionProduct(!openingSectionProduct);
-  const openSectionDelivery = () =>
+    setOpeningSectionDelivery(false);
+    setOpeningSectionPackages(false);
+  };
+
+  const openSectionDelivery = () => {
     setOpeningSectionDelivery(!openingSectionDelivery);
-  const openSectionPackages = () =>
+    setOpeningSectionPackages(false);
+    setOpeningSectionProduct(false);
+  };
+
+  const openSectionPackages = () => {
     setOpeningSectionPackages(!openingSectionPackages);
+    setOpeningSectionProduct(false);
+    setOpeningSectionDelivery(false);
+  };
 
   return (
     <header className={style.header}>

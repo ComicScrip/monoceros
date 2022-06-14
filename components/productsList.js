@@ -18,7 +18,7 @@ export default function ProductsList() {
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 9;
+  const productsPerPage = 8;
   const [numberOfProducts, setNumberOfProducts] = useState(null);
 
   useEffect(() => {
