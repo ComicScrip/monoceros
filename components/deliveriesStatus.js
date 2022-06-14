@@ -19,17 +19,17 @@ export default function DeliveriesStatus() {
   const completedWidth = Math.ceil(unit * completed);
 
   return (
-    <div className="flex justify-center w-[90%] bg-white mt-10">
+    <div className="flex justify-center  bg-white text-xs w-[90%] mx-auto rounded p-5">
       <div className="flex flex-col w-[85%]">
-        <h1 className="mb-[15px] text-lg font-bold">My deliveries</h1>
+        <h1 className="mb-[15px] font-bold self-start">My deliveries</h1>
         <div className="mb-[15px] flex items-center justify-between">
           <p>In progress</p>
           <div
-            className={`bg-[#eae5e5] w-[${containerWidth}%] h-[15px] rounded`}
+            className={`bg-[#eae5e5] w-[${containerWidth}%] h-[10px] rounded`}
           >
             <div
               style={{ width: `${inProgressWidth}%` }}
-              className="h-[15px] bg-red-600 rounded flex justify-end"
+              className="h-[10px] bg-red-600 rounded flex justify-end"
             >
               <span className="relative bottom-5 text-red-600">
                 {in_progress}
@@ -40,11 +40,11 @@ export default function DeliveriesStatus() {
         <div className="mb-[15px] flex items-center justify-between">
           <p>Delayed</p>
           <div
-            className={`bg-[#eae5e5] w-[${containerWidth}%] h-[15px] rounded`}
+            className={`bg-[#eae5e5] w-[${containerWidth}%] h-[10px] rounded`}
           >
             <div
               style={{ width: `${delayedWidth}%` }}
-              className="h-[15px] bg-red-600 rounded flex justify-end"
+              className="h-[10px] bg-red-600 rounded flex justify-end"
             >
               <span className="relative bottom-5 text-red-600">{delayed}</span>
             </div>
@@ -52,10 +52,10 @@ export default function DeliveriesStatus() {
         </div>
         <div className="mb-[15px] flex items-center justify-between">
           <p>Completed</p>
-          <div className="bg-[#eae5e5] w-[70%] h-[15px] rounded ">
+          <div className="bg-[#eae5e5] w-[70%] h-[10px] rounded ">
             <div
               style={{ width: `${completedWidth}%` }}
-              className="h-[15px] bg-red-600 rounded flex justify-end"
+              className="h-[10px] bg-red-600 rounded flex justify-end"
             >
               <span className="relative bottom-5 text-red-600">
                 {completed}
