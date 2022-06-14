@@ -26,7 +26,7 @@ export default function ProductsList() {
       if (!warehouseSelect && !countrySelect) {
         const products = await getAllProducts(
           productsPerPage,
-          (currentPage - 1) * productsPerPage + 1
+          (currentPage - 1) * (productsPerPage + 1)
         );
         setNumberOfProducts(products.data.count);
         setProducts(products.data.results);
@@ -157,7 +157,7 @@ export default function ProductsList() {
             </div>
           ) : (
             <div
-              className="flex justify-center w-full absolute bottom-5 mt-3"
+              className="flex justify-center w-full  mt-3"
               style={{ backgroundColor: "var(--main-bg-color)" }}
             >
               <Pagination

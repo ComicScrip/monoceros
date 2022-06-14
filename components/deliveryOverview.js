@@ -7,6 +7,7 @@ import ShockData from "./shockData";
 import deliveryDetailStyle from "../styles/deliveryDetail.module.css";
 import { useRouter } from "next/router";
 import { getDeliveriesLocalisation } from "../lib/sensorDataAPI";
+import DeliveryPath from "./deliveryPath";
 
 const DeliveryOverview = ({ deliveryDetail }) => {
   const MapWithNoSSR = dynamic(() => import("./map"), {
@@ -15,8 +16,10 @@ const DeliveryOverview = ({ deliveryDetail }) => {
   const [deliveriesLoc, setDeliveriesLoc] = useState([]);
   const router = useRouter();
   useEffect(() => {
+    console.log(deliveryDetail);
     getDeliveriesLocalisation().then(setDeliveriesLoc);
-  }, []);
+  }, [deliveryDetail]);
+
   return (
     <div className={deliveryDetailStyle.global}>
       <div className={deliveryDetailStyle.head}>
@@ -44,6 +47,7 @@ const DeliveryOverview = ({ deliveryDetail }) => {
       <div className={deliveryDetailStyle.map}>
         <MapWithNoSSR location={deliveriesLoc} deliveryId={deliveryDetail.id} />
       </div>
+      <DeliveryPath id={deliveryDetail.id} />
     </div>
   );
 };
