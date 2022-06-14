@@ -1,11 +1,3 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background-color: #efefef;
-}
-
 a {
   color: inherit;
   text-decoration: none;

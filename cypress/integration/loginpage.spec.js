@@ -26,12 +26,11 @@ describe("login", () => {
     });
   });
 
-  describe("when logged in", () => {
-    it("should display the deliveries page", () => {
+  describe("when logged in with correct credential", () => {
+    it("should work", () => {
+      cy.visit("/");
       cy.login({ email: "test@gmail.com" });
       cy.visit("/deliveries");
-      cy.get("[data-cy=hamburger]").click();
-      cy.contains("Deliveries");
     });
   });
 });

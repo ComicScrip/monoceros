@@ -10,8 +10,10 @@ import {
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
 import Pagination from "./pagination";
+import { useRouter } from "next/router";
 
 export default function ProductsList() {
+  const router = useRouter();
   const [countrySelect, setCountrySelect] = useState("");
   const [warehouseSelect, setWareHouseSelect] = useState("");
   const [countriesList, setCountriesList] = useState([]);
@@ -22,6 +24,13 @@ export default function ProductsList() {
   const [numberOfProducts, setNumberOfProducts] = useState(null);
 
   useEffect(() => {
+    router.replace({
+      query: {
+        ...router.query,
+        warehouse: warehouseSelect,
+        country: countrySelect,
+      },
+    });
     async function request() {
       if (!warehouseSelect && !countrySelect) {
         const products = await getAllProducts(
@@ -67,6 +76,7 @@ export default function ProductsList() {
     }
     request();
   }, [countrySelect, warehouseSelect, currentPage]);
+  console.log(router.query);
   const tableHead = [
     "Product",
     "Expiration",
