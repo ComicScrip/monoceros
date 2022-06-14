@@ -18,8 +18,7 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
                 ? "m-2 hover:underline font-bold text-xs underline decoration-[#e16565]"
                 : "m-2 hover:underline font-thin text-xs"
             }
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
               setCurrentPage(page);
             }}
           >
@@ -27,7 +26,7 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
           </a>
         );
       })}
-      {index > 5 ? <span>...</span> : null}
+      {index > 5 ? <span></span> : null}
       <span
         className="text-xl mr-3 ml-3"
         onClick={

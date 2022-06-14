@@ -10,6 +10,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openingSectionProduct, setOpeningSectionProduct] = useState(false);
   const [openingSectionDelivery, setOpeningSectionDelivery] = useState(false);
+  const [openingSectionPackages, setOpeningSectionPackages] = useState(false);
   const router = useRouter();
 
   const openMenu = () => setIsOpen(!isOpen);
@@ -17,6 +18,8 @@ export default function Navbar() {
     setOpeningSectionProduct(!openingSectionProduct);
   const openSectionDelivery = () =>
     setOpeningSectionDelivery(!openingSectionDelivery);
+  const openSectionPackages = () =>
+    setOpeningSectionPackages(!openingSectionPackages);
 
   return (
     <header className={style.header}>
@@ -155,6 +158,73 @@ export default function Navbar() {
                         onClick={openMenu}
                       >
                         Products catalogue
+                      </a>
+                    </ActiveLink>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li
+              className={
+                router.pathname.includes("package")
+                  ? style.navoveritem + " " + style.activeSection
+                  : style.navoveritem
+              }
+            >
+              <div className={style.navlogo}>
+                <Image
+                  style={{ width: "75%" }}
+                  src="/images/product-logo.svg"
+                  alt="logo"
+                  width={20}
+                  height={20}
+                />
+              </div>
+              <div className={style.navsubmenuContainer}>
+                <div className={style.navsubmenu}>
+                  <p className={style.navlink}>Packages</p>
+                  <Image
+                    data-cy="expand-packages"
+                    src={"/images/chevron-down.svg"}
+                    alt="logo"
+                    width={20}
+                    height={20}
+                    onClick={openSectionPackages}
+                    className={
+                      openingSectionPackages
+                        ? style.chevronUp
+                        : style.chevronDown
+                    }
+                  />
+                </div>
+                <ul
+                  className={
+                    openingSectionPackages
+                      ? style.sectionOpen
+                      : style.sectionClose
+                  }
+                >
+                  <li className={style.navsubitem}>
+                    <ActiveLink
+                      activeClassName="activeSubitem"
+                      href="/newpackages"
+                    >
+                      <a className={style.navlink} onClick={openMenu}>
+                        New Package
+                      </a>
+                    </ActiveLink>
+                  </li>
+                  <li className={style.navsubitem}>
+                    <ActiveLink
+                      activeClassName="activeSubitem"
+                      href="/packages"
+                    >
+                      <a
+                        data-cy="packages-catalogue"
+                        className={style.navlink}
+                        onClick={openMenu}
+                      >
+                        Packages catalogue
                       </a>
                     </ActiveLink>
                   </li>

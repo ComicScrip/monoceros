@@ -18,7 +18,7 @@ export default function ProductsList() {
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8;
+  const productsPerPage = 9;
   const [numberOfProducts, setNumberOfProducts] = useState(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function ProductsList() {
       if (!warehouseSelect && !countrySelect) {
         const products = await getAllProducts(
           productsPerPage,
-          (currentPage - 1) * productsPerPage + 1
+          (currentPage - 1) * (productsPerPage + 1)
         );
         setNumberOfProducts(products.data.count);
         setProducts(products.data.results);

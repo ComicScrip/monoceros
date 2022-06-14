@@ -28,7 +28,7 @@ export default function WarehouseSelect({
           style={{ fontSize: "10px" }}
         >
           <option value="" className="text-gray-300" disabled hidden>
-            Warehouses
+            Warehouse
           </option>
           {warehouses.map((warehouses) => (
             <option key={warehouses.id} value={warehouses.id}>
