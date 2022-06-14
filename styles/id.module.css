@@ -32,3 +32,9 @@
 .showGraph {
   border-left: 3px solid #ff455a;
 }
+
+.head {
+  color: #ff455a;
+  font-size: 20px;
+  font-weight: 600;
+}

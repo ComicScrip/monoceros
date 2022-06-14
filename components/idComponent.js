@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import idStyle from "../styles/id.module.css";
 import GroupData from "./groupData";
+import moment from "moment";
 
 const IdComponent = () => {
   const [deliveryDetail, setDeliveryDetail] = useState({});
@@ -38,7 +39,7 @@ const IdComponent = () => {
     <>
       {packages ? (
         <div>
-          <h2>Delivery - Package view</h2>
+          <h2 className={idStyle.head}>Delivery - Package view</h2>
           <div className={idStyle.headList}>
             <div>ID</div>
             <div>Alert</div>
@@ -70,7 +71,7 @@ const IdComponent = () => {
                   width={30}
                 />
               )}
-              <div>15 min ago</div>
+              <div>{moment(`${colis.last_updated}`, "YYYYMMDD").fromNow()}</div>
             </div>
           ))}
           {packageId && <GroupData delivery_id={id} package_id={packageId} />}
