@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
         </div>
       </>
     );
-  else if (status === "loading") {
+  else if (status === "loading" || !profile) {
     return <p>LOADING..</p>;
   }
   return (
