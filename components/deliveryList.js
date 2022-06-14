@@ -33,18 +33,19 @@ function DeliveryList() {
           <DeliveryOverview deliveryDetail={deliveryOverview} />
         </div>
       )}
-      <table className={deliveriesStyle.table}>
-        <thead className={deliveriesStyle.allHead}>
-          <tr>
-            <th className={deliveriesStyle.tHeader}>ID</th>
-            <th className={deliveriesStyle.tHeader}>Status</th>
-            <th className={deliveriesStyle.tHeader}>Alert</th>
-            <th className={deliveriesStyle.tHeader}>Ref.</th>
-            <th className={deliveriesStyle.tHeader}>Destination</th>
-            <th className={deliveriesStyle.tHeader}>Date</th>
-          </tr>
-        </thead>
-        {allDeliveries.length !== 0 ? (
+      {allDeliveries.length !== 0 ? (
+        <table className={deliveriesStyle.table}>
+          <thead className={deliveriesStyle.allHead}>
+            <tr>
+              <th className={deliveriesStyle.tHeader}>ID</th>
+              <th className={deliveriesStyle.tHeader}>Status</th>
+              <th className={deliveriesStyle.tHeader}>Alert</th>
+              <th className={deliveriesStyle.tHeader}>Ref.</th>
+              <th className={deliveriesStyle.tHeader}>Destination</th>
+              <th className={deliveriesStyle.tHeader}>Date</th>
+            </tr>
+          </thead>
+
           <tbody>
             {allDeliveries.map((delivery) => (
               <tr
@@ -65,12 +66,10 @@ function DeliveryList() {
               </tr>
             ))}
           </tbody>
-        ) : (
-          <tbody>
-            <Loading />
-          </tbody>
-        )}
-      </table>
+        </table>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 }

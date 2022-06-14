@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 const Screen = styled.div`
   position: relative;
-  height: 100vh;
+  height: 50vh;
   width: 100%;
   opacity: 0;
   animation: fade 0.4s ease-in forwards;
-  background: black;
+  background: #efefef;
 
   @keyframes fade {
     0% {
@@ -29,34 +29,44 @@ const Balls = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  .ball {
-    height: 20px;
-    width: 20px;
+  .balls {
+    width: 4em;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .balls div {
+    width: 0.8em;
+    height: 0.8em;
     border-radius: 50%;
-    background: #1b5299;
-    margin: 0 6px 0 0;
-    animation: oscillate 0.7s ease-in forwards infinite;
+    background: #ff455a;
   }
 
-  .one {
-    animation-delay: 0.5s;
-  }
-  .two {
-    animation-delay: 1s;
-  }
-  .three {
-    animation-delay: 2s;
+  .balls div:nth-of-type(1) {
+    transform: translateX(-100%);
+    animation: left-swing 0.5s ease-in alternate infinite;
   }
 
-  @keyframes oscillate {
-    0% {
-      transform: translateY(0);
+  .balls div:nth-of-type(3) {
+    transform: translateX(-95%);
+    animation: right-swing 0.5s ease-out alternate infinite;
+  }
+
+  @keyframes left-swing {
+    50%,
+    100% {
+      transform: translateX(95%);
     }
+  }
+
+  @keyframes right-swing {
     50% {
-      transform: translateY(20px);
+      transform: translateX(-95%);
     }
     100% {
-      transform: translateY(0);
+      transform: translateX(100%);
     }
   }
 `;
@@ -65,9 +75,11 @@ const Loading = () => {
   return (
     <Screen>
       <Balls>
-        <div className="ball one"></div>
-        <div className="ball two"></div>
-        <div className="ball three"></div>
+        <div className="balls">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </Balls>
     </Screen>
   );
