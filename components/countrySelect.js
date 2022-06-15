@@ -1,9 +1,12 @@
+import Router, { useRouter } from "next/router";
+
 export default function CountrySelect({
   countries,
   selectCountry,
   country,
   setCurrentPage,
 }) {
+  const router = useRouter();
   function handleClick() {
     selectCountry("");
     setCurrentPage(1);
@@ -24,7 +27,7 @@ export default function CountrySelect({
           style={{ fontSize: "10px" }}
         >
           <option className="font-xs" value="" hidden>
-            Country
+            {router.query.country || "country"}
           </option>
           {countries.map((country) => (
             <option key={country.country} value={country.country}>

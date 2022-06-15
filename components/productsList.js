@@ -14,13 +14,17 @@ import { useRouter } from "next/router";
 
 export default function ProductsList() {
   const router = useRouter();
-  const [countrySelect, setCountrySelect] = useState("");
-  const [warehouseSelect, setWareHouseSelect] = useState("");
+  const [countrySelect, setCountrySelect] = useState(
+    router.query.country || ""
+  );
+  const [warehouseSelect, setWareHouseSelect] = useState(
+    router.query.warehouse || ""
+  );
   const [countriesList, setCountriesList] = useState([]);
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8;
+  const productsPerPage = 20;
   const [numberOfProducts, setNumberOfProducts] = useState(null);
 
   useEffect(() => {
@@ -167,7 +171,7 @@ export default function ProductsList() {
             </div>
           ) : (
             <div
-              className="flex justify-center w-full absolute bottom-5 mt-3"
+              className="flex justify-center w-full"
               style={{ backgroundColor: "var(--main-bg-color)" }}
             >
               <Pagination

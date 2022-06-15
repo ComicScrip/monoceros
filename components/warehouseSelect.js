@@ -1,20 +1,32 @@
+import Router, { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { getWarehouses } from "../lib/productsAPI";
+
 export default function WarehouseSelect({
   warehouses,
   selectWharehouse,
   warehouse,
   setCurrentPage,
 }) {
+  const router = useRouter();
+  const [warehouseFromQuery, setWarshouseFromQuery] = useState("");
+
+  console.log(warehouses);
+  console.log(warehouse);
+  /*
+  const test = warehouses.filter(
+    (w) => w.id === parseFloat(router.query.warehouse)
+  )[0].name;
+*/
   function handleClick() {
     selectWharehouse("");
     setCurrentPage(1);
+    //setWarshouseFromQuery("");
   }
 
   function handleSelectChange(e) {
     selectWharehouse(e.target.value);
     setCurrentPage(1);
-  }
-  if (!warehouses) {
-    warehouses = [{ name: "no option", id: 0 }];
   }
 
   return (
@@ -28,7 +40,7 @@ export default function WarehouseSelect({
           style={{ fontSize: "10px" }}
         >
           <option value="" className="text-gray-300" disabled hidden>
-            Warehouses
+            {"warehouse"}
           </option>
           {warehouses.map((warehouses) => (
             <option key={warehouses.id} value={warehouses.id}>
