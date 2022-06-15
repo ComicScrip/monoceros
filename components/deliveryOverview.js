@@ -7,8 +7,10 @@ import ShockData from "./shockData";
 import deliveryDetailStyle from "../styles/deliveryDetail.module.css";
 import { useRouter } from "next/router";
 import { getDeliveriesLocalisation } from "../lib/sensorDataAPI";
+import { useTranslation } from "next-i18next";
 
 const DeliveryOverview = ({ deliveryDetail }) => {
+  const { t } = useTranslation("deliveries");
   const MapWithNoSSR = dynamic(() => import("./map"), {
     ssr: false,
   });
@@ -34,10 +36,10 @@ const DeliveryOverview = ({ deliveryDetail }) => {
             });
           }}
         >
-          Details
+          {t("details")}
         </button>
       </div>
-      <p>Delivery Status</p>
+      <p>{t("status")}</p>
       <div className={deliveryDetailStyle.data}>
         <HumidityData data-cy="deliveryDetailHumidity" />
         <ShockData data-cy="deliveryDetailShock" />
