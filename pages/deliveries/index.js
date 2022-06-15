@@ -26,6 +26,7 @@ export async function getStaticProps({ locale }) {
         "home",
         "navbar",
         "deliveries",
+        "packages",
       ])),
     },
   };

@@ -4,8 +4,10 @@ import { getPackagesInfo } from "../lib/packagesAPI";
 import { getProductsInfo } from "../lib/productsAPI";
 import groupDataStyle from "../styles/groupData.module.css";
 import Graph from "./graph";
+import { useTranslation } from "next-i18next";
 
 const GroupData = ({ delivery_id, package_id }) => {
+  const { t } = useTranslation("packages");
   const [temperatureData, setTemperatureData] = useState([]);
   const [humidityData, setHumidityData] = useState([]);
   const [lightData, setLightData] = useState([]);
@@ -54,7 +56,7 @@ const GroupData = ({ delivery_id, package_id }) => {
     <div className={groupDataStyle.container}>
       {productLimits.length !== 0 && temperatureData.length !== 0 ? (
         <div className={groupDataStyle.graph}>
-          <div className={groupDataStyle.data}>Temperature</div>
+          <div className={groupDataStyle.data}>{t("temperature")}</div>
           {temperatureData.length !== 0 && (
             <Graph
               id="Temperature"
@@ -62,7 +64,7 @@ const GroupData = ({ delivery_id, package_id }) => {
               limitData={productLimits}
             />
           )}
-          <div className={groupDataStyle.data}>Humidity</div>
+          <div className={groupDataStyle.data}>{t("humidity")}</div>
           {humidityData.length !== 0 && (
             <Graph
               sensorData={humidityData}
@@ -70,7 +72,7 @@ const GroupData = ({ delivery_id, package_id }) => {
               id="Humidity"
             />
           )}
-          <div className={groupDataStyle.data}>Light</div>
+          <div className={groupDataStyle.data}>{t("light")}</div>
           {lightData.length !== 0 && (
             <Graph
               sensorData={lightData}
@@ -78,7 +80,7 @@ const GroupData = ({ delivery_id, package_id }) => {
               id="Light"
             />
           )}
-          <div className={groupDataStyle.data}>Vibration</div>
+          <div className={groupDataStyle.data}>{t("vibration")}</div>
           {vibrationData.length !== 0 && (
             <Graph
               sensorData={vibrationData}
@@ -88,7 +90,7 @@ const GroupData = ({ delivery_id, package_id }) => {
           )}
         </div>
       ) : (
-        <div className={groupDataStyle.graph}>Pas de données</div>
+        <div className={groupDataStyle.graph}>{t("data")}</div>
       )}
     </div>
   );

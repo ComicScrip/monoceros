@@ -5,8 +5,10 @@ import Image from "next/image";
 import idStyle from "../styles/id.module.css";
 import GroupData from "./groupData";
 import moment from "moment";
+import { useTranslation } from "next-i18next";
 
 const IdComponent = () => {
+  const { t } = useTranslation("packages");
   const [deliveryDetail, setDeliveryDetail] = useState({});
   const [packages, setPackages] = useState([]);
   const [packageId, setPackageId] = useState("");
@@ -39,11 +41,11 @@ const IdComponent = () => {
     <>
       {packages ? (
         <div>
-          <h2 className={idStyle.head}>Delivery - Package view</h2>
+          <h2 className={idStyle.head}>{t("pageTitle")}</h2>
           <div className={idStyle.headList}>
             <div>ID</div>
             <div>Alert</div>
-            <div>Last Update</div>
+            <div>{t("update")}</div>
           </div>
           {packages.map((colis) => (
             <div
