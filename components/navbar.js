@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import style from "./navbar.module.css";
+import style from "../styles/navbar.module.css";
 import Image from "next/image";
 import ActiveLink from "./activeLink";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 export default function Navbar() {
+  const { t } = useTranslation("navbar");
   const [isOpen, setIsOpen] = useState(false);
   const [openingSectionProduct, setOpeningSectionProduct] = useState(false);
   const [openingSectionDelivery, setOpeningSectionDelivery] = useState(false);
   const router = useRouter();
+  const onSelectChange = (e) => {
+    const locale = e.target.value;
+    router.push(router.asPath, router.asPath, {
+      locale,
+      scroll: false,
+    });
+  };
 
   const openMenu = () => setIsOpen(!isOpen);
   const openSectionProduct = () =>
@@ -88,7 +97,7 @@ export default function Navbar() {
                     />
                   </div>
                   <a className={style.navlink} onClick={openMenu}>
-                    Cockpit
+                    {t("home")}
                   </a>
                 </div>
               </ActiveLink>
@@ -110,7 +119,7 @@ export default function Navbar() {
               </div>
               <div className={style.navsubmenuContainer}>
                 <div className={style.navsubmenu}>
-                  <p className={style.navlink}>Products</p>
+                  <p className={style.navlink}>{t("products")}</p>
                   <Image
                     src={"/images/chevron-down.svg"}
                     alt="logo"
@@ -137,7 +146,7 @@ export default function Navbar() {
                       href="/newproduct"
                     >
                       <a className={style.navlink} onClick={openMenu}>
-                        New Product
+                        {t("newProduct")}
                       </a>
                     </ActiveLink>
                   </li>
@@ -147,7 +156,7 @@ export default function Navbar() {
                       href="/products"
                     >
                       <a className={style.navlink} onClick={openMenu}>
-                        Products catalogue
+                        {t("productsCatalogue")}
                       </a>
                     </ActiveLink>
                   </li>
@@ -171,7 +180,7 @@ export default function Navbar() {
               </div>
               <div className={style.navsubmenuContainer}>
                 <div className={style.navsubmenu}>
-                  <p className={style.navlink}>Deliveries</p>
+                  <p className={style.navlink}>{t("deliveries")}</p>
                   <Image
                     src={"/images/chevron-down.svg"}
                     alt="logo"
@@ -198,7 +207,7 @@ export default function Navbar() {
                       href="/newdelivery"
                     >
                       <a className={style.navlink} onClick={openMenu}>
-                        New Delivery
+                        {t("newDelivery")}
                       </a>
                     </ActiveLink>
                   </li>
@@ -208,7 +217,7 @@ export default function Navbar() {
                       href="/deliveries"
                     >
                       <a className={style.navlink} onClick={openMenu}>
-                        Deliveries overview
+                        {t("deliveriesOverview")}
                       </a>
                     </ActiveLink>
                   </li>
@@ -227,7 +236,7 @@ export default function Navbar() {
                     />
                   </div>
                   <a className={style.navlink} onClick={openMenu}>
-                    Inventory
+                    {t("inventory")}
                   </a>
                 </div>
               </ActiveLink>
@@ -244,7 +253,7 @@ export default function Navbar() {
                     />
                   </div>
                   <a className={style.navlink} onClick={openMenu}>
-                    Alarms
+                    {t("alarms")}
                   </a>
                 </div>
               </ActiveLink>
@@ -261,7 +270,7 @@ export default function Navbar() {
                     />
                   </div>
                   <a className={style.navlink} onClick={openMenu}>
-                    Settings
+                    {t("settings")}
                   </a>
                 </div>
               </ActiveLink>
@@ -278,14 +287,29 @@ export default function Navbar() {
                     />
                   </div>
                   <a className={style.navlink} onClick={openMenu}>
-                    Help
+                    {t("help")}
                   </a>
                 </div>
               </ActiveLink>
             </li>
           </ul>
           <div className={style.borderBottom}></div>
-          <p className={style.navTextBottom}>Sign Out</p>
+          <div className={style.bottomContainer}>
+            <p className={style.navTextBottom}>{t("signOut")}</p>
+            <select
+              name="languages"
+              id="language-select"
+              onChange={onSelectChange}
+              value={router.locale}
+              className={style.selectLanguage}
+            >
+              {router.locales.map((language) => (
+                <option value={language} key={language}>
+                  {language === "en" ? "EN" : language === "fr" ? "FR" : null}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <div
           className={
@@ -302,4 +326,6 @@ export default function Navbar() {
       </nav>
     </header>
   );
+
+  // onclick sur option avec router.push
 }
