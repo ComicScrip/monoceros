@@ -6,8 +6,10 @@ import styles from "../styles/Layout.module.css";
 import Footer from "./footer";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import { useTranslation } from "next-i18next";
 
 const Layout = ({ children }) => {
+  const { t } = useTranslation("common");
   const { profile } = useContext(CurrentUserContext);
   const { status } = useSession();
   console.log(profile, status);
@@ -15,9 +17,9 @@ const Layout = ({ children }) => {
     return (
       <>
         <div className="flex flex-col items-center justify-center mt-20">
-          <h1 className="underline text-2xl">you are not authenticated</h1>
+          <h1 className="underline text-2xl">{t("authenticated")}</h1>
           <button onClick={() => signIn()} className="bg-slate-400 mt-5">
-            Login Page
+            {t("login")}
           </button>
         </div>
       </>

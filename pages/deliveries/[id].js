@@ -19,7 +19,7 @@ const DeliveryDetail = () => {
           width={200}
           alt="en construction"
         />
-        <p>Page under construction ...</p>
+        <p>page under construction...</p>
       </div>
     </Layout>
   );
