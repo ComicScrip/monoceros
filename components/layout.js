@@ -5,10 +5,13 @@ import Navbar from "./navbar";
 import styles from "../styles/Layout.module.css";
 import Footer from "./footer";
 import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 const Layout = ({ children }) => {
   const { profile } = useContext(CurrentUserContext);
-  if (!profile)
+  const { status } = useSession();
+  console.log(profile, status);
+  if (!profile && status === "unauthenticated")
     return (
       <>
         <div className="flex flex-col items-center justify-center mt-20">
@@ -19,6 +22,9 @@ const Layout = ({ children }) => {
         </div>
       </>
     );
+  else if (status === "loading" || !profile) {
+    return <p>LOADING..</p>;
+  }
   return (
     <>
       <Meta />

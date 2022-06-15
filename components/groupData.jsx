@@ -14,17 +14,22 @@ const GroupData = ({ delivery_id, package_id }) => {
   const [productsInfo, setProductsInfo] = useState([]);
   const [productId, setProductId] = useState();
   const [productLimits, setProductLimits] = useState([]);
-  const [tMin, setTMin] = useState(0);
 
   function getData() {
-    getSensorData(delivery_id, package_id, "temperature").then(
-      setTemperatureData
-    );
-    getSensorData(delivery_id, package_id, "humidity").then(setHumidityData);
-    getSensorData(delivery_id, package_id, "shock").then(setVibrationData);
-    getSensorData(delivery_id, package_id, "light").then(setLightData);
-    getPackagesInfo().then(setPackagesInfo);
-    getProductsInfo().then(setProductsInfo);
+    getSensorData(delivery_id, package_id, "temperature")
+      .then(setTemperatureData)
+      .catch(console.error);
+    getSensorData(delivery_id, package_id, "humidity")
+      .then(setHumidityData)
+      .catch(console.error);
+    getSensorData(delivery_id, package_id, "shock")
+      .then(setVibrationData)
+      .catch(console.error);
+    getSensorData(delivery_id, package_id, "light")
+      .then(setLightData)
+      .catch(console.error);
+    getPackagesInfo().then(setPackagesInfo).catch(console.error);
+    getProductsInfo().then(setProductsInfo).catch(console.error);
   }
 
   useEffect(() => {
@@ -45,35 +50,42 @@ const GroupData = ({ delivery_id, package_id }) => {
       productsInfo.filter((product) => product.id === productId)
     );
   }, [productsInfo, productId]);
-
-  useEffect(() => {
-    setTMin(productLimits[0]?.temperature_min);
-  }, [productLimits]);
-
   return (
     <div className={groupDataStyle.container}>
-      {productLimits.length !== 0 ? (
+      {productLimits.length !== 0 && temperatureData.length !== 0 ? (
         <div className={groupDataStyle.graph}>
           <div className={groupDataStyle.data}>Temperature</div>
-          <Graph
-            id="Temperature"
-            sensorData={temperatureData}
-            limitData={productLimits}
-          />
+          {temperatureData.length !== 0 && (
+            <Graph
+              id="Temperature"
+              sensorData={temperatureData}
+              limitData={productLimits}
+            />
+          )}
           <div className={groupDataStyle.data}>Humidity</div>
-          <Graph
-            sensorData={humidityData}
-            limitData={productLimits}
-            id="Humidity"
-          />
+          {humidityData.length !== 0 && (
+            <Graph
+              sensorData={humidityData}
+              limitData={productLimits}
+              id="Humidity"
+            />
+          )}
           <div className={groupDataStyle.data}>Light</div>
-          <Graph sensorData={lightData} limitData={productLimits} id="Light" />
+          {lightData.length !== 0 && (
+            <Graph
+              sensorData={lightData}
+              limitData={productLimits}
+              id="Light"
+            />
+          )}
           <div className={groupDataStyle.data}>Vibration</div>
-          <Graph
-            sensorData={vibrationData}
-            limitData={productLimits}
-            id="Vibration"
-          />
+          {vibrationData.length !== 0 && (
+            <Graph
+              sensorData={vibrationData}
+              limitData={productLimits}
+              id="Vibration"
+            />
+          )}
         </div>
       ) : (
         <div className={groupDataStyle.graph}>Pas de données</div>

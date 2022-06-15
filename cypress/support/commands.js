@@ -23,3 +23,21 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("login", ({ email }) => {
+  cy.intercept("**/api/auth/session", {
+    statusCode: 200,
+    body: { email },
+  });
+  cy.intercept("**/api/tokens", {
+    statusCode: 200,
+    body: {
+      refresh: "refreshToken",
+      access: "accessToken",
+    },
+  });
+  cy.intercept("**/api/users/current-user", {
+    statusCode: 200,
+    body: { email },
+  });
+});

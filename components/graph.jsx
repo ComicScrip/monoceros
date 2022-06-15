@@ -12,7 +12,6 @@ import {
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 import annotationPlugin from "chartjs-plugin-annotation";
-import zoomPlugin from "chartjs-plugin-zoom";
 
 ChartJS.register(
   CategoryScale,
@@ -22,8 +21,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  annotationPlugin,
-  zoomPlugin
+  annotationPlugin
 );
 
 const Graph = ({ sensorData, limitData, id }) => {
@@ -71,17 +69,6 @@ const Graph = ({ sensorData, limitData, id }) => {
             backgroundColor: "rgba(255, 99, 132, 0.25)",
             adjustScaleRange: true,
           },
-        },
-      },
-      zoom: {
-        zoom: {
-          wheel: {
-            enabled: true,
-          },
-          pinch: {
-            enabled: true,
-          },
-          mode: "xy",
         },
       },
     },
