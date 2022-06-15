@@ -14,9 +14,10 @@ const DeliveryOverview = ({ deliveryDetail }) => {
     ssr: false,
   });
   const [deliveriesLoc, setDeliveriesLoc] = useState([]);
+  const [packages, setPackages] = useState({});
   const router = useRouter();
   useEffect(() => {
-    console.log(deliveryDetail);
+    setPackages(deliveryDetail.packages);
     getDeliveriesLocalisation().then(setDeliveriesLoc);
   }, [deliveryDetail]);
 
@@ -40,7 +41,7 @@ const DeliveryOverview = ({ deliveryDetail }) => {
       <p>Delivery Status</p>
       <div className={deliveryDetailStyle.data}>
         <HumidityData />
-        <ShockData />
+        <ShockData deliveryId={deliveryDetail.id} packages={packages} />
         <LightData />
         <TemperatureData />
       </div>
