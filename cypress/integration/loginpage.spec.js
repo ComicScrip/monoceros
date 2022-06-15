@@ -1,11 +1,11 @@
 describe("login", () => {
   beforeEach(() => {
     cy.viewport("samsung-s10");
+    cy.visit("/");
   });
 
   describe("when not logged in", () => {
     it("should display the login form", () => {
-      cy.visit("/");
       cy.get("[data-cy=loginForm]").should("be.visible");
       cy.get("[data-cy=password]").should("be.visible");
       cy.get("[data-cy=email]").should("be.visible");
@@ -16,8 +16,7 @@ describe("login", () => {
   });
 
   describe("When try to log in with incorrect credentials", () => {
-    it("sould dislplay the not authentificated page", () => {
-      cy.visit("/");
+    it.only("sould dislplay the not authentificated page", () => {
       cy.get("[data-cy=email]").type("john.doe@exemple.com");
       cy.get("[data-cy=password]").type("superpassword");
       cy.get("[data-cy=loginBtn]").click();
@@ -28,9 +27,9 @@ describe("login", () => {
 
   describe("when logged in with correct credential", () => {
     it("should work", () => {
-      cy.visit("/");
       cy.login({ email: "test@gmail.com" });
       cy.visit("/deliveries");
+      cy.contains("DELIVERIES OVERVIEW");
     });
   });
 });

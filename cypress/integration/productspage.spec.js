@@ -8,14 +8,18 @@ describe("products page", () => {
   });
 
   describe("products list", () => {
-    it("should display the products list from the API", () => {
-      cy.intercept("/products", { fixture: "products.json" });
-      cy.visit("/");
+    it.only("should display the products list from the API", () => {
+      cy.intercept("**/api/base/products", { fixture: "products.json" });
       cy.login({ email: "test@gmail.com" });
-      cy.visit("/deliveries");
-      cy.request("/products");
-      // cy.get("[data-cy=hamburger]").click();
-      // cy.get("[data-cy=expand-products]").click();
+      cy.fixture("products").then((data) => {
+        console.log(data);
+      });
+      cy.visit("/products");
+    });
+    it("should display an error when the api is down", () => {
+      cy.intercept("**/api/base/products/", { statusCode: 500 });
+      cy.login({ email: "test@gmail.com" });
+      cy.visit("/products");
     });
   });
 });

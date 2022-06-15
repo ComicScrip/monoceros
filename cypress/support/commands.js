@@ -24,7 +24,7 @@ Cypress.Commands.add("login", ({ email }) => {
       access: "accessToken",
     },
   });
-  cy.intercept("**/api/users/current-user/", {
+  cy.intercept("**/api/users/current-user", {
     statusCode: 200,
     body: { email },
   });
