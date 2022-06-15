@@ -3,6 +3,8 @@ import style from "../styles/home.module.css";
 import styles from "../styles/loginForm.module.css";
 import headLogo from "../public/images/logo-monoceros2.png";
 import Meta from "../components/meta";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import LogoForm from "../public/images/logo-monoceros.png";
 import Link from "next/link";
@@ -11,6 +13,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 export default function Signin({ csrfToken }) {
+  const { t } = useTranslation("home");
   const [isChecked, setIsChecked] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -39,7 +42,7 @@ export default function Signin({ csrfToken }) {
   }
   return (
     <>
-      <Meta pagetitle="Monoceros - HomePage" />
+      <Meta pagetitle={t("titleSite")} />
       <main className={style.main}>
         <header>
           <Image src={headLogo} alt="head-logo" width="200px" height="100px" />
@@ -85,7 +88,7 @@ export default function Signin({ csrfToken }) {
                   </div>
                   <div className="flex flex-col">
                     <label className={styles.label} htmlFor="password">
-                      Password
+                      {t("password")}
                     </label>
                     <input
                       onChange={(e) => handlePasswordChange(e)}
@@ -106,7 +109,7 @@ export default function Signin({ csrfToken }) {
                       type="checkbox"
                       id="remember"
                     />
-                    <label htmlFor="remember"> Remember me</label>
+                    <label htmlFor="remember"> {t("rememberMe")}</label>
                   </p>
                   <button
                     type="submit"
@@ -114,11 +117,11 @@ export default function Signin({ csrfToken }) {
                     data-cy="loginBtn"
                     className={styles.formButton}
                   >
-                    Login
+                    {t("login")}
                   </button>
                   <Link href={"/inProgress"}>
                     <p data-cy="lostPassword" className={styles.lostPassword}>
-                      Lost your password ?
+                      {t("lostPassword")}
                     </p>
                   </Link>
                 </form>
@@ -126,7 +129,7 @@ export default function Signin({ csrfToken }) {
             </div>
             {loginIssues ? (
               <div className={styles.loginIssues}>
-                <p>wrong credential(s)</p>
+                <p>{t("wrongCredential")}</p>
               </div>
             ) : null}
           </div>
@@ -164,6 +167,11 @@ export async function getServerSideProps(context) {
   return {
     props: {
       csrfToken: await getCsrfTokenAndSetCookies(context),
+      ...(await serverSideTranslations(context.locale, [
+        "common",
+        "home",
+        "navbar",
+      ])),
     },
   };
 }

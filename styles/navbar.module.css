@@ -5,7 +5,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 3000;
 }
 
 .navbar {
@@ -14,7 +14,7 @@
   align-items: center;
   padding: 1rem 1.5rem;
   width: 100%;
-  z-index: 100;
+  z-index: 3000;
 }
 
 .headerlogo {
@@ -32,7 +32,7 @@
 
 .navbarTitle {
   font-size: 1.8rem;
-  transform: translateY(50%);
+  transform: translateY(30%);
 }
 
 .navmenu {
@@ -46,7 +46,7 @@
   width: 100%;
   transition: 0.5s;
   height: calc(100% - 80px);
-  z-index: 100;
+  z-index: 3000;
 }
 
 .navmenu.active {
@@ -133,6 +133,12 @@
   border: solid 1px #fff;
 }
 
+.bottomContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .navTextBottom {
   color: #e77981;
   margin: 1.2rem 0;
@@ -140,6 +146,15 @@
   padding-left: 1rem;
   font-weight: bold;
   letter-spacing: 1.5px;
+}
+
+.selectLanguage {
+  margin-right: 2.5rem;
+  padding: 0.2rem 0.8rem;
+  border-radius: 5px;
+  font-weight: 700;
+  color: black;
+  background-color: #fff;
 }
 
 .hamburger {
