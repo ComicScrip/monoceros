@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Meta from "../../components/meta";
+import Layout from "../../components/layout";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function Inventory() {
+  const { t } = useTranslation("common");
   return (
-    <>
+    <Layout>
       <Meta pagetitle="Monoceros - Inventory" />
       <h1>Inventory</h1>
       <div
@@ -21,8 +25,16 @@ export default function Inventory() {
           alt="en construction"
           style={{ zIndex: -1 }}
         />
-        <p>Page under construction ...</p>
+        <p>P{t("description")}</p>
       </div>
-    </>
+    </Layout>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common", "home", "navbar"])),
+    },
+  };
 }
