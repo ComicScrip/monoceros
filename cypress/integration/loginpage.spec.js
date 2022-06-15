@@ -16,12 +16,12 @@ describe("login", () => {
   });
 
   describe("When try to log in with incorrect credentials", () => {
-    it.only("sould dislplay the not authentificated page", () => {
+    it("sould dislplay the not authentificated page", () => {
       cy.get("[data-cy=email]").type("john.doe@exemple.com");
       cy.get("[data-cy=password]").type("superpassword");
       cy.get("[data-cy=loginBtn]").click();
       cy.visit("/deliveries");
-      cy.contains("you are not authenticated");
+      cy.contains("Login Page");
     });
   });
 

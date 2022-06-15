@@ -9,7 +9,7 @@ describe("products page", () => {
 
   describe("products list", () => {
     it.only("should display the products list from the API", () => {
-      cy.intercept("**/api/base/products", { fixture: "products.json" });
+      cy.intercept("**/api/base/products**", { fixture: "products.json" });
       cy.login({ email: "test@gmail.com" });
       cy.fixture("products").then((data) => {
         console.log(data);
@@ -17,7 +17,7 @@ describe("products page", () => {
       cy.visit("/products");
     });
     it("should display an error when the api is down", () => {
-      cy.intercept("**/api/base/products/", { statusCode: 500 });
+      cy.intercept("**/api/base/products**", { statusCode: 500 });
       cy.login({ email: "test@gmail.com" });
       cy.visit("/products");
     });
