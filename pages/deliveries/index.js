@@ -11,7 +11,6 @@ const Deliveries = () => {
       <Meta pagetitle="Monoceros - Deliveries Overview" />
       <Layout>
         <h1 className={deliveriesStyle.head}>DELIVERIES OVERVIEW</h1>
-        <DeliveriesStatus />
         <DeliveryList />
       </Layout>
     </>

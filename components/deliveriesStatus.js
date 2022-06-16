@@ -13,7 +13,7 @@ export default function DeliveriesStatus() {
 
   const { total, in_progress, delayed, completed } = overview;
   const containerWidth = 70;
-  const unit = containerWidth / total;
+  const unit = containerWidth / total + 1;
   const inProgressWidth = Math.ceil(unit * in_progress);
   const delayedWidth = Math.ceil(unit * delayed);
   const completedWidth = Math.ceil(unit * completed);
@@ -68,6 +68,20 @@ export default function DeliveriesStatus() {
               className="h-[10px] bg-red-600 rounded flex justify-end"
             >
               <span className="relative bottom-5 ">{completed}</span>
+            </div>
+          </div>
+        </div>
+        <div className="mb-[15px] flex items-center justify-between">
+          <p>Alert</p>
+          <div className="bg-[#eae5e5] w-[70%] h-[10px] rounded ">
+            <div
+              style={{
+                width: `${20}%`,
+                backgroundColor: "var(--main-color)",
+              }}
+              className="h-[10px] bg-red-600 rounded flex justify-end"
+            >
+              <span className="relative bottom-5 ">5</span>
             </div>
           </div>
         </div>

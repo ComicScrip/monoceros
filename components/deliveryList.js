@@ -3,7 +3,7 @@ import DeliveryOverview from "./deliveryOverview";
 import { useState, useEffect } from "react";
 import { getDeliveryOverview, getDeliveries } from "../lib/deliveriesAPI";
 import Pagination from "./pagination";
-
+import DeliveriesStatus from "./deliveriesStatus";
 function DeliveryList() {
   const [deliveryOverview, setDeliveryOverview] = useState({});
   const [showDetails, setShowDetails] = useState(false);
@@ -11,6 +11,7 @@ function DeliveryList() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [numberOfItems, setNumberOfItems] = useState(null);
+  const [detailView, setDetailView] = useState(false);
 
   useEffect(() => {
     getDeliveries(itemsPerPage, (currentPage - 1) * (itemsPerPage + 1)).then(
@@ -34,12 +35,17 @@ function DeliveryList() {
       .then(setDeliveryOverview)
       .then(() => setShowDetails(true));
   }
+  console.log(allDeliveries);
   return (
     <>
+      {!detailView ? <DeliveriesStatus /> : null}
       {showDetails && (
         <div>
           <span
-            onClick={() => setShowDetails(false)}
+            onClick={() => {
+              setShowDetails(false);
+              setDetailView(false);
+            }}
             className={deliveriesStyle.closeBtn}
           >
             &times;
@@ -65,6 +71,7 @@ function DeliveryList() {
               onClick={() => {
                 showDeliveryOverview(delivery.id);
                 goToTop();
+                setDetailView(true);
               }}
             >
               <td className={deliveriesStyle.tCell}>{delivery.id}</td>
