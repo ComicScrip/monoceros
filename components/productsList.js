@@ -80,7 +80,6 @@ export default function ProductsList() {
     }
     request();
   }, [countrySelect, warehouseSelect, currentPage]);
-  console.log(router.query);
   const tableHead = [
     "Product",
     "Expiration",
@@ -127,7 +126,7 @@ export default function ProductsList() {
               style={{ backgroundColor: "var(--main-bg-color)" }}
               key={_}
             >
-              <table className="w-[95vw] h-14">
+              <table data-cy={"products-table"} className="w-[95vw] h-14">
                 <tbody className="bg-white">
                   <tr className="text-[0.6rem]">
                     {tableHead.map((item) => (
@@ -141,7 +140,7 @@ export default function ProductsList() {
                         ? product.expiration_date.slice(0, 10)
                         : ""}
                     </td>
-                    <td className="min-w-[90px]">
+                    <td data-cy={"temp-scale"} className="min-w-[90px]">
                       {product.temperature_min} / {product.temperature_max}
                     </td>
                     <td className="min-w-[90px]">

@@ -12,7 +12,6 @@ const Layout = ({ children }) => {
   const { t } = useTranslation("common");
   const { profile } = useContext(CurrentUserContext);
   const { status } = useSession();
-  console.log(profile, status);
   if (!profile && status === "unauthenticated")
     return (
       <>

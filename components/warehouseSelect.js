@@ -9,19 +9,9 @@ export default function WarehouseSelect({
   setCurrentPage,
 }) {
   const router = useRouter();
-  const [warehouseFromQuery, setWarshouseFromQuery] = useState("");
-
-  console.log(warehouses);
-  console.log(warehouse);
-  /*
-  const test = warehouses.filter(
-    (w) => w.id === parseFloat(router.query.warehouse)
-  )[0].name;
-*/
   function handleClick() {
     selectWharehouse("");
     setCurrentPage(1);
-    //setWarshouseFromQuery("");
   }
 
   function handleSelectChange(e) {
