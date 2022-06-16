@@ -2,9 +2,22 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
+import * as L from "leaflet";
+import { useEffect, useRef, useState } from "react";
 
-const Map = ({ location, deliveryId }) => {
+const Map = ({ location, deliveryId, deliveryPackage }) => {
   const [delivery] = location.filter((loc) => loc.id === deliveryId);
+
+  const greenIcon = L.icon({
+    iconUrl: "/images/marker-icon-green.png",
+    iconSize: [25, 40],
+  });
+
+  const redIcon = L.icon({
+    iconUrl: "/images/marker-icon-red.png",
+    iconSize: [25, 40],
+  });
+
   return (
     <div>
       <MapContainer
@@ -36,6 +49,11 @@ const Map = ({ location, deliveryId }) => {
           }
           draggable={true}
           animate={true}
+          icon={
+            deliveryPackage.filter((p) => p.alert === true)[0]
+              ? redIcon
+              : greenIcon
+          }
         >
           <Popup>Hey ! you found me</Popup>
         </Marker>

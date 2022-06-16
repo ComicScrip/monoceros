@@ -18,6 +18,7 @@ function DeliveryList() {
       .then(setDeliveryOverview)
       .then(() => setShowDetails(true));
   }
+
   return (
     <>
       {showDetails && (
@@ -28,7 +29,10 @@ function DeliveryList() {
           >
             &times;
           </span>
-          <DeliveryOverview deliveryDetail={deliveryOverview} />
+          <DeliveryOverview
+            deliveryDetail={deliveryOverview}
+            deliveryPackage={deliveryOverview.packages}
+          />
         </div>
       )}
       <table className={deliveriesStyle.table}>
@@ -36,7 +40,6 @@ function DeliveryList() {
           <tr>
             <th className={deliveriesStyle.tHeader}>ID</th>
             <th className={deliveriesStyle.tHeader}>Status</th>
-            <th className={deliveriesStyle.tHeader}>Alert</th>
             <th className={deliveriesStyle.tHeader}>Ref.</th>
             <th className={deliveriesStyle.tHeader}>Destination</th>
             <th className={deliveriesStyle.tHeader}>Date</th>
@@ -45,13 +48,17 @@ function DeliveryList() {
         <tbody>
           {allDeliveries.map((delivery) => (
             <tr
-              className={deliveriesStyle.tRow + " " + deliveriesStyle.id}
+              className={
+                (delivery.id === deliveryOverview.id &&
+                  deliveryOverview.packages[0]?.alert) === true
+                  ? deliveriesStyle.alert
+                  : deliveriesStyle.noAlert
+              }
               key={delivery.id}
               onClick={() => showDeliveryOverview(delivery.id)}
             >
               <td className={deliveriesStyle.tCell}>{delivery.id}</td>
               <td className={deliveriesStyle.tCell}>{delivery.status}</td>
-              <td className={deliveriesStyle.tCell}>Vert</td>
               <td className={deliveriesStyle.tCell}>
                 {delivery.delivery_path.shipment_paths[0].origin.contact_name}
               </td>

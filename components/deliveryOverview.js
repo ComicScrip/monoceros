@@ -9,8 +9,9 @@ import { useRouter } from "next/router";
 import { getDeliveriesLocalisation } from "../lib/sensorDataAPI";
 import { useTranslation } from "next-i18next";
 
-const DeliveryOverview = ({ deliveryDetail }) => {
+const DeliveryOverview = ({ deliveryDetail, deliveryPackage }) => {
   const { t } = useTranslation("deliveries");
+
   const MapWithNoSSR = dynamic(() => import("./map"), {
     ssr: false,
   });
@@ -19,6 +20,7 @@ const DeliveryOverview = ({ deliveryDetail }) => {
   useEffect(() => {
     getDeliveriesLocalisation().then(setDeliveriesLoc);
   }, []);
+
   return (
     <div className={deliveryDetailStyle.global}>
       <div className={deliveryDetailStyle.head}>
@@ -44,7 +46,11 @@ const DeliveryOverview = ({ deliveryDetail }) => {
         <TemperatureData />
       </div>
       <div className={deliveryDetailStyle.map}>
-        <MapWithNoSSR location={deliveriesLoc} deliveryId={deliveryDetail.id} />
+        <MapWithNoSSR
+          location={deliveriesLoc}
+          deliveryId={deliveryDetail.id}
+          deliveryPackage={deliveryPackage}
+        />
       </div>
     </div>
   );

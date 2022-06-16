@@ -13,13 +13,19 @@
 }
 
 .tCell {
-  background-color: white;
   padding: 15px 5px 15px 5px;
   text-align: center;
 }
 
-.id {
+.noAlert {
   cursor: pointer;
+  background-color: white;
+}
+
+.alert {
+  cursor: pointer;
+  background-color: red;
+  color: white;
 }
 
 .head {
