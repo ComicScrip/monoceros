@@ -6,7 +6,7 @@ const LightData = ({ data }) => {
     <div className={sensorDataStyle.global}>
       <h3 className={sensorDataStyle.titre}>Light</h3>
       <div className={sensorDataStyle.data}>
-        <p>{data[0] || 0} Lm</p>
+        {data ? <p>{data[0] || 0} Lm</p> : <p>none</p>}
         <Image
           priority
           src="/images/light-logo.png"
