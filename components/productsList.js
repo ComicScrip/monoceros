@@ -11,8 +11,10 @@ import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
 import Pagination from "./pagination";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 export default function ProductsList() {
+  const { t } = useTranslation("products");
   const router = useRouter();
   const [countrySelect, setCountrySelect] = useState(
     router.query.country || ""
@@ -191,13 +193,11 @@ export default function ProductsList() {
               className="flex justify-center w-full"
               style={{ backgroundColor: "var(--main-bg-color)" }}
             >
-              {products.length >= productsPerPage ? (
-                <Pagination
-                  index={Math.ceil(numberOfProducts / productsPerPage)}
-                  setCurrentPage={setCurrentPage}
-                  currentPage={currentPage}
-                />
-              ) : null}
+              <Pagination
+                index={Math.ceil(numberOfProducts / productsPerPage)}
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+              />
             </div>
           )}
         </div>

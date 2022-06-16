@@ -20,7 +20,7 @@ describe("products page", () => {
       cy.contains("testTrad");
     });
 
-    it.only("should not display products when API is down", () => {
+    it("should not display products when API is down", () => {
       cy.intercept("**/api/base/products/**", { statusCode: 500 });
       cy.login();
       cy.visit("/products");

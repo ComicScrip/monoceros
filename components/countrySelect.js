@@ -24,7 +24,7 @@ export default function CountrySelect({
           onChange={(e) => handleSelectChange(e)}
           value={country}
           className="bg-white w-[90vw] h-7 mb-5"
-          style={{ fontSize: "10px" }}
+          style={{ fontSize: "13px" }}
         >
           <option className="font-xs" value="" hidden>
             {router.query.country || "country"}
