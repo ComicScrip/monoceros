@@ -1,0 +1,56 @@
+{
+  "results": [
+    {
+      "id": 230,
+      "products": [
+        {
+          "id": 645,
+          "package": 230,
+          "product": 97,
+          "product_amount": 1,
+          "product_name": "test debug"
+        }
+      ],
+      "package_size": 1,
+      "pairing_start_date": "2022-06-08T18:54:33Z",
+      "pairing_end_date": "2022-06-16T13:13:41Z",
+      "expiry_date": null,
+      "monoceros_id": "882360010150027",
+      "sensor": "882360010150027",
+      "delivery": []
+    },
+    {
+      "id": 219,
+      "products": [
+        {
+          "id": 641,
+          "package": 219,
+          "product": 98,
+          "product_amount": 3,
+          "product_name": "testdebug"
+        },
+        {
+          "id": 642,
+          "package": 258,
+          "product": 95,
+          "product_amount": 1,
+          "product_name": "ghcvig"
+        },
+        {
+          "id": 643,
+          "package": 258,
+          "product": 91,
+          "product_amount": 1,
+          "product_name": "non"
+        }
+      ],
+      "package_size": 5,
+      "pairing_start_date": "2022-05-30T16:21:45Z",
+      "pairing_end_date": "2022-05-31T13:45:59Z",
+      "expiry_date": null,
+      "monoceros_id": "1202109000106",
+      "sensor": "882360010112666",
+      "delivery": []
+    }
+  ]
+}

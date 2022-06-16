@@ -58,39 +58,49 @@ const GroupData = ({ delivery_id, package_id }) => {
         <div className={groupDataStyle.graph}>
           <div className={groupDataStyle.data}>{t("temperature")}</div>
           {temperatureData.length !== 0 && (
-            <Graph
-              id="Temperature"
-              sensorData={temperatureData}
-              limitData={productLimits}
-            />
+            <div data-cy="packageTempGraph" style={{ width: "100%" }}>
+              <Graph
+                id="Temperature"
+                sensorData={temperatureData}
+                limitData={productLimits}
+              />
+            </div>
           )}
           <div className={groupDataStyle.data}>{t("humidity")}</div>
           {humidityData.length !== 0 && (
-            <Graph
-              sensorData={humidityData}
-              limitData={productLimits}
-              id="Humidity"
-            />
+            <div data-cy="packageHumGraph" style={{ width: "100%" }}>
+              <Graph
+                sensorData={humidityData}
+                limitData={productLimits}
+                id="Humidity"
+              />
+            </div>
           )}
           <div className={groupDataStyle.data}>{t("light")}</div>
           {lightData.length !== 0 && (
-            <Graph
-              sensorData={lightData}
-              limitData={productLimits}
-              id="Light"
-            />
+            <div data-cy="packageLightGraph" style={{ width: "100%" }}>
+              <Graph
+                sensorData={lightData}
+                limitData={productLimits}
+                id="Light"
+              />
+            </div>
           )}
           <div className={groupDataStyle.data}>{t("vibration")}</div>
           {vibrationData.length !== 0 && (
-            <Graph
-              sensorData={vibrationData}
-              limitData={productLimits}
-              id="Vibration"
-            />
+            <div data-cy="packageShockGraph" style={{ width: "100%" }}>
+              <Graph
+                sensorData={vibrationData}
+                limitData={productLimits}
+                id="Vibration"
+              />
+            </div>
           )}
         </div>
       ) : (
-        <div className={groupDataStyle.graph}>{t("data")}</div>
+        <div className={groupDataStyle.graph} data-cy="packageDetailNoData">
+          {t("data")}
+        </div>
       )}
     </div>
   );

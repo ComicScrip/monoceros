@@ -41,13 +41,15 @@ const IdComponent = () => {
     <>
       {packages ? (
         <div>
-          <h2 className={idStyle.head}>{t("pageTitle")}</h2>
+          <h2 className={idStyle.head} data-cy="packageDetailTitle">
+            {t("pageTitle")}
+          </h2>
           <div className={idStyle.headList}>
             <div>ID</div>
             <div>Alert</div>
             <div>{t("update")}</div>
           </div>
-          {packages.map((colis) => (
+          {packages.map((colis, i) => (
             <div
               key={colis.id}
               className={
@@ -57,7 +59,7 @@ const IdComponent = () => {
               }
               onClick={() => setPackageId(colis.id)}
             >
-              <div>{colis.id}</div>
+              <div data-cy={"packageDetailId" + i}>{colis.id}</div>
               {colis.alert ? (
                 <Image
                   src="/images/alerts-active@3x.png"
@@ -73,7 +75,9 @@ const IdComponent = () => {
                   width={30}
                 />
               )}
-              <div>{moment(`${colis.last_updated}`, "YYYYMMDD").fromNow()}</div>
+              <div data-cy="packageDetailUpdate">
+                {moment(`${colis.last_updated}`, "YYYYMMDD").fromNow()}
+              </div>
             </div>
           ))}
           {packageId && <GroupData delivery_id={id} package_id={packageId} />}

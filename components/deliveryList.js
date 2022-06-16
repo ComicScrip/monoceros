@@ -43,10 +43,10 @@ function DeliveryList() {
           </tr>
         </thead>
         <tbody>
-          {allDeliveries.map((delivery) => (
+          {allDeliveries.map((delivery, i) => (
             <tr
               className={deliveriesStyle.tRow + " " + deliveriesStyle.id}
-              data-cy="deliveryRow"
+              data-cy={"deliveryRow" + i}
               key={delivery.id}
               onClick={() => showDeliveryOverview(delivery.id)}
             >

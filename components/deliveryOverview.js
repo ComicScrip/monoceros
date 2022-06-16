@@ -41,17 +41,13 @@ const DeliveryOverview = ({ deliveryDetail }) => {
       </div>
       <p>{t("status")}</p>
       <div className={deliveryDetailStyle.data}>
-        <HumidityData data-cy="deliveryDetailHumidity" />
-        <ShockData data-cy="deliveryDetailShock" />
-        <LightData data-cy="deliveryDetailLight" />
-        <TemperatureData data-cy="deliveryDetailTemperature" />
+        <HumidityData />
+        <ShockData />
+        <LightData />
+        <TemperatureData />
       </div>
       <div className={deliveryDetailStyle.map}>
-        <MapWithNoSSR
-          location={deliveriesLoc}
-          deliveryId={deliveryDetail.id}
-          data-cy="deliveryDetailMap"
-        />
+        <MapWithNoSSR location={deliveriesLoc} deliveryId={deliveryDetail.id} />
       </div>
     </div>
   );
