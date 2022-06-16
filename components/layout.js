@@ -29,11 +29,13 @@ const Layout = ({ children }) => {
   return (
     <>
       <Meta />
-      <Navbar />
-      <div className={styles.container}>
-        <main className={styles.main}>{children}</main>
+      <div className="flex flex-col h-screen justify-between">
+        <Navbar />
+        <div className={styles.container}>
+          <main className={styles.main}>{children}</main>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };

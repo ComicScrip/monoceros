@@ -119,7 +119,7 @@ export default function ProductsList() {
             />
           </div>
         </div>
-        <div className="w-[95vw] bg-white flex flex-col items-center justify-center">
+        <div className="w-[95vw] bg-white flex flex-col items-center">
           {products.map((product, _) => (
             <div
               className="h-16 overflow-x-scroll w-[100%]"
