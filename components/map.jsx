@@ -5,8 +5,33 @@ import "leaflet-defaulticon-compatibility";
 import * as L from "leaflet";
 import { useEffect, useRef, useState } from "react";
 
+const CustomMarker = ({ isActive, data, map }) => {
+  const [refReady, setRefReady] = useState(false);
+  let popupRef = useRef();
+
+  useEffect(() => {
+    if (refReady && isActive) {
+      map.openPopup(popupRef);
+    }
+  }, [isActive, refReady, map]);
+
+  return (
+    <Marker position={data.position} icon={data.icon}>
+      <Popup
+        ref={(r) => {
+          popupRef = r;
+          setRefReady(true);
+        }}
+      >
+        {data.title}
+      </Popup>
+    </Marker>
+  );
+};
+
 const Map = ({ location, deliveryId, deliveryPackage }) => {
   const [delivery] = location.filter((loc) => loc.id === deliveryId);
+  const [map, setMap] = useState(null);
 
   const greenIcon = L.icon({
     iconUrl: "/images/marker-icon-green.png",
@@ -21,6 +46,7 @@ const Map = ({ location, deliveryId, deliveryPackage }) => {
   return (
     <div>
       <MapContainer
+        ref={setMap}
         center={
           delivery?.location
             ? [delivery.location.gpsla, delivery.location.gpslo]
@@ -41,22 +67,19 @@ const Map = ({ location, deliveryId, deliveryPackage }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        <Marker
-          position={
-            delivery?.location
+        <CustomMarker
+          isActive
+          map={map}
+          data={{
+            position: delivery?.location
               ? [delivery.location.gpsla, delivery.location.gpslo]
-              : [46.388392427843584, 6.5068032539801255]
-          }
-          draggable={true}
-          animate={true}
-          icon={
-            deliveryPackage.filter((p) => p.alert === true)[0]
+              : [46.388392427843584, 6.5068032539801255],
+            title: "I am open",
+            icon: deliveryPackage.filter((p) => p.alert === true)[0]
               ? redIcon
-              : greenIcon
-          }
-        >
-          <Popup>Hey ! you found me</Popup>
-        </Marker>
+              : greenIcon,
+          }}
+        />
       </MapContainer>
     </div>
   );

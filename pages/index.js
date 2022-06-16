@@ -148,7 +148,6 @@ const getCsrfTokenAndSetCookies = async ({ res, query }) => {
     callbackUrlIsPresent && query?.callbackUrl.startsWith(baseUrl);
   const host = callbackUrlIsValid ? query?.callbackUrl : baseUrl;
   const redirectURL = encodeURIComponent(host);
-  console.log(redirectURL);
   // getting both the csrf form token and (next-auth.csrf-token cookie + next-auth.callback-url cookie)
   const csrfUrl = `${baseUrl}/api/auth/csrf?callbackUrl=${redirectURL}`;
   const csrfResponse = await axios.get(csrfUrl);
