@@ -6,7 +6,7 @@ const TemperatureData = ({ data }) => {
     <div className={sensorDataStyle.global}>
       <h3 className={sensorDataStyle.titre}>Temp.</h3>
       <div className={sensorDataStyle.data}>
-        {data[0] ? <p>{data[0]} °C</p> : <p>none</p>}
+        <p>{data[0] || 0} °C</p>
         <Image
           priority
           src="/images/temperature-logo.png"

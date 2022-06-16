@@ -8,7 +8,7 @@ const ShockData = ({ data }) => {
     <div className={sensorDataStyle.global}>
       <h3 className={sensorDataStyle.titre}>Shock</h3>
       <div className={sensorDataStyle.data}>
-        {data[0] ? <p>{data[0]}</p> : <p>none</p>}
+        {data[0] || 0}
         <Image
           priority
           src="/images/shock-logo.png"

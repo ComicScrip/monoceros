@@ -20,7 +20,10 @@ export default function DeliveriesStatus() {
 
   return (
     <div className="flex justify-center  bg-white text-xs w-[90%] mx-auto rounded p-5 max-w-[500px]">
-      <div className="flex flex-col w-[85%]">
+      <div
+        className="flex flex-col w-[85%]"
+        style={{ color: "var(--main-color)" }}
+      >
         <h1 className="mb-[15px] font-bold self-start">My deliveries</h1>
         <div className="mb-[15px] flex items-center justify-between">
           <p>In progress</p>
@@ -28,12 +31,13 @@ export default function DeliveriesStatus() {
             className={`bg-[#eae5e5] w-[${containerWidth}%] h-[10px] rounded`}
           >
             <div
-              style={{ width: `${inProgressWidth}%` }}
-              className="h-[10px] bg-red-600 rounded flex justify-end"
+              style={{
+                width: `${inProgressWidth}%`,
+                backgroundColor: "var(--main-color)",
+              }}
+              className="h-[10px] rounded flex justify-end"
             >
-              <span className="relative bottom-5 text-red-600">
-                {in_progress}
-              </span>
+              <span className="relative bottom-5">{in_progress}</span>
             </div>
           </div>
         </div>
@@ -43,10 +47,13 @@ export default function DeliveriesStatus() {
             className={`bg-[#eae5e5] w-[${containerWidth}%] h-[10px] rounded`}
           >
             <div
-              style={{ width: `${delayedWidth}%` }}
+              style={{
+                width: `${delayedWidth}%`,
+                backgroundColor: "var(--main-color)",
+              }}
               className="h-[10px] bg-red-600 rounded flex justify-end"
             >
-              <span className="relative bottom-5 text-red-600">{delayed}</span>
+              <span className="relative bottom-5">{delayed}</span>
             </div>
           </div>
         </div>
@@ -54,18 +61,21 @@ export default function DeliveriesStatus() {
           <p>Completed</p>
           <div className="bg-[#eae5e5] w-[70%] h-[10px] rounded ">
             <div
-              style={{ width: `${completedWidth}%` }}
+              style={{
+                width: `${completedWidth}%`,
+                backgroundColor: "var(--main-color)",
+              }}
               className="h-[10px] bg-red-600 rounded flex justify-end"
             >
-              <span className="relative bottom-5 text-red-600">
-                {completed}
-              </span>
+              <span className="relative bottom-5 ">{completed}</span>
             </div>
           </div>
         </div>
         <div className="flex items-center justify-between">
           <p>Total</p>
-          <span className="text-red-600 w-[70%]">{total}</span>
+          <div className="font-bold text-m w-[70%]">
+            <p className="w-5 text-black">{total}</p>
+          </div>
         </div>
       </div>
     </div>

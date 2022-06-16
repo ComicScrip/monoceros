@@ -6,7 +6,7 @@ const HumidityData = ({ data }) => {
     <div className={sensorDataStyle.global}>
       <h3 className={sensorDataStyle.titre}>Humidity</h3>
       <div className={sensorDataStyle.data}>
-        {data[0] ? <p>{data[0]} %</p> : <p>none</p>}
+        <p>{data[0] || 0} %</p>
         <Image
           priority
           src="/images/humidity-logo.png"
