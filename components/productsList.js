@@ -120,21 +120,39 @@ export default function ProductsList() {
           </div>
         </div>
         <div className="w-[95vw] bg-white flex flex-col items-center">
-          {products.map((product, _) => (
-            <div
-              className="h-16 overflow-x-scroll w-[100%]"
-              style={{ backgroundColor: "var(--main-bg-color)" }}
-              key={_}
-            >
-              <table data-cy={"products-table"} className="w-[95vw] h-14">
-                <tbody className="bg-white">
-                  <tr className="text-[0.6rem]">
-                    {tableHead.map((item) => (
-                      <td key={item}>{item}</td>
-                    ))}
-                  </tr>
-                  <tr key={_} className="collapse font-bold text-[10px]">
-                    <td className="min-w-[120px]">{product.name}</td>
+          <div
+            className="overflow-x-scroll w-[100%]"
+            style={{ backgroundColor: "var(--main-bg-color)" }}
+          >
+            <table data-cy={"products-table"} className="w-[95vw]">
+              <tbody className="bg-white">
+                <tr
+                  className="text-[0.6rem] font-bold"
+                  style={{ backgroundColor: "var(--main-bg-color)" }}
+                >
+                  <td className="min-w-[100px] absolute bg-[#efefef]">
+                    <span>{tableHead[0]}</span>
+                  </td>
+                  <td></td>
+                  {tableHead.slice(1, 8).map((item) => (
+                    <td className="min-w-[100px]" key={item}>
+                      {item}
+                    </td>
+                  ))}
+                </tr>
+                {products.map((product, _) => (
+                  <tr
+                    key={_}
+                    className="border-8 font-bold text-[10px] h-16"
+                    style={{ borderColor: "var(--main-bg-color)" }}
+                  >
+                    <td className="min-w-[100px]"></td>
+                    <td
+                      style={{ color: "var(--main-color)" }}
+                      className="min-w-[120px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14"
+                    >
+                      <span>{product.name}</span>
+                    </td>
                     <td className="min-w-[90px]">
                       {product.expiration_date
                         ? product.expiration_date.slice(0, 10)
@@ -159,10 +177,10 @@ export default function ProductsList() {
                         : 0}
                     </td>
                   </tr>
-                </tbody>
-              </table>
-            </div>
-          ))}
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {products.length < 1 ? (
             <div className="flex items-center justify-center bg-white w-[90vw] h-16">
@@ -173,11 +191,13 @@ export default function ProductsList() {
               className="flex justify-center w-full"
               style={{ backgroundColor: "var(--main-bg-color)" }}
             >
-              <Pagination
-                index={Math.ceil(numberOfProducts / productsPerPage)}
-                setCurrentPage={setCurrentPage}
-                currentPage={currentPage}
-              />
+              {products.length >= productsPerPage ? (
+                <Pagination
+                  index={Math.ceil(numberOfProducts / productsPerPage)}
+                  setCurrentPage={setCurrentPage}
+                  currentPage={currentPage}
+                />
+              ) : null}
             </div>
           )}
         </div>
