@@ -24,10 +24,10 @@ export default function DeliveryPath({ id }) {
       : null;
   }
   return (
-    <div className="flex flex-col items-center justify-between h-[10vh] w-[95%] text-[10px] min-w-[400px]">
-      <div className="w-[75%] h-[2px] bg-[#e16565] relative top-[38%]"></div>
-      <div className="flex justify-between items-center h-[15vh] w-[90%]">
-        <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-between h-[15vh] w-[95%] text-[10px] min-w-[400px]">
+      <div className="w-[70%] h-[2px] bg-[#e16565] relative top-[35%]"></div>
+      <div className="flex justify-between items-center h-[15vh] w-[90%] border-2">
+        <div className="flex flex-col items-center mr-5">
           <FiPackage style={{ fontSize: "2.5em", color: "black" }} />
           <p className="mt-2 text-[#e16565]">{steps[0]}</p>
         </div>
