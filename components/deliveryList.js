@@ -9,7 +9,7 @@ function DeliveryList() {
   const [showDetails, setShowDetails] = useState(false);
   const [allDeliveries, setAllDeliveries] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 10;
   const [numberOfItems, setNumberOfItems] = useState(null);
 
   useEffect(() => {
@@ -20,6 +20,13 @@ function DeliveryList() {
       }
     );
   }, [currentPage]);
+
+  const goToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   async function showDeliveryOverview(id) {
     const idStrg = id.toString();
@@ -55,7 +62,10 @@ function DeliveryList() {
             <tr
               className={deliveriesStyle.tRow + " " + deliveriesStyle.id}
               key={delivery.id}
-              onClick={() => showDeliveryOverview(delivery.id)}
+              onClick={() => {
+                showDeliveryOverview(delivery.id);
+                goToTop();
+              }}
             >
               <td className={deliveriesStyle.tCell}>{delivery.id}</td>
               <td className={deliveriesStyle.tCell}>{delivery.status}</td>

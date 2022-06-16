@@ -1,12 +1,12 @@
 import Image from "next/image";
 import sensorDataStyle from "../styles/sensorData.module.css";
 
-const TemperatureData = () => {
+const TemperatureData = ({ data }) => {
   return (
     <div className={sensorDataStyle.global}>
       <h3 className={sensorDataStyle.titre}>Temp.</h3>
       <div className={sensorDataStyle.data}>
-        <p>22 °C</p>
+        {data.length ? <p>{data[0]} °C</p> : <p>none</p>}
         <Image
           priority
           src="/images/temperature-logo.png"

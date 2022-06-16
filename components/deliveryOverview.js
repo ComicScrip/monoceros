@@ -8,6 +8,7 @@ import deliveryDetailStyle from "../styles/deliveryDetail.module.css";
 import { useRouter } from "next/router";
 import { getDeliveriesLocalisation } from "../lib/sensorDataAPI";
 import DeliveryPath from "./deliveryPath";
+import { getSensorData } from "../lib/deliveriesAPI";
 
 const DeliveryOverview = ({ deliveryDetail }) => {
   const MapWithNoSSR = dynamic(() => import("./map"), {
@@ -16,9 +17,32 @@ const DeliveryOverview = ({ deliveryDetail }) => {
   const [deliveriesLoc, setDeliveriesLoc] = useState([]);
   const [packages, setPackages] = useState({});
   const router = useRouter();
+  const [sensorsData, setSensorsData] = useState([]);
+  const sensorsType = ["temperature", "light", "shock", "humidity"];
+
+  async function getData() {
+    const allData = { temperature: [], light: [], shock: [], humidity: [] };
+    for (let i = 0; i < packages.length; i++) {
+      for (const datatype of sensorsType) {
+        try {
+          const data = await getSensorData(
+            deliveryDetail.id,
+            deliveryDetail.packages[i].id,
+            datatype
+          );
+          allData[datatype].push(data[1].sensor_value || 0);
+        } catch {
+          allData[datatype].push(null);
+        }
+      }
+      setSensorsData(allData);
+    }
+  }
+
   useEffect(() => {
     setPackages(deliveryDetail.packages);
     getDeliveriesLocalisation().then(setDeliveriesLoc);
+    getData();
   }, [deliveryDetail]);
 
   return (
@@ -40,10 +64,10 @@ const DeliveryOverview = ({ deliveryDetail }) => {
       </div>
       <p>Delivery Status</p>
       <div className={deliveryDetailStyle.data}>
-        <HumidityData />
-        <ShockData deliveryId={deliveryDetail.id} packages={packages} />
-        <LightData />
-        <TemperatureData />
+        <HumidityData data={sensorsData.humidity} />
+        <ShockData data={sensorsData.shock} />
+        <LightData data={sensorsData.light} />
+        <TemperatureData data={sensorsData.temperature} />
       </div>
       <div className={deliveryDetailStyle.map}>
         <MapWithNoSSR location={deliveriesLoc} deliveryId={deliveryDetail.id} />
