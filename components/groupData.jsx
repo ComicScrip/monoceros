@@ -88,7 +88,7 @@ const GroupData = ({ delivery_id, package_id }) => {
           )}
           <div className={groupDataStyle.data}>{t("vibration")}</div>
           {vibrationData.length !== 0 && (
-            <div data-cy="packageShockGraph" style={{ width: "100%" }}>
+            <div data-cy="packageShockGraph" style={{ width: "99%" }}>
               <Graph
                 sensorData={vibrationData}
                 limitData={productLimits}
