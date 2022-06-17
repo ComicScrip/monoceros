@@ -7,6 +7,9 @@ const nextConfig = {
   env: {
     API_BASE_URL: process.env.API_BASE_URL,
   },
+  compiler: {
+    styledComponents: true,
+  },
 };
 
 module.exports = nextConfig;
