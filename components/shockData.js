@@ -1,6 +1,6 @@
-import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import sensorDataStyle from "../styles/sensorData.module.css";
+import { useTranslation } from "next-i18next";
 
 const ShockData = () => {
   const { t } = useTranslation("deliveries");

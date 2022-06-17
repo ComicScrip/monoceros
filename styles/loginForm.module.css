@@ -3,8 +3,7 @@
   width: 70vw;
   height: 45vh;
   margin: 0 auto;
-  border-bottom-left-radius: 25px;
-  border-top-left-radius: 25px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   max-width: 400px;
@@ -25,8 +24,7 @@
 }
 
 .formButton {
-  border: 2px solid #c5bdbd;
-  height: 30px;
+  height: 40px;
   color: white;
   background-color: #e16565;
   cursor: pointer;
@@ -40,8 +38,9 @@
 }
 
 .input {
-  border: 2px solid #c5bdbd;
+  border: 1px solid #dedede;
   height: 30px;
+  width: 100%;
 }
 
 .input:-webkit-autofill {

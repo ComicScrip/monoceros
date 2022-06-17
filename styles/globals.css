@@ -1,11 +1,3 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background-color: #efefef;
-}
-
 a {
   color: inherit;
   text-decoration: none;
@@ -20,3 +12,16 @@ a {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --main-bg-color: #efefef;
+  --main-color: #ff455a;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: var(--main-bg-color);
+}

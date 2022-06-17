@@ -50,7 +50,7 @@ export default function Signin({ csrfToken }) {
         <div className={style.loginContainer}>
           <div className="flex flex-col items-center">
             <div className={styles.loginContainer}>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center  w-[90%]">
                 <div className="flex justify-center mt-5">
                   <Image
                     className={styles.logoForm}
@@ -61,7 +61,7 @@ export default function Signin({ csrfToken }) {
                   />
                 </div>
                 <form
-                  onSubmit={(e) => handleSubmit(e)}
+                  onSubmit={handleSubmit}
                   method="post"
                   action="/api/auth/callback/credentials"
                   data-cy="loginForm"
@@ -148,7 +148,6 @@ const getCsrfTokenAndSetCookies = async ({ res, query }) => {
     callbackUrlIsPresent && query?.callbackUrl.startsWith(baseUrl);
   const host = callbackUrlIsValid ? query?.callbackUrl : baseUrl;
   const redirectURL = encodeURIComponent(host);
-  console.log(redirectURL);
   // getting both the csrf form token and (next-auth.csrf-token cookie + next-auth.callback-url cookie)
   const csrfUrl = `${baseUrl}/api/auth/csrf?callbackUrl=${redirectURL}`;
   const csrfResponse = await axios.get(csrfUrl);

@@ -1,0 +1,15 @@
+{
+  "title": "CATALOGUE DES PRODUITS",
+  "country": "pays",
+  "warehouse": "entrepot",
+  "product": "Produit",
+  "expiration": "Date d'expiration",
+  "temp": "Temperature (°C)",
+  "humidity": "Humidité (%RH)",
+  "lum": "Luminosité (𝝺 nm)",
+  "shock": "Choc (G)",
+  "orientation": "Orientation",
+  "cost": "Coût unitaire (€)",
+  "delay": "Delai de livraison (jour(s))",
+  "noData": "Pas de produits"
+}

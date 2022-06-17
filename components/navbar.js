@@ -5,6 +5,7 @@ import Image from "next/image";
 import ActiveLink from "./activeLink";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import { signOut } from "next-auth/react";
 
 export default function Navbar() {
   const { t } = useTranslation("navbar");
@@ -295,7 +296,12 @@ export default function Navbar() {
           </ul>
           <div className={style.borderBottom}></div>
           <div className={style.bottomContainer}>
-            <p className={style.navTextBottom}>{t("signOut")}</p>
+            <p
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className={style.navTextBottom}
+            >
+              {t("signOut")}
+            </p>
             <select
               name="languages"
               id="language-select"
