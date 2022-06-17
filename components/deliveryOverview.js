@@ -22,10 +22,13 @@ const DeliveryOverview = ({ deliveryDetail }) => {
   return (
     <div className={deliveryDetailStyle.global}>
       <div className={deliveryDetailStyle.head}>
-        <h1 className={deliveryDetailStyle.title}>{deliveryDetail.id}</h1>
+        <h1 className={deliveryDetailStyle.title} data-cy="deliveryDetailTitle">
+          {deliveryDetail.id}
+        </h1>
         <button
           type="button"
           className={deliveryDetailStyle.detailBtn}
+          data-cy="deliveryDetailBtn"
           onClick={() => {
             router.push({
               pathname: "/deliveries/[delivery_id]",

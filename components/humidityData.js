@@ -5,7 +5,7 @@ import sensorDataStyle from "../styles/sensorData.module.css";
 const HumidityData = () => {
   const { t } = useTranslation("deliveries");
   return (
-    <div className={sensorDataStyle.global}>
+    <div className={sensorDataStyle.global} data-cy="deliveryDetailHumidity">
       <h3 className={sensorDataStyle.titre}>{t("humidity")}</h3>
       <div className={sensorDataStyle.data}>
         <p>30 %</p>
