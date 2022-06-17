@@ -119,14 +119,13 @@ export default function Navbar() {
                 />
               </div>
               <div className={style.navsubmenuContainer}>
-                <div className={style.navsubmenu}>
+                <div className={style.navsubmenu} onClick={openSectionProduct}>
                   <p className={style.navlink}>{t("products")}</p>
                   <Image
                     src={"/images/chevron-down.svg"}
                     alt="logo"
                     width={20}
                     height={20}
-                    onClick={openSectionProduct}
                     className={
                       openingSectionProduct
                         ? style.chevronUp
@@ -180,14 +179,13 @@ export default function Navbar() {
                 />
               </div>
               <div className={style.navsubmenuContainer}>
-                <div className={style.navsubmenu}>
+                <div className={style.navsubmenu} onClick={openSectionDelivery}>
                   <p className={style.navlink}>{t("deliveries")}</p>
                   <Image
                     src={"/images/chevron-down.svg"}
                     alt="logo"
                     width={20}
                     height={20}
-                    onClick={openSectionDelivery}
                     className={
                       openingSectionDelivery
                         ? style.chevronUp

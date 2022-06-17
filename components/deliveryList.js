@@ -63,7 +63,6 @@ function DeliveryList() {
               <td className={deliveriesStyle.tCell} data-cy="deliveryStatus">
                 {delivery.status}
               </td>
-              <td className={deliveriesStyle.tCell}>Vert</td>
               <td className={deliveriesStyle.tCell} data-cy="deliveryContact">
                 {delivery.delivery_path.shipment_paths[0].origin.contact_name}
               </td>

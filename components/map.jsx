@@ -51,7 +51,7 @@ const Map = ({ location, deliveryId, deliveries }) => {
   });
 
   const deliveriesArray = deliveries.filter((p) => p.id === delivery?.id);
-  const deliveryAlert = deliveriesArray[0].alerts_count;
+  const deliveryAlert = deliveriesArray[0]?.alerts_count;
 
   return (
     <>
