@@ -1,14 +1,15 @@
 {
-  "title": "CATALOGUE DES PRODUITS",
-  "country": "pays",
-  "warehouse": "entrepot",
-  "product": "Produit",
-  "expiration": "Date d'expiration",
+  "title": "PRODUCTS CATALOGUE",
+  "country": "country",
+  "warehouse": "warehouse",
+  "product": "Product",
+  "expiration": "Expiration date",
   "temp": "Temperature (°C)",
-  "humidity": "Humidité (%RH)",
-  "lum": "Luminosité (𝝺 nm)",
-  "shock": "Choc (G)",
+  "humidity": "Humidity (%RH)",
+  "lum": "Luminosity (𝝺 nm)",
+  "shock": "Shock (G)",
   "orientation": "Orientation",
-  "cost": "Coût unitaire (€)",
-  "delay": "Delai de livraison (jour(s))"
+  "cost": "Unit cost (€)",
+  "delay": "Lead time (day(s))",
+  "noData": "No products"
 }

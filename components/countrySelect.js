@@ -1,11 +1,12 @@
-import Router, { useRouter } from "next/router";
-
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 export default function CountrySelect({
   countries,
   selectCountry,
   country,
   setCurrentPage,
 }) {
+  const { t } = useTranslation("products");
   const router = useRouter();
   function handleClick() {
     selectCountry("");
@@ -27,7 +28,7 @@ export default function CountrySelect({
           style={{ fontSize: "13px" }}
         >
           <option className="font-xs" value="" hidden>
-            {router.query.country || "country"}
+            {router.query.country || t("country")}
           </option>
           {countries.map((country) => (
             <option key={country.country} value={country.country}>

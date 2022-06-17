@@ -1,6 +1,5 @@
 import Router, { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { getWarehouses } from "../lib/productsAPI";
+import { useTranslation } from "next-i18next";
 
 export default function WarehouseSelect({
   warehouses,
@@ -8,6 +7,7 @@ export default function WarehouseSelect({
   warehouse,
   setCurrentPage,
 }) {
+  const { t } = useTranslation("products");
   const router = useRouter();
   function handleClick() {
     selectWharehouse("");
@@ -30,7 +30,7 @@ export default function WarehouseSelect({
           style={{ fontSize: "13px" }}
         >
           <option value="" className="text-gray-300" disabled hidden>
-            {"warehouse"}
+            {t("warehouse")}
           </option>
           {warehouses.map((warehouses) => (
             <option key={warehouses.id} value={warehouses.id}>

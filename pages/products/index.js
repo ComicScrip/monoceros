@@ -24,7 +24,12 @@ export default Products;
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "home", "navbar"])),
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "home",
+        "navbar",
+        "products",
+      ])),
     },
   };
 }

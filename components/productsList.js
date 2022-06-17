@@ -83,14 +83,15 @@ export default function ProductsList() {
     request();
   }, [countrySelect, warehouseSelect, currentPage]);
   const tableHead = [
-    "Product",
-    "Expiration",
-    "Temperature (°C)",
-    "Humidity (%RH)",
-    "Light (𝝺 nm)",
-    "Shock (G)",
-    "Unit Cost (€)",
-    "delay (day(s))",
+    t("product"),
+    t("expiration"),
+    t("temp"),
+    t("humidity"),
+    t("lum"),
+    t("shock"),
+    t("orientation"),
+    t("cost"),
+    t("delay"),
   ];
   return (
     <>
@@ -104,7 +105,7 @@ export default function ProductsList() {
               fontWeight: "600",
             }}
           >
-            PRODUCTS CATALOGUE
+            {t("title")}
           </h1>
           <div className="flex flex-col items-center justify-center w-[95]">
             <CountrySelect
@@ -172,6 +173,7 @@ export default function ProductsList() {
                     <td className="min-w-[90px]">
                       {product.shock_min} / {product.shock_max}
                     </td>
+                    <td className="min-w-[90px]">X</td>
                     <td className="min-w-[90px]">{product.unit_cost}</td>
                     <td className="min-w-[90px]">
                       {product.lead_time_average
