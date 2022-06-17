@@ -53,11 +53,11 @@ function DeliveryList() {
                   ? deliveriesStyle.alert
                   : deliveriesStyle.noAlert
               }
-              data-cy={"deliveryRow" + i}
+              data-cy={delivery.alerts_count !== null ? "alert" : "noAlert"}
               key={delivery.id}
               onClick={() => showDeliveryOverview(delivery.id)}
             >
-              <td className={deliveriesStyle.tCell} data-cy="deliveryId">
+              <td className={deliveriesStyle.tCell} data-cy={"deliveryId" + i}>
                 {delivery.id}
               </td>
               <td className={deliveriesStyle.tCell} data-cy="deliveryStatus">
