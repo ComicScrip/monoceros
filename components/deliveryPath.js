@@ -10,6 +10,7 @@ export default function DeliveryPath({ id }) {
       const getData = await getDeliveryOverview(id);
       setPath(getData.delivery_path.shipment_paths);
       setActualStep(getData.step);
+      console.log["test"];
     }
     request();
   }, [id]);
@@ -22,6 +23,7 @@ export default function DeliveryPath({ id }) {
       ? steps.push(path[i].destination.name)
       : null;
   }
+
   return (
     <div className="flex items-center justify-between text-[10px] min-w-[400px]">
       <div className="flex justify-center items-center h-[15vh] w-[90vw]">
@@ -39,7 +41,7 @@ export default function DeliveryPath({ id }) {
                   : "flex flex-col min-w-[10%] min-h-[10%] items-center z-10 pt-6 "
               }
             >
-              {index + 2 === steps.length || 0 ? (
+              {index + 2 === steps.length ? (
                 <span className="pt-4">
                   <FaWarehouse style={{ fontSize: "2em", color: "black" }} />
                 </span>
@@ -52,7 +54,6 @@ export default function DeliveryPath({ id }) {
                       : "h-3 w-3 rounded-full border-[1px] border-[#e16565] bg-white"
                   }
                 >
-                  {" "}
                   {actualStep === index + 2 ? (
                     <span className=" relative left-10 bottom-2">
                       <FaTruck style={{ fontSize: "2em", color: "black" }} />
