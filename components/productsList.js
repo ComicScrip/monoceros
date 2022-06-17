@@ -10,18 +10,33 @@ import {
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
 import Pagination from "./pagination";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 export default function ProductsList() {
-  const [countrySelect, setCountrySelect] = useState("");
-  const [warehouseSelect, setWareHouseSelect] = useState("");
+  const { t } = useTranslation("products");
+  const router = useRouter();
+  const [countrySelect, setCountrySelect] = useState(
+    router.query.country || ""
+  );
+  const [warehouseSelect, setWareHouseSelect] = useState(
+    router.query.warehouse || ""
+  );
   const [countriesList, setCountriesList] = useState([]);
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8;
+  const productsPerPage = 10;
   const [numberOfProducts, setNumberOfProducts] = useState(null);
 
   useEffect(() => {
+    router.replace({
+      query: {
+        ...router.query,
+        warehouse: warehouseSelect,
+        country: countrySelect,
+      },
+    });
     async function request() {
       if (!warehouseSelect && !countrySelect) {
         const products = await getAllProducts(
@@ -68,14 +83,15 @@ export default function ProductsList() {
     request();
   }, [countrySelect, warehouseSelect, currentPage]);
   const tableHead = [
-    "Product",
-    "Expiration",
-    "Temperature (°C)",
-    "Humidity (%RH)",
-    "Light (𝝺 nm)",
-    "Shock (G)",
-    "Unit Cost (€)",
-    "delay (day(s))",
+    t("product"),
+    t("expiration"),
+    t("temp"),
+    t("humidity"),
+    t("lum"),
+    t("shock"),
+    t("orientation"),
+    t("cost"),
+    t("delay"),
   ];
   return (
     <>
@@ -89,7 +105,7 @@ export default function ProductsList() {
               fontWeight: "600",
             }}
           >
-            PRODUCTS CATALOGUE
+            {t("title")}
           </h1>
           <div className="flex flex-col items-center justify-center w-[95]">
             <CountrySelect
@@ -106,28 +122,46 @@ export default function ProductsList() {
             />
           </div>
         </div>
-        <div className="w-[95vw] bg-white flex flex-col items-center justify-center">
-          {products.map((product, _) => (
-            <div
-              className="h-16 overflow-x-scroll w-[100%]"
-              style={{ backgroundColor: "var(--main-bg-color)" }}
-              key={_}
-            >
-              <table className="w-[95vw] h-14">
-                <tbody className="bg-white">
-                  <tr className="text-[0.6rem]">
-                    {tableHead.map((item) => (
-                      <td key={item}>{item}</td>
-                    ))}
-                  </tr>
-                  <tr key={_} className="collapse font-bold text-[10px]">
-                    <td className="min-w-[120px]">{product.name}</td>
+        <div className="w-[95vw] bg-white flex flex-col items-center">
+          <div
+            className="overflow-x-scroll w-[100%]"
+            style={{ backgroundColor: "var(--main-bg-color)" }}
+          >
+            <table data-cy={"products-table"} className="w-[95vw]">
+              <tbody className="bg-white">
+                <tr
+                  className="text-[0.6rem] font-bold"
+                  style={{ backgroundColor: "var(--main-bg-color)" }}
+                >
+                  <td className="min-w-[100px] absolute bg-[#efefef]">
+                    <span>{tableHead[0]}</span>
+                  </td>
+                  <td></td>
+                  {tableHead.slice(1, 8).map((item) => (
+                    <td className="min-w-[100px]" key={item}>
+                      {item}
+                    </td>
+                  ))}
+                </tr>
+                {products.map((product, _) => (
+                  <tr
+                    key={_}
+                    className="border-8 font-bold text-[10px] h-16"
+                    style={{ borderColor: "var(--main-bg-color)" }}
+                  >
+                    <td className="min-w-[100px]"></td>
+                    <td
+                      style={{ color: "var(--main-color)" }}
+                      className="min-w-[120px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14"
+                    >
+                      <span>{product.name}</span>
+                    </td>
                     <td className="min-w-[90px]">
                       {product.expiration_date
                         ? product.expiration_date.slice(0, 10)
                         : ""}
                     </td>
-                    <td className="min-w-[90px]">
+                    <td data-cy={"temp-scale"} className="min-w-[90px]">
                       {product.temperature_min} / {product.temperature_max}
                     </td>
                     <td className="min-w-[90px]">
@@ -139,6 +173,7 @@ export default function ProductsList() {
                     <td className="min-w-[90px]">
                       {product.shock_min} / {product.shock_max}
                     </td>
+                    <td className="min-w-[90px]">X</td>
                     <td className="min-w-[90px]">{product.unit_cost}</td>
                     <td className="min-w-[90px]">
                       {product.lead_time_average
@@ -146,10 +181,10 @@ export default function ProductsList() {
                         : 0}
                     </td>
                   </tr>
-                </tbody>
-              </table>
-            </div>
-          ))}
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {products.length < 1 ? (
             <div className="flex items-center justify-center bg-white w-[90vw] h-16">
@@ -157,7 +192,7 @@ export default function ProductsList() {
             </div>
           ) : (
             <div
-              className="flex justify-center w-full absolute bottom-5 mt-3"
+              className="flex justify-center w-full"
               style={{ backgroundColor: "var(--main-bg-color)" }}
             >
               <Pagination
