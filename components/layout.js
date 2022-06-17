@@ -5,12 +5,14 @@ import Navbar from "./navbar";
 import styles from "../styles/Layout.module.css";
 import Footer from "./footer";
 import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 
 const Layout = ({ children }) => {
   const { t } = useTranslation("common");
   const { profile } = useContext(CurrentUserContext);
-  if (!profile)
+  const { status } = useSession();
+  if (!profile && status === "unauthenticated")
     return (
       <>
         <div className="flex flex-col items-center justify-center mt-20">
@@ -21,14 +23,19 @@ const Layout = ({ children }) => {
         </div>
       </>
     );
+  else if (status === "loading" || !profile) {
+    return <p>LOADING..</p>;
+  }
   return (
     <>
       <Meta />
-      <Navbar />
-      <div className={styles.container}>
-        <main className={styles.main}>{children}</main>
+      <div className="flex flex-col h-screen justify-between">
+        <Navbar />
+        <div className={styles.container}>
+          <main className={styles.main}>{children}</main>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };

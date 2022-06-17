@@ -1,4 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
@@ -53,45 +54,47 @@ const Map = ({ location, deliveryId, deliveries }) => {
   const deliveryAlert = deliveriesArray[0].alerts_count;
 
   return (
-    <div>
-      <MapContainer
-        ref={setMap}
-        center={
-          delivery?.location
-            ? [delivery.location.gpsla, delivery.location.gpslo]
-            : [46.388392427843584, 6.5068032539801255]
-        }
-        zoom={14}
-        scrollWheelZoom={false}
-        style={{
-          height: 200,
-          width: "100%",
-          marginLeft: "auto",
-          marginRight: "auto",
-          marginBottom: "10px",
-          borderRadius: "10px",
-        }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <CustomMarker
-          isActive
-          map={map}
-          data={{
-            position: delivery?.location
+    <>
+      <div data-cy="deliveryDetailMap">
+        <MapContainer
+          ref={setMap}
+          center={
+            delivery?.location
               ? [delivery.location.gpsla, delivery.location.gpslo]
-              : [46.388392427843584, 6.5068032539801255],
-            title: delivery?.id,
-            icon: deliveryAlert !== null ? redIcon : greenIcon,
-            maxWidth: "65px",
-            className: style.popup,
-            closeButton: false,
+              : [46.388392427843584, 6.5068032539801255]
+          }
+          zoom={14}
+          scrollWheelZoom={false}
+          style={{
+            height: 200,
+            width: "100%",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginBottom: "10px",
+            borderRadius: "10px",
           }}
-        />
-      </MapContainer>
-    </div>
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <CustomMarker
+            isActive
+            map={map}
+            data={{
+              position: delivery?.location
+                ? [delivery.location.gpsla, delivery.location.gpslo]
+                : [46.388392427843584, 6.5068032539801255],
+              title: delivery?.id,
+              icon: deliveryAlert !== null ? redIcon : greenIcon,
+              maxWidth: "65px",
+              className: style.popup,
+              closeButton: false,
+            }}
+          />
+        </MapContainer>
+      </div>
+    </>
   );
 };
 

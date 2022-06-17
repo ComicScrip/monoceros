@@ -5,7 +5,7 @@ import sensorDataStyle from "../styles/sensorData.module.css";
 const LightData = () => {
   const { t } = useTranslation("deliveries");
   return (
-    <div className={sensorDataStyle.global}>
+    <div className={sensorDataStyle.global} data-cy="deliveryDetailLight">
       <h3 className={sensorDataStyle.titre}>{t("light")}</h3>
       <div className={sensorDataStyle.data}>
         <p>1000Lm</p>

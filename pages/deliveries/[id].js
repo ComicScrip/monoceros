@@ -1,28 +1,28 @@
-import Image from "next/image";
+import React from "react";
 import Layout from "../../components/layout";
+import IdComponent from "../../components/idComponent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const DeliveryDetail = () => {
   return (
     <Layout>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Image
-          priority
-          src="/images/enconstruction.png"
-          height={200}
-          width={200}
-          alt="en construction"
-        />
-        <p>page under construction...</p>
-      </div>
+      <IdComponent />
     </Layout>
   );
 };
 
 export default DeliveryDetail;
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "home",
+        "navbar",
+        "deliveries",
+        "packages",
+      ])),
+    },
+  };
+}

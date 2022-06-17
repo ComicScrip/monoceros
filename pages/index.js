@@ -50,7 +50,7 @@ export default function Signin({ csrfToken }) {
         <div className={style.loginContainer}>
           <div className="flex flex-col items-center">
             <div className={styles.loginContainer}>
-              <div className="flex flex-col items-center">
+              <div className="flex flex-col items-center  w-[90%]">
                 <div className="flex justify-center mt-5">
                   <Image
                     className={styles.logoForm}
@@ -61,7 +61,7 @@ export default function Signin({ csrfToken }) {
                   />
                 </div>
                 <form
-                  onSubmit={(e) => handleSubmit(e)}
+                  onSubmit={handleSubmit}
                   method="post"
                   action="/api/auth/callback/credentials"
                   data-cy="loginForm"
