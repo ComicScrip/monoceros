@@ -22,3 +22,4 @@ EXPOSE $PORT
 
 # Running the app
 CMD "yarn" "start"
+

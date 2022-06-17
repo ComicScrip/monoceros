@@ -12,7 +12,6 @@ const Layout = ({ children }) => {
   const { t } = useTranslation("common");
   const { profile } = useContext(CurrentUserContext);
   const { status } = useSession();
-  console.log(profile, status);
   if (!profile && status === "unauthenticated")
     return (
       <>
@@ -30,11 +29,13 @@ const Layout = ({ children }) => {
   return (
     <>
       <Meta />
-      <Navbar />
-      <div className={styles.container}>
-        <main className={styles.main}>{children}</main>
+      <div className="flex flex-col h-screen justify-between">
+        <Navbar />
+        <div className={styles.container}>
+          <main className={styles.main}>{children}</main>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };
