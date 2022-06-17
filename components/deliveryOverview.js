@@ -9,8 +9,10 @@ import { useRouter } from "next/router";
 import { getDeliveriesLocalisation } from "../lib/sensorDataAPI";
 import DeliveryPath from "./deliveryPath";
 import { getSensorData } from "../lib/deliveriesAPI";
+import { useTranslation } from "next-i18next";
 
 const DeliveryOverview = ({ deliveryDetail }) => {
+  const { t } = useTranslation("deliveries");
   const MapWithNoSSR = dynamic(() => import("./map"), {
     ssr: false,
   });
@@ -59,10 +61,10 @@ const DeliveryOverview = ({ deliveryDetail }) => {
             });
           }}
         >
-          Details
+          {t("details")}
         </button>
       </div>
-      <p>Delivery Status</p>
+      <p>{t("status")}</p>
       <div className={deliveryDetailStyle.data}>
         <HumidityData data={sensorsData.humidity} />
         <ShockData data={sensorsData.shock} />

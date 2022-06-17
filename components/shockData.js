@@ -1,12 +1,12 @@
 import Image from "next/image";
 import sensorDataStyle from "../styles/sensorData.module.css";
-import { getSensorData, getDeliveryOverview } from "../lib/deliveriesAPI";
-import { useEffect, useState } from "react";
+import { useTranslation } from "next-i18next";
 
 const ShockData = ({ data }) => {
+  const { t } = useTranslation("deliveries");
   return (
     <div className={sensorDataStyle.global}>
-      <h3 className={sensorDataStyle.titre}>Shock</h3>
+      <h3 className={sensorDataStyle.titre}>{t("shock")}</h3>
       <div className={sensorDataStyle.data}>
         {data ? <p>{data[0] || 0}</p> : <p>none</p>}
 

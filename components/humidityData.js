@@ -1,10 +1,12 @@
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import sensorDataStyle from "../styles/sensorData.module.css";
 
 const HumidityData = ({ data }) => {
+  const { t } = useTranslation("deliveries");
   return (
     <div className={sensorDataStyle.global}>
-      <h3 className={sensorDataStyle.titre}>Humidity</h3>
+      <h3 className={sensorDataStyle.titre}>{t("humidity")}</h3>
       <div className={sensorDataStyle.data}>
         {data ? <p>{data[0] || 0} %</p> : <p>none</p>}
         <Image

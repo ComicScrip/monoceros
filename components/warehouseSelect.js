@@ -1,9 +1,14 @@
+import Router, { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+
 export default function WarehouseSelect({
   warehouses,
   selectWharehouse,
   warehouse,
   setCurrentPage,
 }) {
+  const { t } = useTranslation("products");
+  const router = useRouter();
   function handleClick() {
     selectWharehouse("");
     setCurrentPage(1);
@@ -12,9 +17,6 @@ export default function WarehouseSelect({
   function handleSelectChange(e) {
     selectWharehouse(e.target.value);
     setCurrentPage(1);
-  }
-  if (!warehouses) {
-    warehouses = [{ name: "no option", id: 0 }];
   }
 
   return (
@@ -25,10 +27,10 @@ export default function WarehouseSelect({
           onChange={(e) => handleSelectChange(e)}
           value={warehouse}
           className="bg-white w-[90vw] h-7 mb-5"
-          style={{ fontSize: "10px" }}
+          style={{ fontSize: "13px" }}
         >
           <option value="" className="text-gray-300" disabled hidden>
-            Warehouses
+            {t("warehouse")}
           </option>
           {warehouses.map((warehouses) => (
             <option key={warehouses.id} value={warehouses.id}>

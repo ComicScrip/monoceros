@@ -29,6 +29,7 @@
     "leaflet-defaulticon-compatibility": "^0.1.1",
     "leaflet-geosearch": "^3.6.0",
     "next": "12.1.6",
+    "next-i18next": "^11.0.0",
     "next-auth": "^4.3.4",
     "npm-run-all": "^4.1.5",
     "prisma": "^3.14.0",
@@ -36,8 +37,7 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-leaflet": "^4.0.0",
-    "react-icons": "^4.3.1",
-    "react-leaflet": "^4.0.0"
+    "react-icons": "^4.3.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
