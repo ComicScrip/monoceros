@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { getDeliveriesLocalisation } from "../lib/sensorDataAPI";
 import { useTranslation } from "next-i18next";
 
-const DeliveryOverview = ({ deliveryDetail, deliveryPackage }) => {
+const DeliveryOverview = ({ deliveryDetail, deliveries }) => {
   const { t } = useTranslation("deliveries");
 
   const MapWithNoSSR = dynamic(() => import("./map"), {
@@ -49,7 +49,7 @@ const DeliveryOverview = ({ deliveryDetail, deliveryPackage }) => {
         <MapWithNoSSR
           location={deliveriesLoc}
           deliveryId={deliveryDetail.id}
-          deliveryPackage={deliveryPackage}
+          deliveries={deliveries}
         />
       </div>
     </div>

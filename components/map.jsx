@@ -4,6 +4,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 import * as L from "leaflet";
 import { useEffect, useRef, useState } from "react";
+import style from "../styles/deliveries.module.css";
 
 const CustomMarker = ({ isActive, data, map }) => {
   const [refReady, setRefReady] = useState(false);
@@ -22,6 +23,9 @@ const CustomMarker = ({ isActive, data, map }) => {
           popupRef = r;
           setRefReady(true);
         }}
+        maxWidth={data.maxWidth}
+        className={data.className}
+        closeButton={data.closeButton}
       >
         {data.title}
       </Popup>
@@ -29,19 +33,24 @@ const CustomMarker = ({ isActive, data, map }) => {
   );
 };
 
-const Map = ({ location, deliveryId, deliveryPackage }) => {
+const Map = ({ location, deliveryId, deliveries }) => {
   const [delivery] = location.filter((loc) => loc.id === deliveryId);
   const [map, setMap] = useState(null);
 
   const greenIcon = L.icon({
     iconUrl: "/images/marker-icon-green.png",
     iconSize: [25, 40],
+    popupAnchor: [0, -20],
   });
 
   const redIcon = L.icon({
     iconUrl: "/images/marker-icon-red.png",
     iconSize: [25, 40],
+    popupAnchor: [0, -20],
   });
+
+  const deliveriesArray = deliveries.filter((p) => p.id === delivery?.id);
+  const deliveryAlert = deliveriesArray[0].alerts_count;
 
   return (
     <div>
@@ -75,9 +84,10 @@ const Map = ({ location, deliveryId, deliveryPackage }) => {
               ? [delivery.location.gpsla, delivery.location.gpslo]
               : [46.388392427843584, 6.5068032539801255],
             title: delivery?.id,
-            icon: deliveryPackage.filter((p) => p.alert === true)[0]
-              ? redIcon
-              : greenIcon,
+            icon: deliveryAlert !== null ? redIcon : greenIcon,
+            maxWidth: "65px",
+            className: style.popup,
+            closeButton: false,
           }}
         />
       </MapContainer>

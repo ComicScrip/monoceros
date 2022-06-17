@@ -31,7 +31,7 @@ function DeliveryList() {
           </span>
           <DeliveryOverview
             deliveryDetail={deliveryOverview}
-            deliveryPackage={deliveryOverview.packages}
+            deliveries={allDeliveries}
           />
         </div>
       )}
