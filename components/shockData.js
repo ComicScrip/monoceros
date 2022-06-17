@@ -3,7 +3,7 @@ import sensorDataStyle from "../styles/sensorData.module.css";
 import { useTranslation } from "next-i18next";
 
 const ShockData = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("deliveries");
   return (
     <div className={sensorDataStyle.global}>
       <h3 className={sensorDataStyle.titre}>{t("shock")}</h3>
