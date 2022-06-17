@@ -53,7 +53,7 @@ function DeliveryList() {
         </div>
       )}
       <table className={deliveriesStyle.table}>
-        <thead className={deliveriesStyle.allHead}>
+        <thead className={deliveriesStyle.allHead} data-cy="tableHeader">
           <tr>
             <th className={deliveriesStyle.tHeader}>ID</th>
             <th className={deliveriesStyle.tHeader}>Status</th>
@@ -63,9 +63,10 @@ function DeliveryList() {
           </tr>
         </thead>
         <tbody>
-          {allDeliveries.map((delivery) => (
+          {allDeliveries.map((delivery, i) => (
             <tr
               className={deliveriesStyle.tRow + " " + deliveriesStyle.id}
+              data-cy={"deliveryRow" + i}
               key={delivery.id}
               onClick={() => {
                 showDeliveryOverview(delivery.id);
@@ -73,15 +74,25 @@ function DeliveryList() {
                 setDetailView(true);
               }}
             >
-              <td className={deliveriesStyle.tCell}>{delivery.id}</td>
-              <td className={deliveriesStyle.tCell}>{delivery.status}</td>
-              <td className={deliveriesStyle.tCell}>
+              <td className={deliveriesStyle.tCell} data-cy="deliveryId">
+                {delivery.id}
+              </td>
+              <td className={deliveriesStyle.tCell} data-cy="deliveryStatus">
+                {delivery.status}
+              </td>
+              <td className={deliveriesStyle.tCell}>Vert</td>
+              <td className={deliveriesStyle.tCell} data-cy="deliveryContact">
                 {delivery.delivery_path.shipment_paths[0].origin.contact_name}
               </td>
-              <td className={deliveriesStyle.tCell}>
+              <td
+                className={deliveriesStyle.tCell}
+                data-cy="deliveryDestination"
+              >
                 {delivery.delivery_path.shipment_paths[0].destination.city}
               </td>
-              <td className={deliveriesStyle.tCell}>{delivery.end_date}</td>
+              <td className={deliveriesStyle.tCell} data-cy="deliveryEndDate">
+                {delivery.end_date}
+              </td>
             </tr>
           ))}
         </tbody>

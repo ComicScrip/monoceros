@@ -1,4 +1,3 @@
-import React from "react";
 import Layout from "../../components/layout";
 import Meta from "../../components/meta";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -28,6 +27,7 @@ export async function getStaticProps({ locale }) {
         "home",
         "navbar",
         "deliveries",
+        "packages",
       ])),
     },
   };

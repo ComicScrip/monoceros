@@ -3,7 +3,7 @@ import sensorDataStyle from "../styles/sensorData.module.css";
 
 const TemperatureData = ({ data }) => {
   return (
-    <div className={sensorDataStyle.global}>
+    <div className={sensorDataStyle.global} data-cy="deliveryDetailTemperature">
       <h3 className={sensorDataStyle.titre}>Temp.</h3>
       <div className={sensorDataStyle.data}>
         {data ? <p>{data[0] || 0} °C</p> : <p>none</p>}
