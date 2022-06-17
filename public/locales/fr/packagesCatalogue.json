@@ -1,0 +1,12 @@
+{
+  "title": "catalogue des paquets",
+  "country": "pays",
+  "warehouse": "entrepot",
+  "sensor": "N° capteur",
+  "product": "Produit",
+  "size": "Volume",
+  "pairingStart": "Debut appairage",
+  "expiration": "Date expiration",
+  "pairingEnd": "Fin appairage",
+  "delete": "Supprimer"
+}

@@ -16,18 +16,18 @@ import { useTranslation } from "next-i18next";
 export default function ProductsList() {
   const { t } = useTranslation("products");
   const router = useRouter();
-  const [countrySelect, setCountrySelect] = useState(
-    router.query.country || ""
-  );
-  const [warehouseSelect, setWareHouseSelect] = useState(
-    router.query.warehouse || ""
-  );
   const [countriesList, setCountriesList] = useState([]);
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
   const [numberOfProducts, setNumberOfProducts] = useState(null);
+  const [countrySelect, setCountrySelect] = useState(
+    router.query.country || ""
+  );
+  const [warehouseSelect, setWareHouseSelect] = useState(
+    router.query.warehouse || ""
+  );
 
   useEffect(() => {
     router.replace({
@@ -81,6 +81,7 @@ export default function ProductsList() {
       }
     }
     request();
+    console.log(products);
   }, [countrySelect, warehouseSelect, currentPage]);
   const tableHead = [
     t("product"),
@@ -133,11 +134,11 @@ export default function ProductsList() {
                   className="text-[0.6rem] font-bold"
                   style={{ backgroundColor: "var(--main-bg-color)" }}
                 >
-                  <td className="min-w-[100px] absolute bg-[#efefef]">
+                  <td className="min-w-[80px] absolute bg-[#efefef]">
                     <span>{tableHead[0]}</span>
                   </td>
                   <td></td>
-                  {tableHead.slice(1, 8).map((item) => (
+                  {tableHead.slice(1, 9).map((item) => (
                     <td className="min-w-[100px]" key={item}>
                       {item}
                     </td>
@@ -149,10 +150,10 @@ export default function ProductsList() {
                     className="border-8 font-bold text-[10px] h-16"
                     style={{ borderColor: "var(--main-bg-color)" }}
                   >
-                    <td className="min-w-[100px]"></td>
+                    <td className="min-w-[80px]"></td>
                     <td
                       style={{ color: "var(--main-color)" }}
-                      className="min-w-[120px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14"
+                      className="min-w-[90px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14"
                     >
                       <span>{product.name}</span>
                     </td>
@@ -164,18 +165,18 @@ export default function ProductsList() {
                     <td data-cy={"temp-scale"} className="min-w-[90px]">
                       {product.temperature_min} / {product.temperature_max}
                     </td>
-                    <td className="min-w-[90px]">
+                    <td className="min-w-[70px]">
                       {product.humidity_min} / {product.humidity_max}
                     </td>
-                    <td className="min-w-[90px]">
+                    <td className="min-w-[70px]">
                       {product.light_min} / {product.light_max}
                     </td>
-                    <td className="min-w-[90px]">
+                    <td className="min-w-[70px]">
                       {product.shock_min} / {product.shock_max}
                     </td>
-                    <td className="min-w-[90px]">X</td>
-                    <td className="min-w-[90px]">{product.unit_cost}</td>
-                    <td className="min-w-[90px]">
+                    <td className="min-w-[70px]">{product.orientation_cfg}</td>
+                    <td className="min-w-[70px]">{product.unit_cost}</td>
+                    <td className="min-w-[70px]">
                       {product.lead_time_average
                         ? product.lead_time_average
                         : 0}

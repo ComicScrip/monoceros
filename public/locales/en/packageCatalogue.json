@@ -1,0 +1,12 @@
+{
+  "title": "Packages catalogue",
+  "country": "country",
+  "warehouse": "warehouse",
+  "sensor": "Sensor N°",
+  "product": "Product",
+  "size": "Size",
+  "pairingStart": "Pairing start date",
+  "expiration": "Expiry date",
+  "pairingEnd": "Pairing end date",
+  "delete": "Delete"
+}

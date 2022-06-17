@@ -3,14 +3,33 @@ import Pagination from "./pagination";
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
 import { getAllPackages } from "../lib/packagesAPI";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 export default function PackagesList() {
+  const { t } = useTranslation("packageCatalogue");
+  const router = useRouter();
+  const [countrySelect, setCountrySelect] = useState(
+    router.query.country || ""
+  );
+  const [warehouseSelect, setWareHouseSelect] = useState(
+    router.query.warehouse || ""
+  );
+  const [countriesList, setCountriesList] = useState([]);
+  const [warehousesList, setWarehousesList] = useState([]);
   const [packages, setPackages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const packagesPerPage = 8;
+  const packagesPerPage = 10;
   const [numberOfPackages, setNumberOfPackages] = useState(null);
 
   useEffect(() => {
+    router.replace({
+      query: {
+        ...router.query,
+        warehouse: warehouseSelect,
+        country: countrySelect,
+      },
+    });
     async function request() {
       const data = await getAllPackages(
         packagesPerPage,
@@ -30,7 +49,7 @@ export default function PackagesList() {
     "Pairing start date",
     "Expiry date",
     "Pairing end date",
-    " ",
+    "Delete",
   ];
   return (
     <>
@@ -43,41 +62,57 @@ export default function PackagesList() {
             fontWeight: "600",
           }}
         >
-          PACKAGES CATALOGUE
+          {t("title")}
         </h1>
         <div className="flex flex-col items-center justify-center w-[95] mb-10">
           <CountrySelect
-            countries={[]}
-            selectCountry={" "}
-            country={" "}
+            countries={countriesList}
+            selectCountry={setCountrySelect}
+            country={countrySelect}
             setCurrentPage={setCurrentPage}
           />
           <WarehouseSelect
-            warehouses={[]}
-            selectWharehouse={" "}
-            warehouse={" "}
+            warehouses={warehousesList}
+            selectWharehouse={setWareHouseSelect}
+            warehouse={warehouseSelect}
             setCurrentPage={setCurrentPage}
           />
         </div>
         <div className="w-[95vw] bg-white flex flex-col items-center justify-center">
-          {packages.map((pack, _) => (
-            <div
-              className="h-16 overflow-x-scroll w-[100%]"
-              style={{ backgroundColor: "var(--main-bg-color)" }}
-              key={_}
-            >
-              <table className="w-[95vw] h-14">
-                <tbody className="bg-white">
-                  <tr className="text-[0.6rem]">
-                    {tableHead.map((item) => (
-                      <td key={item}>{item}</td>
-                    ))}
-                  </tr>
-                  <tr key={_} className="collapse font-bold text-[10px]">
-                    <td className="min-w-[70px]">{pack.id}</td>
+          <div
+            className="overflow-x-scroll w-[100%]"
+            style={{ backgroundColor: "var(--main-bg-color)" }}
+          >
+            <table className="w-[95vw]">
+              <tbody className="bg-white">
+                <tr
+                  className="text-[0.6rem] font-bold"
+                  style={{ backgroundColor: "var(--main-bg-color)" }}
+                >
+                  <td className="min-w-[70px] absolute bg-[#efefef]">
+                    <span>{tableHead[0]}</span>
+                  </td>
+                  <td></td>
+                  {tableHead.slice(1, 8).map((item) => (
+                    <td key={item}>{item}</td>
+                  ))}
+                </tr>
+                {packages.map((pack, _) => (
+                  <tr
+                    key={_}
+                    className="collapse font-bold border-8 text-[10px] h-16"
+                    style={{ borderColor: "var(--main-bg-color)" }}
+                  >
+                    <td className="min-w-[70px]"></td>
+                    <td
+                      style={{ color: "var(--main-color)" }}
+                      className="min-w-[70px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14"
+                    >
+                      {pack.id}
+                    </td>
                     <td className="min-w-[110px]">{pack.monoceros_id}</td>
                     <td className="min-w-[90px]">
-                      <ul className="overflow-y-scroll max-h-8">
+                      <ul className="overflow-y-scroll">
                         {pack.products.map((p) => (
                           <li key={p.id}>{p.product_name}</li>
                         ))}
@@ -104,19 +139,21 @@ export default function PackagesList() {
                         </button>
                       )}
                     </td>
-                    <td className="min-w-[90px]">delete</td>
+                    <td className="min-w-[90px] text-red-800 text-xl cursor-pointer">
+                      ✗
+                    </td>
                   </tr>
-                </tbody>
-              </table>
-            </div>
-          ))}
+                ))}
+              </tbody>
+            </table>
+          </div>
           {packages.length < 1 ? (
             <div className="flex items-center justify-center bg-white w-[90vw] h-16">
               <p>No packages</p>
             </div>
           ) : (
             <div
-              className="flex justify-center w-full absolute bottom-5 mt-3"
+              className="flex justify-center w-full"
               style={{ backgroundColor: "var(--main-bg-color)" }}
             >
               <Pagination
