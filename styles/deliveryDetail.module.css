@@ -7,7 +7,6 @@
 
 .title {
   color: #ff455a;
-  font-family: "Poppins";
   font-weight: bold;
   margin: 0px;
 }
@@ -33,7 +32,6 @@
 
 .detailBtn {
   background-color: #ff455a;
-  font-family: "Poppins";
   color: beige;
   border-radius: 10px;
   padding: 5px;

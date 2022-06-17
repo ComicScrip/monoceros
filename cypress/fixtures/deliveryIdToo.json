@@ -1,0 +1,116 @@
+{
+  "id": 175,
+  "packages": [
+    {
+      "id": 219,
+      "sensor_id": "882360010112650",
+      "alert": true,
+      "last_updated": "2022-01-18T10:36:39Z",
+      "alerts_count": 4,
+      "threshold_time": {
+        "id": 165,
+        "temperature_over": null,
+        "temperature_below": null,
+        "light_over": null,
+        "light_below": null,
+        "shock_over": null,
+        "shock_below": null,
+        "humidity_over": null,
+        "humidity_below": null
+      },
+      "sensor_alerts_count": {
+        "temperature_count": 0,
+        "humidity_count": 4,
+        "shock_count": 0,
+        "light_count": 0
+      }
+    }
+  ],
+  "delivery_path": {
+    "id": 258,
+    "label": "monoceros - dijon",
+    "shipment_paths": [
+      {
+        "id": 301,
+        "origin": {
+          "id": 58,
+          "current_storage": {
+            "id": 46,
+            "owner_type": "Federica Andrisani",
+            "owner_id": "1",
+            "control_temp": false,
+            "control_humidity": false,
+            "global_stock_quantity": 20,
+            "global_stock_value": "400.0000000000",
+            "supplier": 11
+          },
+          "type": [
+            {
+              "id": 2,
+              "name": "Truck"
+            },
+            {
+              "id": 1,
+              "name": "Bike"
+            }
+          ],
+          "storage_type": "W",
+          "name": "Monoceros SAS",
+          "geography": "Europe",
+          "country": "France",
+          "city": "Thonon-les-bains",
+          "street": "24 Avenue du Général de Gaulle",
+          "postal_code": "74200",
+          "contact_name": "Federica Andrisani",
+          "contact_mail": "info@monoceros-sas.com",
+          "contact_phone": "393465732784",
+          "gps_lat": "46.369087548517510",
+          "gps_lon": "6.474386511592440"
+        },
+        "destination": {
+          "id": 67,
+          "current_storage": {
+            "id": 53,
+            "owner_type": "manufacturer",
+            "owner_id": "1",
+            "control_temp": true,
+            "control_humidity": true,
+            "global_stock_quantity": 100,
+            "global_stock_value": "100.0000000000",
+            "supplier": 11
+          },
+          "type": [
+            {
+              "id": 2,
+              "name": "Truck"
+            },
+            {
+              "id": 1,
+              "name": "Bike"
+            }
+          ],
+          "storage_type": "W",
+          "name": "Dijon Production",
+          "geography": "Europe",
+          "country": "France",
+          "city": "Dijon",
+          "street": "7 rue de Mayence",
+          "postal_code": "21000",
+          "contact_name": "Dijon",
+          "contact_mail": "dijon@production.com",
+          "contact_phone": "33147896321",
+          "gps_lat": "47.346558000000000",
+          "gps_lon": "5.062148000000000"
+        }
+      }
+    ],
+    "organization": 11,
+    "warehouse_origin": 46,
+    "warehouse_destination": 53
+  },
+  "step": 0,
+  "shipment_data": {
+    "origin": "Monoceros SAS",
+    "current_storage_id": 58
+  }
+}
