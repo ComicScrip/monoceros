@@ -44,9 +44,30 @@ describe("login", () => {
       cy.intercept("**/api/deliveries/deliveries/190", {
         fixture: "deliveryId.json",
       });
-      cy.intercept("**/api/deliveries/delivery-package/sensors-data/**", {
-        fixture: "packageNoDataTLHS.json",
-      });
+      cy.intercept(
+        "**/api/deliveries/delivery-package/sensors-data/**sensor_type=temperature",
+        {
+          fixture: "packageNoDataTLHS.json",
+        }
+      );
+      cy.intercept(
+        "**/api/deliveries/delivery-package/sensors-data/**sensor_type=humidity",
+        {
+          fixture: "packageNoDataTLHS.json",
+        }
+      );
+      cy.intercept(
+        "**/api/deliveries/delivery-package/sensors-data/**sensor_type=light",
+        {
+          fixture: "packageNoDataTLHS.json",
+        }
+      );
+      cy.intercept(
+        "**/api/deliveries/delivery-package/sensors-data/**sensor_type=shock",
+        {
+          fixture: "packageNoDataTLHS.json",
+        }
+      );
       cy.intercept("**/api/base/packages/?limit=100", {
         fixture: "packageInfo.json",
       });
