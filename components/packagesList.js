@@ -16,10 +16,8 @@ export default function PackagesList() {
   useEffect(() => {
     async function request() {
       const packages = await getAllPackages();
-      console.log(packages);
     }
     request();
-    console.log(numberOfPackages);
   }, []);
 
   return (

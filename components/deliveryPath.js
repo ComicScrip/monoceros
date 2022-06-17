@@ -10,7 +10,7 @@ export default function DeliveryPath({ id }) {
       const getData = await getDeliveryOverview(id);
       setPath(getData.delivery_path.shipment_paths);
       setActualStep(getData.step);
-      console.log["test"];
+      console.log(path.length);
     }
     request();
   }, [id]);
@@ -25,7 +25,7 @@ export default function DeliveryPath({ id }) {
   }
 
   return (
-    <div className="flex items-center justify-between text-[10px] min-w-[400px]">
+    <div className="flex items-center justify-between text-[10px]">
       <div className="flex justify-center items-center h-[15vh] w-[90vw]">
         <div className="w-[95%] h-[2px] bg-[#e16565] flex justify-between items-center">
           <div className="flex flex-col items-center justify-center bg-[#efefef] pt-5">

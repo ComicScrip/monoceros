@@ -35,7 +35,6 @@ function DeliveryList() {
       .then(setDeliveryOverview)
       .then(() => setShowDetails(true));
   }
-  console.log(allDeliveries);
   return (
     <>
       {!detailView ? <DeliveriesStatus /> : null}
