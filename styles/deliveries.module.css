@@ -10,11 +10,15 @@
 .tHeader {
   background-color: white;
   padding: 15px 5px 15px 5px;
+  font-weight: 900;
+  font-size: 12px;
 }
 
 .tCell {
   padding: 15px 5px 15px 5px;
   text-align: center;
+  font-weight: 500;
+  font-size: 11px;
 }
 
 .noAlert {
@@ -24,8 +28,8 @@
 
 .alert {
   cursor: pointer;
-  background-color: red;
-  color: white;
+  background-color: #ff455a;
+  color: beige;
 }
 
 .head {

@@ -74,7 +74,7 @@ const Map = ({ location, deliveryId, deliveryPackage }) => {
             position: delivery?.location
               ? [delivery.location.gpsla, delivery.location.gpslo]
               : [46.388392427843584, 6.5068032539801255],
-            title: "I am open",
+            title: delivery?.id,
             icon: deliveryPackage.filter((p) => p.alert === true)[0]
               ? redIcon
               : greenIcon,

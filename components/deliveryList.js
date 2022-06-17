@@ -49,8 +49,7 @@ function DeliveryList() {
           {allDeliveries.map((delivery) => (
             <tr
               className={
-                (delivery.id === deliveryOverview.id &&
-                  deliveryOverview.packages[0]?.alert) === true
+                delivery.alerts_count !== null
                   ? deliveriesStyle.alert
                   : deliveriesStyle.noAlert
               }
