@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import Pagination from "./pagination";
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
-import { getAllPackages } from "../lib/packagesAPI";
+import { getPackagesByCountryWarehouseAndId } from "../lib/packagesAPI";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import { getAllCountries, getWarehouses } from "../lib/productsAPI";
 
 export default function PackagesList() {
   const { t } = useTranslation("packageCatalogue");
@@ -31,16 +32,23 @@ export default function PackagesList() {
       },
     });
     async function request() {
-      const data = await getAllPackages(
+      const data = await getPackagesByCountryWarehouseAndId(
         packagesPerPage,
-        (currentPage - 1) * (packagesPerPage + 1)
+        (currentPage - 1) * (packagesPerPage + 1),
+        countrySelect,
+        warehouseSelect,
+        ""
       );
+      console.log(data);
+      const warehouses = await getWarehouses(countrySelect || "");
+      setWarehousesList(warehouses.data);
+      const countries = await getAllCountries();
+      setCountriesList(countries.data);
       setNumberOfPackages(data.count);
       setPackages(data.results);
     }
     request();
-  }, [currentPage]);
-
+  }, [currentPage, countrySelect, warehouseSelect]);
   const tableHead = [
     "ID",
     "Sensor",
@@ -149,9 +157,10 @@ export default function PackagesList() {
           </div>
           {packages.length < 1 ? (
             <div className="flex items-center justify-center bg-white w-[90vw] h-16">
-              <p>No packages</p>
+              <p>No products</p>
             </div>
-          ) : (
+          ) : null}
+          {Math.ceil(numberOfPackages / packagesPerPage) > 1 ? (
             <div
               className="flex justify-center w-full"
               style={{ backgroundColor: "var(--main-bg-color)" }}
@@ -162,7 +171,7 @@ export default function PackagesList() {
                 currentPage={currentPage}
               />
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </>

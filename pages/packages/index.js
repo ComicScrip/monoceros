@@ -7,7 +7,7 @@ const Packages = () => {
   return (
     <>
       <Layout>
-        <Meta pagetitle="Monoceros - Products Catalogue" />
+        <Meta pagetitle="Monoceros - Packages Catalogue" />
         <div className="flex justify-center flex-col items-center">
           <PackagesList />
         </div>

@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import {
-  getAllProducts,
   getAllCountries,
   getWarehouses,
-  getProductsByCountry,
   getProductsByCountryAndWarehouse,
-  getProductsByWarehouse,
 } from "../lib/productsAPI";
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
@@ -38,50 +35,21 @@ export default function ProductsList() {
       },
     });
     async function request() {
-      if (!warehouseSelect && !countrySelect) {
-        const products = await getAllProducts(
-          productsPerPage,
-          (currentPage - 1) * (productsPerPage + 1)
-        );
-        setNumberOfProducts(products.data.count);
-        setProducts(products.data.results);
-        const warehouses = await getWarehouses();
-        setWarehousesList(warehouses.data);
-        const countries = await getAllCountries();
-        setCountriesList(countries.data);
-      } else if (countrySelect && !warehouseSelect) {
-        const warehousesList = await getWarehouses(countrySelect);
-        setWarehousesList(warehousesList.data);
-        const products = await getProductsByCountry(
-          countrySelect,
-          productsPerPage,
-          (currentPage - 1) * (productsPerPage + 1)
-        );
-        setNumberOfProducts(products.data.count);
-        setProducts(products.data.results);
-      } else if (warehouseSelect && !countrySelect) {
-        const products = await getProductsByWarehouse(
-          warehouseSelect,
-          productsPerPage,
-          (currentPage - 1) * (productsPerPage + 1)
-        );
-        setNumberOfProducts(products.data.count);
-        setProducts(products.data.results);
-      } else if (warehouseSelect && countrySelect) {
-        const warehousesList = await getWarehouses(countrySelect);
-        setWarehousesList(warehousesList.data);
-        const products = await getProductsByCountryAndWarehouse(
-          countrySelect,
-          warehouseSelect,
-          productsPerPage,
-          (currentPage - 1) * (productsPerPage + 1)
-        );
-        setNumberOfProducts(products.data.count);
-        setProducts(products.data.results);
-      }
+      const products = await getProductsByCountryAndWarehouse(
+        countrySelect || "",
+        warehouseSelect || "",
+        productsPerPage,
+        (currentPage - 1) * (productsPerPage + 1)
+      );
+      setNumberOfProducts(products.data.count);
+      setProducts(products.data.results);
+      const warehouses = await getWarehouses(countrySelect || "");
+      setWarehousesList(warehouses.data);
+      const countries = await getAllCountries();
+      setCountriesList(countries.data);
     }
     request();
-    console.log(products);
+    console.log(warehousesList);
   }, [countrySelect, warehouseSelect, currentPage]);
   const tableHead = [
     t("product"),
@@ -186,12 +154,12 @@ export default function ProductsList() {
               </tbody>
             </table>
           </div>
-
           {products.length < 1 ? (
             <div className="flex items-center justify-center bg-white w-[90vw] h-16">
               <p>No products</p>
             </div>
-          ) : (
+          ) : null}
+          {Math.ceil(numberOfProducts / productsPerPage) > 1 ? (
             <div
               className="flex justify-center w-full"
               style={{ backgroundColor: "var(--main-bg-color)" }}
@@ -202,7 +170,7 @@ export default function ProductsList() {
                 currentPage={currentPage}
               />
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </>
