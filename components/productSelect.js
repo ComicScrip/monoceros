@@ -1,38 +1,40 @@
-import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-export default function CountrySelect({
-  countries,
-  selectCountry,
-  country,
+import { useTranslation } from "next-i18next";
+
+export default function ProductSelect({
+  products,
+  selectProduct,
+  product,
   setCurrentPage,
 }) {
   const { t } = useTranslation("products");
   const router = useRouter();
   function handleClick() {
-    selectCountry("");
+    selectProduct("");
     setCurrentPage(1);
   }
 
   function handleSelectChange(e) {
-    selectCountry(e.target.value);
+    selectProduct(e.target.value);
     setCurrentPage(1);
   }
 
   return (
     <>
-      <div className="flex h-7 m-2 w-[70vw]">
+      <div className="flex h-7 w-[70vw] mt-2">
         <select
+          type="search"
           onChange={(e) => handleSelectChange(e)}
-          value={country}
+          value={product}
           className="bg-white w-[90vw] h-7 mb-5"
           style={{ fontSize: "13px" }}
         >
-          <option className="font-xs" value="" hidden>
-            {router.query.country || t("country")}
+          <option value="" className="text-gray-300" disabled hidden>
+            {"product"}
           </option>
-          {countries.map((country) => (
-            <option key={country.country} value={country.country}>
-              {country.country}
+          {products.map((product) => (
+            <option key={product.id} value={product.id}>
+              {product.name}
             </option>
           ))}
         </select>

@@ -36,8 +36,8 @@ export default function ProductsList() {
     });
     async function request() {
       const products = await getProductsByCountryAndWarehouse(
-        countrySelect || "",
-        warehouseSelect || "",
+        countrySelect,
+        warehouseSelect,
         productsPerPage,
         (currentPage - 1) * (productsPerPage + 1)
       );
@@ -49,7 +49,6 @@ export default function ProductsList() {
       setCountriesList(countries.data);
     }
     request();
-    console.log(warehousesList);
   }, [countrySelect, warehouseSelect, currentPage]);
   const tableHead = [
     t("product"),

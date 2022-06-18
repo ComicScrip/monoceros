@@ -1,4 +1,4 @@
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
 export default function WarehouseSelect({
@@ -21,7 +21,7 @@ export default function WarehouseSelect({
 
   return (
     <>
-      <div className="flex h-7 w-[90vw]">
+      <div className="flex h-7 w-[70vw]">
         <select
           type="search"
           onChange={(e) => handleSelectChange(e)}
@@ -32,9 +32,9 @@ export default function WarehouseSelect({
           <option value="" className="text-gray-300" disabled hidden>
             {t("warehouse")}
           </option>
-          {warehouses.map((warehouses) => (
-            <option key={warehouses.id} value={warehouses.id}>
-              {warehouses.name}
+          {warehouses.map((warehouse) => (
+            <option key={warehouse.id} value={warehouse.id}>
+              {warehouse.name}
             </option>
           ))}
         </select>

@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import Pagination from "./pagination";
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
+import ProductSelect from "./productSelect";
 import { getPackagesByCountryWarehouseAndId } from "../lib/packagesAPI";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { getAllCountries, getWarehouses } from "../lib/productsAPI";
+import {
+  getAllCountries,
+  getWarehouses,
+  getProductsByCountryAndWarehouse,
+} from "../lib/productsAPI";
 
 export default function PackagesList() {
   const { t } = useTranslation("packageCatalogue");
@@ -16,8 +21,12 @@ export default function PackagesList() {
   const [warehouseSelect, setWareHouseSelect] = useState(
     router.query.warehouse || ""
   );
+  const [productSelect, setProductSelect] = useState(
+    router.query.product || ""
+  );
   const [countriesList, setCountriesList] = useState([]);
   const [warehousesList, setWarehousesList] = useState([]);
+  const [productsList, setProductsList] = useState([]);
   const [packages, setPackages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const packagesPerPage = 10;
@@ -37,18 +46,22 @@ export default function PackagesList() {
         (currentPage - 1) * (packagesPerPage + 1),
         countrySelect,
         warehouseSelect,
-        ""
+        productSelect
       );
-      console.log(data);
-      const warehouses = await getWarehouses(countrySelect || "");
-      setWarehousesList(warehouses.data);
+      const warehouses = await getWarehouses(countrySelect);
       const countries = await getAllCountries();
+      const products = await getProductsByCountryAndWarehouse(
+        countrySelect,
+        warehouseSelect
+      );
+      setWarehousesList(warehouses.data);
       setCountriesList(countries.data);
       setNumberOfPackages(data.count);
       setPackages(data.results);
+      setProductsList(products.data.results);
     }
     request();
-  }, [currentPage, countrySelect, warehouseSelect]);
+  }, [currentPage, countrySelect, warehouseSelect, productSelect]);
   const tableHead = [
     "ID",
     "Sensor",
@@ -72,7 +85,7 @@ export default function PackagesList() {
         >
           {t("title")}
         </h1>
-        <div className="flex flex-col items-center justify-center w-[95] mb-10">
+        <div className="flex flex-col items-center w-[95] mb-10">
           <CountrySelect
             countries={countriesList}
             selectCountry={setCountrySelect}
@@ -83,6 +96,12 @@ export default function PackagesList() {
             warehouses={warehousesList}
             selectWharehouse={setWareHouseSelect}
             warehouse={warehouseSelect}
+            setCurrentPage={setCurrentPage}
+          />
+          <ProductSelect
+            products={productsList}
+            selectProduct={setProductSelect}
+            product={productSelect}
             setCurrentPage={setCurrentPage}
           />
         </div>
