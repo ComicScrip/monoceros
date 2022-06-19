@@ -3,6 +3,7 @@ import Pagination from "./pagination";
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
 import ProductSelect from "./productSelect";
+import toast, { Toaster } from "react-hot-toast";
 import {
   getPackagesByCountryWarehouseAndId,
   deletePackage,
@@ -36,9 +37,9 @@ export default function PackagesList() {
   const [numberOfPackages, setNumberOfPackages] = useState(null);
 
   async function handleDeleteProduct(id) {
-    console.log(id);
-    const del = await deletePackage(id);
-    console.log(del);
+    if (await deletePackage(id)) {
+      toast(`deleted product with id ${id}`);
+    }
   }
 
   useEffect(() => {
@@ -205,6 +206,17 @@ export default function PackagesList() {
           ) : null}
         </div>
       </div>
+      <Toaster
+        position="top-center"
+        containerStyle={{}}
+        toastOptions={{
+          duration: 5000,
+          style: {
+            background: "var(--main-color)",
+            color: "var(--main-bg-color)",
+          },
+        }}
+      />
     </>
   );
 }
