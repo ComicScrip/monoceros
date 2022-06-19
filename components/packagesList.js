@@ -3,7 +3,10 @@ import Pagination from "./pagination";
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
 import ProductSelect from "./productSelect";
-import { getPackagesByCountryWarehouseAndId } from "../lib/packagesAPI";
+import {
+  getPackagesByCountryWarehouseAndId,
+  deletePackage,
+} from "../lib/packagesAPI";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import {
@@ -32,6 +35,12 @@ export default function PackagesList() {
   const packagesPerPage = 10;
   const [numberOfPackages, setNumberOfPackages] = useState(null);
 
+  async function handleDeleteProduct(id) {
+    console.log(id);
+    const del = await deletePackage(id);
+    console.log(del);
+  }
+
   useEffect(() => {
     router.replace({
       query: {
@@ -48,7 +57,7 @@ export default function PackagesList() {
         warehouseSelect,
         productSelect
       );
-      const warehouses = await getWarehouses(countrySelect);
+      const warehouses = await getWarehouses(countrySelect, productSelect);
       const countries = await getAllCountries();
       const products = await getProductsByCountryAndWarehouse(
         countrySelect,
@@ -61,7 +70,7 @@ export default function PackagesList() {
       setProductsList(products.data.results);
     }
     request();
-  }, [currentPage, countrySelect, warehouseSelect, productSelect]);
+  }, [currentPage, countrySelect, warehouseSelect, productSelect, packages]);
   const tableHead = [
     "ID",
     "Sensor",
@@ -166,7 +175,10 @@ export default function PackagesList() {
                         </button>
                       )}
                     </td>
-                    <td className="min-w-[90px] text-red-800 text-xl cursor-pointer">
+                    <td
+                      onClick={() => handleDeleteProduct(pack.id)}
+                      className="min-w-[90px] text-red-800 text-xl cursor-pointer"
+                    >
                       ✗
                     </td>
                   </tr>
@@ -176,7 +188,7 @@ export default function PackagesList() {
           </div>
           {packages.length < 1 ? (
             <div className="flex items-center justify-center bg-white w-[90vw] h-16">
-              <p>No products</p>
+              <p>No packages</p>
             </div>
           ) : null}
           {Math.ceil(numberOfPackages / packagesPerPage) > 1 ? (

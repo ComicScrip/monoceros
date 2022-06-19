@@ -43,12 +43,13 @@ export default function ProductsList() {
       );
       setNumberOfProducts(products.data.count);
       setProducts(products.data.results);
-      const warehouses = await getWarehouses(countrySelect || "");
+      const warehouses = await getWarehouses(countrySelect);
       setWarehousesList(warehouses.data);
       const countries = await getAllCountries();
       setCountriesList(countries.data);
     }
     request();
+    console.log(products);
   }, [countrySelect, warehouseSelect, currentPage]);
   const tableHead = [
     t("product"),
