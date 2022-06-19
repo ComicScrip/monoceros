@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
 export default function ProductsList() {
-  const { t } = useTranslation("products");
+  const { t } = useTranslation("productsCatalogue");
   const router = useRouter();
   const [countriesList, setCountriesList] = useState([]);
   const [warehousesList, setWarehousesList] = useState([]);

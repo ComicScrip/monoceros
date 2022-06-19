@@ -7,7 +7,7 @@ export default function WarehouseSelect({
   warehouse,
   setCurrentPage,
 }) {
-  const { t } = useTranslation("products");
+  const { t } = useTranslation("productsCatalogue");
   const router = useRouter();
   function handleClick() {
     selectWharehouse("");

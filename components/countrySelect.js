@@ -6,7 +6,7 @@ export default function CountrySelect({
   country,
   setCurrentPage,
 }) {
-  const { t } = useTranslation("products");
+  const { t } = useTranslation("productsCatalogue");
   const router = useRouter();
   function handleClick() {
     selectCountry("");

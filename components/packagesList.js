@@ -3,6 +3,7 @@ import Pagination from "./pagination";
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
 import ProductSelect from "./productSelect";
+import Popup from "./popup";
 import toast, { Toaster } from "react-hot-toast";
 import {
   getPackagesByCountryWarehouseAndId,
@@ -15,6 +16,7 @@ import {
   getWarehouses,
   getProductsByCountryAndWarehouse,
 } from "../lib/productsAPI";
+import { func } from "prop-types";
 
 export default function PackagesList() {
   const { t } = useTranslation("packageCatalogue");
@@ -35,14 +37,28 @@ export default function PackagesList() {
   const [currentPage, setCurrentPage] = useState(1);
   const packagesPerPage = 10;
   const [numberOfPackages, setNumberOfPackages] = useState(null);
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
+  const [idToDelete, setIdTodelete] = useState(0);
 
-  async function handleDeleteProduct(id) {
-    if (await deletePackage(id)) {
-      toast(`deleted product with id ${id}`);
+  function deleteProduct(id) {
+    setIsOpenPopup(true);
+    setIdTodelete(id);
+  }
+
+  async function handleDeleteProduct() {
+    setIsOpenPopup(false);
+    try {
+      await deletePackage(idToDelete);
+      toast(`Product with id ${idToDelete} deleted !`);
+      setIdTodelete(0);
+    } catch {
+      toast("cannot delete this package, maybe delivery still in progress..");
+      setIdTodelete(0);
     }
   }
 
   useEffect(() => {
+    console.log(idToDelete);
     router.replace({
       query: {
         ...router.query,
@@ -71,7 +87,7 @@ export default function PackagesList() {
       setProductsList(products.data.results);
     }
     request();
-  }, [currentPage, countrySelect, warehouseSelect, productSelect, packages]);
+  }, [currentPage, countrySelect, warehouseSelect, productSelect, idToDelete]);
   const tableHead = [
     "ID",
     "Sensor",
@@ -177,7 +193,7 @@ export default function PackagesList() {
                       )}
                     </td>
                     <td
-                      onClick={() => handleDeleteProduct(pack.id)}
+                      onClick={() => deleteProduct(pack.id)}
                       className="min-w-[90px] text-red-800 text-xl cursor-pointer"
                     >
                       ✗
@@ -210,13 +226,20 @@ export default function PackagesList() {
         position="top-center"
         containerStyle={{}}
         toastOptions={{
-          duration: 5000,
+          duration: 2000,
           style: {
-            background: "var(--main-color)",
-            color: "var(--main-bg-color)",
+            background: "var(--main-bg-color)",
+            color: "var(--main-color)",
           },
         }}
       />
+      {isOpenPopup && (
+        <Popup
+          content={<p>Delete package {idToDelete} ?</p>}
+          confirm={handleDeleteProduct}
+          handleClose={setIsOpenPopup}
+        />
+      )}
     </>
   );
 }
