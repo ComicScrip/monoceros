@@ -1,7 +1,7 @@
 {
   "title": "CATALOGUE DES PRODUITS",
-  "country": "pays",
-  "warehouse": "entrepot",
+  "country": "Pays",
+  "warehouse": "Entrepot",
   "product": "Produit",
   "expiration": "Date d'expiration",
   "temp": "Temperature (°C)",

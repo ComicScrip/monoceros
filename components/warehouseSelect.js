@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
 export default function WarehouseSelect({
@@ -8,7 +7,6 @@ export default function WarehouseSelect({
   setCurrentPage,
 }) {
   const { t } = useTranslation("productsCatalogue");
-  const router = useRouter();
   function handleClick() {
     selectWharehouse("");
     setCurrentPage(1);

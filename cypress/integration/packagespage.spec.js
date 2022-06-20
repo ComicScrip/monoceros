@@ -10,16 +10,16 @@ describe("products page", () => {
 
   describe("products list", () => {
     it.only("should display the products list from the API", () => {
-      cy.fixture("products").then((data) => {
-        cy.intercept("**/api/base/products/**", data);
+      cy.fixture("packages").then((data) => {
+        cy.intercept("**/api/base/packages/**", data);
         console.log(data);
       });
 
-      cy.visit("/products");
-      cy.contains("PRODUCTS CATALOGUE");
-      cy.get("[data-cy=products-table]").should("be.visible");
-      cy.contains("epinard");
-      cy.contains("testTrad");
+      cy.visit("/packages");
+      cy.contains("PACKAGES CATALOGUE");
+      //cy.get("[data-cy=products-table]").should("be.visible");
+      // cy.contains("epinard");
+      // cy.contains("testTrad");
     });
 
     it("should not display products when API is down", () => {

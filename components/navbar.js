@@ -111,7 +111,11 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink} onClick={openMenu}>
+                  <a
+                    className={style.navlink}
+                    onClick={openMenu}
+                    style={{ opacity: "0.2" }}
+                  >
                     {t("home")}
                   </a>
                 </div>
@@ -160,7 +164,11 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/newproduct"
                     >
-                      <a className={style.navlink} onClick={openMenu}>
+                      <a
+                        className={style.navlink}
+                        onClick={openMenu}
+                        style={{ opacity: "0.2" }}
+                      >
                         {t("newProduct")}
                       </a>
                     </ActiveLink>
@@ -223,7 +231,11 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/newpackages"
                     >
-                      <a className={style.navlink} onClick={openMenu}>
+                      <a
+                        className={style.navlink}
+                        onClick={openMenu}
+                        style={{ opacity: "0.2" }}
+                      >
                         New Package
                       </a>
                     </ActiveLink>
@@ -288,7 +300,11 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/newdelivery"
                     >
-                      <a className={style.navlink} onClick={openMenu}>
+                      <a
+                        className={style.navlink}
+                        onClick={openMenu}
+                        style={{ opacity: "0.2" }}
+                      >
                         {t("newDelivery")}
                       </a>
                     </ActiveLink>
@@ -317,7 +333,11 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink} onClick={openMenu}>
+                  <a
+                    className={style.navlink}
+                    onClick={openMenu}
+                    style={{ opacity: "0.2" }}
+                  >
                     {t("inventory")}
                   </a>
                 </div>
@@ -334,7 +354,11 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink} onClick={openMenu}>
+                  <a
+                    className={style.navlink}
+                    onClick={openMenu}
+                    style={{ opacity: "0.2" }}
+                  >
                     {t("alarms")}
                   </a>
                 </div>
@@ -351,7 +375,11 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink} onClick={openMenu}>
+                  <a
+                    className={style.navlink}
+                    onClick={openMenu}
+                    style={{ opacity: "0.2" }}
+                  >
                     {t("settings")}
                   </a>
                 </div>
@@ -368,7 +396,11 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink} onClick={openMenu}>
+                  <a
+                    className={style.navlink}
+                    onClick={openMenu}
+                    style={{ opacity: "0.2" }}
+                  >
                     {t("help")}
                   </a>
                 </div>
@@ -413,6 +445,4 @@ export default function Navbar() {
       </nav>
     </header>
   );
-
-  // onclick sur option avec router.push
 }

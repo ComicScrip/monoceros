@@ -1,12 +1,14 @@
 {
   "title": "CATALOGUE DES PAQUETS",
-  "country": "pays",
-  "warehouse": "entrepot",
   "sensor": "N° capteur",
   "product": "Produit",
   "size": "Volume",
   "pairingStart": "Debut appairage",
   "expiration": "Date expiration",
   "pairingEnd": "Fin appairage",
-  "delete": "Supprimer"
+  "delete": "Supprimer",
+  "noData": "Pas de paquets",
+  "deleteP": "Supprimer paquet",
+  "toastDelete": "Paquet supprimé, ID : ",
+  "cannotDelete": "impossible de supprimer ce paquets, livraison en cours.."
 }

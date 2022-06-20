@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
 export default function ProductSelect({
@@ -7,8 +6,8 @@ export default function ProductSelect({
   product,
   setCurrentPage,
 }) {
-  const { t } = useTranslation("products");
-  const router = useRouter();
+  const { t } = useTranslation("productCatalogue");
+
   function handleClick() {
     selectProduct("");
     setCurrentPage(1);
@@ -30,7 +29,7 @@ export default function ProductSelect({
           style={{ fontSize: "13px" }}
         >
           <option value="" className="text-gray-300" disabled hidden>
-            {"product"}
+            {t("product")}
           </option>
           {products.map((product) => (
             <option key={product.id} value={product.id}>
