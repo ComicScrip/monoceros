@@ -6,6 +6,7 @@ import ActiveLink from "./activeLink";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { signOut } from "next-auth/react";
+import headLogo from "../public/images/MONOCEROS-logo-3.webp";
 
 export default function Navbar() {
   const { t } = useTranslation("navbar");
@@ -74,7 +75,13 @@ export default function Navbar() {
                   className={style.monocerosLogo}
                 />
               ) : (
-                <h1 className={style.navbarTitle}>Monoceros</h1>
+                <Image
+                  src={headLogo}
+                  alt="head-logo"
+                  width="200px"
+                  height="70px"
+                  className={style.navbarTitle}
+                />
               )}
             </div>
           </a>

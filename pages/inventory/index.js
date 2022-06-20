@@ -23,7 +23,6 @@ export default function Inventory() {
           height={200}
           width={200}
           alt="en construction"
-          style={{ zIndex: -1 }}
         />
         <p>P{t("description")}</p>
       </div>

@@ -6,7 +6,7 @@ import Meta from "../components/meta";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
-import LogoForm from "../public/images/logo-monoceros.png";
+import LogoForm from "../public/images/logo-monoceros-round.png";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";

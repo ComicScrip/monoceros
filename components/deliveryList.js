@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import { getDeliveryOverview } from "../lib/deliveriesAPI";
 import { getDeliveries } from "../lib/deliveriesAPI";
 import Loading from "./loading";
+import { useTranslation } from "next-i18next";
 
 function DeliveryList() {
   const [deliveryOverview, setDeliveryOverview] = useState({});
   const [showDetails, setShowDetails] = useState(false);
   const [allDeliveries, setAllDeliveries] = useState([]);
+  const { t } = useTranslation("deliveries");
 
   useEffect(() => {
     getDeliveries().then(setAllDeliveries);
@@ -67,7 +69,11 @@ function DeliveryList() {
                   {delivery.id}
                 </td>
                 <td className={deliveriesStyle.tCell} data-cy="deliveryStatus">
-                  {delivery.status}
+                  {delivery.status === "Completed"
+                    ? t("completed")
+                    : delivery.status === "In progress"
+                    ? t("inProgress")
+                    : t("delayed")}
                 </td>
                 <td className={deliveriesStyle.tCell} data-cy="deliveryContact">
                   {delivery.delivery_path.shipment_paths[0].origin.contact_name}
