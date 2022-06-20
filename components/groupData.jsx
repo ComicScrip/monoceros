@@ -5,9 +5,13 @@ import { getProductsInfo } from "../lib/productsAPI";
 import groupDataStyle from "../styles/groupData.module.css";
 import Graph from "./graph";
 import { useTranslation } from "next-i18next";
+import dynamic from "next/dynamic";
 
 const GroupData = ({ delivery_id, package_id }) => {
   const { t } = useTranslation("packages");
+  const GraphWithNoSSR = dynamic(() => import("./graph"), {
+    ssr: false,
+  });
   const [temperatureData, setTemperatureData] = useState([]);
   const [humidityData, setHumidityData] = useState([]);
   const [lightData, setLightData] = useState([]);
@@ -56,43 +60,43 @@ const GroupData = ({ delivery_id, package_id }) => {
     <div className={groupDataStyle.container}>
       {productLimits.length !== 0 && temperatureData.length !== 0 ? (
         <div className={groupDataStyle.graph}>
-          <div className={groupDataStyle.data}>{t("temperature")}</div>
           {temperatureData.length !== 0 && (
             <div data-cy="packageTempGraph" style={{ width: "100%" }}>
-              <Graph
+              <GraphWithNoSSR
                 id="Temperature"
                 sensorData={temperatureData}
                 limitData={productLimits}
+                showXAxis={false}
               />
             </div>
           )}
-          <div className={groupDataStyle.data}>{t("humidity")}</div>
           {humidityData.length !== 0 && (
             <div data-cy="packageHumGraph" style={{ width: "100%" }}>
-              <Graph
+              <GraphWithNoSSR
                 sensorData={humidityData}
                 limitData={productLimits}
                 id="Humidity"
+                showXAxis={false}
               />
             </div>
           )}
-          <div className={groupDataStyle.data}>{t("light")}</div>
           {lightData.length !== 0 && (
             <div data-cy="packageLightGraph" style={{ width: "100%" }}>
-              <Graph
+              <GraphWithNoSSR
                 sensorData={lightData}
                 limitData={productLimits}
                 id="Light"
+                showXAxis={false}
               />
             </div>
           )}
-          <div className={groupDataStyle.data}>{t("vibration")}</div>
           {vibrationData.length !== 0 && (
             <div data-cy="packageShockGraph" style={{ width: "100%" }}>
-              <Graph
+              <GraphWithNoSSR
                 sensorData={vibrationData}
                 limitData={productLimits}
                 id="Vibration"
+                showXAxis={true}
               />
             </div>
           )}

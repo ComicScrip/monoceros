@@ -24,31 +24,58 @@ ChartJS.register(
   annotationPlugin
 );
 
-const Graph = ({ sensorData, limitData, id }) => {
+const Graph = ({ sensorData, limitData, id, showXAxis }) => {
+  const [dataMin, setDataMin] = useState(0);
+  const [dataMax, setDataMax] = useState(0);
   let limitMin = 0;
   let limitMax = 0;
+  let yAxisMin = -5;
+  let yAxisMax = 5;
+
+  useEffect(() => {
+    const Values = sensorData.map((o) => o.sensor_value);
+    setDataMax(Math.max(...Values));
+    setDataMin(Math.min(...Values));
+  }, [sensorData]);
+
   if (id === "Temperature" && limitData[0].temperature_constraint) {
     limitMin = limitData[0]?.temperature_min;
     limitMax = limitData[0]?.temperature_max;
+    yAxisMin = dataMin < limitMin ? dataMin - 10 : limitMin - 10;
+    yAxisMax = dataMax > limitMax ? dataMax + 10 : limitMax + 10;
   }
   if (id === "Humidity" && limitData[0].humidity_constraint) {
     limitMin = limitData[0]?.humidity_min;
     limitMax = limitData[0]?.humidity_max;
+    yAxisMin = dataMin < limitMin ? dataMin - 10 : limitMin - 10;
+    yAxisMax = dataMax > limitMax ? dataMax + 10 : limitMax + 10;
   }
   if (id === "Light" && limitData[0].light_constraint) {
     limitMin = limitData[0]?.light_min;
     limitMax = limitData[0]?.light_max;
+    yAxisMin = dataMin < limitMin ? dataMin - 5 : limitMin - 5;
+    yAxisMax = dataMax > limitMax ? dataMax + 5 : limitMax + 5;
   }
   if (id === "Vibration" && limitData[0].shock_constraint) {
     limitMin = limitData[0]?.shock_min;
     limitMax = limitData[0]?.shock_max;
+    yAxisMin = dataMin < limitMin ? dataMin - 5 : limitMin - 5;
+    yAxisMax = dataMax > limitMax ? dataMax + 5 : limitMax + 5;
   }
   const options = {
     responsive: true,
+    xAxisID: "xAxis",
     scales: {
+      xAxis: {
+        display: showXAxis,
+      },
       yAxis: {
-        min: limitMin - 10,
-        max: limitMax + 10,
+        min: Math.floor(yAxisMin),
+        max: Math.ceil(yAxisMax),
+        title: {
+          display: true,
+          text: id,
+        },
       },
     },
     plugins: {
@@ -56,7 +83,7 @@ const Graph = ({ sensorData, limitData, id }) => {
         display: false,
       },
       title: {
-        display: false,
+        display: true,
       },
       autocolors: false,
       annotation: {
@@ -84,7 +111,7 @@ const Graph = ({ sensorData, limitData, id }) => {
       },
     ],
   };
-  return <Line options={options} data={data} width={"80%"} height={"50%"} />;
+  return <Line options={options} data={data} width={"80%"} height={"30%"} />;
 };
 
 export default Graph;
