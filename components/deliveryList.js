@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { getDeliveryOverview, getDeliveries } from "../lib/deliveriesAPI";
 import Pagination from "./pagination";
 import DeliveriesStatus from "./deliveriesStatus";
+import Loading from "./loading";
+
 function DeliveryList() {
   const [deliveryOverview, setDeliveryOverview] = useState({});
   const [showDetails, setShowDetails] = useState(false);
