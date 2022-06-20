@@ -1,0 +1,24 @@
+.title {
+  margin: 0 64px 0px;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff455a;
+}
+
+.bar {
+  width: 70%;
+  height: 1px;
+  margin: 15px auto;
+  border: solid 0.5px rgb(149, 149, 149);
+  display: block;
+}
+
+.headContent {
+  padding-bottom: 70px;
+  border-bottom: 1px solid #c5c5c5;
+}
