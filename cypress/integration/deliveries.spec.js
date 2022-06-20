@@ -1,3 +1,7 @@
+Cypress.on("uncaught:exception", (err, runnable) => {
+  return false;
+});
+
 describe("login", () => {
   beforeEach(() => {
     cy.viewport("samsung-s10");
