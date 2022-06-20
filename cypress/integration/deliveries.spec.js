@@ -1,14 +1,10 @@
-Cypress.on("uncaught:exception", (err, runnable) => {
-  return false;
-});
-
 describe("login", () => {
   beforeEach(() => {
     cy.viewport("samsung-s10");
-    cy.login();
     cy.intercept("**/api/deliveries/deliveries/?limit=100", {
       fixture: "deliveries.json",
     });
+    cy.login();
   });
 
   describe("When visiting the delivery page", () => {

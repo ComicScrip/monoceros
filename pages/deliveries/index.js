@@ -4,7 +4,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import DeliveryList from "../../components/deliveryList";
 import deliveriesStyle from "../../styles/deliveries.module.css";
-import DeliveriesStatus from "../../components/deliveriesStatus";
 
 const Deliveries = () => {
   const { t } = useTranslation("deliveries");
