@@ -11,7 +11,6 @@ export default function DeliveryPath({ id }) {
       const getData = await getDeliveryOverview(id);
       setPath(getData.delivery_path.shipment_paths);
       setActualStep(getData.step);
-      console.log(path.length);
     }
     request();
   }, [id]);
