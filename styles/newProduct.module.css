@@ -1,5 +1,5 @@
 .title {
-  margin: 0 64px 0px;
+  margin: 0 64px 12px;
   font-size: 20px;
   font-weight: 600;
   font-stretch: normal;
@@ -10,15 +10,63 @@
   color: #ff455a;
 }
 
-.bar {
-  width: 70%;
-  height: 1px;
-  margin: 15px auto;
-  border: solid 0.5px rgb(149, 149, 149);
-  display: block;
+.headContent {
+  padding-bottom: 40px;
+  border-bottom: 1px solid #c5c5c5;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.headContent {
-  padding-bottom: 70px;
-  border-bottom: 1px solid #c5c5c5;
+.productNameInput {
+  padding: 4px;
+  margin-bottom: 18px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 12rem;
+  border-radius: 5px;
+}
+
+.headExpInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendarInput {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.productExpInput {
+  padding: 4px;
+  width: 10rem;
+  border-radius: 5px;
+}
+
+.conditionsTitle {
+  text-align: left;
+  font-weight: bolder;
+  margin: 15px auto;
+}
+
+.itemTitle {
+  margin-bottom: 15px;
+}
+
+.quantityBlock {
+  display: flex;
+  margin: 0 15px;
+  justify-content: center;
+}
+
+.quantityBlock input {
+  width: 33%;
+  margin: 0 10px;
+  padding: 4px;
 }
