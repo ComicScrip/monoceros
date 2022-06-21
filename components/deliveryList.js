@@ -1,20 +1,39 @@
 import deliveriesStyle from "../styles/deliveries.module.css";
 import DeliveryOverview from "./deliveryOverview";
 import { useState, useEffect } from "react";
-import { getDeliveryOverview } from "../lib/deliveriesAPI";
-import { getDeliveries } from "../lib/deliveriesAPI";
+import { getDeliveryOverview, getDeliveries } from "../lib/deliveriesAPI";
+import Pagination from "./pagination";
+import DeliveriesStatus from "./deliveriesStatus";
 import Loading from "./loading";
 
 function DeliveryList() {
   const [deliveryOverview, setDeliveryOverview] = useState({});
   const [showDetails, setShowDetails] = useState(false);
   const [allDeliveries, setAllDeliveries] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const [numberOfItems, setNumberOfItems] = useState(null);
+  const [detailView, setDetailView] = useState(false);
 
   useEffect(() => {
-    getDeliveries().then(setAllDeliveries);
-  }, []);
+    getDeliveries(itemsPerPage, (currentPage - 1) * (itemsPerPage + 1)).then(
+      (res) => {
+        setNumberOfItems(res.count);
+        setAllDeliveries(res.results);
+      }
+    );
+  }, [currentPage]);
+
+  const goToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   async function showDeliveryOverview(id) {
+    goToTop();
+    setDetailView(true);
     const idStrg = id.toString();
     await getDeliveryOverview(idStrg)
       .then(setDeliveryOverview)
@@ -22,10 +41,14 @@ function DeliveryList() {
   }
   return (
     <>
+      {!detailView ? <DeliveriesStatus /> : null}
       {showDetails && (
         <div>
           <span
-            onClick={() => setShowDetails(false)}
+            onClick={() => {
+              setShowDetails(false);
+              setDetailView(false);
+            }}
             className={deliveriesStyle.closeBtn}
           >
             &times;
@@ -79,6 +102,16 @@ function DeliveryList() {
       ) : (
         <Loading />
       )}
+      <div
+        className="flex justify-center w-full mt-3"
+        style={{ backgroundColor: "var(--main-bg-color)" }}
+      >
+        <Pagination
+          index={Math.ceil(numberOfItems / itemsPerPage)}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      </div>
     </>
   );
 }
