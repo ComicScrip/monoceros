@@ -3,7 +3,6 @@ import { getSensorData } from "../lib/sensorDataAPI";
 import { getPackagesInfo } from "../lib/packagesAPI";
 import { getProductsInfo } from "../lib/productsAPI";
 import groupDataStyle from "../styles/groupData.module.css";
-import Graph from "./graph";
 import { useTranslation } from "next-i18next";
 import dynamic from "next/dynamic";
 
@@ -56,7 +55,6 @@ const GroupData = ({ delivery_id, package_id }) => {
       productsInfo.filter((product) => product.id === productId)
     );
   }, [productsInfo, productId]);
-  console.log(package_id, temperatureData);
   return (
     <div className={groupDataStyle.container}>
       {productLimits.length !== 0 && temperatureData.length !== 0 ? (
