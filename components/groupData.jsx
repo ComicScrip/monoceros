@@ -40,7 +40,7 @@ const GroupData = ({ delivery_id, package_id }) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [package_id]);
 
   useEffect(() => {
     const productPackageLink = packagesInfo.filter(
@@ -56,6 +56,7 @@ const GroupData = ({ delivery_id, package_id }) => {
       productsInfo.filter((product) => product.id === productId)
     );
   }, [productsInfo, productId]);
+  console.log(package_id, temperatureData);
   return (
     <div className={groupDataStyle.container}>
       {productLimits.length !== 0 && temperatureData.length !== 0 ? (
