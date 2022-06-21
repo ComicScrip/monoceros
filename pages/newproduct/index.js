@@ -31,7 +31,7 @@ const NewProduct = () => {
           <p>Conditions boundaries</p>
           <div className={newProductStyle.conditions}>
             <div className={newProductStyle.item}>
-              <h2>Temp.*</h2>
+              <h2>Temperature*</h2>
               <div className={newProductStyle.itemBlocks}>
                 <div className={newProductStyle.quantityBlock}>
                   <input
@@ -63,6 +63,131 @@ const NewProduct = () => {
                 </div>
               </div>
             </div>
+            <div className={newProductStyle.item}>
+              <h2>Humidity*</h2>
+              <div className={newProductStyle.itemBlocks}>
+                <div className={newProductStyle.quantityBlock}>
+                  <input
+                    type="number"
+                    placeholder="Min"
+                    min={0}
+                    max={100}
+                    step={1}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Max"
+                    min={0}
+                    max={100}
+                    step={1}
+                  />
+                  <label htmlFor="trackable">
+                    <input type="checkbox" id="trackable" />
+                    Not to be tracked
+                  </label>
+                  <button type="button">
+                    <Image
+                      src="/images/help-logo-red.svg"
+                      alt="help"
+                      width={25}
+                      height={25}
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className={newProductStyle.item}>
+              <h2>Light.*</h2>
+              <div className={newProductStyle.itemBlocks}>
+                <div className={newProductStyle.quantityBlock}>
+                  <input
+                    type="number"
+                    placeholder="Max"
+                    min={0}
+                    max={4000}
+                    step={1}
+                  />
+                  <label htmlFor="trackable">
+                    <input type="checkbox" id="trackable" />
+                    Not to be tracked
+                  </label>
+                  <button type="button">
+                    <Image
+                      src="/images/help-logo-red.svg"
+                      alt="help"
+                      width={25}
+                      height={25}
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className={newProductStyle.item}>
+              <h2>Vibrations*</h2>
+              <div className={newProductStyle.itemBlocks}>
+                <div className={newProductStyle.quantityBlock}>
+                  <input
+                    type="number"
+                    placeholder="Max"
+                    min={0}
+                    max={25}
+                    step={1}
+                  />
+                  <label htmlFor="trackable">
+                    <input type="checkbox" id="trackable" />
+                    Not to be tracked
+                  </label>
+                  <button type="button">
+                    <Image
+                      src="/images/help-logo-red.svg"
+                      alt="help"
+                      width={25}
+                      height={25}
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className={newProductStyle.item}>
+              <h2>Orientation</h2>
+              <div className={newProductStyle.itemBlocks}>
+                <div className={newProductStyle.quantityBlock}>
+                  <select>
+                    <option value=""></option>
+                    <option value="X">X</option>
+                    <option value="Y">Y</option>
+                    <option value="Z">Z</option>
+                  </select>
+                  <label htmlFor="trackable">
+                    <input type="checkbox" id="trackable" />
+                    Not to be tracked
+                  </label>
+                  <button type="button">
+                    <Image
+                      src="/images/help-logo-red.svg"
+                      alt="help"
+                      width={25}
+                      height={25}
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className={newProductStyle.item}>
+              <div className={newProductStyle.itemBlocks}>
+                <h2>Unit cost (€)</h2>
+                <div className={newProductStyle.quantityBlock}>
+                  <input type="number" placeholder="Min" min={0} step={0.01} />
+                </div>
+              </div>
+              <div className={newProductStyle.itemBlocks}>
+                <h2>Lead time (days)</h2>
+                <div className={newProductStyle.quantityBlock}>
+                  <input type="number" placeholder="Min" min={0} step={1} />
+                </div>
+              </div>
+            </div>
+            <button type="button">Add new product</button>
           </div>
         </div>
       </form>
