@@ -121,10 +121,12 @@ describe("login", () => {
       cy.get("[data-cy=packageDetailTitle]").should("be.visible");
       cy.get("[data-cy=packageDetailId0]").should("be.visible");
       cy.get("[data-cy=packageDetailUpdate]").should("be.visible");
+      /*
       cy.get("[data-cy=packageTempGraph]").should("exist");
       cy.get("[data-cy=packageHumGraph]").should("be.visible");
       cy.get("[data-cy=packageLightGraph]").should("be.visible");
       cy.get("[data-cy=packageShockGraph]").should("be.visible");
+      */
     });
   });
 });
