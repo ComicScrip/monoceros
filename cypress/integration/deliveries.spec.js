@@ -1,7 +1,7 @@
 describe("login", () => {
   beforeEach(() => {
     cy.viewport("samsung-s10");
-    cy.intercept("**/api/deliveries/deliveries/?limit=100", {
+    cy.intercept("**/api/deliveries/deliveries/**", {
       fixture: "deliveries.json",
     });
     cy.login();

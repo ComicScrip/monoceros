@@ -24,7 +24,9 @@ const DeliveryOverview = ({ deliveryDetail }) => {
 
   async function getData() {
     const allData = { temperature: [], light: [], shock: [], humidity: [] };
+    console.log(`delivery ID : ${deliveryDetail.id}`);
     for (let i = 0; i < packages.length; i++) {
+      console.log(`packages ID : ${deliveryDetail.packages[i].id}`);
       for (const datatype of sensorsType) {
         try {
           const data = await getSensorData(
@@ -32,7 +34,8 @@ const DeliveryOverview = ({ deliveryDetail }) => {
             deliveryDetail.packages[i].id,
             datatype
           );
-          allData[datatype].push(data[1].sensor_value || 0);
+          console.log(datatype, data[data.length - 1]);
+          allData[datatype].push(data[data.length - 1].sensor_value || 0);
         } catch {
           allData[datatype].push(null);
         }
@@ -45,6 +48,7 @@ const DeliveryOverview = ({ deliveryDetail }) => {
     setPackages(deliveryDetail.packages);
     getDeliveriesLocalisation().then(setDeliveriesLoc);
     getData();
+    // console.log(sensorsData);
   }, [deliveryDetail]);
 
   return (
