@@ -88,25 +88,25 @@ describe("login", () => {
         fixture: "deliveryIdToo.json",
       });
       cy.intercept(
-        "**/api/deliveries/delivery-package/sensors-data/**sensor_type=temperature",
+        "**/api/deliveries/delivery-package/sensors-data/sensor_type=temperature**",
         {
           fixture: "tempData.json",
         }
       );
       cy.intercept(
-        "**/api/deliveries/delivery-package/sensors-data/**sensor_type=humidity",
+        "**/api/deliveries/delivery-package/sensors-data/sensor_type=humidity**",
         {
           fixture: "humData.json",
         }
       );
       cy.intercept(
-        "**/api/deliveries/delivery-package/sensors-data/**sensor_type=light",
+        "**/api/deliveries/delivery-package/sensors-data/sensor_type=light**",
         {
           fixture: "lightData.json",
         }
       );
       cy.intercept(
-        "**/api/deliveries/delivery-package/sensors-data/**sensor_type=shock",
+        "**/api/deliveries/delivery-package/sensors-data/sensor_type=shock**",
         {
           fixture: "shockData.json",
         }
