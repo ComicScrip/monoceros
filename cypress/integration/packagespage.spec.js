@@ -16,10 +16,7 @@ describe("products page", () => {
       });
 
       cy.visit("/packages");
-      cy.contains("PACKAGES CATALOGUE");
-      //cy.get("[data-cy=products-table]").should("be.visible");
-      // cy.contains("epinard");
-      // cy.contains("testTrad");
+      cy.contains("Packages catalogue");
     });
 
     it("should not display products when API is down", () => {

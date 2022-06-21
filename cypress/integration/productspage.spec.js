@@ -16,7 +16,7 @@ describe("products page", () => {
       });
 
       cy.visit("/products");
-      cy.contains("PRODUCTS CATALOGUE");
+      cy.contains("Products catalogue");
       cy.get("[data-cy=products-table]").should("be.visible");
       cy.contains("epinard");
       cy.contains("testTrad");
