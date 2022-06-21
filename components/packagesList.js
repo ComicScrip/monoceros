@@ -149,7 +149,7 @@ export default function PackagesList() {
                       <span>{tableHead[0]}</span>
                     </td>
                     <td></td>
-                    {tableHead.slice(1, 8).map((item) => (
+                    {tableHead.slice(1, 9).map((item) => (
                       <td className="min-w-[100px]" key={item}>
                         {item}
                       </td>

@@ -25,3 +25,8 @@ body {
   font-family: "Poppins", sans-serif;
   background-color: var(--main-bg-color);
 }
+
+td {
+  text-align: center;
+  vertical-align: center;
+}
