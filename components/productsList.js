@@ -134,7 +134,7 @@ export default function ProductsList() {
                     className="text-[0.6rem] font-bold"
                     style={{ backgroundColor: "var(--main-bg-color)" }}
                   >
-                    <td className="min-w-[100px] absolute h-8 pt-2 bg-[#efefef]">
+                    <td className="min-w-[100px] absolute h-8 bg-[#efefef]">
                       <span>{tableHead[0]}</span>
                     </td>
                     <td></td>
