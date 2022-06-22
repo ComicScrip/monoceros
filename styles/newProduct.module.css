@@ -25,7 +25,7 @@
   margin-top: 5px;
   display: flex;
   flex-direction: column;
-  width: 12rem;
+  width: 60vw;
   border-radius: 5px;
 }
 
@@ -33,6 +33,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 60vw;
 }
 
 .calendarInput {
@@ -45,23 +46,30 @@
 
 .productExpInput {
   padding: 4px;
-  width: 10rem;
+  width: 50vw;
   border-radius: 5px;
+}
+
+.checkbox {
+  margin-right: 10px;
 }
 
 .conditionsTitle {
   text-align: left;
   font-weight: bolder;
   margin: 15px auto;
+  padding-left: 20px;
 }
 
 .itemTitle {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  margin-top: 30px;
 }
 
 .quantityBlock {
   display: flex;
-  margin: 0 15px;
+  margin: 10px 15px;
   justify-content: center;
 }
 
@@ -69,4 +77,64 @@
   width: 33%;
   margin: 0 10px;
   padding: 4px;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+
+.tracked {
+  display: flex;
+  margin: 10px 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.itemBlockOneOnly {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.itemBlockOneOnlyInput {
+  width: 33%;
+  margin: 0 10px;
+  padding: 4px;
+  padding-left: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.itemBottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.itemTitleBottom {
+  text-align: center;
+  margin: 20px 10px 10px 10px;
+}
+
+.quantityBlockBottom input {
+  width: 90%;
+  margin: 0 10px;
+  padding: 4px;
+  border-radius: 5px;
+}
+
+.itemBlocks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.addButton {
+  background-color: #ff455a;
+  border: solid 1px #ff455a;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: block;
+  margin: 20px auto;
 }
