@@ -19,7 +19,7 @@ export default function DeliveriesStatus() {
   const completedWidth = Math.ceil(unit * completed);
 
   return (
-    <div className="flex justify-center  bg-white text-xs w-[90%] mx-auto rounded mt-5 p-5 max-w-[500px]">
+    <div className="flex justify-center  bg-white text-xs w-[90%] mx-auto rounded mt-5 p-5">
       <div
         className="flex flex-col w-[90%]"
         style={{ color: "var(--main-color)" }}
@@ -63,7 +63,7 @@ export default function DeliveriesStatus() {
                 width: `${delayedWidth}%`,
                 backgroundColor: "var(--main-color)",
               }}
-              className="h-[10px] bg-red-600 flex justify-end"
+              className="h-[10px] flex justify-end"
             >
               <span className="relative bottom-5">{delayed}</span>
             </div>
@@ -84,7 +84,7 @@ export default function DeliveriesStatus() {
                 width: `${completedWidth}%`,
                 backgroundColor: "var(--main-color)",
               }}
-              className="h-[10px] bg-red-600 flex justify-end"
+              className="h-[10px] flex justify-end"
             >
               <span className="relative bottom-5 ">{completed}</span>
             </div>
@@ -105,7 +105,7 @@ export default function DeliveriesStatus() {
                 width: `${20}%`,
                 backgroundColor: "var(--main-color)",
               }}
-              className="h-[10px] bg-red-600 flex justify-end"
+              className="h-[10px] flex justify-end"
             >
               <span className="relative bottom-5 ">5</span>
             </div>

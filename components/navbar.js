@@ -300,11 +300,7 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/newdelivery"
                     >
-                      <a
-                        className={style.navlink}
-                        onClick={openMenu}
-                        style={{ opacity: "0.2" }}
-                      >
+                      <a className={style.navlink} onClick={openMenu}>
                         {t("newDelivery")}
                       </a>
                     </ActiveLink>

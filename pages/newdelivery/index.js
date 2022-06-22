@@ -1,33 +1,21 @@
-import Image from "next/image";
 import Layout from "../../components/layout";
 import Meta from "../../components/meta";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import NewDeliveryForm from "../../components/newDeliveryForm";
 
 const NewDelivery = () => {
   const { t } = useTranslation("common");
   return (
     <Layout>
       <Meta pagetitle="Monoceros - New Delivery" />
-      <h1>New Delivery</h1>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+      <h1
+        className="font-bold text-xl ml-3 text-center"
+        style={{ color: "var(--main-color)" }}
       >
-        <Image
-          priority
-          src="/images/enconstruction.png"
-          height={200}
-          width={200}
-          alt="en construction"
-          style={{ zIndex: -1 }}
-        />
-        <p>{t("description")}</p>
-      </div>
+        Create new delivery
+      </h1>
+      <NewDeliveryForm />
     </Layout>
   );
 };

@@ -15,19 +15,6 @@ function DeliveryList() {
   const [numberOfItems, setNumberOfItems] = useState(null);
   const [detailView, setDetailView] = useState(false);
 
-  async function getDeliveriesByStatus() {
-    getDeliveries(10, 0).then((res) => {
-      console.log(res);
-    });
-    /*
-    const deliveries = await getDeliveries();
-    switch (status) {
-      case "inProgres":
-        return deliveries;
-    }
-    */
-  }
-
   useEffect(() => {
     getDeliveries(itemsPerPage, (currentPage - 1) * (itemsPerPage + 1)).then(
       (res) => {
@@ -35,7 +22,6 @@ function DeliveryList() {
         setAllDeliveries(res.results);
       }
     );
-    getDeliveriesByStatus();
   }, [currentPage]);
 
   const goToTop = () => {
