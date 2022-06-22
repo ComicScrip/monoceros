@@ -6,6 +6,7 @@ import idStyle from "../styles/id.module.css";
 import GroupData from "./groupData";
 import moment from "moment";
 import { useTranslation } from "next-i18next";
+import DeliveryPath from "./deliveryPath";
 
 const IdComponent = () => {
   const { t } = useTranslation("packages");
@@ -80,6 +81,9 @@ const IdComponent = () => {
               </div>
             </div>
           ))}
+          <div className="mx-auto w-[90%]">
+            <DeliveryPath id={id} />
+          </div>
           {packageId && <GroupData delivery_id={id} package_id={packageId} />}
         </div>
       ) : (

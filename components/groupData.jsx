@@ -5,6 +5,7 @@ import { getProductsInfo } from "../lib/productsAPI";
 import groupDataStyle from "../styles/groupData.module.css";
 import { useTranslation } from "next-i18next";
 import dynamic from "next/dynamic";
+import moment from "moment";
 
 const GroupData = ({ delivery_id, package_id }) => {
   const { t } = useTranslation("packages");
@@ -19,6 +20,10 @@ const GroupData = ({ delivery_id, package_id }) => {
   const [productsInfo, setProductsInfo] = useState([]);
   const [productId, setProductId] = useState();
   const [productLimits, setProductLimits] = useState([]);
+  const [minDate, setMinDate] = useState(temperatureData[0]?.date);
+  const [maxDate, setMaxDate] = useState(
+    temperatureData[temperatureData.length - 1]?.date
+  );
 
   function getData() {
     getSensorData(delivery_id, package_id, "temperature")
@@ -55,8 +60,50 @@ const GroupData = ({ delivery_id, package_id }) => {
       productsInfo.filter((product) => product.id === productId)
     );
   }, [productsInfo, productId]);
+
+  useEffect(() => {
+    setMinDate(temperatureData[0]?.date);
+    setMaxDate(temperatureData[temperatureData.length - 1]?.date);
+  }, [temperatureData]);
+
   return (
     <div className={groupDataStyle.container}>
+      <div className="flex flex-col w-[60%] mx-auto">
+        <label htmlFor="minDate-select">Choose the min date:</label>
+        <select
+          name="minDate"
+          id="minDate-select"
+          onChange={(e) => setMinDate(e.target.value)}
+          value={minDate}
+        >
+          <option value="">--Please choose an option--</option>
+          {temperatureData.map((data, i) => (
+            <option
+              key={i}
+              value={moment(data.date).format("DD-MM-YY, h:mm:ss")}
+            >
+              {moment(data.date).format("DD-MM-YY, h:mm:ss")}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="maxDate-select">Choose the max date:</label>
+        <select
+          name="maxDate"
+          id="maxDate-select"
+          onChange={(e) => setMaxDate(e.target.value)}
+          value={maxDate}
+        >
+          <option value="">--Please choose an option--</option>
+          {temperatureData.map((data, i) => (
+            <option
+              key={i}
+              value={moment(data.date).format("DD-MM-YY, h:mm:ss")}
+            >
+              {moment(data.date).format("DD-MM-YY, h:mm:ss")}
+            </option>
+          ))}
+        </select>
+      </div>
       {productLimits.length !== 0 && temperatureData.length !== 0 ? (
         <div className={groupDataStyle.graph}>
           {temperatureData.length !== 0 && (
@@ -66,6 +113,8 @@ const GroupData = ({ delivery_id, package_id }) => {
                 sensorData={temperatureData}
                 limitData={productLimits}
                 showXAxis={false}
+                minDate={minDate}
+                maxDate={maxDate}
               />
             </div>
           )}
@@ -76,6 +125,8 @@ const GroupData = ({ delivery_id, package_id }) => {
                 limitData={productLimits}
                 id="Humidity"
                 showXAxis={false}
+                minDate={minDate}
+                maxDate={maxDate}
               />
             </div>
           )}
@@ -86,6 +137,8 @@ const GroupData = ({ delivery_id, package_id }) => {
                 limitData={productLimits}
                 id="Light"
                 showXAxis={false}
+                minDate={minDate}
+                maxDate={maxDate}
               />
             </div>
           )}
@@ -96,6 +149,8 @@ const GroupData = ({ delivery_id, package_id }) => {
                 limitData={productLimits}
                 id="Vibration"
                 showXAxis={true}
+                minDate={minDate}
+                maxDate={maxDate}
               />
             </div>
           )}

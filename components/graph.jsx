@@ -12,7 +12,7 @@ import {
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 import annotationPlugin from "chartjs-plugin-annotation";
-import zoomPlugin from "chartjs-plugin-zoom";
+//import zoomPlugin from "chartjs-plugin-zoom";
 
 ChartJS.register(
   CategoryScale,
@@ -22,17 +22,20 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  annotationPlugin,
-  zoomPlugin
+  annotationPlugin
+  //zoomPlugin
 );
 
-const Graph = ({ sensorData, limitData, id, showXAxis }) => {
+const Graph = ({ sensorData, limitData, id, showXAxis, minDate, maxDate }) => {
   const [dataMin, setDataMin] = useState(0);
   const [dataMax, setDataMax] = useState(0);
+  const [filteredData, setFilteredData] = useState(sensorData);
   let limitMin = 0;
   let limitMax = 0;
   let yAxisMin = -5;
   let yAxisMax = 5;
+
+  // filteredData = sensorData.filter()
 
   useEffect(() => {
     const Values = sensorData.map((o) => o.sensor_value);
@@ -109,14 +112,12 @@ const Graph = ({ sensorData, limitData, id, showXAxis }) => {
         },
       },
       zoom: {
-        zoom: {
-          wheel: {
-            enabled: true,
-          },
-          pinch: {
-            enabled: true,
-          },
-          mode: "y",
+        pan: {
+          enable: true,
+          mode: "x",
+        },
+        limits: {
+          x: { min: minDate, max: maxDate },
         },
       },
     },
