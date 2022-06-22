@@ -11,8 +11,10 @@
 }
 
 .headContent {
+  width: 80vw;
   padding-bottom: 40px;
   border-bottom: 1px solid #c5c5c5;
+  margin: 0 auto;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
