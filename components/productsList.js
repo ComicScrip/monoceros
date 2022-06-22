@@ -41,7 +41,7 @@ export default function ProductsList() {
       if (!warehouseSelect && !countrySelect) {
         const products = await getAllProducts(
           productsPerPage,
-          (currentPage - 1) * productsPerPage + 1
+          (currentPage - 1) * (productsPerPage + 1)
         );
         setNumberOfProducts(products.data.count);
         setProducts(products.data.results);

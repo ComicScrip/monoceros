@@ -7,6 +7,7 @@ import Footer from "./footer";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
+import Loading from "./loading";
 
 const Layout = ({ children }) => {
   const { t } = useTranslation("common");
@@ -24,7 +25,7 @@ const Layout = ({ children }) => {
       </>
     );
   else if (status === "loading" || !profile) {
-    return <p>LOADING..</p>;
+    return <Loading />;
   }
   return (
     <>

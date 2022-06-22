@@ -7,6 +7,7 @@ import GroupData from "./groupData";
 import moment from "moment";
 import { useTranslation } from "next-i18next";
 import DeliveryPath from "./deliveryPath";
+import Loading from "./loading";
 
 const IdComponent = () => {
   const { t } = useTranslation("packages");
@@ -87,7 +88,7 @@ const IdComponent = () => {
           {packageId && <GroupData delivery_id={id} package_id={packageId} />}
         </div>
       ) : (
-        <div>Loading</div>
+        <Loading />
       )}
     </>
   );
