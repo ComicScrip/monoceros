@@ -5,5 +5,10 @@
   "status": "Delivery Status",
   "humidity": "Humidity",
   "light": "Light",
-  "shock": "Shock"
+  "shock": "Shock",
+  "myDeliveries": "My deliveries",
+  "delayed": "Delayed",
+  "inProgress": "In progres",
+  "completed": "Completed",
+  "alerts": "Alerts"
 }
