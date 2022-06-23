@@ -88,9 +88,11 @@ const Graph = ({ sensorData, limitData, id, showXAxis, minDate, maxDate }) => {
       xAxis: {
         display: showXAxis,
         ticks: {
-          autoSkip: false,
+          autoSkip: true,
           maxRotation: 90,
           minRotation: 90,
+          labelOffset: -8,
+          maxTicksLimit: 10,
         },
       },
       yAxis: {
@@ -150,7 +152,14 @@ const Graph = ({ sensorData, limitData, id, showXAxis, minDate, maxDate }) => {
     ],
   };
 
-  return <Line options={options} data={data} width={"80%"} height={"30%"} />;
+  return (
+    <Line
+      options={options}
+      data={data}
+      width={"80%"}
+      height={showXAxis ? "60%" : "40%"}
+    />
+  );
 };
 
 export default Graph;
