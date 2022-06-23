@@ -5,18 +5,16 @@ Cypress.on("uncaught:exception", (err, runnable) => {
 describe("products page", () => {
   beforeEach(() => {
     cy.viewport("samsung-s10");
-    cy.login();
   });
 
   describe("products list", () => {
-    it.only("should display the products list from the API", () => {
+    it("should display the products list from the API", () => {
       cy.fixture("products").then((data) => {
         cy.intercept("**/api/base/products/**", data);
-        console.log(data);
       });
-
+      cy.login();
       cy.visit("/products");
-      cy.contains("Products catalogue");
+      cy.contains("PRODUCTS CATALOGUE");
       cy.get("[data-cy=products-table]").should("be.visible");
       cy.contains("epinard");
       cy.contains("testTrad");

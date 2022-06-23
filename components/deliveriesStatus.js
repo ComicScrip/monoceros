@@ -19,7 +19,7 @@ export default function DeliveriesStatus() {
   const completedWidth = Math.ceil(unit * completed);
 
   return (
-    <div className="flex justify-center  bg-white text-xs w-[90%] mx-auto rounded mt-5 p-5 max-w-[500px]">
+    <div className="flex justify-center  bg-white text-xs w-[90%] mx-auto rounded p-5 max-w-[500px]">
       <div
         className="flex flex-col w-[85%]"
         style={{ color: "var(--main-color)" }}

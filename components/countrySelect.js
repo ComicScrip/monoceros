@@ -6,7 +6,7 @@ export default function CountrySelect({
   country,
   setCurrentPage,
 }) {
-  const { t } = useTranslation("productsCatalogue");
+  const { t } = useTranslation("products");
   const router = useRouter();
   function handleClick() {
     selectCountry("");
@@ -20,7 +20,7 @@ export default function CountrySelect({
 
   return (
     <>
-      <div className="flex h-7 m-2 w-[70vw]">
+      <div className="flex h-7 m-2 w-[90vw]">
         <select
           onChange={(e) => handleSelectChange(e)}
           value={country}

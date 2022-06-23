@@ -1,7 +1,5 @@
 {
   "description": "Page en cours de construction ...",
   "authenticated": "Vous n'êtes pas authentifié",
-  "login": "Page de connexion",
-  "yes": "OUI",
-  "no": "NON"
+  "login": "Page de connexion"
 }
