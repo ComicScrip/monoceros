@@ -1,5 +1,7 @@
 {
   "description": "Page under construction ...",
   "authenticated": "You are not authenticated",
-  "login": "Login Page"
+  "login": "Login Page",
+  "yes": "YES",
+  "no": "NO"
 }
