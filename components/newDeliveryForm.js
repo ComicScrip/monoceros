@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getWarehouses } from "../lib/productsAPI";
 import { getPackagesByCountryWarehouseAndId } from "../lib/packagesAPI";
+import { BsFillCalendar2WeekFill } from "react-icons/bs";
 
 function SelectComponent({ setState, items, value, defaultValue, keyVal }) {
   return (
@@ -27,11 +28,23 @@ export default function NewDeliveryForm() {
   const [warehouses, setWarehouses] = useState([]);
   const [packages, setPackages] = useState([]);
   const [packageToShip, setPackagesToShip] = useState("");
+  const [numberOfPackages, setNumberOfPackages] = useState(1);
   const [infos, setInfos] = useState({
-    start: "",
-    end: "",
+    startDate: "",
+    endDate: "",
     trackingNumber: "",
   });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const deliveryInfo = {
+      ...infos,
+      origin: warehouseOrigin,
+      destination: warehouseDestination,
+      package: packageToShip,
+    };
+    console.log(deliveryInfo);
+  }
 
   async function getWarehousesList() {
     const warehousesList = await getWarehouses();
@@ -48,16 +61,16 @@ export default function NewDeliveryForm() {
 
   useEffect(() => {
     getWarehousesList();
-  }, [warehouseOrigin, warehouseDestination]);
+    console.log(numberOfPackages);
+  }, [warehouseOrigin, warehouseDestination, numberOfPackages]);
 
   return (
     <div className="flex justify-center mt-5 w-[100vw]">
       <div className="border-t-[0.5px] border-[#C5C5C5] w-[60vw] h-[100vh] flex flex-col items-center">
         <p className="text-center mt-3 mb-5 font-bold">Delivery path</p>
-        <form className="flex flex-col items-center">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center">
           <div className="flex flex-col mb-5">
             <label>Warehouse origin*</label>
-
             <SelectComponent
               setState={setWarehouseOrigin}
               items={warehouses}
@@ -78,31 +91,76 @@ export default function NewDeliveryForm() {
           </div>
           <div className="flex flex-col mb-5">
             <label>Start date*</label>
-            <input className="p-[4px] w-[60vw] mt-2 rounded" type="text" />
+            <div className="flex flex-initial items-center">
+              <input
+                className="p-[4px] w-[60vw] mt-2 rounded"
+                type="text"
+                onChange={(e) =>
+                  setInfos({ ...infos, startDate: e.target.value })
+                }
+              />
+              <BsFillCalendar2WeekFill
+                style={{
+                  color: "var(--main-color)",
+                  marginLeft: "-20px",
+                  marginTop: "5px",
+                }}
+              />
+            </div>
           </div>
           <div className="flex flex-col mb-5">
             <label>End date*</label>
-            <input className="p-[4px] w-[60vw] mt-2 rounded" type="text" />
+            <div className="flex flex-initial items-center">
+              <input
+                className="p-[4px] w-[60vw] mt-2 rounded"
+                type="text"
+                onChange={(e) =>
+                  setInfos({ ...infos, endDate: e.target.value })
+                }
+              />
+              <BsFillCalendar2WeekFill
+                style={{
+                  color: "var(--main-color)",
+                  marginLeft: "-20px",
+                  marginTop: "5px",
+                }}
+              />
+            </div>
           </div>
           <div className="flex flex-col mb-5">
             <label>Tracking number*</label>
-            <input className="p-[4px] w-[60vw] mt-2 rounded" type="text" />
+            <input
+              className="p-[4px] w-[60vw] mt-2 rounded"
+              type="number"
+              onChange={(e) =>
+                setInfos({ ...infos, trackingNumber: e.target.value })
+              }
+            />
           </div>
           <div className="w-[60vw] bg-[#C5C5C5] h-[0.5px] mt-8"></div>
           <p className="text-center mt-3 mb-5 font-bold">Shipping</p>
           <div className="flex flex-col mb-5">
             <label>Select packages to ship*</label>
-
-            <SelectComponent
-              setState={setPackagesToShip}
-              items={packages}
-              value={packageToShip}
-              defaultValue={"Select Package"}
-              keyVal={"id"}
-            />
+            {new Array(numberOfPackages).fill().map((_, i) => (
+              <div key={i}>
+                <SelectComponent
+                  setState={setPackagesToShip}
+                  items={packages}
+                  value={packageToShip}
+                  defaultValue={"Select Package"}
+                  keyVal={"id"}
+                />
+              </div>
+            ))}
           </div>
-          <p className="underline">+ Add another package</p>
+          <p
+            onClick={() => setNumberOfPackages(numberOfPackages + 1)}
+            className="underline mt-3"
+          >
+            + Add another package
+          </p>
           <button
+            type="submit"
             className="text-white font-bold py-2 px-4 rounded mt-10"
             style={{ backgroundColor: "var(--main-color)" }}
           >

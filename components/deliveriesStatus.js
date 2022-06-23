@@ -35,7 +35,7 @@ export default function DeliveriesStatus() {
             {t("inProgress")}
           </button>
           <div
-            className={`bg-[#eae5e5] w-[${containerWidth}%] h-[10px] rounded`}
+            className={`bg-[#eae5e5] w-[${containerWidth.toString()}%] h-[10px] rounded`}
           >
             <div
               style={{
@@ -56,7 +56,7 @@ export default function DeliveriesStatus() {
             {t("delayed")}
           </button>
           <div
-            className={`bg-[#eae5e5] w-[${containerWidth}%] h-[10px] rounded`}
+            className={`bg-[#eae5e5] w-[${containerWidth.toString()}%] h-[10px] rounded`}
           >
             <div
               style={{
@@ -77,7 +77,7 @@ export default function DeliveriesStatus() {
             {t("completed")}
           </button>
           <div
-            className={`bg-[#eae5e5] w-[${containerWidth}%] h-[10px] rounded`}
+            className={`bg-[#eae5e5] w-[${containerWidth.toString()}%] h-[10px] rounded`}
           >
             <div
               style={{
@@ -98,7 +98,7 @@ export default function DeliveriesStatus() {
             {t("alerts")}
           </button>
           <div
-            className={`bg-[#eae5e5] w-[${containerWidth}%] h-[10px] rounded`}
+            className={`bg-[#eae5e5] w-[${containerWidth.toString()}%] h-[10px] rounded`}
           >
             <div
               style={{
