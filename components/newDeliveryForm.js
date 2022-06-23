@@ -3,10 +3,24 @@ import { getWarehouses } from "../lib/productsAPI";
 import { getPackagesByCountryWarehouseAndId } from "../lib/packagesAPI";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
 
-function SelectComponent({ setState, items, value, defaultValue, keyVal }) {
+function SelectComponent({
+  setState,
+  items,
+  value,
+  defaultValue,
+  keyVal,
+  type,
+  productsIndex,
+  oldState,
+}) {
+  //if (type === "product") console.log(value);
   return (
     <select
-      onChange={(e) => setState(e.target.value)}
+      onChange={(e) =>
+        type === "product"
+          ? setState({ ...oldState, [productsIndex]: e.target.value })
+          : setState(e.target.value)
+      }
       value={value}
       className="bg-white p-[4px] w-[60vw] mt-2 rounded"
     >
@@ -27,7 +41,7 @@ export default function NewDeliveryForm() {
   const [warehouseDestination, setWarehouseDestination] = useState("");
   const [warehouses, setWarehouses] = useState([]);
   const [packages, setPackages] = useState([]);
-  const [packageToShip, setPackagesToShip] = useState("");
+  const [packageToShip, setPackagesToShip] = useState({});
   const [numberOfPackages, setNumberOfPackages] = useState(1);
   const [infos, setInfos] = useState({
     startDate: "",
@@ -44,6 +58,13 @@ export default function NewDeliveryForm() {
       package: packageToShip,
     };
     console.log(deliveryInfo);
+    setInfos({
+      startDate: "",
+      endDate: "",
+      trackingNumber: "",
+    });
+    setPackagesToShip({});
+    setNumberOfPackages(1);
   }
 
   async function getWarehousesList() {
@@ -60,8 +81,8 @@ export default function NewDeliveryForm() {
   }
 
   useEffect(() => {
+    console.log(packageToShip);
     getWarehousesList();
-    console.log(numberOfPackages);
   }, [warehouseOrigin, warehouseDestination, numberOfPackages]);
 
   return (
@@ -77,6 +98,7 @@ export default function NewDeliveryForm() {
               value={warehouseOrigin}
               defaultValue={"Select Warehouse"}
               keyVal={"name"}
+              type={"warehouse"}
             />
           </div>
           <div className="flex flex-col mb-5">
@@ -87,6 +109,7 @@ export default function NewDeliveryForm() {
               value={warehouseDestination}
               defaultValue={"Select Warehouse"}
               keyVal={"name"}
+              type={"warehouse"}
             />
           </div>
           <div className="flex flex-col mb-5">
@@ -146,9 +169,12 @@ export default function NewDeliveryForm() {
                 <SelectComponent
                   setState={setPackagesToShip}
                   items={packages}
-                  value={packageToShip}
+                  value={packageToShip[i + 1]}
+                  oldState={packageToShip}
                   defaultValue={"Select Package"}
                   keyVal={"id"}
+                  type={"product"}
+                  productsIndex={i + 1}
                 />
               </div>
             ))}
