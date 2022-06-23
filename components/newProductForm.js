@@ -3,20 +3,17 @@ import { useTranslation } from "next-i18next";
 import newProductStyle from "../styles/newProduct.module.css";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
 import { postOneProduct } from "../lib/productsAPI";
-// import { useState } from "react";
 import { set, useForm } from "react-hook-form";
-import moment from "moment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
 const NewProductForm = () => {
   const { t } = useTranslation("newProduct");
   const { register, handleSubmit } = useForm();
+  const [startDate, setStartDate] = useState(null);
+
   async function onSubmit(data) {
-    console.log(data);
-    console.log(
-      moment("2022-06-22").format(
-        'YYYY-MM-DDThh:mm[:ss[.uuuuuu]][+HH:MM|-HH:MM|Z]."]'
-      )
-    );
     try {
       await postOneProduct(data);
     } catch (error) {
@@ -43,14 +40,15 @@ const NewProductForm = () => {
               Expiration date*
               <div className={newProductStyle.headExpInput}>
                 <div className={newProductStyle.calendarInput}>
-                  <input
+                  <DatePicker
                     {...register("expiration_date", {
                       setValueAs: (v) => v + "T22:00:00Z",
                     })}
-                    type="date"
-                    id="expirationDate"
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    minDate={new Date()}
+                    showDisabledMonthNavigation
                     className={newProductStyle.productExpInput}
-                    placeholder=""
                   />
                   <BsFillCalendar2WeekFill
                     style={{ marginLeft: "-25px", color: "#e77981" }}
