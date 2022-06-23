@@ -4,12 +4,12 @@ import newProductStyle from "../styles/newProduct.module.css";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
 import { postOneProduct } from "../lib/productsAPI";
 // import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import moment from "moment";
 
 const NewProductForm = () => {
   const { t } = useTranslation("newProduct");
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit } = useForm();
   async function onSubmit(data) {
     console.log(data);
     console.log(
@@ -22,69 +22,6 @@ const NewProductForm = () => {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  {
-    /*
-const [newProductName, setNewProductName] = useState("");
-  const [expirationDate, setExpirationDate] = useState("");
-  const [perishable, setPerishable] = useState(false);
-  const [minTemperature, setMinTemperature] = useState(null);
-  const [maxTemperature, setMaxTemperature] = useState(null);
-  const [tempConstraint, setTempConstraint] = useState(false);
-  const [minHumidity, setMinHumidity] = useState(null);
-  const [maxHumidity, setMaxHumidity] = useState(null);
-  const [humidityConstraint, setHumidityConstraint] = useState(false);
-  const [maxLight, setMaxLight] = useState(null);
-  const [lightConstraint, setLightConstraint] = useState(false);
-  const [maxShock, setMaxShock] = useState(null);
-  const [shockConstraint, setShockConstraint] = useState(false);
-  const [orientation, setOrientation] = useState([]);
-  const [orientationConstraint, setOrientationConstraint] = useState(false);
-  const [unitCost, setUnitCost] = useState("");
-  const [leadTime, setLeadTime] = useState("");
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    await postOneProduct({
-      name: newProductName,
-      expiration_date: expirationDate,
-      not_perishable: perishable,
-      temperature_min: minTemperature,
-      temperature_max: maxTemperature,
-      temperature_constraint: tempConstraint,
-      humidity_min: minHumidity,
-      humidity_max: maxHumidity,
-      humidity_constraint: humidityConstraint,
-      light_max: maxLight,
-      light_constraint: lightConstraint,
-      shock_max: maxShock,
-      shock_constraint: shockConstraint,
-      orientation_cfg: orientation,
-      orientation_constraint: orientationConstraint,
-      unit_cost: unitCost,
-      lead_time_average: leadTime,
-    }).then(() => {
-      setNewProductName("");
-      setExpirationDate("");
-      setPerishable(false);
-      setMinTemperature(null);
-      setMaxTemperature(null);
-      setTempConstraint(!tempConstraint);
-      setMinHumidity(null);
-      setMaxHumidity(null);
-      setHumidityConstraint(!humidityConstraint);
-      setMaxLight(null);
-      setLightConstraint(!lightConstraint);
-      setMaxShock(null);
-      setShockConstraint(!shockConstraint);
-      setOrientation([]);
-      setOrientationConstraint(!orientationConstraint);
-      setUnitCost("");
-      setLeadTime("");
-    });
-  }
-  */
   }
 
   return (
@@ -107,11 +44,9 @@ const [newProductName, setNewProductName] = useState("");
               <div className={newProductStyle.headExpInput}>
                 <div className={newProductStyle.calendarInput}>
                   <input
-                    {...register(
-                      moment("expiration_date").format(
-                        'YYYY-MM-DDThh:mm[:ss[.uuuuuu]][+HH:MM|-HH:MM|Z]."]'
-                      )
-                    )}
+                    {...register("expiration_date", {
+                      setValueAs: (v) => v + "T22:00:00Z",
+                    })}
                     type="date"
                     id="expirationDate"
                     className={newProductStyle.productExpInput}
@@ -138,6 +73,7 @@ const [newProductName, setNewProductName] = useState("");
                 type="checkbox"
                 id="persishable"
                 className={newProductStyle.checkbox}
+                value={(e) => e.target.value + "T22:00:00Z"}
               />
               Non perishable
             </label>
