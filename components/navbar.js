@@ -12,6 +12,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openingSectionProduct, setOpeningSectionProduct] = useState(false);
   const [openingSectionDelivery, setOpeningSectionDelivery] = useState(false);
+  const [openingSectionPackages, setOpeningSectionPackages] = useState(false);
   const router = useRouter();
   const onSelectChange = (e) => {
     const locale = e.target.value;
@@ -22,10 +23,23 @@ export default function Navbar() {
   };
 
   const openMenu = () => setIsOpen(!isOpen);
-  const openSectionProduct = () =>
+  const openSectionProduct = () => {
     setOpeningSectionProduct(!openingSectionProduct);
-  const openSectionDelivery = () =>
+    setOpeningSectionDelivery(false);
+    setOpeningSectionPackages(false);
+  };
+
+  const openSectionDelivery = () => {
     setOpeningSectionDelivery(!openingSectionDelivery);
+    setOpeningSectionPackages(false);
+    setOpeningSectionProduct(false);
+  };
+
+  const openSectionPackages = () => {
+    setOpeningSectionPackages(!openingSectionPackages);
+    setOpeningSectionProduct(false);
+    setOpeningSectionDelivery(false);
+  };
 
   return (
     <header className={style.header}>
@@ -97,7 +111,11 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink} onClick={openMenu}>
+                  <a
+                    className={style.navlink}
+                    onClick={openMenu}
+                    style={{ opacity: "0.2" }}
+                  >
                     {t("home")}
                   </a>
                 </div>
@@ -146,7 +164,11 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/newproduct"
                     >
-                      <a className={style.navlink} onClick={openMenu}>
+                      <a
+                        className={style.navlink}
+                        onClick={openMenu}
+                        style={{ opacity: "0.2" }}
+                      >
                         {t("newProduct")}
                       </a>
                     </ActiveLink>
@@ -158,6 +180,77 @@ export default function Navbar() {
                     >
                       <a className={style.navlink} onClick={openMenu}>
                         {t("productsCatalogue")}
+                      </a>
+                    </ActiveLink>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li
+              className={
+                router.pathname.includes("package")
+                  ? style.navoveritem + " " + style.activeSection
+                  : style.navoveritem
+              }
+            >
+              <div className={style.navlogo}>
+                <Image
+                  style={{ width: "75%" }}
+                  src="/images/product-logo.svg"
+                  alt="logo"
+                  width={20}
+                  height={20}
+                />
+              </div>
+              <div className={style.navsubmenuContainer}>
+                <div className={style.navsubmenu}>
+                  <p className={style.navlink}>Packages</p>
+                  <Image
+                    data-cy="expand-packages"
+                    src={"/images/chevron-down.svg"}
+                    alt="logo"
+                    width={20}
+                    height={20}
+                    onClick={openSectionPackages}
+                    className={
+                      openingSectionPackages
+                        ? style.chevronUp
+                        : style.chevronDown
+                    }
+                  />
+                </div>
+                <ul
+                  className={
+                    openingSectionPackages
+                      ? style.sectionOpen
+                      : style.sectionClose
+                  }
+                >
+                  <li className={style.navsubitem}>
+                    <ActiveLink
+                      activeClassName="activeSubitem"
+                      href="/newpackages"
+                    >
+                      <a
+                        className={style.navlink}
+                        onClick={openMenu}
+                        style={{ opacity: "0.2" }}
+                      >
+                        New Package
+                      </a>
+                    </ActiveLink>
+                  </li>
+                  <li className={style.navsubitem}>
+                    <ActiveLink
+                      activeClassName="activeSubitem"
+                      href="/packages"
+                    >
+                      <a
+                        data-cy="packages-catalogue"
+                        className={style.navlink}
+                        onClick={openMenu}
+                      >
+                        Packages catalogue
                       </a>
                     </ActiveLink>
                   </li>
@@ -207,7 +300,11 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/newdelivery"
                     >
-                      <a className={style.navlink} onClick={openMenu}>
+                      <a
+                        className={style.navlink}
+                        onClick={openMenu}
+                        style={{ opacity: "0.2" }}
+                      >
                         {t("newDelivery")}
                       </a>
                     </ActiveLink>
@@ -236,7 +333,11 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink} onClick={openMenu}>
+                  <a
+                    className={style.navlink}
+                    onClick={openMenu}
+                    style={{ opacity: "0.2" }}
+                  >
                     {t("inventory")}
                   </a>
                 </div>
@@ -253,7 +354,11 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink} onClick={openMenu}>
+                  <a
+                    className={style.navlink}
+                    onClick={openMenu}
+                    style={{ opacity: "0.2" }}
+                  >
                     {t("alarms")}
                   </a>
                 </div>
@@ -270,7 +375,11 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink} onClick={openMenu}>
+                  <a
+                    className={style.navlink}
+                    onClick={openMenu}
+                    style={{ opacity: "0.2" }}
+                  >
                     {t("settings")}
                   </a>
                 </div>
@@ -287,7 +396,11 @@ export default function Navbar() {
                       height={20}
                     />
                   </div>
-                  <a className={style.navlink} onClick={openMenu}>
+                  <a
+                    className={style.navlink}
+                    onClick={openMenu}
+                    style={{ opacity: "0.2" }}
+                  >
                     {t("help")}
                   </a>
                 </div>
@@ -332,6 +445,4 @@ export default function Navbar() {
       </nav>
     </header>
   );
-
-  // onclick sur option avec router.push
 }
