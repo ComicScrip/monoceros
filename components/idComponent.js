@@ -61,23 +61,35 @@ const IdComponent = () => {
               }
               onClick={() => setPackageId(colis.id)}
             >
-              <div data-cy={"packageDetailId" + i}>{colis.id}</div>
+              <div
+                data-cy={"packageDetailId" + i}
+                className={idStyle.idPackage}
+              >
+                {colis.id}
+              </div>
               {colis.alert ? (
-                <Image
-                  src="/images/alerts-active@3x.png"
-                  alt="alarm"
-                  height={30}
-                  width={30}
-                />
+                <div className={idStyle.alertPackage}>
+                  <Image
+                    src="/images/alerts-active@3x.png"
+                    alt="alarm"
+                    height={30}
+                    width={30}
+                  />
+                </div>
               ) : (
-                <Image
-                  src="/images/alerts@3x.png"
-                  alt="alarm"
-                  height={30}
-                  width={30}
-                />
+                <div className={idStyle.alertPackage}>
+                  <Image
+                    src="/images/alerts@3x.png"
+                    alt="alarm"
+                    height={30}
+                    width={30}
+                  />
+                </div>
               )}
-              <div data-cy="packageDetailUpdate">
+              <div
+                data-cy="packageDetailUpdate"
+                className={idStyle.datePackage}
+              >
                 {moment(`${colis.last_updated}`, "YYYYMMDD").fromNow()}
               </div>
             </div>
