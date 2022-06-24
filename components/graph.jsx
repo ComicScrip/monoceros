@@ -151,7 +151,7 @@ const Graph = ({ sensorData, limitData, id, showXAxis, minDate, maxDate }) => {
       },
     ],
   };
-
+  console.log("coucou");
   return (
     <Line
       options={options}
