@@ -19,6 +19,7 @@ export default function Inventory() {
         }}
       >
         <Image
+          priority
           src="/images/enconstruction.png"
           height={200}
           width={200}

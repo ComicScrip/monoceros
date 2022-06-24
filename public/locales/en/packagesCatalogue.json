@@ -1,0 +1,14 @@
+{
+  "title": "Package catalogue",
+  "sensor": "Sensor N°",
+  "product": "Product",
+  "size": "Size",
+  "pairingStart": "Pairing start date",
+  "expiration": "Expiry date",
+  "pairingEnd": "Pairing end date",
+  "delete": "Delete",
+  "noData": "No packages",
+  "deleteP": "Delete package",
+  "toastDelete": "package deleted, ID : ",
+  "cannotDelete": "Cannot delete this package, delivery in progress.."
+}
