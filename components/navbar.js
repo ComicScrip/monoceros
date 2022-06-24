@@ -208,7 +208,10 @@ export default function Navbar() {
                   height={20}
                 />
               </div>
-              <div className={style.navsubmenuContainer}>
+              <div
+                className={style.navsubmenuContainer}
+                onClick={openSectionPackages}
+              >
                 <div className={style.navsubmenu}>
                   <p className={style.navlink}>Packages</p>
                   <Image
@@ -217,7 +220,6 @@ export default function Navbar() {
                     alt="logo"
                     width={20}
                     height={20}
-                    onClick={openSectionPackages}
                     className={
                       openingSectionPackages
                         ? style.chevronUp

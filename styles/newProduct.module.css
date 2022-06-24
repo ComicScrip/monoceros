@@ -143,9 +143,3 @@
   display: block;
   margin: 20px auto;
 }
-
-.react-datepicker__day--selected,
-.react-datepicker__day,
-.react-datepicker__day--today {
-  background: #ff455a !important;
-}
