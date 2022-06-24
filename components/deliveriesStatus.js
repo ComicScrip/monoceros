@@ -34,9 +34,7 @@ export default function DeliveriesStatus() {
           >
             {t("inProgress")}
           </button>
-          <div
-            className={`bg-[#eae5e5] w-[${containerWidth.toString()}%] h-[10px] rounded`}
-          >
+          <div className={`bg-[#eae5e5] w-[70%] h-[10px] rounded`}>
             <div
               style={{
                 width: `${inProgressWidth}%`,
@@ -55,9 +53,7 @@ export default function DeliveriesStatus() {
           >
             {t("delayed")}
           </button>
-          <div
-            className={`bg-[#eae5e5] w-[${containerWidth.toString()}%] h-[10px] rounded`}
-          >
+          <div className={`bg-[#eae5e5] w-[70%] h-[10px] rounded`}>
             <div
               style={{
                 width: `${delayedWidth}%`,
@@ -76,9 +72,7 @@ export default function DeliveriesStatus() {
           >
             {t("completed")}
           </button>
-          <div
-            className={`bg-[#eae5e5] w-[${containerWidth.toString()}%] h-[10px] rounded`}
-          >
+          <div className={`bg-[#eae5e5] w-[70%] h-[10px] rounded`}>
             <div
               style={{
                 width: `${completedWidth}%`,
@@ -97,9 +91,7 @@ export default function DeliveriesStatus() {
           >
             {t("alerts")}
           </button>
-          <div
-            className={`bg-[#eae5e5] w-[${containerWidth.toString()}%] h-[10px] rounded`}
-          >
+          <div className={`bg-[#eae5e5] w-[70%] h-[10px] rounded`}>
             <div
               style={{
                 width: `${20}%`,
@@ -114,7 +106,7 @@ export default function DeliveriesStatus() {
         <div className="flex items-center justify-center">
           <div className="flex justify-between w-[30%] font-bold">
             <p>TOTAL</p>
-            <div className={`text-m w-[7${containerWidth}%]`}>
+            <div className={`text-m w-[70%]`}>
               <p className="w-5 ">{total}</p>
             </div>
           </div>

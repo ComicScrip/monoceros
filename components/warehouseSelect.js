@@ -24,7 +24,7 @@ export default function WarehouseSelect({
           type="search"
           onChange={(e) => handleSelectChange(e)}
           value={warehouse}
-          className="bg-white w-[90vw] h-7 mb-5"
+          className="bg-white w-[90vw] h-7 mb-5 rounded"
           style={{ fontSize: "13px" }}
         >
           <option value="" className="text-gray-300" disabled hidden>

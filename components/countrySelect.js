@@ -24,7 +24,7 @@ export default function CountrySelect({
         <select
           onChange={(e) => handleSelectChange(e)}
           value={country}
-          className="bg-white w-[90vw] h-7 mb-5"
+          className="bg-white w-[90vw] rounded h-7 mb-5"
           style={{ fontSize: "13px" }}
         >
           <option className="font-xs" value="" hidden>

@@ -27,6 +27,7 @@ export default function ProductSelect({
           value={product}
           className="bg-white w-[90vw] h-7 mb-5"
           style={{ fontSize: "13px" }}
+          rounded
         >
           <option value="" className="text-gray-300" disabled hidden>
             {t("product")}

@@ -1,28 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { getWarehouses } from "../lib/productsAPI";
-import { getPackagesByCountryWarehouseAndId } from "../lib/packagesAPI";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
+import toast, { Toaster } from "react-hot-toast";
 
-function SelectComponent({
-  setState,
-  items,
-  value,
-  defaultValue,
-  keyVal,
-  type,
-  productsIndex,
-  oldState,
-}) {
-  //if (type === "product") console.log(value);
+function SelectComponent({ setState, items, value, defaultValue, keyVal }) {
   return (
     <select
-      onChange={(e) =>
-        type === "product"
-          ? setState({ ...oldState, [productsIndex]: e.target.value })
-          : setState(e.target.value)
-      }
+      onChange={(e) => setState(e.target.value)}
       value={value}
       className="bg-white p-[4px] w-[60vw] mt-2 rounded"
+      required
     >
       <option value="" className="text-gray-300" disabled hidden>
         {defaultValue}
@@ -40,7 +27,6 @@ export default function NewDeliveryForm() {
   const [warehouseOrigin, setWarehouseOrigin] = useState("");
   const [warehouseDestination, setWarehouseDestination] = useState("");
   const [warehouses, setWarehouses] = useState([]);
-  const [packages, setPackages] = useState([]);
   const [packageToShip, setPackagesToShip] = useState({});
   const [numberOfPackages, setNumberOfPackages] = useState(1);
   const [infos, setInfos] = useState({
@@ -52,36 +38,25 @@ export default function NewDeliveryForm() {
   function handleSubmit(e) {
     e.preventDefault();
     const deliveryInfo = {
-      ...infos,
       origin: warehouseOrigin,
       destination: warehouseDestination,
       package: packageToShip,
     };
     console.log(deliveryInfo);
-    setInfos({
-      startDate: "",
-      endDate: "",
-      trackingNumber: "",
-    });
+    setInfos({ startDate: "", endDate: "", trackingNumber: "" });
     setPackagesToShip({});
     setNumberOfPackages(1);
+    setWarehouseDestination("");
+    setWarehouseOrigin("");
+    toast("Delivery created !");
   }
 
   async function getWarehousesList() {
     const warehousesList = await getWarehouses();
-    const packagesList = await getPackagesByCountryWarehouseAndId(
-      50,
-      0,
-      "",
-      warehouseOrigin || "",
-      ""
-    );
     setWarehouses(warehousesList.data);
-    setPackages(packagesList.results);
   }
 
   useEffect(() => {
-    console.log(packageToShip);
     getWarehousesList();
   }, [warehouseOrigin, warehouseDestination, numberOfPackages]);
 
@@ -121,6 +96,8 @@ export default function NewDeliveryForm() {
                 onChange={(e) =>
                   setInfos({ ...infos, startDate: e.target.value })
                 }
+                value={infos.startDate}
+                required
               />
               <BsFillCalendar2WeekFill
                 style={{
@@ -140,6 +117,8 @@ export default function NewDeliveryForm() {
                 onChange={(e) =>
                   setInfos({ ...infos, endDate: e.target.value })
                 }
+                value={infos.endDate}
+                required
               />
               <BsFillCalendar2WeekFill
                 style={{
@@ -158,23 +137,27 @@ export default function NewDeliveryForm() {
               onChange={(e) =>
                 setInfos({ ...infos, trackingNumber: e.target.value })
               }
+              value={infos.trackingNumber}
+              required
             />
           </div>
           <div className="w-[60vw] bg-[#C5C5C5] h-[0.5px] mt-8"></div>
           <p className="text-center mt-3 mb-5 font-bold">Shipping</p>
           <div className="flex flex-col mb-5">
-            <label>Select packages to ship*</label>
+            <label>Package(s) to ship*</label>
             {new Array(numberOfPackages).fill().map((_, i) => (
               <div key={i}>
-                <SelectComponent
-                  setState={setPackagesToShip}
-                  items={packages}
-                  value={packageToShip[i + 1]}
-                  oldState={packageToShip}
-                  defaultValue={"Select Package"}
-                  keyVal={"id"}
-                  type={"product"}
-                  productsIndex={i + 1}
+                <input
+                  type="number"
+                  className="bg-white p-[4px] w-[60vw] mt-2 rounded"
+                  onChange={(e) =>
+                    setPackagesToShip({
+                      ...packageToShip,
+                      [i + 1]: e.target.value,
+                    })
+                  }
+                  value={packageToShip[i + 1] || ""}
+                  required
                 />
               </div>
             ))}
@@ -194,6 +177,17 @@ export default function NewDeliveryForm() {
           </button>
         </form>
       </div>
+      <Toaster
+        position="top-center"
+        containerStyle={{}}
+        toastOptions={{
+          duration: 2500,
+          style: {
+            background: "var(--main-bg-color)",
+            color: "var(--main-color)",
+          },
+        }}
+      />
     </div>
   );
 }
