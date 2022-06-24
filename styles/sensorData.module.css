@@ -1,0 +1,22 @@
+.global {
+  border-radius: 10px;
+  background-color: rgb(184, 218, 177);
+  width: 22%;
+  height: 60px;
+  padding-top: 5px;
+  padding-left: 5px;
+  font-size: 10px;
+  box-shadow: 3px 3px 3px lightgray;
+}
+
+.data {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.titre {
+  margin: 0px;
+}

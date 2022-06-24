@@ -1,0 +1,15 @@
+{
+  "title": "Products catalogue",
+  "country": "country",
+  "warehouse": "warehouse",
+  "product": "Product",
+  "expiration": "Expiration date",
+  "temp": "Temperature (°C)",
+  "humidity": "Humidity (%RH)",
+  "lum": "Luminosity (𝝺 nm)",
+  "shock": "Shock (G)",
+  "orientation": "Orientation",
+  "cost": "Unit cost (€)",
+  "delay": "Lead time (day(s))",
+  "noData": "No products"
+}
