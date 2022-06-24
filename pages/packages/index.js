@@ -1,22 +1,22 @@
 import Meta from "../../components/meta";
-import ProductsList from "../../components/productsList";
+import PackagesList from "../../components/packagesList";
 import Layout from "../../components/layout";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-const Products = () => {
+const Packages = () => {
   return (
     <>
       <Layout>
-        <Meta pagetitle="Monoceros - Products Catalogue" />
+        <Meta pagetitle="Monoceros - Packages Catalogue" />
         <div className="flex justify-center flex-col items-center">
-          <ProductsList />
+          <PackagesList />
         </div>
       </Layout>
     </>
   );
 };
 
-export default Products;
+export default Packages;
 
 export async function getStaticProps({ locale }) {
   return {
@@ -25,6 +25,7 @@ export async function getStaticProps({ locale }) {
         "common",
         "navbar",
         "productsCatalogue",
+        "packagesCatalogue",
       ])),
     },
   };
