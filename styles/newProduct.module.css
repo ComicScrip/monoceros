@@ -1,3 +1,6 @@
+/* @import "../node_modules/react-datepicker/src/stylesheets/datepicker.scss";
+*/
+
 .title {
   margin: 0 64px 12px;
   font-size: 20px;
@@ -139,4 +142,10 @@
   padding: 5px 10px;
   display: block;
   margin: 20px auto;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day,
+.react-datepicker__day--today {
+  background: #ff455a !important;
 }

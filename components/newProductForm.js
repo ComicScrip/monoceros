@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
+import "react-datepicker/dist/react-datepicker.css";
 import newProductStyle from "../styles/newProduct.module.css";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
 import { postOneProduct } from "../lib/productsAPI";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 
 const NewProductForm = () => {
@@ -71,7 +71,6 @@ const NewProductForm = () => {
                 type="checkbox"
                 id="persishable"
                 className={newProductStyle.checkbox}
-                value={(e) => e.target.value + "T22:00:00Z"}
               />
               Non perishable
             </label>
