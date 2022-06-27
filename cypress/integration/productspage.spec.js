@@ -9,7 +9,7 @@ describe("products page", () => {
   });
 
   describe("products list", () => {
-    it.only("should display the products list from the API", () => {
+    it("should display the products list from the API", () => {
       cy.fixture("products").then((data) => {
         cy.intercept("**/api/base/products/**", data);
         console.log(data);
@@ -22,7 +22,7 @@ describe("products page", () => {
       cy.contains("testTrad");
     });
 
-    it("should not display products when API is down", () => {
+    it.only("should not display products when API is down", () => {
       cy.intercept("**/api/base/products/**", { statusCode: 500 });
       cy.login();
       cy.visit("/products");
