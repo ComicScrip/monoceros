@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,31 +24,82 @@ ChartJS.register(
   annotationPlugin
 );
 
-const Graph = ({ sensorData, limitData, id }) => {
+const Graph = ({ sensorData, limitData, id, showXAxis, minDate, maxDate }) => {
+  const [dataMin, setDataMin] = useState(0);
+  const [dataMax, setDataMax] = useState(0);
+  const [filteredData, setFilteredData] = useState(sensorData);
   let limitMin = 0;
   let limitMax = 0;
-  if (id === "Temperature" && limitData[0].temperature_constraint) {
-    limitMin = limitData[0]?.temperature_min;
-    limitMax = limitData[0]?.temperature_max;
+  let yAxisMin = -5;
+  let yAxisMax = 5;
+
+  useEffect(() => {
+    const Values = sensorData.map((o) => o.sensor_value);
+    setDataMax(Math.max(...Values));
+    setDataMin(Math.min(...Values));
+  }, [sensorData]);
+
+  useEffect(() => {
+    setFilteredData(
+      sensorData.filter((dataset) =>
+        moment(dataset.date).isBetween(minDate, maxDate, undefined, "[]")
+      )
+    );
+  }, [minDate, maxDate, sensorData]);
+
+  if (id === "Temperature") {
+    if (limitData[0].temperature_constraint) {
+      limitMin = limitData[0]?.temperature_min;
+      limitMax = limitData[0]?.temperature_max;
+    }
+    yAxisMin = dataMin < limitMin ? dataMin - 10 : limitMin - 10;
+    yAxisMax = dataMax > limitMax ? dataMax + 10 : limitMax + 10;
   }
-  if (id === "Humidity" && limitData[0].humidity_constraint) {
-    limitMin = limitData[0]?.humidity_min;
-    limitMax = limitData[0]?.humidity_max;
+  if (id === "Humidity") {
+    if (limitData[0].humidity_constraint) {
+      limitMin = limitData[0]?.humidity_min;
+      limitMax = limitData[0]?.humidity_max;
+    }
+    yAxisMin = dataMin < limitMin ? dataMin - 10 : limitMin - 10;
+    yAxisMax = dataMax > limitMax ? dataMax + 10 : limitMax + 10;
   }
-  if (id === "Light" && limitData[0].light_constraint) {
-    limitMin = limitData[0]?.light_min;
-    limitMax = limitData[0]?.light_max;
+  if (id === "Light") {
+    if (limitData[0].light_constraint) {
+      limitMin = limitData[0]?.light_min;
+      limitMax = limitData[0]?.light_max;
+    }
+    yAxisMin = -0.5;
+    yAxisMax = dataMax > limitMax ? dataMax + 10 : limitMax + 10;
   }
-  if (id === "Vibration" && limitData[0].shock_constraint) {
-    limitMin = limitData[0]?.shock_min;
-    limitMax = limitData[0]?.shock_max;
+  if (id === "Vibration") {
+    if (limitData[0].shock_constraint) {
+      limitMin = limitData[0]?.shock_min;
+      limitMax = limitData[0]?.shock_max;
+    }
+    yAxisMin = -0.5;
+    yAxisMax = dataMax > limitMax ? dataMax + 2 : limitMax + 2;
   }
   const options = {
     responsive: true,
+    xAxisID: "xAxis",
     scales: {
+      xAxis: {
+        display: showXAxis,
+        ticks: {
+          autoSkip: true,
+          maxRotation: 90,
+          minRotation: 90,
+          labelOffset: -8,
+          maxTicksLimit: 10,
+        },
+      },
       yAxis: {
-        min: limitMin - 10,
-        max: limitMax + 10,
+        min: Math.floor(yAxisMin),
+        max: Math.ceil(yAxisMax),
+        title: {
+          display: true,
+          text: id,
+        },
       },
     },
     plugins: {
@@ -56,7 +107,7 @@ const Graph = ({ sensorData, limitData, id }) => {
         display: false,
       },
       title: {
-        display: false,
+        display: true,
       },
       autocolors: false,
       annotation: {
@@ -71,20 +122,39 @@ const Graph = ({ sensorData, limitData, id }) => {
           },
         },
       },
+      zoom: {
+        pan: {
+          enable: true,
+          mode: "x",
+        },
+        limits: {
+          x: { min: minDate, max: maxDate },
+        },
+      },
     },
   };
-  const labels = sensorData.map((data) => moment(data.date).format("DD-MM-YY"));
+  const labels = filteredData.map((data) =>
+    moment(data.date).format("DD-MM-YY, hh:mm:ss")
+  );
   const data = {
     labels,
     datasets: [
       {
-        data: sensorData.map((data) => data.sensor_value),
+        data: filteredData.map((data) => data.sensor_value),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   };
-  return <Line options={options} data={data} width={"80%"} height={"50%"} />;
+
+  return (
+    <Line
+      options={options}
+      data={data}
+      width={"80%"}
+      height={showXAxis ? "60%" : "40%"}
+    />
+  );
 };
 
 export default Graph;
