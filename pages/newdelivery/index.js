@@ -9,9 +9,6 @@ const NewDelivery = () => {
   return (
     <Layout>
       <Meta pagetitle="Monoceros - New Delivery" />
-      <h1 className="font-bold text-xl ml-3 text-center text-main_color">
-        Create new delivery
-      </h1>
       <NewDeliveryForm />
     </Layout>
   );
@@ -22,7 +19,12 @@ export default NewDelivery;
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "home", "navbar"])),
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "home",
+        "navbar",
+        "newDeliveryForm",
+      ])),
     },
   };
 }
