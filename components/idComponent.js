@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getDeliveryOverview } from "../lib/deliveriesAPI";
+import { getSensorData } from "../lib/sensorDataAPI";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import idStyle from "../styles/id.module.css";
@@ -7,12 +8,17 @@ import GroupData from "./groupData";
 import moment from "moment";
 import { useTranslation } from "next-i18next";
 import Loading from "./loading";
+import dynamic from "next/dynamic";
 
 const IdComponent = () => {
   const { t } = useTranslation("packages");
+  const MapWithNoSSR = dynamic(() => import("./map"), {
+    ssr: false,
+  });
   const [deliveryDetail, setDeliveryDetail] = useState({});
   const [packages, setPackages] = useState([]);
   const [packageId, setPackageId] = useState("");
+  const [locationData, setLocationData] = useState([]);
   const router = useRouter();
   const { id } = router.query;
 
@@ -38,6 +44,12 @@ const IdComponent = () => {
       setPackageId(packages[0]?.id);
     }
   }, [packages]);
+
+  useEffect(() => {
+    getSensorData(id, packageId, "location").then(setLocationData);
+  }, [id, packageId]);
+
+  console.log(locationData);
   return (
     <>
       {packages ? (
@@ -81,6 +93,11 @@ const IdComponent = () => {
               </div>
             </div>
           ))}
+          <div className="w-[95%] mx-auto mt-7">
+            {locationData && (
+              <MapWithNoSSR location={locationData} deliveryId={id} />
+            )}
+          </div>
           {packageId && <GroupData delivery_id={id} package_id={packageId} />}
         </div>
       ) : (

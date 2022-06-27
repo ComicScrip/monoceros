@@ -52,6 +52,7 @@ const GroupData = ({ delivery_id, package_id }) => {
       productsInfo.filter((product) => product.id === productId)
     );
   }, [productsInfo, productId]);
+
   return (
     <div className={groupDataStyle.container}>
       {productLimits.length !== 0 && temperatureData.length !== 0 ? (
