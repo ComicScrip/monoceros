@@ -6,6 +6,7 @@ import idStyle from "../styles/id.module.css";
 import GroupData from "./groupData";
 import moment from "moment";
 import { useTranslation } from "next-i18next";
+import DeliveryPath from "./deliveryPath";
 import Loading from "./loading";
 
 const IdComponent = () => {
@@ -60,27 +61,42 @@ const IdComponent = () => {
               }
               onClick={() => setPackageId(colis.id)}
             >
-              <div data-cy={"packageDetailId" + i}>{colis.id}</div>
+              <div
+                data-cy={"packageDetailId" + i}
+                className={idStyle.idPackage}
+              >
+                {colis.id}
+              </div>
               {colis.alert ? (
-                <Image
-                  src="/images/alerts-active@3x.png"
-                  alt="alarm"
-                  height={30}
-                  width={30}
-                />
+                <div className={idStyle.alertPackage}>
+                  <Image
+                    src="/images/alerts-active@3x.png"
+                    alt="alarm"
+                    height={30}
+                    width={30}
+                  />
+                </div>
               ) : (
-                <Image
-                  src="/images/alerts@3x.png"
-                  alt="alarm"
-                  height={30}
-                  width={30}
-                />
+                <div className={idStyle.alertPackage}>
+                  <Image
+                    src="/images/alerts@3x.png"
+                    alt="alarm"
+                    height={30}
+                    width={30}
+                  />
+                </div>
               )}
-              <div data-cy="packageDetailUpdate">
+              <div
+                data-cy="packageDetailUpdate"
+                className={idStyle.datePackage}
+              >
                 {moment(`${colis.last_updated}`, "YYYYMMDD").fromNow()}
               </div>
             </div>
           ))}
+          <div className="mx-auto w-[90%]">
+            <DeliveryPath id={id} />
+          </div>
           {packageId && <GroupData delivery_id={id} package_id={packageId} />}
         </div>
       ) : (
