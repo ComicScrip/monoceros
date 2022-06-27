@@ -2,6 +2,8 @@
   "title": "Package catalogue",
   "sensor": "Sensor N°",
   "product": "Product",
+  "country": "Country",
+  "warehouse": "Warehouse",
   "size": "Size",
   "pairingStart": "Pairing start date",
   "expiration": "Expiry date",

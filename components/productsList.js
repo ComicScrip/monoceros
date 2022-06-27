@@ -7,11 +7,10 @@ import {
   getProductsByCountryAndWarehouse,
   getProductsByWarehouse,
 } from "../lib/productsAPI";
-import CountrySelect from "./countrySelect";
-import WarehouseSelect from "./warehouseSelect";
 import Pagination from "./pagination";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import CustomSelect from "./customSelect";
 
 export default function ProductsList() {
   const { t } = useTranslation("productsCatalogue");
@@ -108,17 +107,23 @@ export default function ProductsList() {
             {t("title")}
           </h1>
           <div className="flex flex-col items-center justify-center w-[95]">
-            <CountrySelect
-              countries={countriesList}
-              selectCountry={setCountrySelect}
-              country={countrySelect}
+            <CustomSelect
+              items={countriesList}
+              handleSelectItem={setCountrySelect}
+              selectItem={countrySelect}
+              defaultValue={t("country")}
               setCurrentPage={setCurrentPage}
+              keyOne={"country"}
+              keyTwo={"country"}
             />
-            <WarehouseSelect
-              warehouses={warehousesList}
-              selectWharehouse={setWareHouseSelect}
-              warehouse={warehouseSelect}
+            <CustomSelect
+              items={warehousesList}
+              handleSelectItem={setWareHouseSelect}
+              selectItem={warehouseSelect}
+              defaultValue={t("warehouse")}
               setCurrentPage={setCurrentPage}
+              keyOne={"id"}
+              keyTwo={"name"}
             />
           </div>
         </div>

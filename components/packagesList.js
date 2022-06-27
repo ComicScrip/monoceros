@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import Pagination from "./pagination";
-import CountrySelect from "./countrySelect";
-import WarehouseSelect from "./warehouseSelect";
-import ProductSelect from "./productSelect";
 import Popup from "./popup";
 import toast, { Toaster } from "react-hot-toast";
 import {
@@ -16,6 +13,7 @@ import {
   getWarehouses,
   getProductsByCountryAndWarehouse,
 } from "../lib/productsAPI";
+import CustomSelect from "./customSelect";
 
 export default function PackagesList() {
   const { t } = useTranslation("packagesCatalogue");
@@ -114,23 +112,32 @@ export default function PackagesList() {
           {t("title")}
         </h1>
         <div className="flex flex-col items-center w-[95] mb-10">
-          <CountrySelect
-            countries={countriesList}
-            selectCountry={setCountrySelect}
-            country={countrySelect}
+          <CustomSelect
+            items={countriesList}
+            handleSelectItem={setCountrySelect}
+            selectItem={countrySelect}
+            defaultValue={t("country")}
             setCurrentPage={setCurrentPage}
+            keyOne={"country"}
+            keyTwo={"country"}
           />
-          <WarehouseSelect
-            warehouses={warehousesList}
-            selectWharehouse={setWareHouseSelect}
-            warehouse={warehouseSelect}
+          <CustomSelect
+            items={warehousesList}
+            handleSelectItem={setWareHouseSelect}
+            selectItem={warehouseSelect}
+            defaultValue={t("warehouse")}
             setCurrentPage={setCurrentPage}
+            keyOne={"id"}
+            keyTwo={"name"}
           />
-          <ProductSelect
-            products={productsList}
-            selectProduct={setProductSelect}
-            product={productSelect}
+          <CustomSelect
+            items={productsList}
+            handleSelectItem={setProductSelect}
+            selectItem={productSelect}
+            defaultValue={t("product")}
             setCurrentPage={setCurrentPage}
+            keyOne={"id"}
+            keyTwo={"name"}
           />
         </div>
         <div className="w-[95vw] bg-white flex flex-col items-center justify-center">

@@ -1,46 +1,44 @@
-import { useTranslation } from "next-i18next";
-
-export default function ProductSelect({
-  products,
-  selectProduct,
-  product,
+export default function CustomSelect({
+  items,
+  handleSelectItem,
+  selectItem,
   setCurrentPage,
+  defaultValue,
+  keyOne,
+  keyTwo,
 }) {
-  const { t } = useTranslation("productCatalogue");
-
   function handleClick() {
-    selectProduct("");
+    handleSelectItem("");
     setCurrentPage(1);
   }
 
   function handleSelectChange(e) {
-    selectProduct(e.target.value);
+    handleSelectItem(e.target.value);
     setCurrentPage(1);
   }
 
   return (
     <>
-      <div className="flex h-7 w-[70vw] mt-2">
+      <div className="flex h-7 w-[70vw] mb-2">
         <select
           type="search"
           onChange={(e) => handleSelectChange(e)}
-          value={product}
-          className="bg-white w-[90vw] h-7 mb-5"
+          value={selectItem}
+          className="bg-white w-[90vw] h-7 mb-5 rounded"
           style={{ fontSize: "13px" }}
-          required
         >
           <option value="" className="text-gray-300" disabled hidden>
-            {t("product")}
+            {defaultValue}
           </option>
-          {products.map((product) => (
-            <option key={product.id} value={product.id}>
-              {product.name}
+          {items.map((item) => (
+            <option key={item[keyOne]} value={item[keyOne]}>
+              {item[keyTwo]}
             </option>
           ))}
         </select>
         <button
           onClick={() => handleClick()}
-          className="ml-3 text-white text-l border-white border-2 w-7"
+          className="ml-3 text-white text-l border-white border-2 w-7 rounded"
           style={{ backgroundColor: "var(--main-color)" }}
         >
           ✗
