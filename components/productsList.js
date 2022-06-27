@@ -115,7 +115,7 @@ export default function ProductsList() {
                   {products.map((product, _) => (
                     <tr
                       key={_}
-                      className="border-8 font-bold text-[10px] h-16"
+                      className="border-8 text-[10px] h-16"
                       style={{ borderColor: "var(--main-bg-color)" }}
                     >
                       <td className="min-w-[100px]"></td>

@@ -158,7 +158,7 @@ export default function PackagesList() {
                   {packages.map((pack, _) => (
                     <tr
                       key={_}
-                      className="collapse font-bold border-8 text-[10px] h-16"
+                      className="collapse border-8 text-[10px] h-16"
                       style={{ borderColor: "var(--main-bg-color)" }}
                     >
                       <td className="min-w-[70px]"></td>
