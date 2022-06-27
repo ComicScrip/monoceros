@@ -12,7 +12,6 @@ import {
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 import annotationPlugin from "chartjs-plugin-annotation";
-//import zoomPlugin from "chartjs-plugin-zoom";
 
 ChartJS.register(
   CategoryScale,
@@ -23,7 +22,6 @@ ChartJS.register(
   Tooltip,
   Legend,
   annotationPlugin
-  //zoomPlugin
 );
 
 const Graph = ({ sensorData, limitData, id, showXAxis, minDate, maxDate }) => {
@@ -138,9 +136,6 @@ const Graph = ({ sensorData, limitData, id, showXAxis, minDate, maxDate }) => {
   const labels = filteredData.map((data) =>
     moment(data.date).format("DD-MM-YY, hh:mm:ss")
   );
-  // const labels = ["15-05-21", "20-05-21", "25-05-21", "31-05-21"].map((date) =>
-  //   moment(date).format("DD-MM-YY, hh:mm:ss")
-  // );
   const data = {
     labels,
     datasets: [
