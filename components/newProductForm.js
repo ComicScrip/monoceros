@@ -10,11 +10,18 @@ import { useState } from "react";
 
 const NewProductForm = () => {
   const { t } = useTranslation("newProduct");
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const [startDate, setStartDate] = useState(null);
+  const [perishableCheck, setPerishableCheck] = useState(false);
+  const [tempCheck, setTempCheck] = useState(false);
+  const [humidityCheck, setHumidityCheck] = useState(false);
+  const [lightCheck, setLightCheck] = useState(false);
+  const [shockCheck, setShockCheck] = useState(false);
+  const [orientationCheck, setOrientationCheck] = useState(true);
 
   async function onSubmit(data) {
     try {
+      console.log(data);
       await postOneProduct(data);
     } catch (error) {
       console.log(error);
@@ -34,6 +41,7 @@ const NewProductForm = () => {
                 type="text"
                 id="productName"
                 className={newProductStyle.productNameInput}
+                required
               />
             </label>
             <label htmlFor="expirationDate">
@@ -41,17 +49,21 @@ const NewProductForm = () => {
               <div className={newProductStyle.headExpInput}>
                 <div className={newProductStyle.calendarInput}>
                   <DatePicker
-                    {...register("expiration_date", {
-                      setValueAs: (v) => v + "T22:00:00Z",
-                    })}
+                    {...register("expiration_date")}
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     minDate={new Date()}
                     showDisabledMonthNavigation
                     className={newProductStyle.productExpInput}
+                    disabled={perishableCheck ? true : false}
+                    required={!perishableCheck ? true : false}
                   />
                   <BsFillCalendar2WeekFill
-                    style={{ marginLeft: "-25px", color: "#e77981" }}
+                    style={{
+                      marginLeft: "-25px",
+                      color: "#e77981",
+                      zIndex: "10",
+                    }}
                   />
                 </div>
                 <button type="button" style={{ margin: "auto" }}>
@@ -69,8 +81,10 @@ const NewProductForm = () => {
               <input
                 {...register("not_perishable")}
                 type="checkbox"
-                id="persishable"
+                id="perishable"
                 className={newProductStyle.checkbox}
+                onChange={() => setPerishableCheck(!perishableCheck)}
+                checked={perishableCheck}
               />
               Non perishable
             </label>
@@ -90,6 +104,9 @@ const NewProductForm = () => {
                     min={-40}
                     max={85}
                     step={1}
+                    data
+                    disabled={tempCheck ? true : false}
+                    required={!tempCheck ? true : false}
                   />
                   <input
                     {...register("temperature_max")}
@@ -98,15 +115,27 @@ const NewProductForm = () => {
                     min={-40}
                     max={85}
                     step={1}
+                    disabled={tempCheck ? true : false}
+                    required={!tempCheck ? true : false}
                   />
                 </div>
                 <div className={newProductStyle.tracked}>
-                  <label htmlFor="trackable" style={{ marginRight: "10px" }}>
+                  <label
+                    htmlFor="tempTrackable"
+                    style={{ marginRight: "10px" }}
+                  >
                     <input
-                      {...register("temperature_constraint")}
+                      {...register(
+                        "temperature_constraint",
+                        setValue("temperature_constraint", !tempCheck)
+                      )}
                       type="checkbox"
-                      id="trackable"
+                      id="tempTrackable"
                       className={newProductStyle.checkbox}
+                      onChange={() => {
+                        setTempCheck(!tempCheck);
+                      }}
+                      checked={tempCheck}
                     />
                     Not to be tracked
                   </label>
@@ -132,6 +161,8 @@ const NewProductForm = () => {
                     min={0}
                     max={100}
                     step={1}
+                    disabled={humidityCheck ? true : false}
+                    required={!humidityCheck ? true : false}
                   />
                   <input
                     {...register("humidity_max")}
@@ -140,15 +171,25 @@ const NewProductForm = () => {
                     min={0}
                     max={100}
                     step={1}
+                    disabled={humidityCheck ? true : false}
+                    required={!humidityCheck ? true : false}
                   />
                 </div>
                 <div className={newProductStyle.tracked}>
-                  <label htmlFor="trackable" style={{ marginRight: "10px" }}>
+                  <label
+                    htmlFor="humidityTrackable"
+                    style={{ marginRight: "10px" }}
+                  >
                     <input
-                      {...register("humidity_constraint")}
+                      {...register(
+                        "humidity_constraint",
+                        setValue("humidity_constraint", !humidityCheck)
+                      )}
                       type="checkbox"
-                      id="trackable"
+                      id="humidityTrackable"
                       className={newProductStyle.checkbox}
+                      onChange={() => setHumidityCheck(!humidityCheck)}
+                      checked={humidityCheck}
                     />
                     Not to be tracked
                   </label>
@@ -174,13 +215,20 @@ const NewProductForm = () => {
                   max={4000}
                   step={1}
                   className={newProductStyle.itemBlockOneOnlyInput}
+                  disabled={lightCheck ? true : false}
+                  required={!lightCheck ? true : false}
                 />
-                <label htmlFor="trackable">
+                <label htmlFor="lightTrackable">
                   <input
-                    {...register("light_constraint")}
+                    {...register(
+                      "light_constraint",
+                      setValue("light_constraint", !lightCheck)
+                    )}
                     type="checkbox"
-                    id="trackable"
+                    id="lightTrackable"
                     className={newProductStyle.checkbox}
+                    onChange={() => setLightCheck(!lightCheck)}
+                    checked={lightCheck}
                   />
                   Not to be tracked
                 </label>
@@ -205,13 +253,20 @@ const NewProductForm = () => {
                   max={25}
                   step={1}
                   className={newProductStyle.itemBlockOneOnlyInput}
+                  disabled={shockCheck ? true : false}
+                  required={!shockCheck ? true : false}
                 />
-                <label htmlFor="trackable">
+                <label htmlFor="shockTrackable">
                   <input
-                    {...register("shock_constraint")}
+                    {...register(
+                      "shock_constraint",
+                      setValue("shock_constraint", !shockCheck)
+                    )}
                     type="checkbox"
-                    id="trackable"
+                    id="shockTrackable"
                     className={newProductStyle.checkbox}
+                    onChange={() => setShockCheck(!shockCheck)}
+                    checked={shockCheck}
                   />
                   Not to be tracked
                 </label>
@@ -231,18 +286,25 @@ const NewProductForm = () => {
                 <select
                   className={newProductStyle.itemBlockOneOnlyInput}
                   {...register("orientation_cfg")}
+                  disabled={orientationCheck ? true : false}
+                  required={!orientationCheck ? true : false}
                 >
                   <option value=""></option>
                   <option value="X">X</option>
                   <option value="Y">Y</option>
                   <option value="Z">Z</option>
                 </select>
-                <label htmlFor="trackable">
+                <label htmlFor="orientationTrackable">
                   <input
-                    {...register("orientation_constraint")}
+                    {...register(
+                      "orientation_constraint",
+                      setValue("orientation_constraint", !orientationCheck)
+                    )}
                     type="checkbox"
-                    id="trackable"
+                    id="orientationTrackable"
                     className={newProductStyle.checkbox}
+                    onChange={() => setOrientationCheck(!orientationCheck)}
+                    checked={orientationCheck}
                   />
                   Not to be tracked
                 </label>
