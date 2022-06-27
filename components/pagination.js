@@ -15,7 +15,7 @@ export default function Pagination({ index, setCurrentPage, currentPage }) {
             key={page}
             className={
               page === currentPage
-                ? "m-2 hover:underline font-bold text-xs underline decoration-[#e16565]"
+                ? "m-2 hover:underline font-bold text-xs underline decoration-main_color"
                 : "m-2 hover:underline font-thin text-xs"
             }
             onClick={() => {

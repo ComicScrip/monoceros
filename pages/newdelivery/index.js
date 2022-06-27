@@ -9,10 +9,7 @@ const NewDelivery = () => {
   return (
     <Layout>
       <Meta pagetitle="Monoceros - New Delivery" />
-      <h1
-        className="font-bold text-xl ml-3 text-center"
-        style={{ color: "var(--main-color)" }}
-      >
+      <h1 className="font-bold text-xl ml-3 text-center text-main_color">
         Create new delivery
       </h1>
       <NewDeliveryForm />

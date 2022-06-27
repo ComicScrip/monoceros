@@ -2,26 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getWarehouses } from "../lib/productsAPI";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
 import toast, { Toaster } from "react-hot-toast";
-
-function SelectComponent({ setState, items, value, defaultValue, keyVal }) {
-  return (
-    <select
-      onChange={(e) => setState(e.target.value)}
-      value={value}
-      className="bg-white p-[4px] w-[60vw] mt-2 rounded"
-      required
-    >
-      <option value="" className="text-gray-300" disabled hidden>
-        {defaultValue}
-      </option>
-      {items.map((item, _) => (
-        <option key={_} value={item.id}>
-          {item[keyVal]}
-        </option>
-      ))}
-    </select>
-  );
-}
+import { getDeliveryPath } from "../lib/deliveriesAPI";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function NewDeliveryForm() {
   const [warehouseOrigin, setWarehouseOrigin] = useState("");
@@ -29,6 +12,8 @@ export default function NewDeliveryForm() {
   const [warehouses, setWarehouses] = useState([]);
   const [packageToShip, setPackagesToShip] = useState({});
   const [numberOfPackages, setNumberOfPackages] = useState(1);
+  const [deliveryPath, setDeliveryPath] = useState("");
+  const [deliveryPathOption, setDeliveryPathOption] = useState([]);
   const [infos, setInfos] = useState({
     startDate: "",
     endDate: "",
@@ -38,9 +23,11 @@ export default function NewDeliveryForm() {
   function handleSubmit(e) {
     e.preventDefault();
     const deliveryInfo = {
+      path: deliveryPath,
       origin: warehouseOrigin,
       destination: warehouseDestination,
       package: packageToShip,
+      ...infos,
     };
     console.log(deliveryInfo);
     setInfos({ startDate: "", endDate: "", trackingNumber: "" });
@@ -48,6 +35,7 @@ export default function NewDeliveryForm() {
     setNumberOfPackages(1);
     setWarehouseDestination("");
     setWarehouseOrigin("");
+    setDeliveryPath("");
     toast("Delivery created !");
   }
 
@@ -56,8 +44,16 @@ export default function NewDeliveryForm() {
     setWarehouses(warehousesList.data);
   }
 
+  async function getPath() {
+    if (warehouseOrigin && warehouseDestination) {
+      const path = await getDeliveryPath(warehouseOrigin, warehouseDestination);
+      setDeliveryPathOption(path);
+    }
+  }
+
   useEffect(() => {
     getWarehousesList();
+    getPath();
   }, [warehouseOrigin, warehouseDestination, numberOfPackages]);
 
   return (
@@ -71,9 +67,8 @@ export default function NewDeliveryForm() {
               setState={setWarehouseOrigin}
               items={warehouses}
               value={warehouseOrigin}
-              defaultValue={"Select Warehouse"}
+              defaultValue={"Select warehouse"}
               keyVal={"name"}
-              type={"warehouse"}
             />
           </div>
           <div className="flex flex-col mb-5">
@@ -82,22 +77,29 @@ export default function NewDeliveryForm() {
               setState={setWarehouseDestination}
               items={warehouses}
               value={warehouseDestination}
-              defaultValue={"Select Warehouse"}
+              defaultValue={"Select warehouse"}
               keyVal={"name"}
-              type={"warehouse"}
+            />
+          </div>
+          <div className="flex flex-col mb-5">
+            <label>Delivery path*</label>
+            <SelectComponent
+              setState={setDeliveryPath}
+              items={deliveryPathOption}
+              value={deliveryPath}
+              defaultValue={"Select delivery path"}
+              keyVal={"label"}
             />
           </div>
           <div className="flex flex-col mb-5">
             <label>Start date*</label>
             <div className="flex flex-initial items-center">
-              <input
+              <DatePicker
+                selected={infos.startDate}
+                onChange={(date) => setInfos({ ...infos, startDate: date })}
+                minDate={new Date()}
+                showDisabledMonthNavigation
                 className="p-[4px] w-[60vw] mt-2 rounded"
-                type="text"
-                onChange={(e) =>
-                  setInfos({ ...infos, startDate: e.target.value })
-                }
-                value={infos.startDate}
-                required
               />
               <BsFillCalendar2WeekFill
                 style={{
@@ -111,14 +113,12 @@ export default function NewDeliveryForm() {
           <div className="flex flex-col mb-5">
             <label>End date*</label>
             <div className="flex flex-initial items-center">
-              <input
+              <DatePicker
+                selected={infos.endDate}
+                onChange={(date) => setInfos({ ...infos, endDate: date })}
+                minDate={new Date()}
+                showDisabledMonthNavigation
                 className="p-[4px] w-[60vw] mt-2 rounded"
-                type="text"
-                onChange={(e) =>
-                  setInfos({ ...infos, endDate: e.target.value })
-                }
-                value={infos.endDate}
-                required
               />
               <BsFillCalendar2WeekFill
                 style={{
@@ -129,7 +129,7 @@ export default function NewDeliveryForm() {
               />
             </div>
           </div>
-          <div className="flex flex-col mb-5">
+          <div className="flex flex-col mb-3">
             <label>Tracking number*</label>
             <input
               className="p-[4px] w-[60vw] mt-2 rounded"
@@ -141,7 +141,7 @@ export default function NewDeliveryForm() {
               required
             />
           </div>
-          <div className="w-[60vw] bg-[#C5C5C5] h-[0.5px] mt-8"></div>
+          <div className="w-[60vw] bg-[#C5C5C5] h-[1px] mt-8 mb-3"></div>
           <p className="text-center mt-3 mb-5 font-bold">Shipping</p>
           <div className="flex flex-col mb-5">
             <label>Package(s) to ship*</label>
@@ -170,8 +170,7 @@ export default function NewDeliveryForm() {
           </p>
           <button
             type="submit"
-            className="text-white font-bold py-2 px-4 rounded mt-10"
-            style={{ backgroundColor: "var(--main-color)" }}
+            className="text-white font-bold py-2 px-4 rounded mt-10 bg-main_color"
           >
             Create delivery
           </button>
@@ -189,5 +188,25 @@ export default function NewDeliveryForm() {
         }}
       />
     </div>
+  );
+}
+
+function SelectComponent({ setState, items, value, defaultValue, keyVal }) {
+  return (
+    <select
+      onChange={(e) => setState(e.target.value)}
+      value={value}
+      className="bg-white p-[4px] w-[60vw] mt-2 rounded"
+      required
+    >
+      <option value="" className="text-gray-300" disabled hidden>
+        {defaultValue}
+      </option>
+      {items.map((item, _) => (
+        <option key={_} value={item.id}>
+          {item[keyVal]}
+        </option>
+      ))}
+    </select>
   );
 }

@@ -102,10 +102,7 @@ function DeliveryList() {
       ) : (
         <Loading />
       )}
-      <div
-        className="flex justify-center w-full mt-3"
-        style={{ backgroundColor: "var(--main-bg-color)" }}
-      >
+      <div className="flex justify-center w-full mt-3 bg-main_bg_color">
         <Pagination
           index={Math.ceil(numberOfItems / itemsPerPage)}
           setCurrentPage={setCurrentPage}

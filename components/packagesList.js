@@ -101,14 +101,7 @@ export default function PackagesList() {
   return (
     <>
       <div className="flex flex-col items-center mb-10 text-center">
-        <h1
-          className="w-full mb-5"
-          style={{
-            color: "var(--main-color)",
-            fontSize: "20px",
-            fontWeight: "600",
-          }}
-        >
+        <h1 className="w-full mb-5 text-main_color text-[20px] font-[600]">
           {t("title")}
         </h1>
         <div className="flex flex-col items-center w-[95] mb-10">
@@ -142,17 +135,11 @@ export default function PackagesList() {
         </div>
         <div className="w-[95vw] bg-white flex flex-col items-center justify-center">
           {packages.length ? (
-            <div
-              className="overflow-x-scroll w-[100%]"
-              style={{ backgroundColor: "var(--main-bg-color)" }}
-            >
+            <div className="overflow-x-scroll w-[100%] bg-main_bg_color">
               <table className="w-[95vw]">
                 <tbody className="bg-white">
-                  <tr
-                    className="text-[0.6rem] font-bold "
-                    style={{ backgroundColor: "var(--main-bg-color)" }}
-                  >
-                    <td className="min-w-[70px] absolute bg-[#efefef]">
+                  <tr className="text-[0.6rem] font-bold bg-main_bg_color">
+                    <td className="min-w-[70px] absolute bg-main_bg_color">
                       <span>{tableHead[0]}</span>
                     </td>
                     <td></td>
@@ -165,14 +152,10 @@ export default function PackagesList() {
                   {packages.map((pack, _) => (
                     <tr
                       key={_}
-                      className="collapse font-bold border-8 text-[10px] h-16"
-                      style={{ borderColor: "var(--main-bg-color)" }}
+                      className="collapse font-bold border-8 text-[10px] h-16 border-main_bg_color"
                     >
                       <td className="min-w-[70px]"></td>
-                      <td
-                        style={{ color: "var(--main-color)" }}
-                        className="min-w-[70px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14"
-                      >
+                      <td className="min-w-[70px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14 text-main_color">
                         {pack.id}
                       </td>
                       <td className="min-w-[110px]">{pack.sensor}</td>
@@ -222,15 +205,12 @@ export default function PackagesList() {
               </table>
             </div>
           ) : (
-            <div className="flex items-center justify-center bg-white w-[90vw] h-16">
-              <p style={{ color: "var(--main-color)" }}>{t("noData")}</p>
+            <div className="flex items-center justify-center bg-white w-[90vw] h-16 text-main_color">
+              <p>{t("noData")}</p>
             </div>
           )}
           {Math.ceil(numberOfPackages / packagesPerPage) > 1 ? (
-            <div
-              className="flex justify-center w-full"
-              style={{ backgroundColor: "var(--main-bg-color)" }}
-            >
+            <div className="flex justify-center w-full bg-main_bg_color">
               <Pagination
                 index={Math.ceil(numberOfPackages / packagesPerPage)}
                 setCurrentPage={setCurrentPage}
