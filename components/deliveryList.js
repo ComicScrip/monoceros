@@ -16,7 +16,7 @@ function DeliveryList() {
   const [detailView, setDetailView] = useState(false);
 
   useEffect(() => {
-    getDeliveries(itemsPerPage, (currentPage - 1) * (itemsPerPage + 1)).then(
+    getDeliveries(itemsPerPage, (currentPage - 1) * itemsPerPage).then(
       (res) => {
         setNumberOfItems(res.count);
         setAllDeliveries(res.results);

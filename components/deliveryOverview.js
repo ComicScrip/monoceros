@@ -32,7 +32,6 @@ const DeliveryOverview = ({ deliveryDetail }) => {
             deliveryDetail.packages[i].id,
             datatype
           );
-          console.log(datatype, data[data.length - 1]);
           allData[datatype].push(data[data.length - 1].sensor_value || 0);
         } catch {
           allData[datatype].push(null);

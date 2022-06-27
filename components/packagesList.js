@@ -71,7 +71,7 @@ export default function PackagesList() {
     async function request() {
       const data = await getPackagesByCountryWarehouseAndId(
         packagesPerPage,
-        (currentPage - 1) * (packagesPerPage + 1),
+        (currentPage - 1) * packagesPerPage,
         countrySelect,
         warehouseSelect,
         productSelect
@@ -221,7 +221,7 @@ export default function PackagesList() {
           )}
           {Math.ceil(numberOfPackages / packagesPerPage) > 1 ? (
             <div
-              className="flex justify-center w-full"
+              className="flex justify-center w-full bg-main_bg_color"
               style={{ backgroundColor: "var(--main-bg-color)" }}
             >
               <Pagination

@@ -12,7 +12,6 @@ describe("products page", () => {
     it.only("should display the products list from the API", () => {
       cy.fixture("packages").then((data) => {
         cy.intercept("**/api/base/packages/**", data);
-        console.log(data);
       });
 
       cy.visit("/packages");

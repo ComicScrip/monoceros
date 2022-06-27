@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import {
-  getAllProducts,
   getAllCountries,
   getWarehouses,
-  getProductsByCountry,
   getProductsByCountryAndWarehouse,
-  getProductsByWarehouse,
 } from "../lib/productsAPI";
 import CountrySelect from "./countrySelect";
 import WarehouseSelect from "./warehouseSelect";
@@ -26,7 +23,7 @@ export default function ProductsList() {
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 10;
+  const productsPerPage = 5;
   const [numberOfProducts, setNumberOfProducts] = useState(null);
 
   useEffect(() => {
@@ -38,47 +35,18 @@ export default function ProductsList() {
       },
     });
     async function request() {
-      if (!warehouseSelect && !countrySelect) {
-        const products = await getAllProducts(
-          productsPerPage,
-          (currentPage - 1) * (productsPerPage + 1)
-        );
-        setNumberOfProducts(products.data.count);
-        setProducts(products.data.results);
-        const warehouses = await getWarehouses();
-        setWarehousesList(warehouses.data);
-        const countries = await getAllCountries();
-        setCountriesList(countries.data);
-      } else if (countrySelect && !warehouseSelect) {
-        const warehousesList = await getWarehouses(countrySelect);
-        setWarehousesList(warehousesList.data);
-        const products = await getProductsByCountry(
-          countrySelect,
-          productsPerPage,
-          (currentPage - 1) * (productsPerPage + 1)
-        );
-        setNumberOfProducts(products.data.count);
-        setProducts(products.data.results);
-      } else if (warehouseSelect && !countrySelect) {
-        const products = await getProductsByWarehouse(
-          warehouseSelect,
-          productsPerPage,
-          (currentPage - 1) * (productsPerPage + 1)
-        );
-        setNumberOfProducts(products.data.count);
-        setProducts(products.data.results);
-      } else if (warehouseSelect && countrySelect) {
-        const warehousesList = await getWarehouses(countrySelect);
-        setWarehousesList(warehousesList.data);
-        const products = await getProductsByCountryAndWarehouse(
-          countrySelect,
-          warehouseSelect,
-          productsPerPage,
-          (currentPage - 1) * (productsPerPage + 1)
-        );
-        setNumberOfProducts(products.data.count);
-        setProducts(products.data.results);
-      }
+      const warehousesList = await getWarehouses(countrySelect);
+      const countries = await getAllCountries();
+      const products = await getProductsByCountryAndWarehouse(
+        countrySelect,
+        warehouseSelect,
+        productsPerPage,
+        (currentPage - 1) * productsPerPage
+      );
+      setCountriesList(countries.data);
+      setNumberOfProducts(products.data.count);
+      setWarehousesList(warehousesList.data);
+      setProducts(products.data.results);
     }
     request();
   }, [countrySelect, warehouseSelect, currentPage]);
