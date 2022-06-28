@@ -24,7 +24,6 @@ const Alarms = () => {
           height={200}
           width={200}
           alt="en construction"
-          style={{ zIndex: -1 }}
         />
         <p>{t("description")}</p>
       </div>

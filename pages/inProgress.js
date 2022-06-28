@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "../public/images/logo-monoceros.png";
+import logo from "../public/images/logo-monoceros-round.png";
 
 export default function InProgress() {
   return (

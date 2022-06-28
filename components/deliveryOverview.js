@@ -11,8 +11,9 @@ import DeliveryPath from "./deliveryPath";
 import { getSensorData } from "../lib/deliveriesAPI";
 import { useTranslation } from "next-i18next";
 
-const DeliveryOverview = ({ deliveryDetail }) => {
+const DeliveryOverview = ({ deliveryDetail, deliveries }) => {
   const { t } = useTranslation("deliveries");
+
   const MapWithNoSSR = dynamic(() => import("./map"), {
     ssr: false,
   });
