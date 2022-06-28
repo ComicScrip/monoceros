@@ -104,7 +104,6 @@ const NewProductForm = () => {
                     min={-40}
                     max={85}
                     step={1}
-                    data
                     disabled={tempCheck ? true : false}
                     required={!tempCheck ? true : false}
                   />
