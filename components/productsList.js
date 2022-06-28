@@ -23,7 +23,9 @@ export default function ProductsList() {
   const [countriesList, setCountriesList] = useState([]);
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(router.query.page) || 1
+  );
   const productsPerPage = 10;
   const [numberOfProducts, setNumberOfProducts] = useState(null);
 
@@ -35,6 +37,7 @@ export default function ProductsList() {
         country: countrySelect,
       },
     });
+
     async function request() {
       const warehousesList = await getWarehouses(countrySelect);
       const countries = await getAllCountries();

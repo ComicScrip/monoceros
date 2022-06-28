@@ -5,17 +5,27 @@ import { getDeliveryOverview, getDeliveries } from "../lib/deliveriesAPI";
 import Pagination from "./pagination";
 import DeliveriesStatus from "./deliveriesStatus";
 import Loading from "./loading";
+import { useRouter } from "next/router";
 
 function DeliveryList() {
+  const router = useRouter();
   const [deliveryOverview, setDeliveryOverview] = useState({});
   const [showDetails, setShowDetails] = useState(false);
   const [allDeliveries, setAllDeliveries] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(router.query.page) || 1
+  );
   const itemsPerPage = 10;
   const [numberOfItems, setNumberOfItems] = useState(null);
   const [detailView, setDetailView] = useState(false);
 
   useEffect(() => {
+    router.replace({
+      query: {
+        ...router.query,
+        page: currentPage,
+      },
+    });
     getDeliveries(itemsPerPage, (currentPage - 1) * itemsPerPage).then(
       (res) => {
         setNumberOfItems(res.count);
