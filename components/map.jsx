@@ -59,10 +59,9 @@ const CustomMarker = ({ isActive, data, map }) => {
 //   console.log("location", location);
 //   console.log("deliveryloc", deliveryLocation);
 
-const Map = ({ location, deliveryId, deliveries, packageId, type }) => {
+const Map = ({ deliveryId, deliveries, packageId, type }) => {
   const [deliveryLocation, setDeliveryLocation] = useState([]);
-  const [locationData, setLocationData] = useState([]);
-  const [delivery] = location.filter((loc) => loc.id === deliveryId);
+  const [location, setLocation] = useState([]);
 
   const [map, setMap] = useState(null);
 
@@ -74,7 +73,7 @@ const Map = ({ location, deliveryId, deliveries, packageId, type }) => {
 
   useEffect(() => {
     if (type === "package") {
-      getSensorData(deliveryId, packageId, "location").then(setLocationData);
+      getSensorData(deliveryId, packageId, "location").then(setLocation);
     }
   }, [type, deliveryId, packageId]);
 
@@ -90,6 +89,7 @@ const Map = ({ location, deliveryId, deliveries, packageId, type }) => {
     popupAnchor: [0, -20],
   });
 
+  const [delivery] = deliveryLocation.filter((loc) => loc.id === deliveryId);
   const deliveriesArray = deliveries.filter((p) => p.id === delivery?.id);
   const deliveryAlert = deliveriesArray[0]?.alerts_count;
   const lastLoc = location[location.length - 1];
