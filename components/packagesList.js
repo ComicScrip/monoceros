@@ -16,6 +16,7 @@ import {
   getWarehouses,
   getProductsByCountryAndWarehouse,
 } from "../lib/productsAPI";
+import Loading from "./loading";
 
 export default function PackagesList() {
   const { t } = useTranslation("packagesCatalogue");
@@ -71,7 +72,7 @@ export default function PackagesList() {
     async function request() {
       const data = await getPackagesByCountryWarehouseAndId(
         packagesPerPage,
-        (currentPage - 1) * (packagesPerPage + 1),
+        (currentPage - 1) * packagesPerPage,
         countrySelect,
         warehouseSelect,
         productSelect
@@ -158,7 +159,7 @@ export default function PackagesList() {
                   {packages.map((pack, _) => (
                     <tr
                       key={_}
-                      className="collapse font-bold border-8 text-[10px] h-16"
+                      className="collapse border-8 text-[10px] h-16"
                       style={{ borderColor: "var(--main-bg-color)" }}
                     >
                       <td className="min-w-[70px]"></td>
@@ -214,14 +215,18 @@ export default function PackagesList() {
                 </tbody>
               </table>
             </div>
-          ) : (
+          ) : (!packages.length && warehouseSelect) ||
+            (!packages.length && countrySelect) ||
+            (!packages.length && productSelect) ? (
             <div className="flex items-center justify-center bg-white w-[90vw] h-16">
               <p style={{ color: "var(--main-color)" }}>{t("noData")}</p>
             </div>
+          ) : (
+            <Loading />
           )}
           {Math.ceil(numberOfPackages / packagesPerPage) > 1 ? (
             <div
-              className="flex justify-center w-full"
+              className="flex justify-center w-full bg-main_bg_color"
               style={{ backgroundColor: "var(--main-bg-color)" }}
             >
               <Pagination
