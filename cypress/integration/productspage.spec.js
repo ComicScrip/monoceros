@@ -9,7 +9,7 @@ describe("products page", () => {
   });
 
   describe("products list", () => {
-    it.only("should display the products list from the API", () => {
+    it("should display the products list from the API", () => {
       cy.fixture("products").then((data) => {
         cy.intercept("**/api/base/products/**", data);
         console.log(data);

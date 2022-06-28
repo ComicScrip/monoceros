@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { signOut } from "next-auth/react";
 import headLogo from "../public/images/MONOCEROS-logo-3.webp";
+import { RiQrScan2Line } from "react-icons/ri";
 
 export default function Navbar() {
   const { t } = useTranslation("navbar");
@@ -119,7 +120,7 @@ export default function Navbar() {
                     />
                   </div>
                   <a
-                    className={style.navlink}
+                    className={style.navlink + " " + style.navlinkTitle}
                     onClick={openMenu}
                     style={{ opacity: "0.2" }}
                   >
@@ -145,7 +146,9 @@ export default function Navbar() {
               </div>
               <div className={style.navsubmenuContainer}>
                 <div className={style.navsubmenu} onClick={openSectionProduct}>
-                  <p className={style.navlink}>{t("products")}</p>
+                  <p className={style.navlink + " " + style.navlinkTitle}>
+                    {t("products")}
+                  </p>
                   <Image
                     src={"/images/chevron-down.svg"}
                     alt="logo"
@@ -200,20 +203,15 @@ export default function Navbar() {
               }
             >
               <div className={style.navlogo}>
-                <Image
-                  style={{ width: "75%" }}
-                  src="/images/product-logo.svg"
-                  alt="logo"
-                  width={20}
-                  height={20}
+                <RiQrScan2Line
+                  style={{ width: "20px", height: "20px", color: "white" }}
                 />
               </div>
-              <div
-                className={style.navsubmenuContainer}
-                onClick={openSectionPackages}
-              >
-                <div className={style.navsubmenu}>
-                  <p className={style.navlink}>Packages</p>
+              <div className={style.navsubmenuContainer}>
+                <div className={style.navsubmenu} onClick={openSectionPackages}>
+                  <p className={style.navlink + " " + style.navlinkTitle}>
+                    {t("packages")}
+                  </p>
                   <Image
                     data-cy="expand-packages"
                     src={"/images/chevron-down.svg"}
@@ -244,7 +242,7 @@ export default function Navbar() {
                         onClick={openMenu}
                         style={{ opacity: "0.2" }}
                       >
-                        New Package
+                        {t("newPackage")}
                       </a>
                     </ActiveLink>
                   </li>
@@ -258,7 +256,7 @@ export default function Navbar() {
                         className={style.navlink}
                         onClick={openMenu}
                       >
-                        Packages catalogue
+                        {t("packagesCatalogue")}
                       </a>
                     </ActiveLink>
                   </li>
@@ -282,7 +280,9 @@ export default function Navbar() {
               </div>
               <div className={style.navsubmenuContainer}>
                 <div className={style.navsubmenu} onClick={openSectionDelivery}>
-                  <p className={style.navlink}>{t("deliveries")}</p>
+                  <p className={style.navlink + " " + style.navlinkTitle}>
+                    {t("deliveries")}
+                  </p>
                   <Image
                     src={"/images/chevron-down.svg"}
                     alt="logo"
@@ -329,27 +329,7 @@ export default function Navbar() {
                 </ul>
               </div>
             </li>
-            <li className={style.navList}>
-              <ActiveLink activeClassName="active" href="/inventory">
-                <div className={style.navitem}>
-                  <div className={style.navlogo}>
-                    <Image
-                      src="/images/graph-logo.svg"
-                      alt="logo"
-                      width={20}
-                      height={20}
-                    />
-                  </div>
-                  <a
-                    className={style.navlink}
-                    onClick={openMenu}
-                    style={{ opacity: "0.2" }}
-                  >
-                    {t("inventory")}
-                  </a>
-                </div>
-              </ActiveLink>
-            </li>
+
             <li className={style.navList}>
               <ActiveLink activeClassName="active" href="/alarms">
                 <div className={style.navitem}>
@@ -362,53 +342,11 @@ export default function Navbar() {
                     />
                   </div>
                   <a
-                    className={style.navlink}
+                    className={style.navlink + " " + style.navlinkTitle}
                     onClick={openMenu}
                     style={{ opacity: "0.2" }}
                   >
                     {t("alarms")}
-                  </a>
-                </div>
-              </ActiveLink>
-            </li>
-            <li className={style.navList}>
-              <ActiveLink activeClassName="active" href="/settings">
-                <div className={style.navitem}>
-                  <div className={style.navlogo}>
-                    <Image
-                      src="/images/settings-logo.svg"
-                      alt="logo"
-                      width={20}
-                      height={20}
-                    />
-                  </div>
-                  <a
-                    className={style.navlink}
-                    onClick={openMenu}
-                    style={{ opacity: "0.2" }}
-                  >
-                    {t("settings")}
-                  </a>
-                </div>
-              </ActiveLink>
-            </li>
-            <li className={style.navList}>
-              <ActiveLink activeClassName="active" href="/help">
-                <div className={style.navitem}>
-                  <div className={style.navlogo}>
-                    <Image
-                      src="/images/help-logo.svg"
-                      alt="logo"
-                      width={20}
-                      height={20}
-                    />
-                  </div>
-                  <a
-                    className={style.navlink}
-                    onClick={openMenu}
-                    style={{ opacity: "0.2" }}
-                  >
-                    {t("help")}
                   </a>
                 </div>
               </ActiveLink>
