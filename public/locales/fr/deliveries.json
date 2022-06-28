@@ -5,5 +5,8 @@
   "status": "Status des livraisons",
   "humidity": "Humidité",
   "light": "Lumière",
-  "shock": "Choc"
+  "shock": "Choc",
+  "completed": "Terminée",
+  "inProgress": "En Cours",
+  "delayed": "Retardée"
 }

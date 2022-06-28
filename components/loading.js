@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Navbar from "./navbar";
 
 const Screen = styled.div`
   position: relative;
@@ -73,15 +74,18 @@ const Balls = styled.div`
 
 const Loading = () => {
   return (
-    <Screen>
-      <Balls>
-        <div className="balls">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </Balls>
-    </Screen>
+    <>
+      <Navbar />
+      <Screen>
+        <Balls>
+          <div className="balls">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </Balls>
+      </Screen>
+    </>
   );
 };
 
