@@ -107,7 +107,11 @@ const IdComponent = () => {
           ))}
           <div className="w-[95%] mx-auto mt-7">
             {locationData && (
-              <MapWithNoSSR location={locationData} deliveryId={id} />
+              <MapWithNoSSR
+                deliveryId={id}
+                type="package"
+                packageId={packageId}
+              />
             )}
           </div>
           <div className="mx-auto w-[90%]">

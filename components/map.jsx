@@ -4,18 +4,45 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { getDeliveriesLocalisation } from "../lib/sensorDataAPI";
+import { getSensorData } from "../lib/sensorDataAPI";
 
-const Map = ({ location, deliveryId }) => {
-  const [delivery] = location.filter((loc) => loc.id === deliveryId);
+const Map = ({ deliveryId, packageId = 0, type }) => {
+  const [deliveryLocation, setDeliveryLocation] = useState([]);
+  const [location, setLocation] = useState([]);
+
+  useEffect(() => {
+    if (type === "delivery") {
+      getDeliveriesLocalisation().then(setDeliveryLocation);
+    }
+  }, [type, deliveryId]);
+
+  useEffect(() => {
+    if (type === "package") {
+      getSensorData(deliveryId, packageId, "location").then(setLocation);
+    }
+  }, [type, deliveryId, packageId]);
+
+  const [delivery] = deliveryLocation.filter((loc) => loc.id === deliveryId);
   const lastLoc = location[location.length - 1];
-  console.log(lastLoc);
+  console.log("lastloc", lastLoc);
+  console.log("location", location);
+  console.log("deliveryloc", deliveryLocation);
   return (
     <>
       <div data-cy="deliveryDetailMap">
         <MapContainer
           center={
-            lastLoc ? [lastLoc.location.gpsla, lastLoc.location.gpslo] : [0, 0]
+            type === "delivery"
+              ? [delivery?.location.gpsla, delivery?.location.gpslo]
+              : type === "package"
+              ? [lastLoc?.location.gpsla, lastLoc?.location.gpslo]
+              : [46.388392427843584, 6.5068032539801255]
           }
+          // center={
+          //   lastLoc ? [lastLoc.location.gpsla, lastLoc.location.gpslo] : [0, 0]
+          // }
           zoom={14}
           scrollWheelZoom={false}
           style={{

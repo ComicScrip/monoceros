@@ -76,7 +76,7 @@ const DeliveryOverview = ({ deliveryDetail }) => {
         <TemperatureData data={sensorsData.temperature} />
       </div>
       <div className={deliveryDetailStyle.map}>
-        <MapWithNoSSR location={deliveriesLoc} deliveryId={deliveryDetail.id} />
+        <MapWithNoSSR deliveryId={deliveryDetail.id} type="delivery" />
       </div>
       <DeliveryPath id={deliveryDetail.id} />
     </div>
