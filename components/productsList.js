@@ -9,6 +9,7 @@ import WarehouseSelect from "./warehouseSelect";
 import Pagination from "./pagination";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import Loading from "./loading";
 
 export default function ProductsList() {
   const { t } = useTranslation("productsCatalogue");
@@ -23,7 +24,7 @@ export default function ProductsList() {
   const [warehousesList, setWarehousesList] = useState([]);
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 5;
+  const productsPerPage = 10;
   const [numberOfProducts, setNumberOfProducts] = useState(null);
 
   useEffect(() => {
@@ -154,10 +155,13 @@ export default function ProductsList() {
                 </tbody>
               </table>
             </div>
-          ) : (
+          ) : (!products.length && warehouseSelect) ||
+            (!products.length && countrySelect) ? (
             <div className="flex items-center justify-center bg-white w-[90vw] h-16">
               <p>No products</p>
             </div>
+          ) : (
+            <Loading />
           )}
           {Math.ceil(numberOfProducts / productsPerPage) > 1 ? (
             <div
