@@ -2,7 +2,7 @@ describe("alert", () => {
   beforeEach(() => {
     cy.viewport("samsung-s10");
     cy.login();
-    cy.intercept("**/api/deliveries/deliveries/?limit=100", {
+    cy.intercept("**/api/deliveries/deliveries/**", {
       fixture: "deliveries.json",
     });
   });
