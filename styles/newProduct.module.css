@@ -143,3 +143,11 @@
   display: block;
   margin: 20px auto;
 }
+
+.orientationInput {
+  background-color: #ffffff;
+}
+
+.minMaxInput {
+  background-color: #ffffff;
+}
