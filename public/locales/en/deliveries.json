@@ -5,5 +5,8 @@
   "status": "Delivery Status",
   "humidity": "Humidity",
   "light": "Light",
-  "shock": "Shock"
+  "shock": "Shock",
+  "completed": "Completed",
+  "inProgress": "In Progress",
+  "delayed": "Delayed"
 }

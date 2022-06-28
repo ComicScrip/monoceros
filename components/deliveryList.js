@@ -6,6 +6,7 @@ import Pagination from "./pagination";
 import DeliveriesStatus from "./deliveriesStatus";
 import Loading from "./loading";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 function DeliveryList() {
   const router = useRouter();
@@ -15,6 +16,7 @@ function DeliveryList() {
   const [currentPage, setCurrentPage] = useState(
     parseInt(router.query.page) || 1
   );
+  const { t } = useTranslation("deliveries");
   const itemsPerPage = 10;
   const [numberOfItems, setNumberOfItems] = useState(null);
   const [detailView, setDetailView] = useState(false);
@@ -49,6 +51,7 @@ function DeliveryList() {
       .then(setDeliveryOverview)
       .then(() => setShowDetails(true));
   }
+
   return (
     <>
       {!detailView ? <DeliveriesStatus /> : null}
@@ -63,7 +66,10 @@ function DeliveryList() {
           >
             &times;
           </span>
-          <DeliveryOverview deliveryDetail={deliveryOverview} />
+          <DeliveryOverview
+            deliveryDetail={deliveryOverview}
+            deliveries={allDeliveries}
+          />
         </div>
       )}
       {allDeliveries.length !== 0 ? (
@@ -72,7 +78,6 @@ function DeliveryList() {
             <tr>
               <th className={deliveriesStyle.tHeader}>ID</th>
               <th className={deliveriesStyle.tHeader}>Status</th>
-              <th className={deliveriesStyle.tHeader}>Alert</th>
               <th className={deliveriesStyle.tHeader}>Ref.</th>
               <th className={deliveriesStyle.tHeader}>Destination</th>
               <th className={deliveriesStyle.tHeader}>Date</th>
@@ -81,18 +86,28 @@ function DeliveryList() {
           <tbody>
             {allDeliveries.map((delivery, i) => (
               <tr
-                className={deliveriesStyle.tRow + " " + deliveriesStyle.id}
-                data-cy={"deliveryRow" + i}
+                className={
+                  delivery.alerts_count !== null
+                    ? deliveriesStyle.alert
+                    : deliveriesStyle.noAlert
+                }
+                data-cy={delivery.alerts_count !== null ? "alert" : "noAlert"}
                 key={delivery.id}
                 onClick={() => showDeliveryOverview(delivery.id)}
               >
-                <td className={deliveriesStyle.tCell} data-cy="deliveryId">
+                <td
+                  className={deliveriesStyle.tCell}
+                  data-cy={"deliveryId" + i}
+                >
                   {delivery.id}
                 </td>
                 <td className={deliveriesStyle.tCell} data-cy="deliveryStatus">
-                  {delivery.status}
+                  {delivery.status === "Completed"
+                    ? t("completed")
+                    : delivery.status === "In progress"
+                    ? t("inProgress")
+                    : t("delayed")}
                 </td>
-                <td className={deliveriesStyle.tCell}>Vert</td>
                 <td className={deliveriesStyle.tCell} data-cy="deliveryContact">
                   {delivery.delivery_path.shipment_paths[0].origin.contact_name}
                 </td>

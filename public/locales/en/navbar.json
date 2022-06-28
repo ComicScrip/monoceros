@@ -3,12 +3,12 @@
   "products": "Products",
   "newProduct": "New Product",
   "productsCatalogue": "Products Catalogue",
+  "packages": "Packages",
+  "newPackage": "New Package",
+  "packagesCatalogue": "Package Catalogue",
   "deliveries": "Deliveries",
   "newDelivery": "New Delivery",
   "deliveriesOverview": "Deliveries Overview",
-  "inventory": "Inventory",
   "alarms": "Alarms",
-  "settings": "Settings",
-  "help": "Help",
   "signOut": "Sign Out"
 }
