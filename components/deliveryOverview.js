@@ -11,8 +11,9 @@ import DeliveryPath from "./deliveryPath";
 import { getSensorData } from "../lib/deliveriesAPI";
 import { useTranslation } from "next-i18next";
 
-const DeliveryOverview = ({ deliveryDetail }) => {
+const DeliveryOverview = ({ deliveryDetail, deliveries }) => {
   const { t } = useTranslation("deliveries");
+
   const MapWithNoSSR = dynamic(() => import("./map"), {
     ssr: false,
   });
@@ -32,7 +33,6 @@ const DeliveryOverview = ({ deliveryDetail }) => {
             deliveryDetail.packages[i].id,
             datatype
           );
-          console.log(datatype, data[data.length - 1]);
           allData[datatype].push(data[data.length - 1].sensor_value || 0);
         } catch {
           allData[datatype].push(null);
@@ -76,7 +76,11 @@ const DeliveryOverview = ({ deliveryDetail }) => {
         <TemperatureData data={sensorsData.temperature} />
       </div>
       <div className={deliveryDetailStyle.map}>
-        <MapWithNoSSR location={deliveriesLoc} deliveryId={deliveryDetail.id} />
+        <MapWithNoSSR
+          location={deliveriesLoc}
+          deliveryId={deliveryDetail.id}
+          deliveries={deliveries}
+        />
       </div>
       <DeliveryPath id={deliveryDetail.id} />
     </div>
