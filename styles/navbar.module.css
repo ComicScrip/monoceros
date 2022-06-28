@@ -119,6 +119,7 @@
 
 .navlink {
   font-weight: 300;
+  font-size: 18px;
   color: white;
   padding-top: 0.6rem;
   padding-left: 2rem;
@@ -191,4 +192,8 @@
 .chevronUp {
   transform: rotate(180deg);
   transition: 0.2s;
+}
+
+.navlinkTitle {
+  font-size: 20px;
 }
