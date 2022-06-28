@@ -3,17 +3,18 @@ import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
+import moment from "moment";
 
 const Map = ({ location, deliveryId }) => {
   const [delivery] = location.filter((loc) => loc.id === deliveryId);
+  const lastLoc = location[location.length - 1];
+  console.log(lastLoc);
   return (
     <>
       <div data-cy="deliveryDetailMap">
         <MapContainer
           center={
-            delivery?.location
-              ? [delivery.location.gpsla, delivery.location.gpslo]
-              : [46.388392427843584, 6.5068032539801255]
+            lastLoc ? [lastLoc.location.gpsla, lastLoc.location.gpslo] : [0, 0]
           }
           zoom={14}
           scrollWheelZoom={false}
@@ -41,7 +42,9 @@ const Map = ({ location, deliveryId }) => {
               draggable={true}
               animate={true}
             >
-              <Popup>Hey ! you found me</Popup>
+              <Popup>
+                {moment(coordinates.date).format("DD-MM-YY, hh:mm:ss")}
+              </Popup>
             </Marker>
           ))}
           {/* <Marker

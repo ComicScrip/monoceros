@@ -50,7 +50,6 @@ const IdComponent = () => {
     getSensorData(id, packageId, "location").then(setLocationData);
   }, [id, packageId]);
 
-  console.log(locationData);
   return (
     <>
       {packages ? (
