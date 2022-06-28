@@ -62,7 +62,7 @@ function DeliveryList() {
           />
         </div>
       )}
-      {allDeliveries.length !== 0 ? (
+      {status === "loading" || allDeliveries.length !== 0 ? (
         <table className={deliveriesStyle.table}>
           <thead className={deliveriesStyle.allHead} data-cy="tableHeader">
             <tr>
