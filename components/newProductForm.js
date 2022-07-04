@@ -109,9 +109,8 @@ const NewProductForm = () => {
                           moment(date).format("YYYY-MM-DDTHH:mm"),
                       });
                     }}
-                    value={
-                      formInfos.not_perishable ? "" : formInfos.expiration_date
-                    }
+                    dateFormat="dd/MM/yyyy"
+                    value={formInfos.not_perishable ? "" : fakeDate}
                     className={newProductStyle.productExpInput}
                     disabled={formInfos.not_perishable ? true : false}
                     required={!formInfos.not_perishable ? true : false}
