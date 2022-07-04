@@ -1,0 +1,17 @@
+{
+  "mainTitle": "Crée une nouvelle livraison",
+  "title": "Itineraire de livraison",
+  "origin": "Entrepot d'origine*",
+  "destination": "Entrepot de destination*",
+  "warehouseSelect": "Entrepot",
+  "path": "Itineraire de livraison*",
+  "pathSelect": "Itinéraire",
+  "startDate": "Date de départ*",
+  "endDate": "date d'arrivée*",
+  "tracking": "N° Tracking",
+  "shipping": "Envoi",
+  "toShip": "Selectionner paquet(s)",
+  "addPackage": "+ Ajouter un autre paquet",
+  "button": "Creér livraison",
+  "toast": "Livraison crée !"
+}
