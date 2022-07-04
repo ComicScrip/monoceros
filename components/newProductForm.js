@@ -6,6 +6,9 @@ import { BsFillCalendar2WeekFill } from "react-icons/bs";
 import { postOneProduct } from "../lib/productsAPI";
 import DatePicker from "react-datepicker";
 import { useState } from "react";
+import PopupProduct from "./popupProduct";
+import moment from "moment";
+import toast, { Toaster } from "react-hot-toast";
 
 const NewProductForm = () => {
   const { t } = useTranslation("newProduct");
@@ -25,10 +28,17 @@ const NewProductForm = () => {
     shock_constraint: true,
     orientation_cfg: "",
     orientation_constraint: false,
-    unit_cost: "",
-    lead_time_average: "",
+    unit_cost: 0,
+    lead_time_average: 0,
   };
   const [formInfos, setFormInfos] = useState(defaultState);
+  const [openPopup, setOpenPopup] = useState({
+    perishable: false,
+    temperature: false,
+    humidity: false,
+  });
+
+  const [fakeDate, setFakeDate] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -36,13 +46,36 @@ const NewProductForm = () => {
     try {
       await postOneProduct(formInfos);
       setFormInfos(defaultState);
+      toast.success("Produit ajouté avec succès", {
+        style: {
+          border: "1px solid #ff455a",
+          padding: "16px",
+          color: "#ff455a",
+        },
+        iconTheme: {
+          primary: "#ff455a",
+          secondary: "#FFFAEE",
+        },
+      });
     } catch (error) {
       console.log(error);
     }
   }
 
+  const textPopup = [
+    "Enter the expiry date of this particular product, or click the 'non perishable' option if it's not relevant.",
+    "Choose the two boundaries (high and low) of temperatures (°C) that this product should not cross. You'll get a warning if this happens. You can also choose to not track this data if not relevant for this product",
+    "Choose the two boundaries (high and low) of humidity level (%) that this product should not cross. You'll get a warning if this happens. You can also choose to not track this data if not relevant for this product",
+    "Choose the maximum light (Lux) your product can be exposed of",
+    "Choose the maximum value of acceleration (G) your product can sustained. It's a number between 1 and 25",
+    "Choose the axis of the sensor that will be vertical in its environment",
+  ];
+
   return (
     <>
+      <div>
+        <Toaster />
+      </div>
       <h1 className={newProductStyle.title}>{t("title")}</h1>
       <form onSubmit={handleSubmit}>
         <div className={newProductStyle.content}>
@@ -65,12 +98,20 @@ const NewProductForm = () => {
               <div className={newProductStyle.headExpInput}>
                 <div className={newProductStyle.calendarInput}>
                   <DatePicker
-                    selected={formInfos.expiration_date}
-                    onChange={(date) =>
-                      setFormInfos({ ...formInfos, expiration_date: date })
-                    }
+                    selected={fakeDate}
                     minDate={new Date()}
                     showDisabledMonthNavigation
+                    onChange={(date) => {
+                      setFakeDate(date);
+                      setFormInfos({
+                        ...formInfos,
+                        expiration_date:
+                          moment(date).format("YYYY-MM-DDTHH:mm"),
+                      });
+                    }}
+                    value={
+                      formInfos.not_perishable ? "" : formInfos.expiration_date
+                    }
                     className={newProductStyle.productExpInput}
                     disabled={formInfos.not_perishable ? true : false}
                     required={!formInfos.not_perishable ? true : false}
@@ -83,7 +124,17 @@ const NewProductForm = () => {
                     }}
                   />
                 </div>
-                <button type="button" style={{ margin: "auto" }}>
+                <button
+                  type="button"
+                  style={{ margin: "auto" }}
+                  onClick={() =>
+                    setOpenPopup({
+                      ...openPopup,
+                      perishable: !openPopup.perishable,
+                    })
+                  }
+                >
+                  {openPopup.perishable && <PopupProduct text={textPopup[0]} />}
                   <Image
                     src="/images/help-logo-red.svg"
                     alt="help"
@@ -106,6 +157,7 @@ const NewProductForm = () => {
                     not_perishable: !formInfos.not_perishable,
                   })
                 }
+                style={{ color: "#ff455a" }}
               />
               Non perishable
             </label>
@@ -128,11 +180,7 @@ const NewProductForm = () => {
                     style={{
                       color: !formInfos.temperature_constraint ? "white" : "",
                     }}
-                    value={
-                      formInfos.temperature_constraint
-                        ? "-40"
-                        : formInfos.temperature_min
-                    }
+                    value={formInfos.temperature_min}
                     onChange={(e) =>
                       setFormInfos({
                         ...formInfos,
@@ -152,11 +200,7 @@ const NewProductForm = () => {
                       color: !formInfos.temperature_constraint ? "white" : "",
                     }}
                     className={newProductStyle.minMaxInput}
-                    value={
-                      formInfos.temperature_constraint
-                        ? "85"
-                        : formInfos.temperature_max
-                    }
+                    value={formInfos.temperature_max}
                     onChange={(e) =>
                       setFormInfos({
                         ...formInfos,
@@ -182,12 +226,26 @@ const NewProductForm = () => {
                           ...formInfos,
                           temperature_constraint:
                             !formInfos.temperature_constraint,
+                          temperature_max: 85,
+                          temperature_min: -40,
                         })
                       }
                     />
                     Not to be tracked
                   </label>
-                  <button type="button" style={{ margin: "auto 0" }}>
+                  <button
+                    type="button"
+                    style={{ margin: "auto 0" }}
+                    onClick={() =>
+                      setOpenPopup({
+                        ...openPopup,
+                        temperature: !openPopup.temperature,
+                      })
+                    }
+                  >
+                    {openPopup.temperature && (
+                      <PopupProduct text={textPopup[1]} />
+                    )}
                     <Image
                       src="/images/help-logo-red.svg"
                       alt="help"
@@ -212,11 +270,7 @@ const NewProductForm = () => {
                       color: !formInfos.humidity_constraint ? "white" : "",
                     }}
                     className={newProductStyle.minMaxInput}
-                    value={
-                      formInfos.humidity_constraint
-                        ? "0"
-                        : formInfos.humidity_min
-                    }
+                    value={formInfos.humidity_min}
                     onChange={(e) =>
                       setFormInfos({
                         ...formInfos,
@@ -236,11 +290,7 @@ const NewProductForm = () => {
                       color: !formInfos.humidity_constraint ? "white" : "",
                     }}
                     className={newProductStyle.minMaxInput}
-                    value={
-                      formInfos.humidity_constraint
-                        ? "100"
-                        : formInfos.humidity_max
-                    }
+                    value={formInfos.humidity_max}
                     onChange={(e) =>
                       setFormInfos({
                         ...formInfos,
@@ -265,12 +315,24 @@ const NewProductForm = () => {
                         setFormInfos({
                           ...formInfos,
                           humidity_constraint: !formInfos.humidity_constraint,
+                          humidity_min: 0,
+                          humidity_max: 100,
                         })
                       }
                     />
                     Not to be tracked
                   </label>
-                  <button type="button" style={{ margin: "auto 0" }}>
+                  <button
+                    type="button"
+                    style={{ margin: "auto 0" }}
+                    onClick={() =>
+                      setOpenPopup({
+                        ...openPopup,
+                        humidity: !openPopup.humidity,
+                      })
+                    }
+                  >
+                    {openPopup.humidity && <PopupProduct text={textPopup[2]} />}
                     <Image
                       src="/images/help-logo-red.svg"
                       alt="help"
@@ -294,9 +356,7 @@ const NewProductForm = () => {
                     color: !formInfos.light_constraint ? "white" : "",
                   }}
                   className={newProductStyle.itemBlockOneOnlyInput}
-                  value={
-                    formInfos.light_constraint ? "4000" : formInfos.light_max
-                  }
+                  value={formInfos.light_max}
                   onChange={(e) =>
                     setFormInfos({
                       ...formInfos,
@@ -316,12 +376,23 @@ const NewProductForm = () => {
                       setFormInfos({
                         ...formInfos,
                         light_constraint: !formInfos.light_constraint,
+                        light_max: 4000,
                       })
                     }
                   />
                   Not to be tracked
                 </label>
-                <button type="button" style={{ margin: "auto 0" }}>
+                <button
+                  type="button"
+                  style={{ margin: "auto 0" }}
+                  onClick={() =>
+                    setOpenPopup({
+                      ...openPopup,
+                      light: !openPopup.light,
+                    })
+                  }
+                >
+                  {openPopup.light && <PopupProduct text={textPopup[3]} />}
                   <Image
                     src="/images/help-logo-red.svg"
                     alt="help"
@@ -344,9 +415,7 @@ const NewProductForm = () => {
                     color: !formInfos.shock_constraint ? "white" : "",
                   }}
                   className={newProductStyle.itemBlockOneOnlyInput}
-                  value={
-                    formInfos.shock_constraint ? "25" : formInfos.shock_max
-                  }
+                  value={formInfos.shock_max}
                   onChange={(e) =>
                     setFormInfos({
                       ...formInfos,
@@ -366,12 +435,23 @@ const NewProductForm = () => {
                       setFormInfos({
                         ...formInfos,
                         shock_constraint: !formInfos.shock_constraint,
+                        shock_max: 25,
                       })
                     }
                   />
                   Not to be tracked
                 </label>
-                <button type="button" style={{ margin: "auto 0" }}>
+                <button
+                  type="button"
+                  style={{ margin: "auto 0" }}
+                  onClick={() =>
+                    setOpenPopup({
+                      ...openPopup,
+                      shock: !openPopup.shock,
+                    })
+                  }
+                >
+                  {openPopup.shock && <PopupProduct text={textPopup[4]} />}
                   <Image
                     src="/images/help-logo-red.svg"
                     alt="help"
@@ -421,7 +501,19 @@ const NewProductForm = () => {
                   />
                   Not to be tracked
                 </label>
-                <button type="button" style={{ margin: "auto 0" }}>
+                <button
+                  type="button"
+                  style={{ margin: "auto 0" }}
+                  onClick={() =>
+                    setOpenPopup({
+                      ...openPopup,
+                      orientation: !openPopup.orientation,
+                    })
+                  }
+                >
+                  {openPopup.orientation && (
+                    <PopupProduct text={textPopup[5]} />
+                  )}
                   <Image
                     src="/images/help-logo-red.svg"
                     alt="help"

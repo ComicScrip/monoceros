@@ -57,6 +57,39 @@
 
 .checkbox {
   margin-right: 10px;
+  -webkit-appearance: none;
+  background-color: #fafafa;
+  border: 1px solid #cacece;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+  padding: 9px;
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+}
+
+.checkbox:active,
+.checkbox:checked:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox:checked {
+  background-color: #ff455a;
+  border: 1px solid #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05),
+    inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+  color: #99a1a7;
+}
+
+.checkbox:checked:after {
+  content: "\2713";
+  font-size: 14px;
+  position: absolute;
+  top: 0px;
+  left: 3px;
+  color: #ffffff;
 }
 
 .conditionsTitle {
@@ -150,4 +183,39 @@
 
 .minMaxInput {
   background-color: #ffffff;
+}
+
+.popupContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 3000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupInner {
+  position: relative;
+  margin-top: 0;
+  padding: 32px;
+  width: 50%;
+  max-width: 640px;
+  background: #ff455a;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.popupInner:before {
+  left: 0;
+  border-width: 0.4rem 0.4rem 0.4rem 0;
+  border-right-color: #000;
+  position: absolute;
+  content: "";
+  border-color: transparent;
+  border-style: solid;
 }
