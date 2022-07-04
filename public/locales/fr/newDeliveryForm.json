@@ -7,7 +7,7 @@
   "path": "Itineraire de livraison*",
   "pathSelect": "Itinéraire",
   "startDate": "Date de départ*",
-  "endDate": "date d'arrivée*",
+  "endDate": "Date d'arrivée*",
   "tracking": "N° Tracking",
   "shipping": "Envoi",
   "toShip": "Selectionner paquet(s)",

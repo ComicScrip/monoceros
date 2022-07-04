@@ -60,7 +60,12 @@ const IdComponent = () => {
               }
               onClick={() => setPackageId(colis.id)}
             >
-              <div data-cy={"packageDetailId" + i}>{colis.id}</div>
+              <div
+                data-cy={"packageDetailId" + i}
+                onClick={() => router.replace(`/packages`)}
+              >
+                {colis.id}
+              </div>
               {colis.alert ? (
                 <Image
                   src="/images/alerts-active@3x.png"

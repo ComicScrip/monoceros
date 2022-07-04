@@ -17,23 +17,24 @@ export default function NewDeliveryForm() {
   const [numberOfPackages, setNumberOfPackages] = useState(1);
   const [deliveryPath, setDeliveryPath] = useState("");
   const [deliveryPathOption, setDeliveryPathOption] = useState([]);
-  const [infos, setInfos] = useState({
+  const defaultInfoState = {
     startDate: "",
     endDate: "",
     trackingNumber: "",
-  });
+  };
+  const [infos, setInfos] = useState(defaultInfoState);
 
   function handleSubmit(e) {
     e.preventDefault();
     const deliveryInfo = {
-      path: deliveryPath,
-      origin: warehouseOrigin,
-      destination: warehouseDestination,
-      package: packageToShip,
+      pathId: deliveryPath,
+      originId: warehouseOrigin,
+      destinationId: warehouseDestination,
+      packagesIds: packageToShip,
       ...infos,
     };
     console.log(deliveryInfo);
-    setInfos({ startDate: "", endDate: "", trackingNumber: "" });
+    setInfos(defaultInfoState);
     setPackagesToShip({});
     setNumberOfPackages(1);
     setWarehouseDestination("");
@@ -75,7 +76,7 @@ export default function NewDeliveryForm() {
                 items={warehouses}
                 value={warehouseOrigin}
                 defaultValue={t("warehouseSelect")}
-                keyOne={"name"}
+                keyOne={"id"}
                 keyTwo={"name"}
               />
             </div>
@@ -86,7 +87,7 @@ export default function NewDeliveryForm() {
                 items={warehouses}
                 value={warehouseDestination}
                 defaultValue={t("warehouseSelect")}
-                keyOne={"name"}
+                keyOne={"id"}
                 keyTwo={"name"}
               />
             </div>
@@ -97,8 +98,8 @@ export default function NewDeliveryForm() {
                 items={deliveryPathOption}
                 value={deliveryPath}
                 defaultValue={t("pathSelect")}
-                keyOne={"name"}
-                keyTwo={"name"}
+                keyOne={"id"}
+                keyTwo={"label"}
               />
             </div>
             <div className="flex flex-col mb-5">
@@ -145,7 +146,10 @@ export default function NewDeliveryForm() {
                 className="p-[4px] w-[60vw] mt-2 rounded"
                 type="number"
                 onChange={(e) =>
-                  setInfos({ ...infos, trackingNumber: e.target.value })
+                  setInfos({
+                    ...infos,
+                    trackingNumber: parseInt(e.target.value),
+                  })
                 }
                 value={infos.trackingNumber}
                 required
@@ -163,7 +167,7 @@ export default function NewDeliveryForm() {
                     onChange={(e) =>
                       setPackagesToShip({
                         ...packageToShip,
-                        [i + 1]: e.target.value,
+                        [i + 1]: parseInt(e.target.value),
                       })
                     }
                     value={packageToShip[i + 1] || ""}
@@ -198,6 +202,7 @@ export default function NewDeliveryForm() {
           }}
         />
       </div>
+      {}
     </>
   );
 }

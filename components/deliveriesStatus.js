@@ -36,7 +36,7 @@ export default function DeliveriesStatus() {
   }, []);
 
   return (
-    <div className="flex justify-center  bg-white text-xs w-[90%] mx-auto rounded mt-5 p-5">
+    <div className="flex justify-center  bg-white text-xs w-[90%] mx-auto rounded mt-5 p-5 max-w-[700px]">
       <div className="flex flex-col w-[90%] bg-main-bg-color">
         <h1 className="mb-[15px] font-bold self-start text-base text-center">
           {t("myDeliveries")}
@@ -46,7 +46,7 @@ export default function DeliveriesStatus() {
             key={index}
             className="mb-[15px] flex items-center justify-between"
           >
-            <button className="text-white font-bold py-2 px-4 w-[30%] rounded text-[10px] bg-main_color">
+            <button className="text-white font-bold py-2 px-4 w-[30%] rounded text-[10px] bg-main_color min-w-[80px]">
               {item}
             </button>
             <div className="bg-main_bg_color w-[70%] h-[10px] rounded-r">
