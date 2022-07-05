@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { getDeliveriesStatus, getDeliveriesAlert } from "../lib/deliveriesAPI";
 import { useTranslation } from "next-i18next";
+import Loading from "./loading";
 
 export default function DeliveriesStatus({
   setStatus,
   setCurrentPage,
   status,
 }) {
+  const [loading, setLoading] = useState(true);
   const { t } = useTranslation("deliveries");
   const [overview, setOverview] = useState({});
   const { total, in_progress, delayed, completed } = overview;
@@ -22,7 +24,7 @@ export default function DeliveriesStatus({
     t("delayed"),
     t("completed"),
     t("alerts"),
-    "total",
+    "Total",
   ];
   const categoriesRates = [
     inProgressWidth,
@@ -50,48 +52,52 @@ export default function DeliveriesStatus({
       setAlertsCount(getAlertsCount.count);
       const getData = await getDeliveriesStatus();
       setOverview(getData.data);
+      setLoading(false);
     }
     request();
   }, []);
 
   return (
     <div className="flex justify-center  bg-white text-xs w-[90%] mx-auto rounded mt-5 p-5 max-w-[700px]">
-      <div className="flex flex-col w-[90%] bg-main-bg-color">
-        <h1 className="mb-[15px] font-bold self-start text-base text-center">
-          {t("myDeliveries")}
-        </h1>
-        {categories.map((item, index) => (
-          <div
-            key={index}
-            className="mb-[15px] flex items-center justify-between"
-          >
-            <button
-              onClick={() => {
-                setStatus(categoriesString[index]);
-                setCurrentPage(1);
-              }}
-              className="text-white font-bold py-2 px-4 w-[30%] rounded text-[10px] bg-main_color min-w-[100px]"
-              style={{
-                color: status === categoriesString[index] ? "black" : null,
-              }}
+      {!loading ? (
+        <div className="flex flex-col w-[90%] bg-main-bg-color">
+          <h1 className="mb-[15px] font-bold self-start text-base text-center">
+            {t("myDeliveries")}
+          </h1>
+          {categories.map((item, index) => (
+            <div
+              key={index}
+              className="mb-[15px] flex items-center justify-between"
             >
-              {item}
-            </button>
-            <div className="bg-main_bg_color w-[70%] h-[10px] rounded-r">
-              <div
-                style={{
-                  width: `${categoriesRates[index]}%`,
+              <button
+                onClick={() => {
+                  setStatus(categoriesString[index]);
+                  setCurrentPage(1);
                 }}
-                className="h-[10px] flex justify-end bg-main_color"
+                className="text-white font-bold py-2 px-4 w-[30%] rounded text-[10px] bg-main_color min-w-[100px]"
+                style={{
+                  color: status === categoriesString[index] ? "black" : null,
+                  fontSize: status === categoriesString[index] ? "1em" : null,
+                }}
               >
-                <span className="relative bottom-5 text-main_color">
-                  {categoriesValues[index]}
-                </span>
+                {item}
+              </button>
+              <div className="bg-main_bg_color w-[70%] h-[10px] rounded-r">
+                <div
+                  style={{
+                    width: `${categoriesRates[index]}%`,
+                  }}
+                  className="h-[10px] flex justify-end bg-main_color"
+                >
+                  <span className="relative bottom-5 text-main_color">
+                    {categoriesValues[index]}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
