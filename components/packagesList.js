@@ -14,6 +14,7 @@ import {
   getProductsByCountryAndWarehouse,
 } from "../lib/productsAPI";
 import CustomSelect from "./customSelect";
+import Loading from "./loading";
 
 export default function PackagesList() {
   const { t } = useTranslation("packagesCatalogue");
@@ -69,7 +70,7 @@ export default function PackagesList() {
     async function request() {
       const data = await getPackagesByCountryWarehouseAndId(
         packagesPerPage,
-        (currentPage - 1) * (packagesPerPage + 1),
+        (currentPage - 1) * packagesPerPage,
         countrySelect,
         warehouseSelect,
         productSelect
@@ -204,10 +205,14 @@ export default function PackagesList() {
                 </tbody>
               </table>
             </div>
-          ) : (
-            <div className="flex items-center justify-center bg-white w-[90vw] h-16 text-main_color">
-              <p>{t("noData")}</p>
+          ) : (!packages.length && warehouseSelect) ||
+            (!packages.length && countrySelect) ||
+            (!packages.length && productSelect) ? (
+            <div className="flex items-center justify-center bg-white w-[90vw] h-16">
+              <p style={{ color: "var(--main-color)" }}>{t("noData")}</p>
             </div>
+          ) : (
+            <Loading />
           )}
           {Math.ceil(numberOfPackages / packagesPerPage) > 1 ? (
             <div className="flex justify-center w-full bg-main_bg_color">

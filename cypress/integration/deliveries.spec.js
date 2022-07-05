@@ -1,4 +1,4 @@
-describe("login", () => {
+describe("deliveries", () => {
   beforeEach(() => {
     cy.login();
     cy.viewport("samsung-s10");
@@ -11,7 +11,7 @@ describe("login", () => {
     it("should show the delivery list", () => {
       cy.visit("/deliveries");
       cy.get("[data-cy=tableHeader]").should("be.visible");
-      cy.get("[data-cy=deliveryId]").should("be.visible");
+      cy.get("[data-cy=deliveryId0]").should("be.visible");
       cy.get("[data-cy=deliveryStatus]").should("be.visible");
       cy.get("[data-cy=deliveryContact]").should("be.visible");
       cy.get("[data-cy=deliveryDestination]").should("be.visible");
@@ -28,7 +28,7 @@ describe("login", () => {
         fixture: "deliveryId.json",
       });
       cy.visit("/deliveries");
-      cy.get("[data-cy=deliveryRow0]").click();
+      cy.get("[data-cy=deliveryId0]").click();
       cy.get("[data-cy=deliveryDetailTitle]").should("be.visible");
       cy.get("[data-cy=deliveryDetailBtn]").should("be.visible");
       cy.get("[data-cy=deliveryDetailHumidity]").should("be.visible");

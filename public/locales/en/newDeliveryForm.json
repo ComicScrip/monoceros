@@ -13,5 +13,6 @@
   "toShip": "Package(s) to ship*",
   "addPackage": "+ Add another package",
   "button": "Create delivery",
-  "toast": "Delivery created !"
+  "toastSucces": "Delivery created !",
+  "toastError": "Wrong informations"
 }

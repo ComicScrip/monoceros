@@ -2,45 +2,53 @@ import React, { useEffect, useState } from "react";
 import { getWarehouses } from "../lib/productsAPI";
 import { BsFillCalendar2WeekFill } from "react-icons/bs";
 import toast, { Toaster } from "react-hot-toast";
-import { getDeliveryPath } from "../lib/deliveriesAPI";
+import { getDeliveryPath, createDelivery } from "../lib/deliveriesAPI";
 import BasiqSelect from "./basiqSelect";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "next-i18next";
+import moment from "moment";
 
 export default function NewDeliveryForm() {
   const { t } = useTranslation("newDeliveryForm");
   const [warehouseOrigin, setWarehouseOrigin] = useState("");
   const [warehouseDestination, setWarehouseDestination] = useState("");
   const [warehouses, setWarehouses] = useState([]);
-  const [packageToShip, setPackagesToShip] = useState({});
+  const [packageToShip, setPackagesToShip] = useState([]);
   const [numberOfPackages, setNumberOfPackages] = useState(1);
   const [deliveryPath, setDeliveryPath] = useState("");
   const [deliveryPathOption, setDeliveryPathOption] = useState([]);
   const defaultInfoState = {
-    startDate: "",
-    endDate: "",
-    trackingNumber: "",
+    start_date: "",
+    end_date: "",
+    tracking_number: "",
   };
-  const [infos, setInfos] = useState(defaultInfoState);
+  const [displayDates, setDisplayDates] = useState({});
 
-  function handleSubmit(e) {
+  const [infos, setInfos] = useState({});
+
+  async function handleSubmit(e) {
     e.preventDefault();
     const deliveryInfo = {
-      pathId: deliveryPath,
-      originId: warehouseOrigin,
-      destinationId: warehouseDestination,
-      packagesIds: packageToShip,
+      delivery_path_id: deliveryPath,
+      warehouse_origin: warehouseOrigin,
+      warehouse_destination: warehouseDestination,
+      package_ids: Object.values(packageToShip),
       ...infos,
     };
-    console.log(deliveryInfo);
-    setInfos(defaultInfoState);
-    setPackagesToShip({});
-    setNumberOfPackages(1);
-    setWarehouseDestination("");
-    setWarehouseOrigin("");
-    setDeliveryPath("");
-    toast(t("toast"));
+    try {
+      await createDelivery(deliveryInfo);
+      toast(t("toastSucces"));
+      setInfos(defaultInfoState);
+      setDisplayDates({});
+      setPackagesToShip({});
+      setNumberOfPackages(1);
+      setWarehouseDestination("");
+      setWarehouseOrigin("");
+      setDeliveryPath("");
+    } catch {
+      toast(t("toastError"));
+    }
   }
 
   async function getWarehousesList() {
@@ -106,8 +114,15 @@ export default function NewDeliveryForm() {
               <label>{t("startDate")}</label>
               <div className="flex flex-initial items-center">
                 <DatePicker
-                  selected={infos.startDate}
-                  onChange={(date) => setInfos({ ...infos, startDate: date })}
+                  onChange={(date) => {
+                    setDisplayDates({ ...displayDates, startDate: date });
+                    setInfos({
+                      ...infos,
+                      start_date: moment(date).format("YYYY-MM-DD"),
+                    });
+                  }}
+                  selected={displayDates.startDate}
+                  dateFormat="dd/MM/yyyy"
                   minDate={new Date()}
                   showDisabledMonthNavigation
                   className="p-[4px] w-[60vw] mt-2 rounded"
@@ -125,8 +140,15 @@ export default function NewDeliveryForm() {
               <label>{t("endDate")}</label>
               <div className="flex flex-initial items-center">
                 <DatePicker
-                  selected={infos.endDate}
-                  onChange={(date) => setInfos({ ...infos, endDate: date })}
+                  selected={displayDates.endDate}
+                  dateFormat="dd/MM/yyyy"
+                  onChange={(date) => {
+                    setDisplayDates({ ...displayDates, endDate: date });
+                    setInfos({
+                      ...infos,
+                      end_date: moment(date).format("YYYY-MM-DD"),
+                    });
+                  }}
                   minDate={new Date()}
                   showDisabledMonthNavigation
                   className="p-[4px] w-[60vw] mt-2 rounded"
@@ -148,10 +170,10 @@ export default function NewDeliveryForm() {
                 onChange={(e) =>
                   setInfos({
                     ...infos,
-                    trackingNumber: parseInt(e.target.value),
+                    tracking_number: parseInt(e.target.value),
                   })
                 }
-                value={infos.trackingNumber}
+                value={infos.tracking_number}
                 required
               />
             </div>

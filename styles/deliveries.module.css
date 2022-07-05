@@ -10,16 +10,26 @@
 .tHeader {
   background-color: var(--main-bg-color);
   padding: 25px 5px 5px 5px;
+  font-weight: 900;
+  font-size: 12px;
 }
 
 .tCell {
-  background-color: white;
   padding: 15px 5px 15px 5px;
   text-align: center;
+  font-weight: 500;
+  font-size: 11px;
 }
 
-.id {
+.noAlert {
   cursor: pointer;
+  background-color: white;
+}
+
+.alert {
+  cursor: pointer;
+  background-color: var(--main-color);
+  color: white;
 }
 
 .head {
@@ -40,4 +50,8 @@
   justify-content: flex-end;
   margin-right: 15px;
   font-size: 25px;
+}
+
+.popup {
+  width: 65px !important;
 }

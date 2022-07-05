@@ -36,7 +36,7 @@ export default function DeliveryPath({ id }) {
         <div className="w-[95%] h-[2px] bg-main_color flex justify-between items-center">
           <div className="flex flex-col items-center justify-center bg-main_bg_color pt-5">
             <FiPackage style={{ fontSize: "2em", color: "black" }} />
-            <p className="mt-2 text-main_bg_color">{steps[0]}</p>
+            <p className="mt-2 text-main_color">{steps[0]}</p>
           </div>
           {steps.slice(1, steps.lenght).map((step, index) => (
             <div
@@ -70,8 +70,8 @@ export default function DeliveryPath({ id }) {
               <p
                 className={
                   index % 2 !== 0
-                    ? "mt-2 text-main_bg_color"
-                    : "mt-2 text-main_bg_color relative bottom-12"
+                    ? "mt-2 text-main_color"
+                    : "mt-2 text-main_color relative bottom-12"
                 }
               >
                 {step}
