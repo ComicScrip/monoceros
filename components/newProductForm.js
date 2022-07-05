@@ -36,13 +36,15 @@ const NewProductForm = () => {
     perishable: false,
     temperature: false,
     humidity: false,
+    light: false,
+    shock: false,
+    orientation: false,
   });
 
   const [fakeDate, setFakeDate] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formInfos);
     try {
       await postOneProduct(formInfos);
       setFormInfos(defaultState);
@@ -156,7 +158,6 @@ const NewProductForm = () => {
                     not_perishable: !formInfos.not_perishable,
                   })
                 }
-                style={{ color: "#ff455a" }}
               />
               Non perishable
             </label>
