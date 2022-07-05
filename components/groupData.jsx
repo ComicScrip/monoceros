@@ -1,46 +1,24 @@
-import { useEffect, useState } from "react";
-import { getSensorData } from "../lib/sensorDataAPI";
-import { getPackagesInfo } from "../lib/packagesAPI";
-import { getProductsInfo } from "../lib/productsAPI";
+import { useEffect } from "react";
 import groupDataStyle from "../styles/groupData.module.css";
 import { useTranslation } from "next-i18next";
 import dynamic from "next/dynamic";
 import moment from "moment";
 
-const GroupData = ({ delivery_id, package_id }) => {
+const GroupData = ({
+  temperatureData,
+  humidityData,
+  lightData,
+  vibrationData,
+  minDate,
+  setMinDate,
+  maxDate,
+  setMaxDate,
+  packageLimits,
+}) => {
   const { t } = useTranslation("packages");
   const GraphWithNoSSR = dynamic(() => import("./graph"), {
     ssr: false,
   });
-  const [temperatureData, setTemperatureData] = useState([]);
-  const [humidityData, setHumidityData] = useState([]);
-  const [lightData, setLightData] = useState([]);
-  const [vibrationData, setVibrationData] = useState([]);
-  const [packagesInfo, setPackagesInfo] = useState([]);
-  const [productsInfo, setProductsInfo] = useState([]);
-  const [productId, setProductId] = useState();
-  const [productLimits, setProductLimits] = useState([]);
-  const [minDate, setMinDate] = useState(temperatureData[0]?.date);
-  const [maxDate, setMaxDate] = useState(
-    temperatureData[temperatureData.length - 1]?.date
-  );
-
-  function getData() {
-    getSensorData(delivery_id, package_id, "temperature")
-      .then(setTemperatureData)
-      .catch(console.error);
-    getSensorData(delivery_id, package_id, "humidity")
-      .then(setHumidityData)
-      .catch(console.error);
-    getSensorData(delivery_id, package_id, "shock")
-      .then(setVibrationData)
-      .catch(console.error);
-    getSensorData(delivery_id, package_id, "light")
-      .then(setLightData)
-      .catch(console.error);
-    getPackagesInfo().then(setPackagesInfo).catch(console.error);
-    getProductsInfo().then(setProductsInfo).catch(console.error);
-  }
 
   function handleClickMin() {
     setMinDate(temperatureData[0]?.date);
@@ -49,25 +27,6 @@ const GroupData = ({ delivery_id, package_id }) => {
   function handleClickMax() {
     setMaxDate(temperatureData[temperatureData.length - 1]?.date);
   }
-
-  useEffect(() => {
-    getData();
-  }, [package_id]);
-
-  useEffect(() => {
-    const productPackageLink = packagesInfo.filter(
-      (colis) => colis.id === package_id
-    );
-    if (productPackageLink.length !== 0) {
-      setProductId(productPackageLink[0].products[0].product);
-    }
-  }, [packagesInfo, package_id]);
-
-  useEffect(() => {
-    setProductLimits(
-      productsInfo.filter((product) => product.id === productId)
-    );
-  }, [productsInfo, productId]);
 
   useEffect(() => {
     setMinDate(temperatureData[0]?.date);
@@ -135,14 +94,14 @@ const GroupData = ({ delivery_id, package_id }) => {
         </div>
       </div>
       <div className={groupDataStyle.container}>
-        {productLimits.length !== 0 && temperatureData.length !== 0 ? (
+        {packageLimits.length !== 0 && temperatureData.length !== 0 ? (
           <div className={groupDataStyle.graph}>
             {temperatureData.length !== 0 && (
               <div data-cy="packageTempGraph" style={{ width: "100%" }}>
                 <GraphWithNoSSR
                   id="Temperature"
                   sensorData={temperatureData}
-                  limitData={productLimits}
+                  limitData={packageLimits}
                   showXAxis={false}
                   minDate={minDate}
                   maxDate={maxDate}
@@ -153,7 +112,7 @@ const GroupData = ({ delivery_id, package_id }) => {
               <div data-cy="packageHumGraph" style={{ width: "100%" }}>
                 <GraphWithNoSSR
                   sensorData={humidityData}
-                  limitData={productLimits}
+                  limitData={packageLimits}
                   id="Humidity"
                   showXAxis={false}
                   minDate={minDate}
@@ -165,7 +124,7 @@ const GroupData = ({ delivery_id, package_id }) => {
               <div data-cy="packageLightGraph" style={{ width: "100%" }}>
                 <GraphWithNoSSR
                   sensorData={lightData}
-                  limitData={productLimits}
+                  limitData={packageLimits}
                   id="Light"
                   showXAxis={false}
                   minDate={minDate}
@@ -177,7 +136,7 @@ const GroupData = ({ delivery_id, package_id }) => {
               <div data-cy="packageShockGraph" style={{ width: "100%" }}>
                 <GraphWithNoSSR
                   sensorData={vibrationData}
-                  limitData={productLimits}
+                  limitData={packageLimits}
                   id="Vibration"
                   showXAxis={true}
                   minDate={minDate}

@@ -10,23 +10,71 @@ import { useTranslation } from "next-i18next";
 import DeliveryPath from "./deliveryPath";
 import Loading from "./loading";
 import dynamic from "next/dynamic";
+import { getPackageLimit } from "../lib/packagesAPI";
 
 const IdComponent = () => {
   const { t } = useTranslation("packages");
-  const MapWithNoSSR = dynamic(() => import("./map"), {
+  const MapWithNoSSR = dynamic(() => import("./mapPackage"), {
     ssr: false,
   });
   const [deliveryDetail, setDeliveryDetail] = useState({});
   const [packages, setPackages] = useState([]);
   const [packageId, setPackageId] = useState("");
   const [locationData, setLocationData] = useState([]);
+  const [tempLimits, setTempLimits] = useState({ temp_min: 0, temp_max: 0 });
+  const [humLimits, setHumLimits] = useState({ hum_min: 0, hum_max: 0 });
+  const [lightLimits, setLightLimits] = useState({
+    light_min: 0,
+    light_max: 0,
+  });
+  const [shockLimits, setShockLimits] = useState({
+    shock_min: 0,
+    shock_max: 0,
+  });
+  const [packageLimits, setPackageLimits] = useState({
+    temp_min: 0,
+    temp_max: 0,
+    hum_min: 0,
+    hum_max: 0,
+    light_min: 0,
+    light_max: 0,
+    shock_min: 0,
+    shock_max: 0,
+  });
+  const [temperatureData, setTemperatureData] = useState([]);
+  const [humidityData, setHumidityData] = useState([]);
+  const [lightData, setLightData] = useState([]);
+  const [shockData, setShockData] = useState([]);
+  const [minDate, setMinDate] = useState(temperatureData[0]?.date);
+  const [maxDate, setMaxDate] = useState(
+    temperatureData[temperatureData.length - 1]?.date
+  );
   const router = useRouter();
   const { id } = router.query;
+
+  function getData() {
+    getSensorData(id, packageId, "temperature")
+      .then(setTemperatureData)
+      .catch(console.error);
+    getSensorData(id, packageId, "humidity")
+      .then(setHumidityData)
+      .catch(console.error);
+    getSensorData(id, packageId, "shock")
+      .then(setShockData)
+      .catch(console.error);
+    getSensorData(id, packageId, "light")
+      .then(setLightData)
+      .catch(console.error);
+  }
 
   async function showDeliveryDetails(id) {
     const detail = await getDeliveryOverview(id);
     setDeliveryDetail(detail);
   }
+
+  useEffect(() => {
+    getData();
+  }, [packageId]);
 
   useEffect(() => {
     if (id) {
@@ -47,8 +95,47 @@ const IdComponent = () => {
   }, [packages]);
 
   useEffect(() => {
-    getSensorData(id, packageId, "location").then(setLocationData);
+    if (packageId) {
+      getSensorData(id, packageId, "location").then(setLocationData);
+      getPackageLimit(id, packageId, "humidity").then((res) =>
+        setHumLimits({
+          hum_min: res.min_value,
+          hum_max: res.max_value,
+        })
+      );
+      getPackageLimit(id, packageId, "light").then((res) =>
+        setLightLimits({
+          light_min: res.min_value,
+          light_max: res.max_value,
+        })
+      );
+      getPackageLimit(id, packageId, "temperature").then((res) =>
+        setTempLimits({
+          temp_min: res.min_value,
+          temp_max: res.max_value,
+        })
+      );
+      getPackageLimit(id, packageId, "shock").then((res) =>
+        setShockLimits({
+          shock_min: res.min_value,
+          shock_max: res.max_value,
+        })
+      );
+    }
   }, [id, packageId]);
+
+  useEffect(() => {
+    setPackageLimits({
+      temp_min: tempLimits.temp_min,
+      temp_max: tempLimits.temp_max,
+      hum_min: humLimits.hum_min,
+      hum_max: humLimits.hum_max,
+      light_min: lightLimits.light_min,
+      light_max: lightLimits.light_max,
+      shock_min: shockLimits.shock_min,
+      shock_max: shockLimits.shock_max,
+    });
+  }, [tempLimits, humLimits, lightLimits, shockLimits]);
 
   return (
     <>
@@ -109,15 +196,31 @@ const IdComponent = () => {
             {locationData && (
               <MapWithNoSSR
                 deliveryId={id}
-                type="package"
+                location={locationData}
                 packageId={packageId}
+                deliveries={deliveryDetail}
+                packageLimits={packageLimits}
+                minDate={minDate}
+                maxDate={maxDate}
               />
             )}
           </div>
           <div className="mx-auto w-[90%]">
             <DeliveryPath id={id} />
           </div>
-          {packageId && <GroupData delivery_id={id} package_id={packageId} />}
+          {packageId && (
+            <GroupData
+              temperatureData={temperatureData}
+              humidityData={humidityData}
+              lightData={lightData}
+              vibrationData={shockData}
+              minDate={minDate}
+              setMinDate={setMinDate}
+              maxDate={maxDate}
+              setMaxDate={setMaxDate}
+              packageLimits={packageLimits}
+            />
+          )}
         </div>
       ) : (
         <Loading />

@@ -6,6 +6,7 @@ import "leaflet-defaulticon-compatibility";
 import * as L from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import style from "../styles/deliveries.module.css";
+import moment from "moment";
 
 const CustomMarker = ({ isActive, data, map }) => {
   const [refReady, setRefReady] = useState(false);
@@ -34,9 +35,17 @@ const CustomMarker = ({ isActive, data, map }) => {
   );
 };
 
-const Map = ({ location, deliveryId, deliveries }) => {
-  const [delivery] = location.filter((loc) => loc.id === deliveryId);
+const Map = ({
+  location,
+  deliveryId,
+  deliveries,
+  packageId,
+  packageLimits,
+  minDate,
+  maxDate,
+}) => {
   const [map, setMap] = useState(null);
+  const [filteredData, setFilteredData] = useState(location);
 
   const greenIcon = L.icon({
     iconUrl: "/images/marker-icon-green.png",
@@ -50,8 +59,14 @@ const Map = ({ location, deliveryId, deliveries }) => {
     popupAnchor: [0, -20],
   });
 
-  const deliveriesArray = deliveries.filter((p) => p.id === delivery?.id);
-  const deliveryAlert = deliveriesArray[0]?.alerts_count;
+  useEffect(() => {
+    setFilteredData(
+      location.filter((dataset) =>
+        moment(dataset.date).isBetween(minDate, maxDate, undefined, "[]")
+      )
+    );
+  }, [minDate, maxDate, location]);
+  console.log(filteredData);
 
   return (
     <>
@@ -59,8 +74,11 @@ const Map = ({ location, deliveryId, deliveries }) => {
         <MapContainer
           ref={setMap}
           center={
-            delivery?.location
-              ? [delivery.location.gpsla, delivery.location.gpslo]
+            filteredData.length !== 0
+              ? [
+                  filteredData[filteredData.length - 1].location.gpsla,
+                  filteredData[filteredData.length - 1].location.gpslo,
+                ]
               : [46.388392427843584, 6.5068032539801255]
           }
           zoom={14}
@@ -78,20 +96,22 @@ const Map = ({ location, deliveryId, deliveries }) => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
-          <CustomMarker
-            isActive
-            map={map}
-            data={{
-              position: delivery?.location
-                ? [delivery.location.gpsla, delivery.location.gpslo]
-                : [46.388392427843584, 6.5068032539801255],
-              title: delivery?.id,
-              icon: deliveryAlert !== null ? redIcon : greenIcon,
-              maxWidth: "65px",
-              className: style.popup,
-              closeButton: false,
-            }}
-          />
+          {filteredData?.map((point) => (
+            <CustomMarker
+              key={point.date}
+              isActive
+              map={map}
+              data={{
+                position: [point.location.gpsla, point.location.gpslo],
+                title: packageId,
+                // icon: deliveryAlert !== null ? redIcon : greenIcon,
+                icon: greenIcon,
+                maxWidth: "65px",
+                className: style.popup,
+                closeButton: false,
+              }}
+            />
+          ))}
         </MapContainer>
       </div>
     </>
