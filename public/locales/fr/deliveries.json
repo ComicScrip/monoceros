@@ -6,7 +6,9 @@
   "humidity": "Humidité",
   "light": "Lumière",
   "shock": "Choc",
-  "completed": "Terminée",
-  "inProgress": "En Cours",
-  "delayed": "Retardée"
+  "myDeliveries": "Mes livraisons",
+  "delayed": "Retardés",
+  "inProgress": "En cours",
+  "completed": "Terminés",
+  "alerts": "Alertes"
 }

@@ -4,11 +4,10 @@ import {
   getWarehouses,
   getProductsByCountryAndWarehouse,
 } from "../lib/productsAPI";
-import CountrySelect from "./countrySelect";
-import WarehouseSelect from "./warehouseSelect";
 import Pagination from "./pagination";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import CustomSelect from "./customSelect";
 import Loading from "./loading";
 
 export default function ProductsList() {
@@ -69,44 +68,37 @@ export default function ProductsList() {
     <>
       <div>
         <div className="flex flex-col h-full items-center mb-10 text-center">
-          <h1
-            className="w-full mb-5"
-            style={{
-              color: "var(--main-color)",
-              fontSize: "20px",
-              fontWeight: "600",
-            }}
-          >
+          <h1 className="w-full mb-5 text-main_color text-[20px] font-[600]">
             {t("title")}
           </h1>
           <div className="flex flex-col items-center justify-center w-[95]">
-            <CountrySelect
-              countries={countriesList}
-              selectCountry={setCountrySelect}
-              country={countrySelect}
+            <CustomSelect
+              items={countriesList}
+              handleSelectItem={setCountrySelect}
+              selectItem={countrySelect}
+              defaultValue={t("country")}
               setCurrentPage={setCurrentPage}
+              keyOne={"country"}
+              keyTwo={"country"}
             />
-            <WarehouseSelect
-              warehouses={warehousesList}
-              selectWharehouse={setWareHouseSelect}
-              warehouse={warehouseSelect}
+            <CustomSelect
+              items={warehousesList}
+              handleSelectItem={setWareHouseSelect}
+              selectItem={warehouseSelect}
+              defaultValue={t("warehouse")}
               setCurrentPage={setCurrentPage}
+              keyOne={"id"}
+              keyTwo={"name"}
             />
           </div>
         </div>
         <div className="w-[95vw] bg-white flex flex-col items-center justify-center">
           {products.length ? (
-            <div
-              className="overflow-x-scroll w-[100%]"
-              style={{ backgroundColor: "var(--main-bg-color)" }}
-            >
+            <div className="overflow-x-scroll w-[100%] bg-main_bg_color">
               <table data-cy={"products-table"} className="w-[95vw]">
                 <tbody className="bg-white">
-                  <tr
-                    className="text-[0.6rem] font-bold"
-                    style={{ backgroundColor: "var(--main-bg-color)" }}
-                  >
-                    <td className="min-w-[100px] absolute h-8 bg-[#efefef]">
+                  <tr className="text-[0.6rem] font-bold bg-main_bg_color">
+                    <td className="min-w-[100px] absolute h-8 bg-main_bg_color">
                       <span>{tableHead[0]}</span>
                     </td>
                     <td></td>
@@ -119,14 +111,10 @@ export default function ProductsList() {
                   {products.map((product, _) => (
                     <tr
                       key={_}
-                      className="border-8 text-[10px] h-16"
-                      style={{ borderColor: "var(--main-bg-color)" }}
+                      className="border-8 font-bold text-[10px] h-16 border-main_bg_color"
                     >
                       <td className="min-w-[100px]"></td>
-                      <td
-                        style={{ color: "var(--main-color)" }}
-                        className="min-w-[120px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14"
-                      >
+                      <td className="text-main_color min-w-[120px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14">
                         <span>{product.name}</span>
                       </td>
                       <td className="min-w-[90px]">
@@ -167,10 +155,7 @@ export default function ProductsList() {
             <Loading />
           )}
           {Math.ceil(numberOfProducts / productsPerPage) > 1 ? (
-            <div
-              className="flex justify-center w-full"
-              style={{ backgroundColor: "var(--main-bg-color)" }}
-            >
+            <div className="bg-main_bg_color flex justify-center w-full">
               <Pagination
                 index={Math.ceil(numberOfProducts / productsPerPage)}
                 setCurrentPage={setCurrentPage}

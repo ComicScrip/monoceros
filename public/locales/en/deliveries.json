@@ -6,7 +6,9 @@
   "humidity": "Humidity",
   "light": "Light",
   "shock": "Shock",
+  "myDeliveries": "My deliveries",
+  "delayed": "Delayed",
+  "inProgress": "In progres",
   "completed": "Completed",
-  "inProgress": "In Progress",
-  "delayed": "Delayed"
+  "alerts": "Alerts"
 }
