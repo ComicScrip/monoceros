@@ -1,6 +1,8 @@
 {
   "title": "Catalogue des paquets",
   "sensor": "N° capteur",
+  "country": "Pays",
+  "warehouse": "Entrepot",
   "product": "Produit",
   "size": "Volume",
   "pairingStart": "Debut appairage",

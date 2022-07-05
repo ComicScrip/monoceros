@@ -29,7 +29,7 @@ describe("alert", () => {
       cy.get("[data-cy=alert]").should(
         "have.css",
         "color",
-        "rgb(245, 245, 220)"
+        "rgb(255, 255, 255)"
       );
     });
     it("should be white when a delivery have an alert", () => {

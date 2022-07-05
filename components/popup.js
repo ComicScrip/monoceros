@@ -1,5 +1,5 @@
 import style from "../styles/popup.module.css";
-import { useTranslation, UseTranslation } from "next-i18next";
+import { useTranslation } from "next-i18next";
 
 export default function Popup({ content, handleClose, confirm }) {
   const { t } = useTranslation("common");

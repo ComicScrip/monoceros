@@ -13,5 +13,6 @@
   "toShip": "Selectionner paquet(s)",
   "addPackage": "+ Ajouter un autre paquet",
   "button": "Creér livraison",
-  "toast": "Livraison crée !"
+  "toastSucces": "Livraison crée !",
+  "toastError": "Mauvaises informations"
 }
