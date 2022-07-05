@@ -1,23 +1,28 @@
 import { useEffect, useState } from "react";
-import { getDeliveriesStatus } from "../lib/deliveriesAPI";
+import { getDeliveriesStatus, getDeliveriesAlert } from "../lib/deliveriesAPI";
 import { useTranslation } from "next-i18next";
 
-export default function DeliveriesStatus() {
+export default function DeliveriesStatus({
+  setStatus,
+  setCurrentPage,
+  status,
+}) {
   const { t } = useTranslation("deliveries");
   const [overview, setOverview] = useState({});
   const { total, in_progress, delayed, completed } = overview;
-  const alerts = 5;
+  const [alertsCount, setAlertsCount] = useState(0);
   const containerWidth = 70;
   const unit = containerWidth / total + 1;
   const inProgressWidth = Math.ceil(unit * in_progress);
   const delayedWidth = Math.ceil(unit * delayed);
   const completedWidth = Math.ceil(unit * completed);
-  const alertsWidth = Math.ceil(unit * alerts);
+  const alertsWidth = Math.ceil(unit * alertsCount);
   const categories = [
     t("inProgress"),
     t("delayed"),
     t("completed"),
     t("alerts"),
+    "total",
   ];
   const categoriesRates = [
     inProgressWidth,
@@ -25,10 +30,24 @@ export default function DeliveriesStatus() {
     completedWidth,
     alertsWidth,
   ];
-  const categoriesValues = [in_progress, delayed, completed, alerts];
-
+  const categoriesValues = [
+    in_progress,
+    delayed,
+    completed,
+    alertsCount,
+    total,
+  ];
+  const categoriesString = [
+    "In%20progress",
+    "Delayed",
+    "Completed",
+    "alerts",
+    "Total",
+  ];
   useEffect(() => {
     async function request() {
+      const getAlertsCount = await getDeliveriesAlert();
+      setAlertsCount(getAlertsCount.count);
       const getData = await getDeliveriesStatus();
       setOverview(getData.data);
     }
@@ -46,7 +65,16 @@ export default function DeliveriesStatus() {
             key={index}
             className="mb-[15px] flex items-center justify-between"
           >
-            <button className="text-white font-bold py-2 px-4 w-[30%] rounded text-[10px] bg-main_color min-w-[80px]">
+            <button
+              onClick={() => {
+                setStatus(categoriesString[index]);
+                setCurrentPage(1);
+              }}
+              className="text-white font-bold py-2 px-4 w-[30%] rounded text-[10px] bg-main_color min-w-[100px]"
+              style={{
+                color: status === categoriesString[index] ? "black" : null,
+              }}
+            >
               {item}
             </button>
             <div className="bg-main_bg_color w-[70%] h-[10px] rounded-r">
@@ -63,14 +91,6 @@ export default function DeliveriesStatus() {
             </div>
           </div>
         ))}
-        <div className="flex items-center justify-center">
-          <div className="flex justify-between w-[30%] font-bold">
-            <p>TOTAL</p>
-            <div className="text-m w-[70%]">
-              <p className="text-main_color w-5 ml-5">{total}</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
