@@ -43,6 +43,7 @@ const Map = ({
   packageLimits,
   minDate,
   maxDate,
+  alerts,
 }) => {
   const [map, setMap] = useState(null);
   const [filteredData, setFilteredData] = useState(location);
@@ -66,7 +67,6 @@ const Map = ({
       )
     );
   }, [minDate, maxDate, location]);
-  console.log(filteredData);
 
   return (
     <>
@@ -103,11 +103,11 @@ const Map = ({
               map={map}
               data={{
                 position: [point.location.gpsla, point.location.gpslo],
-                title: packageId,
-                // icon: deliveryAlert !== null ? redIcon : greenIcon,
-                icon: greenIcon,
-                maxWidth: "65px",
-                className: style.popup,
+                title: moment(point.date).format("DD-MM-YY, hh:mm:ss"),
+                icon: alerts.includes(point.date) ? redIcon : greenIcon,
+                //icon: greenIcon,
+                maxWidth: "95px",
+                className: style.popupDetail,
                 closeButton: false,
               }}
             />

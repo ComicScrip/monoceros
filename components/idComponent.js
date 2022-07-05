@@ -49,6 +49,7 @@ const IdComponent = () => {
   const [maxDate, setMaxDate] = useState(
     temperatureData[temperatureData.length - 1]?.date
   );
+  const [alerts, setAlerts] = useState([]);
   const router = useRouter();
   const { id } = router.query;
 
@@ -70,6 +71,43 @@ const IdComponent = () => {
   async function showDeliveryDetails(id) {
     const detail = await getDeliveryOverview(id);
     setDeliveryDetail(detail);
+  }
+
+  function getAlert() {
+    const result = [];
+    temperatureData.forEach((data) => {
+      if (
+        data.sensor_value > packageLimits.temp_max ||
+        data.sensor_value < packageLimits.temp_min
+      ) {
+        result.push(data.date);
+      }
+    });
+    humidityData.forEach((data) => {
+      if (
+        data.sensor_value > packageLimits.hum_max ||
+        data.sensor_value < packageLimits.hum_min
+      ) {
+        result.push(data.date);
+      }
+    });
+    lightData.forEach((data) => {
+      if (
+        data.sensor_value > packageLimits.light_max ||
+        data.sensor_value < packageLimits.light_min
+      ) {
+        result.push(data.date);
+      }
+    });
+    shockData.forEach((data) => {
+      if (
+        data.sensor_value > packageLimits.shock_max ||
+        data.sensor_value < packageLimits.shock_min
+      ) {
+        result.push(data.date);
+      }
+    });
+    setAlerts(result);
   }
 
   useEffect(() => {
@@ -137,6 +175,10 @@ const IdComponent = () => {
     });
   }, [tempLimits, humLimits, lightLimits, shockLimits]);
 
+  useEffect(() => {
+    getAlert();
+  }, [packageLimits]);
+
   return (
     <>
       {packages ? (
@@ -203,6 +245,7 @@ const IdComponent = () => {
                 packageLimits={packageLimits}
                 minDate={minDate}
                 maxDate={maxDate}
+                alerts={alerts}
               />
             )}
           </div>
