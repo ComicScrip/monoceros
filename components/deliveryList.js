@@ -1,7 +1,11 @@
 import deliveriesStyle from "../styles/deliveries.module.css";
 import DeliveryOverview from "./deliveryOverview";
 import { useState, useEffect } from "react";
-import { getDeliveryOverview, getDeliveries } from "../lib/deliveriesAPI";
+import {
+  getDeliveryOverview,
+  getDeliveries,
+  getDeliveriesByStatus,
+} from "../lib/deliveriesAPI";
 import Pagination from "./pagination";
 import DeliveriesStatus from "./deliveriesStatus";
 import Loading from "./loading";
