@@ -1,0 +1,22 @@
+.table {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  font-size: 10px;
+}
+
+.tHeader {
+  background-color: var(--main-bg-color);
+  padding: 25px 5px 5px 5px;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.tCell {
+  padding: 15px 5px 15px 5px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 11px;
+}

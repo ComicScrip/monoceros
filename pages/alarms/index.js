@@ -2,12 +2,7 @@ import Meta from "../../components/meta";
 import Layout from "../../components/layout";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import { MdLightMode } from "react-icons/md";
-import { RiTempColdLine } from "react-icons/ri";
-import { IoWater } from "react-icons/io";
-import { AiOutlineDashboard } from "react-icons/ai";
-import { GiHandcuffed } from "react-icons/gi";
-import { BsFillCalendarXFill } from "react-icons/bs";
+import AlarmsList from "../../components/alarmsList";
 
 const Alarms = () => {
   const { t } = useTranslation("alarms");
@@ -15,6 +10,7 @@ const Alarms = () => {
     <Layout>
       <Meta pagetitle={t("pageTitle")} />
       <h1>{t("title")}</h1>
+      <AlarmsList />
     </Layout>
   );
 };
