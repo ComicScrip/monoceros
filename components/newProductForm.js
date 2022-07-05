@@ -65,12 +65,12 @@ const NewProductForm = () => {
   }
 
   const textPopup = [
-    "Enter the expiry date of this particular product, or click the 'non perishable' option if it's not relevant.",
-    "Choose the two boundaries (high and low) of temperatures (°C) that this product should not cross. You'll get a warning if this happens. You can also choose to not track this data if not relevant for this product",
-    "Choose the two boundaries (high and low) of humidity level (%) that this product should not cross. You'll get a warning if this happens. You can also choose to not track this data if not relevant for this product",
-    "Choose the maximum light (Lux) your product can be exposed of",
-    "Choose the maximum value of acceleration (G) your product can sustained. It's a number between 1 and 25",
-    "Choose the axis of the sensor that will be vertical in its environment",
+    t("popupPerishable"),
+    t("popupTemp"),
+    t("popupHumidity"),
+    t("popupLight"),
+    t("popupShock"),
+    t("popupOrientation"),
   ];
 
   return (
@@ -83,7 +83,7 @@ const NewProductForm = () => {
         <div className={newProductStyle.content}>
           <div className={newProductStyle.headContent}>
             <label htmlFor="productName">
-              Product name*
+              {t("productName")}*
               <input
                 type="text"
                 id="productName"
@@ -96,7 +96,7 @@ const NewProductForm = () => {
               />
             </label>
             <label htmlFor="expirationDate">
-              Expiration date*
+              {t("expirationDate")}*
               <div className={newProductStyle.headExpInput}>
                 <div className={newProductStyle.calendarInput}>
                   <DatePicker
@@ -159,15 +159,15 @@ const NewProductForm = () => {
                   })
                 }
               />
-              Non perishable
+              {t("nonPerishable")}
             </label>
           </div>
           <h2 className={newProductStyle.conditionsTitle}>
-            Conditions boundaries
+            {t("conditionsBoundaries")}
           </h2>
           <div className={newProductStyle.conditions}>
             <div className={newProductStyle.item}>
-              <h3 className={newProductStyle.itemTitle}>Temperature*</h3>
+              <h3 className={newProductStyle.itemTitle}>{t("temperature")}*</h3>
               <div>
                 <div className={newProductStyle.quantityBlock}>
                   <input
@@ -231,7 +231,7 @@ const NewProductForm = () => {
                         })
                       }
                     />
-                    Not to be tracked
+                    {t("notToBeTracked")}
                   </label>
                   <button
                     type="button"
@@ -257,7 +257,7 @@ const NewProductForm = () => {
               </div>
             </div>
             <div className={newProductStyle.item}>
-              <h3 className={newProductStyle.itemTitle}>Humidity*</h3>
+              <h3 className={newProductStyle.itemTitle}>{t("humidity")}*</h3>
               <div>
                 <div className={newProductStyle.quantityBlock}>
                   <input
@@ -320,7 +320,7 @@ const NewProductForm = () => {
                         })
                       }
                     />
-                    Not to be tracked
+                    {t("notToBeTracked")}
                   </label>
                   <button
                     type="button"
@@ -344,7 +344,7 @@ const NewProductForm = () => {
               </div>
             </div>
             <div className={newProductStyle.item}>
-              <h3 className={newProductStyle.itemTitle}>Light.*</h3>
+              <h3 className={newProductStyle.itemTitle}>{t("light")}*</h3>
               <div className={newProductStyle.itemBlockOneOnly}>
                 <input
                   type="number"
@@ -380,7 +380,7 @@ const NewProductForm = () => {
                       })
                     }
                   />
-                  Not to be tracked
+                  {t("notToBeTracked")}
                 </label>
                 <button
                   type="button"
@@ -403,7 +403,7 @@ const NewProductForm = () => {
               </div>
             </div>
             <div className={newProductStyle.item}>
-              <h3 className={newProductStyle.itemTitle}>Vibrations*</h3>
+              <h3 className={newProductStyle.itemTitle}>{t("vibrations")}*</h3>
               <div className={newProductStyle.itemBlockOneOnly}>
                 <input
                   type="number"
@@ -439,7 +439,7 @@ const NewProductForm = () => {
                       })
                     }
                   />
-                  Not to be tracked
+                  {t("notToBeTracked")}
                 </label>
                 <button
                   type="button"
@@ -499,7 +499,7 @@ const NewProductForm = () => {
                       })
                     }
                   />
-                  Not to be tracked
+                  {t("notToBeTracked")}
                 </label>
                 <button
                   type="button"
@@ -526,7 +526,7 @@ const NewProductForm = () => {
             <div className={newProductStyle.itemBottom}>
               <div className={newProductStyle.itemBlocks}>
                 <h3 className={newProductStyle.itemTitleBottom}>
-                  Unit cost (€)
+                  {t("unitCost")} (€)
                 </h3>
                 <div className={newProductStyle.quantityBlockBottom}>
                   <input
@@ -546,7 +546,7 @@ const NewProductForm = () => {
               </div>
               <div className={newProductStyle.itemBlocks}>
                 <h3 className={newProductStyle.itemTitleBottom}>
-                  Lead time (days)
+                  {t("leadTime")}
                 </h3>
                 <div className={newProductStyle.quantityBlockBottom}>
                   <input
@@ -566,7 +566,7 @@ const NewProductForm = () => {
               </div>
             </div>
             <button type="submit" className={newProductStyle.addButton}>
-              Add new product
+              {t("addNewProduct")}
             </button>
           </div>
         </div>
