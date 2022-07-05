@@ -173,11 +173,7 @@ export default function Navbar() {
                       activeClassName="activeSubitem"
                       href="/newproduct"
                     >
-                      <a
-                        className={style.navlink}
-                        onClick={openMenu}
-                        style={{ opacity: "0.2" }}
-                      >
+                      <a className={style.navlink} onClick={openMenu}>
                         {t("newProduct")}
                       </a>
                     </ActiveLink>

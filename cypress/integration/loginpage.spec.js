@@ -29,7 +29,7 @@ describe("login", () => {
     it("should work", () => {
       cy.login({ email: "test@gmail.com" });
       cy.visit("/deliveries");
-      cy.contains("DELIVERIES OVERVIEW");
+      cy.contains("Deliveries Overview");
     });
   });
 });

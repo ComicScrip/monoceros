@@ -1,0 +1,21 @@
+{
+  "title": "Nouveau Produit",
+  "productName": "Nom du produit",
+  "expirationDate": "Date d'expiration",
+  "nonPerishable": "Non Périssable",
+  "conditionsBoundaries": "Limites Physiques",
+  "temperature": "Température",
+  "notToBeTracked": "Ne pas suivre",
+  "humidity": "Humidité",
+  "light": "Lumière",
+  "vibrations": "Vibrations",
+  "unitCost": "Coût unitaire",
+  "leadTime": "Délai de livraison (jour(s))",
+  "addNewProduct": "Ajouter un nouveau produit",
+  "popupPerishable": "Renseignez la date d'expiration du produit, ou cliquez sur 'non périssable' si cela n'est pas pertinent.",
+  "popupTemp": "Il s'agit des températures maximales et minimales que votre produit peut supporter. Vous serez notifié en cas de dépassement. Vous pouvez également choisir de ne pas suivre cette donnée si cela est non pertinent.",
+  "popupHumidity": "Il s'agit des limites de taux d'humidité que peut supporter votre produit. Vous serez notifié en cas de dépassement. Vous pouvez également choisir de ne pas suivre cette donnée si cela est non pertinent.",
+  "popupLight": "Renseignez la limite de luminosité (lux) que peut supporter votre produit. Vous serez notifié en cas de dépassement. Vous pouvez également choisir de ne pas suivre cette donnée si cela est non pertinent.",
+  "popupShock": "Renseignez la valeur maximale d'accélération (G) que peut supporter votre produit. C'est un nombre compris entre 1 et 25. Vous serez notifié en cas de dépassement. Vous pouvez également choisir de ne pas suivre cette donnée si cela est non pertinent.",
+  "popupOrientation": "Renseignez l'orientation du capteur dans son colis en désignant quel axe sera à la verticale."
+}
