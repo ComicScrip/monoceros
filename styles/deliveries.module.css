@@ -28,8 +28,8 @@
 
 .alert {
   cursor: pointer;
-  background-color: #ff455a;
-  color: beige;
+  background-color: var(--main-color);
+  color: white;
 }
 
 .head {
