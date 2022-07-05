@@ -1,0 +1,21 @@
+{
+  "title": "New Product",
+  "productName": "Product Name",
+  "expirationDate": "Expiration Date",
+  "nonPerishable": "Non Perishable",
+  "conditionsBoundaries": "Conditions Boundaries",
+  "temperature": "Temperature",
+  "notToBeTracked": "Not to be tracked",
+  "humidity": "Humidity",
+  "light": "Light",
+  "vibrations": "Vibrations",
+  "unitCost": "Unit cost",
+  "leadTime": "Lead time (day(s))",
+  "addNewProduct": "Add new product",
+  "popupPerishable": "Enter the expiry date of this particular product, or click the 'non perishable' option if it's not relevant.",
+  "popupTemp": "Choose the two boundaries (high and low) of temperatures (°C) that this product should not cross. You'll get a warning if this happens. You can also choose to not track this data if not relevant for this product.",
+  "popupHumidity": "Choose the two boundaries (high and low) of humidity level (%) that this product should not cross. You'll get a warning if this happens. You can also choose to not track this data if not relevant for this product.",
+  "popupLight": "Choose the maximum light (Lux) your product can be exposed of. You'll get a warning if this happens. You can also choose to not track this data if not relevant for this product.",
+  "popupShock": "Choose the maximum value of acceleration (G) your product can sustained. It's a number between 1 and 25. You'll get a warning if this happens. You can also choose to not track this data if not relevant for this product.",
+  "popupOrientation": "Choose the axis of the sensor that will be vertical in its environment."
+}

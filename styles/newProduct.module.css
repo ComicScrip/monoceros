@@ -1,0 +1,221 @@
+/* @import "../node_modules/react-datepicker/src/stylesheets/datepicker.scss";
+*/
+
+.title {
+  margin: 0 64px 12px;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff455a;
+}
+
+.headContent {
+  width: 80vw;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #c5c5c5;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.productNameInput {
+  padding: 4px;
+  margin-bottom: 18px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  border-radius: 5px;
+}
+
+.headExpInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60vw;
+}
+
+.calendarInput {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.productExpInput {
+  padding: 4px;
+  width: 50vw;
+  border-radius: 5px;
+}
+
+.checkbox {
+  margin-right: 10px;
+  -webkit-appearance: none;
+  background-color: #fafafa;
+  border: 1px solid #cacece;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+  padding: 9px;
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+}
+
+.checkbox:active,
+.checkbox:checked:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox:checked {
+  background-color: #ff455a;
+  border: 1px solid #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05),
+    inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+  color: #99a1a7;
+}
+
+.checkbox:checked:after {
+  content: "\2713";
+  font-size: 14px;
+  position: absolute;
+  top: 0px;
+  left: 3px;
+  color: #ffffff;
+}
+
+.conditionsTitle {
+  text-align: left;
+  font-weight: bolder;
+  margin: 15px auto;
+  padding-left: 20px;
+}
+
+.itemTitle {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  margin-top: 30px;
+}
+
+.quantityBlock {
+  display: flex;
+  margin: 10px 15px;
+  justify-content: center;
+}
+
+.quantityBlock input {
+  width: 33%;
+  margin: 0 10px;
+  padding: 4px;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+
+.tracked {
+  display: flex;
+  margin: 10px 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.itemBlockOneOnly {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.itemBlockOneOnlyInput {
+  width: 33%;
+  margin: 0 10px;
+  padding: 4px;
+  padding-left: 10px;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.itemBottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.itemTitleBottom {
+  text-align: center;
+  margin: 20px 10px 10px 10px;
+}
+
+.quantityBlockBottom input {
+  width: 90%;
+  margin: 0 10px;
+  padding: 4px;
+  border-radius: 5px;
+}
+
+.itemBlocks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.addButton {
+  background-color: #ff455a;
+  border: solid 1px #ff455a;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: block;
+  margin: 20px auto;
+}
+
+.orientationInput {
+  background-color: #ffffff;
+}
+
+.minMaxInput {
+  background-color: #ffffff;
+}
+
+.popupContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 3000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupInner {
+  position: relative;
+  margin-top: 0;
+  padding: 32px;
+  width: 50%;
+  max-width: 640px;
+  background: #ff455a;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.popupInner:before {
+  left: 0;
+  border-width: 0.4rem 0.4rem 0.4rem 0;
+  border-right-color: #000;
+  position: absolute;
+  content: "";
+  border-color: transparent;
+  border-style: solid;
+}
