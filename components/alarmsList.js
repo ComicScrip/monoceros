@@ -18,6 +18,7 @@ import {
   getWarehouses,
 } from "../lib/productsAPI";
 import CustomSelect from "./customSelect";
+import Link from "next/link";
 
 function AlarmsList() {
   const { t } = useTranslation("alarms");
@@ -30,6 +31,12 @@ function AlarmsList() {
   );
   const [productSelect, setProductSelect] = useState(
     router.query.product || ""
+  );
+  const [deliveryIdSelect, setdeliveryIdSelect] = useState(
+    router.query.deliveryId || ""
+  );
+  const [packageIdSelect, setPackageIdSelect] = useState(
+    router.query.packageId || ""
   );
   const [countriesList, setCountriesList] = useState([]);
   const [warehousesList, setWarehousesList] = useState([]);
@@ -50,6 +57,8 @@ function AlarmsList() {
         country: countrySelect,
         product: productSelect,
         page: currentPage,
+        delivery_id: deliveryIdSelect,
+        package_id: packageIdSelect,
       },
     });
     async function request() {
@@ -58,7 +67,9 @@ function AlarmsList() {
         (currentPage - 1) * alarmsPerPage,
         countrySelect,
         warehouseSelect,
-        productSelect
+        productSelect,
+        deliveryIdSelect,
+        packageIdSelect
       );
       const warehouses = await getWarehouses(countrySelect, productSelect);
       const countries = await getAllCountries();
@@ -129,7 +140,17 @@ function AlarmsList() {
                   >
                     <input type="checkbox" className={alarmsStyle.checkbox} />
                   </td>
-                  <td className={alarmsStyle.tCell}>{alarm.delivery_id}</td>
+                  <td
+                    className={alarmsStyle.tCell}
+                    onClick={() => {
+                      router.push({
+                        pathname: "/deliveries/[delivery_id]",
+                        query: { delivery_id: alarm.delivery_id },
+                      });
+                    }}
+                  >
+                    {alarm.delivery_id}
+                  </td>
                   <td className={alarmsStyle.tCell}>
                     <div className="flex justify-center">
                       {alarm.issue_temp ? (
