@@ -1,3 +1,15 @@
+.head {
+  margin: 0 2.5%;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff455a;
+}
+
 .table {
   width: 95%;
   margin-left: auto;
@@ -9,14 +21,27 @@
 
 .tHeader {
   background-color: var(--main-bg-color);
-  padding: 25px 5px 5px 5px;
+  padding: 25px 15px 5px 15px;
   font-weight: 900;
   font-size: 12px;
 }
 
 .tCell {
-  padding: 15px 5px 15px 5px;
+  padding: 15px;
   text-align: center;
   font-weight: 500;
   font-size: 11px;
+  min-width: 80px;
+  height: 30px;
+}
+
+.tCellLeft {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.tCellRight {
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  overflow-y: scroll;
 }
