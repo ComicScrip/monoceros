@@ -1,18 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout";
-import QrCodeReader from "../../components/qrCodeReader";
+import Scanner from "../../components/scanner";
+import SelectManually from "../../components/selectManually";
+import ProductStep from "../../components/productStep";
+import RecapNewPackage from "../../components/recapNewPackage";
 
 export default function NewPackage() {
-  return (
-    <Layout>
-      <div className="flex flex-col items-center bg-[#999999] h-[100vh] text-white">
-        <p className="font-[900] text-2xl">Scan sensor</p>
-        <QrCodeReader />
-        <p>Place the QR code inside the window to scan it</p>
-        <button className="w-[215px] py-3 px-4 bg-main_color rounded-md">
-          Enter details manually
-        </button>
-      </div>
-    </Layout>
-  );
+  const [sensor, setSensor] = useState("");
+  const [product, setProduct] = useState("");
+  const [productQuantity, setProductQuantity] = useState(1);
+  const [packageInfos, setPackageInfos] = useState([]);
+  const [route, setRoute] = useState("scanSensor");
+  const router = {
+    scanSensor: (
+      <Scanner
+        setRoute={setRoute}
+        setvalue={setSensor}
+        title={"Scan sensor"}
+        route={"selectSensor"}
+      />
+    ),
+    selectSensor: (
+      <SelectManually
+        setRoute={setRoute}
+        setValue={setSensor}
+        title={"select manually sensor"}
+        route={"productStep"}
+        btnText={"Add sensor"}
+        type={"sensor"}
+        value={sensor}
+      />
+    ),
+    productStep: <ProductStep setRoute={setRoute} sensorId={sensor} />,
+    scanProduct: (
+      <Scanner
+        setRoute={setRoute}
+        setvalue={setProduct}
+        title={"Scan product"}
+        route={"selectProduct"}
+      />
+    ),
+    selectProduct: (
+      <SelectManually
+        setRoute={setRoute}
+        setValue={setProduct}
+        value={product}
+        title={"Select manually product"}
+        route={"recapCreation"}
+        btnText={"Add product"}
+        type={"product"}
+      />
+    ),
+    recapCreation: (
+      <RecapNewPackage
+        quantiy={productQuantity}
+        setQuantity={setProductQuantity}
+        productId={product}
+        sensorId={sensor}
+        setPackage={setPackageInfos}
+        packageInfos={packageInfos}
+        setRoute={setRoute}
+      />
+    ),
+  };
+
+  useEffect(() => {
+    console.log("sensorId => ", sensor);
+    console.log("package => ", packageInfos);
+  }, [packageInfos]);
+
+  return <Layout>{router[route]}</Layout>;
 }

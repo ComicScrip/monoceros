@@ -332,7 +332,6 @@ export default function Navbar() {
                   <a
                     className={style.navlink + " " + style.navlinkTitle}
                     onClick={openMenu}
-                    style={{ opacity: "0.2" }}
                   >
                     {t("alarms")}
                   </a>
