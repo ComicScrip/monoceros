@@ -1,4 +1,8 @@
 {
   "title": "Alertes",
-  "pageTitle": "Monoceros - Alertes"
+  "pageTitle": "Monoceros - Alertes",
+  "product": "Produit",
+  "country": "Pays",
+  "warehouse": "Entrepôt",
+  "noData": "Pas de données"
 }

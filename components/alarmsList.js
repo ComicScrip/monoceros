@@ -3,15 +3,13 @@ import Pagination from "./pagination";
 import Loading from "./loading";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import {
-  getAlarms,
-  getAlarmsByCountryWarehouseAndProduct,
-} from "../lib/alarmsAPI";
+import { getAlarmsByCountryWarehouseAndProduct } from "../lib/alarmsAPI";
 import { MdLightMode, MdWaterDrop } from "react-icons/md";
 import { RiTempColdLine } from "react-icons/ri";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { GiHandcuffed } from "react-icons/gi";
-import { BsFillCalendarXFill, BsBoxSeam } from "react-icons/bs";
+import { BsFillCalendarXFill } from "react-icons/bs";
+import { GiCardboardBoxClosed } from "react-icons/gi";
 import alarmsStyle from "../styles/alarms.module.css";
 import moment from "moment";
 import {
@@ -129,7 +127,7 @@ function AlarmsList() {
                   <td
                     className={alarmsStyle.tCell + " " + alarmsStyle.tCellLeft}
                   >
-                    <input type="checkbox" />
+                    <input type="checkbox" className={alarmsStyle.checkbox} />
                   </td>
                   <td className={alarmsStyle.tCell}>{alarm.delivery_id}</td>
                   <td className={alarmsStyle.tCell}>
@@ -161,11 +159,14 @@ function AlarmsList() {
                         ""
                       )}
                       {alarm.issue_orientation ? (
-                        <BsBoxSeam size={20} style={{ color: "#ff455a" }} />
+                        <GiCardboardBoxClosed
+                          size={20}
+                          style={{ color: "#ff455a" }}
+                        />
                       ) : (
                         ""
                       )}
-                      {alarm.issue_eta ? (
+                      {alarm.issue_eta || alarm.issue_expdate ? (
                         <BsFillCalendarXFill
                           size={20}
                           style={{ color: "#ff455a" }}
@@ -185,8 +186,10 @@ function AlarmsList() {
                   >
                     {moment(alarm.date).format("DD-MM-yyyy")}
                   </td>
-                  <td className={alarmsStyle.tCell}>
-                    {moment(alarm.date).subtract(2, "hours").format("HH:mm")}
+                  <td
+                    className={alarmsStyle.tCell + " " + alarmsStyle.dateCell}
+                  >
+                    {moment(alarm.date).subtract(2, "hours").format("LT")}
                   </td>
                   <td className={alarmsStyle.tCell}>{alarm.action_taken}</td>
                   <td className={alarmsStyle.tCell}>{alarm.contact_name}</td>
@@ -202,6 +205,12 @@ function AlarmsList() {
             </tbody>
           </table>
         </div>
+      ) : (!alarms.length && warehouseSelect) ||
+        (!alarms.length && countrySelect) ||
+        (!alarms.length && productSelect) ? (
+        <div className="flex items-center justify-center bg-white w-[90vw] h-16">
+          <p style={{ color: "var(--main-color)" }}>{t("noData")}</p>
+        </div>
       ) : (
         <Loading />
       )}
@@ -212,6 +221,9 @@ function AlarmsList() {
           currentPage={currentPage}
         />
       </div>
+      <button type="button" className={alarmsStyle.buttonResolve}>
+        Résoudre une alerte
+      </button>
     </>
   );
 }

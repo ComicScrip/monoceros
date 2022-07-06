@@ -146,11 +146,12 @@
 
 .selectLanguage {
   margin-right: 2.5rem;
-  padding: 0.2rem 0.8rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 5px;
   font-weight: 700;
   color: black;
   background-color: #fff;
+  border: 5px solid #fff;
 }
 
 .hamburger {

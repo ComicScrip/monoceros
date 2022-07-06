@@ -1,4 +1,8 @@
 {
   "title": "Alarms",
-  "pageTitle": "Monoceros - Alarms"
+  "pageTitle": "Monoceros - Alarms",
+  "product": "Product",
+  "country": "Country",
+  "warehouse": "Warehouse",
+  "noData": "No data"
 }
