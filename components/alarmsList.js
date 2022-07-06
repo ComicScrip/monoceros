@@ -109,86 +109,99 @@ function AlarmsList() {
         />
       </div>
       {alarms.length !== 0 ? (
-        <table className={alarmsStyle.table}>
-          <thead>
-            <tr>
-              <th className={alarmsStyle.tHeader}></th>
-              <th className={alarmsStyle.tHeader}>N° de livraison</th>
-              <th className={alarmsStyle.tHeader}>Alertes</th>
-              <th className={alarmsStyle.tHeader}>Date</th>
-              <th className={alarmsStyle.tHeader}>Heure</th>
-              <th className={alarmsStyle.tHeader}>Action</th>
-              <th className={alarmsStyle.tHeader}>Nom du contact</th>
-              <th className={alarmsStyle.tHeader}>Commentaires</th>
-            </tr>
-          </thead>
-          <tbody>
-            {alarms.map((alarm) => (
-              <tr key={alarm.id} className="bg-white">
-                <td className={alarmsStyle.tCell + " " + alarmsStyle.tCellLeft}>
-                  <input type="checkbox" />
-                </td>
-                <td className={alarmsStyle.tCell}>{alarm.delivery_id}</td>
-                <td className={alarmsStyle.tCell}>
-                  {alarm.issue_temp ? (
-                    <RiTempColdLine size={20} style={{ color: "#ff455a" }} />
-                  ) : (
-                    ""
-                  )}
-                  {alarm.issue_humidity ? (
-                    <MdWaterDrop size={20} style={{ color: "#ff455a" }} />
-                  ) : (
-                    ""
-                  )}
-                  {alarm.issue_shock ? (
-                    <AiOutlineDashboard
-                      size={20}
-                      style={{ color: "#ff455a" }}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  {alarm.issue_light ? (
-                    <MdLightMode size={20} style={{ color: "#ff455a" }} />
-                  ) : (
-                    ""
-                  )}
-                  {alarm.issue_orientation ? (
-                    <BsBoxSeam size={20} style={{ color: "#ff455a" }} />
-                  ) : (
-                    ""
-                  )}
-                  {alarm.issue_eta ? (
-                    <BsFillCalendarXFill
-                      size={20}
-                      style={{ color: "#ff455a" }}
-                    />
-                  ) : (
-                    ""
-                  )}
-                  {alarm.theft ? (
-                    <GiHandcuffed size={20} style={{ color: "#ff455a" }} />
-                  ) : (
-                    ""
-                  )}
-                </td>
-                <td className={alarmsStyle.tCell}>
-                  {moment(alarm.date).format("DD-MM-yyyy")}
-                </td>
-                <td className={alarmsStyle.tCell}>
-                  {moment(alarm.date).subtract(2, "hours").format("HH:mm")}
-                </td>
-                <td className={alarmsStyle.tCell}>{alarm.action_taken}</td>
-                <td className={alarmsStyle.tCell}>{alarm.contact_name}</td>
-                <td
-                  className={alarmsStyle.tCell + " " + alarmsStyle.tCellRight}
-                >
-                  {alarm.message}
-                </td>
+        <div className="overflow-x-scroll w-[100%]">
+          <table className={alarmsStyle.table}>
+            <thead>
+              <tr>
+                <th className={alarmsStyle.tHeader}></th>
+                <th className={alarmsStyle.tHeader}>N° de livraison</th>
+                <th className={alarmsStyle.tHeader}>Alertes</th>
+                <th className={alarmsStyle.tHeader}>Date</th>
+                <th className={alarmsStyle.tHeader}>Heure</th>
+                <th className={alarmsStyle.tHeader}>Action</th>
+                <th className={alarmsStyle.tHeader}>Nom du contact</th>
+                <th className={alarmsStyle.tHeader}>Commentaires</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {alarms.map((alarm) => (
+                <tr key={alarm.id} className="bg-white">
+                  <td
+                    className={alarmsStyle.tCell + " " + alarmsStyle.tCellLeft}
+                  >
+                    <input type="checkbox" />
+                  </td>
+                  <td className={alarmsStyle.tCell}>{alarm.delivery_id}</td>
+                  <td className={alarmsStyle.tCell}>
+                    <div className="flex justify-center">
+                      {alarm.issue_temp ? (
+                        <RiTempColdLine
+                          size={20}
+                          style={{ color: "#ff455a" }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.issue_humidity ? (
+                        <MdWaterDrop size={20} style={{ color: "#ff455a" }} />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.issue_shock ? (
+                        <AiOutlineDashboard
+                          size={20}
+                          style={{ color: "#ff455a" }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.issue_light ? (
+                        <MdLightMode size={20} style={{ color: "#ff455a" }} />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.issue_orientation ? (
+                        <BsBoxSeam size={20} style={{ color: "#ff455a" }} />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.issue_eta ? (
+                        <BsFillCalendarXFill
+                          size={20}
+                          style={{ color: "#ff455a" }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.theft ? (
+                        <GiHandcuffed size={20} style={{ color: "#ff455a" }} />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </td>
+                  <td
+                    className={alarmsStyle.tCell + " " + alarmsStyle.dateCell}
+                  >
+                    {moment(alarm.date).format("DD-MM-yyyy")}
+                  </td>
+                  <td className={alarmsStyle.tCell}>
+                    {moment(alarm.date).subtract(2, "hours").format("HH:mm")}
+                  </td>
+                  <td className={alarmsStyle.tCell}>{alarm.action_taken}</td>
+                  <td className={alarmsStyle.tCell}>{alarm.contact_name}</td>
+                  <td
+                    className={alarmsStyle.tCell + " " + alarmsStyle.tCellRight}
+                  >
+                    <div className="overflow-y-scroll h-8 min-w-[200px]">
+                      {alarm.message}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <Loading />
       )}

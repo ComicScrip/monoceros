@@ -17,6 +17,7 @@
   border-collapse: separate;
   border-spacing: 0 5px;
   font-size: 10px;
+  overflow-x: scroll;
 }
 
 .tHeader {
@@ -27,12 +28,11 @@
 }
 
 .tCell {
-  padding: 15px;
+  padding: 10px;
   text-align: center;
   font-weight: 500;
   font-size: 11px;
-  min-width: 80px;
-  height: 30px;
+  min-width: 12.5%;
 }
 
 .tCellLeft {
@@ -43,5 +43,8 @@
 .tCellRight {
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
-  overflow-y: scroll;
+}
+
+.dateCell {
+  min-width: 100px;
 }
