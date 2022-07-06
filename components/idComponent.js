@@ -203,7 +203,6 @@ const IdComponent = () => {
             >
               <div
                 data-cy={"packageDetailId" + i}
-                onClick={() => router.replace(`/packages`)}
                 className={idStyle.idPackage}
               >
                 {colis.id}
