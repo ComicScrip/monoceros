@@ -135,11 +135,6 @@ function DeliveryList() {
                   {delivery.id}
                 </td>
                 <td className={deliveriesStyle.tCell} data-cy="deliveryStatus">
-                  {/* {delivery.status === "Completed"
-                    ? t("completed")
-                    : delivery.status === "In progress"
-                    ? t("inProgress")
-                    : t("delayed")} */}
                   {delivery.tracking_nb}
                 </td>
                 <td className={deliveriesStyle.tCell} data-cy="deliveryContact">
