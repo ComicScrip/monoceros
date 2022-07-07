@@ -24,7 +24,14 @@ ChartJS.register(
   annotationPlugin
 );
 
-const Graph = ({ sensorData, limitData, id, showXAxis, minDate, maxDate }) => {
+const GraphAllPackages = ({
+  sensorData,
+  limitData,
+  id,
+  showXAxis,
+  minDate,
+  maxDate,
+}) => {
   const [dataMin, setDataMin] = useState(0);
   const [dataMax, setDataMax] = useState(0);
   const [filteredData, setFilteredData] = useState(sensorData);
@@ -149,4 +156,4 @@ const Graph = ({ sensorData, limitData, id, showXAxis, minDate, maxDate }) => {
   );
 };
 
-export default Graph;
+export default GraphAllPackages;

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import groupDataStyle from "../styles/groupData.module.css";
 import { useTranslation } from "next-i18next";
 import dynamic from "next/dynamic";
@@ -14,7 +14,12 @@ const GroupData = ({
   maxDate,
   setMaxDate,
   packageLimits,
+  allTemp,
+  allHum,
+  allLight,
+  allShock,
 }) => {
+  const [showAll, setShowAll] = useState(false);
   const { t } = useTranslation("packages");
   const GraphWithNoSSR = dynamic(() => import("./graph"), {
     ssr: false,
@@ -36,6 +41,15 @@ const GroupData = ({
   return (
     <>
       <div className="flex flex-col w-[90%] mx-auto pt-2">
+        <label htmlFor="allData-show">
+          Show all Data :
+          <input
+            type="checkbox"
+            id="allData-show"
+            checked={showAll}
+            onChange={() => setShowAll(!showAll)}
+          />
+        </label>
         <label htmlFor="minDate-select" className="my-2">
           Choose the min date:
         </label>
