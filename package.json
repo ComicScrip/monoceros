@@ -27,6 +27,7 @@
     "chartjs-plugin-annotation": "^1.4.0",
     "chartjs-plugin-zoom": "^1.2.1",
     "global": "^4.4.0",
+    "html5-qrcode": "^2.2.1",
     "jose": "^4.8.1",
     "leaflet": "^1.8.0",
     "leaflet-defaulticon-compatibility": "^0.1.1",

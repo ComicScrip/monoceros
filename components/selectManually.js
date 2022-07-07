@@ -48,7 +48,6 @@ export default function SelectManually({
         >
           {btnText}
         </button>
-        value {JSON.stringify(value)}
       </div>
     </>
   );

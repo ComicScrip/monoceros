@@ -15,10 +15,11 @@ export default function NewPackage() {
     scanSensor: (
       <Scanner
         setRoute={setRoute}
-        setvalue={setSensor}
+        setValue={setSensor}
         title={"Scan sensor"}
         route={"selectSensor"}
         type={"sensor"}
+        value={sensor}
       />
     ),
     selectSensor: (
