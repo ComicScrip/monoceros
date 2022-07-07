@@ -18,7 +18,6 @@ import {
   getWarehouses,
 } from "../lib/productsAPI";
 import CustomSelect from "./customSelect";
-import Link from "next/link";
 
 function AlarmsList() {
   const { t } = useTranslation("alarms");
@@ -42,6 +41,7 @@ function AlarmsList() {
   const [warehousesList, setWarehousesList] = useState([]);
   const [productsList, setProductsList] = useState([]);
   const [alarms, setAlarms] = useState([]);
+  const [handleClick, setHandleClick] = useState([]);
   const [currentPage, setCurrentPage] = useState(
     parseInt(router.query.page) || 1
   );
@@ -57,8 +57,8 @@ function AlarmsList() {
         country: countrySelect,
         product: productSelect,
         page: currentPage,
-        delivery_id: deliveryIdSelect,
-        package_id: packageIdSelect,
+        deliveryId: deliveryIdSelect,
+        packageId: packageIdSelect,
       },
     });
     async function request() {
@@ -85,6 +85,43 @@ function AlarmsList() {
     }
     request();
   }, [currentPage, countrySelect, warehouseSelect, productSelect]);
+
+  useEffect(() => {
+    router.replace({
+      query: {
+        ...router.query,
+        warehouse: "",
+        country: "",
+        product: "",
+        page: 1,
+        deliveryId: "",
+        packageId: "",
+      },
+    });
+    async function request() {
+      const data = await getAlarmsByCountryWarehouseAndProduct(
+        alarmsPerPage,
+        (currentPage - 1) * alarmsPerPage,
+        countrySelect,
+        warehouseSelect,
+        productSelect,
+        deliveryIdSelect,
+        packageIdSelect
+      );
+      const warehouses = await getWarehouses(countrySelect, productSelect);
+      const countries = await getAllCountries();
+      const products = await getProductsByCountryAndWarehouse(
+        countrySelect,
+        warehouseSelect
+      );
+      setWarehousesList(warehouses.data);
+      setCountriesList(countries.data);
+      setNumberOfAlarms(data.count);
+      setAlarms(data.results);
+      setProductsList(products.data.results);
+    }
+    setHandleClick(request());
+  }, [deliveryIdSelect, packageIdSelect]);
 
   return (
     <>
@@ -117,6 +154,23 @@ function AlarmsList() {
           keyTwo={"name"}
         />
       </div>
+      {deliveryIdSelect !== "" || packageIdSelect !== "" ? (
+        <>
+          <p>
+            Alertes sur les livraisons {deliveryIdSelect} / package{" "}
+            {packageIdSelect}
+          </p>
+          <button
+            className={alarmsStyle.buttonResolve}
+            type="button"
+            onClick={handleClick}
+          >
+            Toutes les alertes
+          </button>
+        </>
+      ) : (
+        ""
+      )}
       {alarms.length !== 0 ? (
         <div className="overflow-x-scroll w-[100%]">
           <table className={alarmsStyle.table}>
@@ -228,7 +282,9 @@ function AlarmsList() {
         </div>
       ) : (!alarms.length && warehouseSelect) ||
         (!alarms.length && countrySelect) ||
-        (!alarms.length && productSelect) ? (
+        (!alarms.length && productSelect) ||
+        (!alarms.length && deliveryIdSelect) ||
+        (!alarms.length && packageIdSelect) ? (
         <div className="flex items-center justify-center bg-white w-[90vw] h-16">
           <p style={{ color: "var(--main-color)" }}>{t("noData")}</p>
         </div>

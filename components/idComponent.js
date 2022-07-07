@@ -212,7 +212,11 @@ const IdComponent = () => {
                   className={idStyle.alertPackage}
                   onClick={() => {
                     router.push({
-                      pathname: `/alarms?warehouse=&country=&product=&page=1&delivery_id=${deliveryDetail.id}&package_id=${colis.id}`,
+                      pathname: "/alarms/",
+                      query: {
+                        deliveryId: deliveryDetail.id,
+                        packageId: deliveryDetail.packages[0].id,
+                      },
                     });
                   }}
                 >
