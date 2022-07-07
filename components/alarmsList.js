@@ -3,7 +3,10 @@ import Pagination from "./pagination";
 import Loading from "./loading";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { getAlarmsByCountryWarehouseAndProduct } from "../lib/alarmsAPI";
+import {
+  getAlarmsByCountryWarehouseAndProduct,
+  postAlarmsSolveWarning,
+} from "../lib/alarmsAPI";
 import { MdLightMode, MdWaterDrop } from "react-icons/md";
 import { RiTempColdLine } from "react-icons/ri";
 import { AiOutlineDashboard } from "react-icons/ai";
@@ -18,6 +21,7 @@ import {
   getWarehouses,
 } from "../lib/productsAPI";
 import CustomSelect from "./customSelect";
+import toast, { Toaster } from "react-hot-toast";
 
 function AlarmsList() {
   const { t } = useTranslation("alarms");
@@ -41,7 +45,6 @@ function AlarmsList() {
   const [warehousesList, setWarehousesList] = useState([]);
   const [productsList, setProductsList] = useState([]);
   const [alarms, setAlarms] = useState([]);
-  const [handleClick, setHandleClick] = useState([]);
   const [currentPage, setCurrentPage] = useState(
     parseInt(router.query.page) || 1
   );
@@ -86,8 +89,8 @@ function AlarmsList() {
     request();
   }, [currentPage, countrySelect, warehouseSelect, productSelect]);
 
-  useEffect(() => {
-    router.replace({
+  async function handleClick() {
+    await router.replace({
       query: {
         ...router.query,
         warehouse: "",
@@ -98,33 +101,34 @@ function AlarmsList() {
         packageId: "",
       },
     });
-    async function request() {
-      const data = await getAlarmsByCountryWarehouseAndProduct(
-        alarmsPerPage,
-        (currentPage - 1) * alarmsPerPage,
-        countrySelect,
-        warehouseSelect,
-        productSelect,
-        deliveryIdSelect,
-        packageIdSelect
-      );
-      const warehouses = await getWarehouses(countrySelect, productSelect);
-      const countries = await getAllCountries();
-      const products = await getProductsByCountryAndWarehouse(
-        countrySelect,
-        warehouseSelect
-      );
-      setWarehousesList(warehouses.data);
-      setCountriesList(countries.data);
-      setNumberOfAlarms(data.count);
-      setAlarms(data.results);
-      setProductsList(products.data.results);
+    window.location.reload();
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      await postAlarmsSolveWarning();
+      toast.success("Action résolu", {
+        style: {
+          border: "1px solid #ff455a",
+          padding: "16px",
+          color: "#ff455a",
+        },
+        iconTheme: {
+          primary: "#ff455a",
+          secondary: "#FFFAEE",
+        },
+      });
+    } catch (error) {
+      console.log(error);
     }
-    setHandleClick(request());
-  }, [deliveryIdSelect, packageIdSelect]);
+  }
 
   return (
     <>
+      <div>
+        <Toaster />
+      </div>
       <div className="flex flex-col items-center w-[95] mb-10">
         <CustomSelect
           items={countriesList}
@@ -154,7 +158,7 @@ function AlarmsList() {
           keyTwo={"name"}
         />
       </div>
-      {deliveryIdSelect !== "" || packageIdSelect !== "" ? (
+      {deliveryIdSelect !== "" && packageIdSelect !== "" ? (
         <>
           <p>
             Alertes sur les livraisons {deliveryIdSelect} / package{" "}
@@ -163,7 +167,9 @@ function AlarmsList() {
           <button
             className={alarmsStyle.buttonResolve}
             type="button"
-            onClick={handleClick}
+            onClick={() => {
+              handleClick();
+            }}
           >
             Toutes les alertes
           </button>
@@ -298,7 +304,11 @@ function AlarmsList() {
           currentPage={currentPage}
         />
       </div>
-      <button type="button" className={alarmsStyle.buttonResolve}>
+      <button
+        type="submit"
+        onSubmit={handleSubmit}
+        className={alarmsStyle.buttonResolve}
+      >
         Résoudre une alerte
       </button>
     </>
