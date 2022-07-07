@@ -18,6 +18,7 @@ export default function NewPackage() {
         setvalue={setSensor}
         title={"Scan sensor"}
         route={"selectSensor"}
+        type={"sensor"}
       />
     ),
     selectSensor: (
@@ -38,6 +39,7 @@ export default function NewPackage() {
         setvalue={setProduct}
         title={"Scan product"}
         route={"selectProduct"}
+        type={"product"}
       />
     ),
     selectProduct: (
@@ -65,9 +67,9 @@ export default function NewPackage() {
   };
 
   useEffect(() => {
-    console.log("sensorId => ", sensor);
+    console.log(sensor);
     console.log("package => ", packageInfos);
-  }, [packageInfos]);
+  }, [packageInfos, sensor, product]);
 
   return <Layout>{router[route]}</Layout>;
 }

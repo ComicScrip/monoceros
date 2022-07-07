@@ -30,8 +30,8 @@ export default function SelectManually({
 
   return (
     <>
-      <div className="flex flex-col items-center">
-        <p className="font-[900] text-xl text-main_color">{title}</p>
+      <div className="flex flex-col items-center pt-5">
+        <p className="font-[900] text-xl text-main_color mb-3">{title}</p>
         <BasiqSelect
           setState={setValue}
           items={selectOption}
@@ -48,6 +48,7 @@ export default function SelectManually({
         >
           {btnText}
         </button>
+        value {JSON.stringify(value)}
       </div>
     </>
   );

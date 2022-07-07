@@ -22,7 +22,12 @@ export default function RecapNewPackage({
     setPackage((prevState) => {
       return [
         ...prevState,
-        { product: productInfos.name, productId: productId, quantity: quantiy },
+        {
+          product: productInfos.name,
+          productId: productId,
+          quantity: quantiy,
+          monocerosId: sensorId,
+        },
       ];
     });
   }
@@ -33,8 +38,8 @@ export default function RecapNewPackage({
 
   return (
     <>
-      <div className="flex flex-col items-center">
-        <p className="font-[900] text-xl text-main_color w-[90%] text-center">
+      <div className="flex flex-col items-center pt-5">
+        <p className="font-[900] text-xl text-main_color w-[90%] text-center mb-3">
           Sensor and product succesfully appaired
         </p>
         <div className="bg-white flex flex-col w-[250px] items-center rounded-md p-3">
