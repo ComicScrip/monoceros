@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BasiqSelect from "./basiqSelect";
 import { getAllProducts } from "../lib/productsAPI";
-import { getAllSensorId } from "../lib/sensorDataAPI";
+import { getAllSensorNotAssigned } from "../lib/sensorDataAPI";
 
 export default function SelectManually({
   setRoute,
@@ -19,7 +19,7 @@ export default function SelectManually({
       const res = await getAllProducts(100, 0);
       setSelectOption(res.data.results);
     } else if (type === "sensor") {
-      const res = await getAllSensorId();
+      const res = await getAllSensorNotAssigned();
       setSelectOption(res);
     }
   }
@@ -37,8 +37,8 @@ export default function SelectManually({
           items={selectOption}
           value={value}
           defaultValue={type === "sensor" ? "Select sensor" : "Select product"}
-          keyOne={type === "sensor" ? "monoceros_id" : "id"}
-          keyTwo={type === "sensor" ? "monoceros_id" : "name"}
+          keyOne={type === "sensor" ? "sensor_id" : "id"}
+          keyTwo={type === "sensor" ? "sensor_id" : "name"}
         />
         <button
           onClick={() => {

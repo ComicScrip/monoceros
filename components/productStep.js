@@ -5,7 +5,7 @@ export default function ProductStep({ setRoute, sensorId }) {
     <>
       <div className="flex flex-col items-center pt-5">
         <p className="font-[900] text-xl text-main_color mb-3">
-          Sensor scan successful
+          Sensor selected
         </p>
         <p className="bg-white w-[200px] py-2 text-center font-[900]">
           {sensorId}
@@ -17,15 +17,13 @@ export default function ProductStep({ setRoute, sensorId }) {
           onClick={() => setRoute("scanProduct")}
           className="w-[215px] py-3 text-white bg-main_color mt-5 rounded-md"
         >
-          Scan product barcode
+          Next Step
         </button>
         <button
-          onClick={() => {
-            setRoute("selectProduct");
-          }}
-          className=" bg-white border-[1px] w-[215px] py-3 rounded-md border-black mt-5"
+          onClick={() => setRoute("scanSensor")}
+          className="w-[215px] py-3 text-black bg-white mt-5 rounded-md border-black border-[1px]"
         >
-          Enter product manually
+          Step back
         </button>
       </div>
     </>

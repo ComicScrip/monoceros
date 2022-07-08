@@ -26,7 +26,7 @@ export default function NewPackage() {
       <SelectManually
         setRoute={setRoute}
         setValue={setSensor}
-        title={"select manually sensor"}
+        title={"select sensor manually"}
         route={"productStep"}
         btnText={"Add sensor"}
         type={"sensor"}
@@ -37,10 +37,11 @@ export default function NewPackage() {
     scanProduct: (
       <Scanner
         setRoute={setRoute}
-        setvalue={setProduct}
+        setValue={setProduct}
         title={"Scan product"}
         route={"selectProduct"}
         type={"product"}
+        value={product}
       />
     ),
     selectProduct: (
@@ -48,7 +49,7 @@ export default function NewPackage() {
         setRoute={setRoute}
         setValue={setProduct}
         value={product}
-        title={"Select manually product"}
+        title={"Select product manually"}
         route={"recapCreation"}
         btnText={"Add product"}
         type={"product"}
@@ -56,7 +57,7 @@ export default function NewPackage() {
     ),
     recapCreation: (
       <RecapNewPackage
-        quantiy={productQuantity}
+        quantity={productQuantity}
         setQuantity={setProductQuantity}
         productId={product}
         sensorId={sensor}
@@ -66,11 +67,6 @@ export default function NewPackage() {
       />
     ),
   };
-
-  useEffect(() => {
-    console.log(sensor);
-    console.log("package => ", packageInfos);
-  }, [packageInfos, sensor, product]);
 
   return <Layout>{router[route]}</Layout>;
 }
