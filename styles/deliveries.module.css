@@ -28,8 +28,8 @@
 
 .alert {
   cursor: pointer;
-  background-color: #ff455a;
-  color: beige;
+  background-color: var(--main-color);
+  color: white;
 }
 
 .head {
@@ -54,4 +54,8 @@
 
 .popup {
   width: 65px !important;
+}
+
+.popupDetail {
+  width: 95px !important;
 }

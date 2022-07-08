@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import Pagination from "./pagination";
-import CountrySelect from "./countrySelect";
-import WarehouseSelect from "./warehouseSelect";
-import ProductSelect from "./productSelect";
 import Popup from "./popup";
 import toast, { Toaster } from "react-hot-toast";
 import {
@@ -16,6 +13,7 @@ import {
   getWarehouses,
   getProductsByCountryAndWarehouse,
 } from "../lib/productsAPI";
+import CustomSelect from "./customSelect";
 import Loading from "./loading";
 
 export default function PackagesList() {
@@ -104,49 +102,45 @@ export default function PackagesList() {
   return (
     <>
       <div className="flex flex-col items-center mb-10 text-center">
-        <h1
-          className="w-full mb-5"
-          style={{
-            color: "var(--main-color)",
-            fontSize: "20px",
-            fontWeight: "600",
-          }}
-        >
+        <h1 className="w-full mb-5 text-main_color text-[20px] font-[600]">
           {t("title")}
         </h1>
         <div className="flex flex-col items-center w-[95] mb-10">
-          <CountrySelect
-            countries={countriesList}
-            selectCountry={setCountrySelect}
-            country={countrySelect}
+          <CustomSelect
+            items={countriesList}
+            handleSelectItem={setCountrySelect}
+            selectItem={countrySelect}
+            defaultValue={t("country")}
             setCurrentPage={setCurrentPage}
+            keyOne={"country"}
+            keyTwo={"country"}
           />
-          <WarehouseSelect
-            warehouses={warehousesList}
-            selectWharehouse={setWareHouseSelect}
-            warehouse={warehouseSelect}
+          <CustomSelect
+            items={warehousesList}
+            handleSelectItem={setWareHouseSelect}
+            selectItem={warehouseSelect}
+            defaultValue={t("warehouse")}
             setCurrentPage={setCurrentPage}
+            keyOne={"id"}
+            keyTwo={"name"}
           />
-          <ProductSelect
-            products={productsList}
-            selectProduct={setProductSelect}
-            product={productSelect}
+          <CustomSelect
+            items={productsList}
+            handleSelectItem={setProductSelect}
+            selectItem={productSelect}
+            defaultValue={t("product")}
             setCurrentPage={setCurrentPage}
+            keyOne={"id"}
+            keyTwo={"name"}
           />
         </div>
         <div className="w-[95vw] bg-white flex flex-col items-center justify-center">
           {packages.length ? (
-            <div
-              className="overflow-x-scroll w-[100%]"
-              style={{ backgroundColor: "var(--main-bg-color)" }}
-            >
+            <div className="overflow-x-scroll w-[100%] bg-main_bg_color">
               <table className="w-[95vw]">
                 <tbody className="bg-white">
-                  <tr
-                    className="text-[0.6rem] font-bold "
-                    style={{ backgroundColor: "var(--main-bg-color)" }}
-                  >
-                    <td className="min-w-[70px] absolute bg-[#efefef]">
+                  <tr className="text-[0.6rem] font-bold bg-main_bg_color">
+                    <td className="min-w-[70px] absolute bg-main_bg_color">
                       <span>{tableHead[0]}</span>
                     </td>
                     <td></td>
@@ -159,14 +153,10 @@ export default function PackagesList() {
                   {packages.map((pack, _) => (
                     <tr
                       key={_}
-                      className="collapse border-8 text-[10px] h-16"
-                      style={{ borderColor: "var(--main-bg-color)" }}
+                      className="collapse font-bold border-8 text-[10px] h-16 border-main_bg_color"
                     >
                       <td className="min-w-[70px]"></td>
-                      <td
-                        style={{ color: "var(--main-color)" }}
-                        className="min-w-[70px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14"
-                      >
+                      <td className="min-w-[70px] bg-white absolute flex items-center justify-center text-[0.7rem] left-2 h-14 text-main_color">
                         {pack.id}
                       </td>
                       <td className="min-w-[110px]">{pack.sensor}</td>
@@ -225,10 +215,7 @@ export default function PackagesList() {
             <Loading />
           )}
           {Math.ceil(numberOfPackages / packagesPerPage) > 1 ? (
-            <div
-              className="flex justify-center w-full bg-main_bg_color"
-              style={{ backgroundColor: "var(--main-bg-color)" }}
-            >
+            <div className="flex justify-center w-full bg-main_bg_color">
               <Pagination
                 index={Math.ceil(numberOfPackages / packagesPerPage)}
                 setCurrentPage={setCurrentPage}

@@ -1,12 +1,14 @@
 {
   "pageTitle": "Monoceros - Synthèse des livraisons",
-  "overview": "SYNTHÈSE DES LIVRAISONS",
+  "overview": "Synthèse des Livraisons",
   "details": "Détails",
   "status": "Status des livraisons",
   "humidity": "Humidité",
   "light": "Lumière",
   "shock": "Choc",
-  "completed": "Terminée",
-  "inProgress": "En Cours",
-  "delayed": "Retardée"
+  "myDeliveries": "Mes livraisons",
+  "delayed": "Retardés",
+  "inProgress": "En cours",
+  "completed": "Terminés",
+  "alerts": "Alertes"
 }

@@ -1,12 +1,14 @@
 {
   "pageTitle": "Monoceros - Deliveries Overview",
-  "overview": "DELIVERIES OVERVIEW",
+  "overview": "Deliveries Overview",
   "details": "Details",
   "status": "Delivery Status",
   "humidity": "Humidity",
   "light": "Light",
   "shock": "Shock",
+  "myDeliveries": "My deliveries",
+  "delayed": "Delayed",
+  "inProgress": "In progres",
   "completed": "Completed",
-  "inProgress": "In Progress",
-  "delayed": "Delayed"
+  "alerts": "Alerts"
 }

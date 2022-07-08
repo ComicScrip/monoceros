@@ -48,34 +48,26 @@ const Graph = ({ sensorData, limitData, id, showXAxis, minDate, maxDate }) => {
   }, [minDate, maxDate, sensorData]);
 
   if (id === "Temperature") {
-    if (limitData[0].temperature_constraint) {
-      limitMin = limitData[0]?.temperature_min;
-      limitMax = limitData[0]?.temperature_max;
-    }
+    limitMin = limitData.temp_min;
+    limitMax = limitData.temp_max;
     yAxisMin = dataMin < limitMin ? dataMin - 10 : limitMin - 10;
     yAxisMax = dataMax > limitMax ? dataMax + 10 : limitMax + 10;
   }
   if (id === "Humidity") {
-    if (limitData[0].humidity_constraint) {
-      limitMin = limitData[0]?.humidity_min;
-      limitMax = limitData[0]?.humidity_max;
-    }
+    limitMin = limitData.hum_min;
+    limitMax = limitData.hum_max;
     yAxisMin = dataMin < limitMin ? dataMin - 10 : limitMin - 10;
     yAxisMax = dataMax > limitMax ? dataMax + 10 : limitMax + 10;
   }
   if (id === "Light") {
-    if (limitData[0].light_constraint) {
-      limitMin = limitData[0]?.light_min;
-      limitMax = limitData[0]?.light_max;
-    }
+    limitMin = limitData.light_min;
+    limitMax = limitData.light_max;
     yAxisMin = -0.5;
     yAxisMax = dataMax > limitMax ? dataMax + 10 : limitMax + 10;
   }
   if (id === "Vibration") {
-    if (limitData[0].shock_constraint) {
-      limitMin = limitData[0]?.shock_min;
-      limitMax = limitData[0]?.shock_max;
-    }
+    limitMin = limitData.shock_min;
+    limitMax = limitData.shock_max;
     yAxisMin = -0.5;
     yAxisMax = dataMax > limitMax ? dataMax + 2 : limitMax + 2;
   }

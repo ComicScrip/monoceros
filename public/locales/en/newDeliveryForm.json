@@ -1,0 +1,18 @@
+{
+  "mainTitle": "Create new delivery",
+  "title": "Delivery path",
+  "origin": "Warehouse origin*",
+  "destination": "Warehouse destination*",
+  "warehouseSelect": "Warehouse",
+  "path": "Delivery Path*",
+  "pathSelect": "Path",
+  "startDate": "Start date*",
+  "endDate": "End date*",
+  "tracking": "Tracking number",
+  "shipping": "Shipping",
+  "toShip": "Package(s) to ship*",
+  "addPackage": "+ Add another package",
+  "button": "Create delivery",
+  "toastSucces": "Delivery created !",
+  "toastError": "Wrong informations"
+}
