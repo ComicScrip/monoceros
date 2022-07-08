@@ -206,13 +206,3 @@
   text-align: center;
   border-radius: 5px;
 }
-
-.popupInner:before {
-  left: 0;
-  border-width: 0.4rem 0.4rem 0.4rem 0;
-  border-right-color: #000;
-  position: absolute;
-  content: "";
-  border-color: transparent;
-  border-style: solid;
-}
