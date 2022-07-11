@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import React from "react";
 import alarmsStyle from "../styles/alarms.module.css";
@@ -6,7 +7,14 @@ function PopupAlert({
   isOpen,
   setIsOpen,
   deliveryNumber,
-  alerts,
+  alertTemp,
+  alertHumidity,
+  alertShock,
+  alertLight,
+  alertOrientation,
+  alertEta,
+  alertExpdate,
+  alertTheft,
   date,
   time,
   action,
@@ -14,6 +22,8 @@ function PopupAlert({
   messages,
 }) {
   const router = useRouter();
+  const { t } = useTranslation("alarms");
+
   return (
     <>
       {isOpen && (
@@ -26,23 +36,25 @@ function PopupAlert({
               &times;
             </span>
             <h1 className="p-2">
-              <strong>N° de livraison :</strong> {deliveryNumber}
+              <strong>{t("delivery")} :</strong> {deliveryNumber}
             </h1>
             <p className="p-2">
-              <strong>Alertes :</strong>
+              <strong>{t("alarms")} :</strong> {alertTemp} {alertHumidity}{" "}
+              {alertShock} {alertLight} {alertOrientation} {alertEta}{" "}
+              {alertExpdate} {alertTheft}
             </p>
-            <span>{alerts}</span>
+
             <p className="p-2">
               <strong>Date :</strong> {date} / {time}
             </p>
             <p className="p-2">
-              <strong>Action :</strong> {action}
+              <strong>{t("action")} :</strong> {action}
             </p>
             <p className="p-2">
-              <strong>Nom du contact :</strong> {contactName}
+              <strong>{t("contactName")} :</strong> {contactName}
             </p>
             <p className="p-2">
-              <strong>Commentaires :</strong> {messages}
+              <strong>{t("messages")} :</strong> {messages}
             </p>
             <button
               type="button"
@@ -54,7 +66,7 @@ function PopupAlert({
               }}
               className={alarmsStyle.buttonResolve}
             >
-              Détail de la livraison
+              {t("detail")}
             </button>
           </div>
         </div>

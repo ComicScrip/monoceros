@@ -5,13 +5,14 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import {
   getAlarmsByCountryWarehouseAndProduct,
+  getAlarmsId,
   postAlarmsSolveWarning,
 } from "../lib/alarmsAPI";
 import { MdLightMode, MdWaterDrop } from "react-icons/md";
 import { RiTempColdLine } from "react-icons/ri";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { GiHandcuffed } from "react-icons/gi";
-import { BsFillCalendarXFill } from "react-icons/bs";
+import { FaCalendarAlt } from "react-icons/fa";
 import { GiCardboardBoxClosed } from "react-icons/gi";
 import alarmsStyle from "../styles/alarms.module.css";
 import moment from "moment";
@@ -46,14 +47,18 @@ function AlarmsList() {
   const [warehousesList, setWarehousesList] = useState([]);
   const [productsList, setProductsList] = useState([]);
   const [alarms, setAlarms] = useState([]);
+  const [alarmId, setAlarmId] = useState("");
   const [currentPage, setCurrentPage] = useState(
     parseInt(router.query.page) || 1
   );
 
-  const alarmsPerPage = 10;
+  const alarmsPerPage = 50;
   const [numberOfAlarms, setNumberOfAlarms] = useState(null);
 
-  const [openPopup, setOpenPopup] = useState(false);
+  const [openPopupAlert, setOpenPopupAlert] = useState(false);
+
+  const [action, setAction] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     router.replace({
@@ -110,7 +115,7 @@ function AlarmsList() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await postAlarmsSolveWarning();
+      await postAlarmsSolveWarning([alarms.id]);
       toast.success("Action résolu", {
         style: {
           border: "1px solid #ff455a",
@@ -127,11 +132,105 @@ function AlarmsList() {
     }
   }
 
+  const filterAlarm = alarms.filter((alarm) => alarm.id === alarmId);
+
   return (
     <>
-      <div>
-        <Toaster />
-      </div>
+      <Toaster />
+      {filterAlarm.map((alarm) => (
+        <PopupAlert
+          key={alarm.id}
+          isOpen={openPopupAlert}
+          setIsOpen={setOpenPopupAlert}
+          deliveryNumber={alarm.delivery_id}
+          alertTemp={
+            alarm.issue_temp ? (
+              <RiTempColdLine
+                size={20}
+                style={{ color: "#ff455a", display: "inline-block" }}
+              />
+            ) : (
+              ""
+            )
+          }
+          alertHumidity={
+            alarm.issue_humidity ? (
+              <MdWaterDrop
+                size={20}
+                style={{ color: "#ff455a", display: "inline-block" }}
+              />
+            ) : (
+              ""
+            )
+          }
+          alertShock={
+            alarm.issue_shock ? (
+              <AiOutlineDashboard
+                size={20}
+                style={{ color: "#ff455a", display: "inline-block" }}
+              />
+            ) : (
+              ""
+            )
+          }
+          alertLight={
+            alarm.issue_light ? (
+              <MdLightMode
+                size={20}
+                style={{ color: "#ff455a", display: "inline-block" }}
+              />
+            ) : (
+              ""
+            )
+          }
+          alertOrientation={
+            alarm.issue_orientation ? (
+              <GiCardboardBoxClosed
+                size={20}
+                style={{ color: "#ff455a", display: "inline-block" }}
+              />
+            ) : (
+              ""
+            )
+          }
+          alertEta={
+            alarm.issue_eta ? (
+              <FaCalendarAlt
+                size={20}
+                style={{ color: "#ff455a", display: "inline-block" }}
+              />
+            ) : (
+              ""
+            )
+          }
+          alertExpdate={
+            alarm.issue_expdate ? (
+              <FaCalendarAlt
+                size={20}
+                style={{ color: "#ff455a", display: "inline-block" }}
+              />
+            ) : (
+              ""
+            )
+          }
+          alertTheft={
+            alarm.theft ? (
+              <GiHandcuffed
+                size={20}
+                style={{ color: "#ff455a", display: "inline-block" }}
+              />
+            ) : (
+              ""
+            )
+          }
+          date={moment(alarm.date).format("DD-MM-yyyy")}
+          time={moment(alarm.date).subtract(1, "hours").format("LT")}
+          action={alarm.action_taken === "N" ? t("no") : t("yes")}
+          contactName={alarm.contact_name}
+          messages={alarm.message}
+        />
+      ))}
+
       <div className="flex flex-col items-center w-[95] mb-10">
         <CustomSelect
           items={countriesList}
@@ -164,7 +263,7 @@ function AlarmsList() {
       {deliveryIdSelect !== "" && packageIdSelect !== "" ? (
         <>
           <p>
-            Alertes sur les livraisons {deliveryIdSelect} / paquet{" "}
+            {t("alertFor")} {deliveryIdSelect} / {t("package")}{" "}
             {packageIdSelect}
           </p>
           <button
@@ -174,7 +273,7 @@ function AlarmsList() {
               handleClick();
             }}
           >
-            Toutes les alertes
+            {t("showAll")}
           </button>
         </>
       ) : (
@@ -186,141 +285,99 @@ function AlarmsList() {
             <thead>
               <tr>
                 <th className={alarmsStyle.tHeader}></th>
-                <th className={alarmsStyle.tHeader}>N° de livraison</th>
-                <th className={alarmsStyle.tHeader}>Alertes</th>
+                <th className={alarmsStyle.tHeader}>{t("delivery")}</th>
+                <th className={alarmsStyle.tHeader}>{t("alarms")}</th>
                 <th className={alarmsStyle.tHeader}>Date</th>
-                <th className={alarmsStyle.tHeader}>Heure</th>
-                <th className={alarmsStyle.tHeader}>Action</th>
-                <th className={alarmsStyle.tHeader}>Nom du contact</th>
-                <th className={alarmsStyle.tHeader}>Commentaires</th>
+                <th className={alarmsStyle.tHeader}>{t("time")}</th>
+                <th className={alarmsStyle.tHeader}>{t("action")}</th>
+                <th className={alarmsStyle.tHeader}>{t("contactName")}</th>
+                <th className={alarmsStyle.tHeader}>{t("messages")}</th>
               </tr>
             </thead>
             <tbody>
               {alarms.map((alarm) => (
-                <>
-                  <tr key={alarm.id} className="bg-white">
-                    <td
-                      className={
-                        alarmsStyle.tCell + " " + alarmsStyle.tCellLeft
-                      }
-                    >
-                      <input type="checkbox" className={alarmsStyle.checkbox} />
-                    </td>
-                    <div onClick={() => setOpenPopup(true)}>
-                      <td
-                        className={alarmsStyle.tCell}
-                        onClick={() => {
-                          router.push({
-                            pathname: "/deliveries/[delivery_id]",
-                            query: { delivery_id: alarm.delivery_id },
-                          });
-                        }}
-                      >
-                        {alarm.delivery_id}
-                      </td>
-                      <td className={alarmsStyle.tCell}>
-                        <div className="flex justify-center">
-                          {alarm.issue_temp ? (
-                            <RiTempColdLine
-                              size={20}
-                              style={{ color: "#ff455a" }}
-                            />
-                          ) : (
-                            ""
-                          )}
-                          {alarm.issue_humidity ? (
-                            <MdWaterDrop
-                              size={20}
-                              style={{ color: "#ff455a" }}
-                            />
-                          ) : (
-                            ""
-                          )}
-                          {alarm.issue_shock ? (
-                            <AiOutlineDashboard
-                              size={20}
-                              style={{ color: "#ff455a" }}
-                            />
-                          ) : (
-                            ""
-                          )}
-                          {alarm.issue_light ? (
-                            <MdLightMode
-                              size={20}
-                              style={{ color: "#ff455a" }}
-                            />
-                          ) : (
-                            ""
-                          )}
-                          {alarm.issue_orientation ? (
-                            <GiCardboardBoxClosed
-                              size={20}
-                              style={{ color: "#ff455a" }}
-                            />
-                          ) : (
-                            ""
-                          )}
-                          {alarm.issue_eta || alarm.issue_expdate ? (
-                            <BsFillCalendarXFill
-                              size={20}
-                              style={{ color: "#ff455a" }}
-                            />
-                          ) : (
-                            ""
-                          )}
-                          {alarm.theft ? (
-                            <GiHandcuffed
-                              size={20}
-                              style={{ color: "#ff455a" }}
-                            />
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                      </td>
-                      <td
-                        className={
-                          alarmsStyle.tCell + " " + alarmsStyle.dateCell
-                        }
-                      >
-                        {moment(alarm.date).format("DD-MM-yyyy")}
-                      </td>
-                      <td
-                        className={
-                          alarmsStyle.tCell + " " + alarmsStyle.dateCell
-                        }
-                      >
-                        {moment(alarm.date).subtract(2, "hours").format("LT")}
-                      </td>
-                      <td className={alarmsStyle.tCell}>
-                        {alarm.action_taken}
-                      </td>
-                      <td className={alarmsStyle.tCell}>
-                        {alarm.contact_name}
-                      </td>
-                      <td
-                        className={
-                          alarmsStyle.tCell + " " + alarmsStyle.tCellRight
-                        }
-                      >
-                        <div className="overflow-y-scroll h-8 min-w-[200px]">
-                          {alarm.message}
-                        </div>
-                      </td>
+                <tr
+                  key={alarm.id}
+                  className="bg-white"
+                  onClick={() => {
+                    setAlarmId(alarm.id);
+                    setOpenPopupAlert(true);
+                  }}
+                >
+                  <td
+                    className={alarmsStyle.tCell + " " + alarmsStyle.tCellLeft}
+                  >
+                    <input type="checkbox" className={alarmsStyle.checkbox} />
+                  </td>
+                  <td className={alarmsStyle.tCell}>{alarm.delivery_id}</td>
+                  <td className={alarmsStyle.tCell}>
+                    <div className="flex justify-center">
+                      {alarm.issue_temp ? (
+                        <RiTempColdLine
+                          size={20}
+                          style={{ color: "#ff455a" }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.issue_humidity ? (
+                        <MdWaterDrop size={20} style={{ color: "#ff455a" }} />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.issue_shock ? (
+                        <AiOutlineDashboard
+                          size={20}
+                          style={{ color: "#ff455a" }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.issue_light ? (
+                        <MdLightMode size={20} style={{ color: "#ff455a" }} />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.issue_orientation ? (
+                        <GiCardboardBoxClosed
+                          size={20}
+                          style={{ color: "#ff455a" }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.issue_eta || alarm.issue_expdate ? (
+                        <FaCalendarAlt size={20} style={{ color: "#ff455a" }} />
+                      ) : (
+                        ""
+                      )}
+                      {alarm.theft ? (
+                        <GiHandcuffed size={20} style={{ color: "#ff455a" }} />
+                      ) : (
+                        ""
+                      )}
                     </div>
-                  </tr>
-                  <PopupAlert
-                    isOpen={openPopup}
-                    setIsOpen={setOpenPopup}
-                    deliveryNumber={alarm.delivery_id}
-                    alerts={""}
-                    date={moment(alarm.date).format("DD-MM-yyyy")}
-                    time={moment(alarm.date).subtract(2, "hours").format("LT")}
-                    action={alarm.action_taken === "N" ? "No" : "Yes"}
-                    contactName={alarm.contact_name}
-                    messages={alarm.message}
-                  />
-                </>
+                  </td>
+                  <td
+                    className={alarmsStyle.tCell + " " + alarmsStyle.dateCell}
+                  >
+                    {moment(alarm.date).format("DD-MM-yyyy")}
+                  </td>
+                  <td
+                    className={alarmsStyle.tCell + " " + alarmsStyle.dateCell}
+                  >
+                    {moment(alarm.date).subtract(1, "hours").format("LT")}
+                  </td>
+                  <td className={alarmsStyle.tCell}>{alarm.action_taken}</td>
+                  <td className={alarmsStyle.tCell}>{alarm.contact_name}</td>
+                  <td
+                    className={alarmsStyle.tCell + " " + alarmsStyle.tCellRight}
+                  >
+                    <div className="overflow-y-scroll h-8 min-w-[200px]">
+                      {alarm.message}
+                    </div>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>
@@ -348,10 +405,48 @@ function AlarmsList() {
         onSubmit={handleSubmit}
         className={alarmsStyle.buttonResolve}
       >
-        Résoudre une alerte
+        {t("solveAlert")}
       </button>
     </>
   );
 }
 
 export default AlarmsList;
+
+/*
+(alarm.issue_temp ? (
+              <RiTempColdLine size={20} style={{ color: "#ff455a" }} />
+            ) : (
+              ""
+            ),
+            alarm.issue_humidity ? (
+              <MdWaterDrop size={20} style={{ color: "#ff455a" }} />
+            ) : (
+              ""
+            ),
+            alarm.issue_shock ? (
+              <AiOutlineDashboard size={20} style={{ color: "#ff455a" }} />
+            ) : (
+              ""
+            ),
+            alarm.issue_light ? (
+              <MdLightMode size={20} style={{ color: "#ff455a" }} />
+            ) : (
+              ""
+            ),
+            alarm.issue_orientation ? (
+              <GiCardboardBoxClosed size={20} style={{ color: "#ff455a" }} />
+            ) : (
+              ""
+            ),
+            alarm.issue_eta || alarm.issue_expdate ? (
+              <FaCalendarAlt size={20} style={{ color: "#ff455a" }} />
+            ) : (
+              ""
+            ),
+            alarm.theft ? (
+              <GiHandcuffed size={20} style={{ color: "#ff455a" }} />
+            ) : (
+              ""
+            ))
+            */
