@@ -18,14 +18,16 @@ export default function NewDeliveryForm() {
   const [numberOfPackages, setNumberOfPackages] = useState(1);
   const [deliveryPath, setDeliveryPath] = useState("");
   const [deliveryPathOption, setDeliveryPathOption] = useState([]);
+
   const defaultInfoState = {
     start_date: "",
     end_date: "",
     tracking_number: "",
   };
+
   const [displayDates, setDisplayDates] = useState({});
 
-  const [infos, setInfos] = useState({});
+  const [infos, setInfos] = useState(defaultInfoState);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -46,7 +48,8 @@ export default function NewDeliveryForm() {
       setWarehouseDestination("");
       setWarehouseOrigin("");
       setDeliveryPath("");
-    } catch {
+    } catch (e) {
+      console.log(e);
       toast(t("toastError"));
     }
   }
@@ -132,6 +135,7 @@ export default function NewDeliveryForm() {
                     color: "var(--main-color)",
                     marginLeft: "-20px",
                     marginTop: "5px",
+                    zIndex: "100",
                   }}
                 />
               </div>
@@ -158,6 +162,7 @@ export default function NewDeliveryForm() {
                     color: "var(--main-color)",
                     marginLeft: "-20px",
                     marginTop: "5px",
+                    zIndex: "100",
                   }}
                 />
               </div>
