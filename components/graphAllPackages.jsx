@@ -40,19 +40,19 @@ const GraphAllPackages = ({
   let yAxisMin = -5;
   let yAxisMax = 5;
 
-  useEffect(() => {
-    const Values = sensorData.map((o) => o.sensor_value);
-    setDataMax(Math.max(...Values));
-    setDataMin(Math.min(...Values));
-  }, [sensorData]);
+  // useEffect(() => {
+  //   const Values = sensorData.map((o) => o.sensor_value);
+  //   setDataMax(Math.max(...Values));
+  //   setDataMin(Math.min(...Values));
+  // }, [sensorData]);
 
-  useEffect(() => {
-    setFilteredData(
-      sensorData.filter((dataset) =>
-        moment(dataset.date).isBetween(minDate, maxDate, undefined, "[]")
-      )
-    );
-  }, [minDate, maxDate, sensorData]);
+  // useEffect(() => {
+  //   setFilteredData(
+  //     sensorData.filter((dataset) =>
+  //       moment(dataset.date).isBetween(minDate, maxDate, undefined, "[]")
+  //     )
+  //   );
+  // }, [minDate, maxDate, sensorData]);
 
   if (id === "Temperature") {
     limitMin = limitData.temp_min;
@@ -132,19 +132,33 @@ const GraphAllPackages = ({
       },
     },
   };
-  const labels = filteredData.map((data) =>
+  const labels = sensorData.DatesList.map((data) =>
     moment(data.date).format("DD-MM-YY, hh:mm:ss")
   );
+  // const labels = filteredData.map((data) =>
+  //   moment(data.date).format("DD-MM-YY, hh:mm:ss")
+  // );
+  const datasets = sensorData.dataset.map((pckg) => ({
+    label: pckg.label,
+    data: pckg.data,
+    borderColor: "rgb(176,224,230)",
+    backgroundColor: "rgba(176,224,230, 0.5)",
+  }));
   const data = {
     labels,
-    datasets: [
-      {
-        data: filteredData.map((data) => data.sensor_value),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-    ],
+    datasets: datasets,
   };
+  // const data = {
+  //   labels,
+  //   datasets: [
+  //     {
+  //       data: filteredData.map((data) => data.sensor_value),
+  //       borderColor: "rgb(255, 99, 132)",
+  //       backgroundColor: "rgba(255, 99, 132, 0.5)",
+  //     },
+  //   ],
+  // };
+  console.log(labels);
 
   return (
     <Line

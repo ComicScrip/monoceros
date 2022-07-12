@@ -19,9 +19,12 @@ const GroupData = ({
   allLight,
   allShock,
 }) => {
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(true);
   const { t } = useTranslation("packages");
   const GraphWithNoSSR = dynamic(() => import("./graph"), {
+    ssr: false,
+  });
+  const GraphAllWithNoSSR = dynamic(() => import("./graphAllPackages"), {
     ssr: false,
   });
 
@@ -109,53 +112,103 @@ const GroupData = ({
       </div>
       <div className={groupDataStyle.container}>
         {packageLimits.length !== 0 && temperatureData.length !== 0 ? (
-          <div className={groupDataStyle.graph}>
-            {temperatureData.length !== 0 && (
-              <div data-cy="packageTempGraph" style={{ width: "100%" }}>
-                <GraphWithNoSSR
-                  id="Temperature"
-                  sensorData={temperatureData}
-                  limitData={packageLimits}
-                  showXAxis={false}
-                  minDate={minDate}
-                  maxDate={maxDate}
-                />
-              </div>
-            )}
-            {humidityData.length !== 0 && (
-              <div data-cy="packageHumGraph" style={{ width: "100%" }}>
-                <GraphWithNoSSR
-                  sensorData={humidityData}
-                  limitData={packageLimits}
-                  id="Humidity"
-                  showXAxis={false}
-                  minDate={minDate}
-                  maxDate={maxDate}
-                />
-              </div>
-            )}
-            {lightData.length !== 0 && (
-              <div data-cy="packageLightGraph" style={{ width: "100%" }}>
-                <GraphWithNoSSR
-                  sensorData={lightData}
-                  limitData={packageLimits}
-                  id="Light"
-                  showXAxis={false}
-                  minDate={minDate}
-                  maxDate={maxDate}
-                />
-              </div>
-            )}
-            {vibrationData.length !== 0 && (
-              <div data-cy="packageShockGraph" style={{ width: "100%" }}>
-                <GraphWithNoSSR
-                  sensorData={vibrationData}
-                  limitData={packageLimits}
-                  id="Vibration"
-                  showXAxis={true}
-                  minDate={minDate}
-                  maxDate={maxDate}
-                />
+          <div>
+            <div className={groupDataStyle.graph}>
+              {showAll && (
+                <div>
+                  <div data-cy="packageTempGraph" style={{ width: "100%" }}>
+                    <GraphAllWithNoSSR
+                      id="Temperature"
+                      sensorData={allTemp}
+                      limitData={packageLimits}
+                      showXAxis={false}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                    />
+                  </div>
+                  {/* <div data-cy="packageHumGraph" style={{ width: "100%" }}>
+                    <GraphAllWithNoSSR
+                      sensorData={allHum}
+                      limitData={packageLimits}
+                      id="Humidity"
+                      showXAxis={false}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                    />
+                  </div>
+                  <div data-cy="packageLightGraph" style={{ width: "100%" }}>
+                    <GraphAllWithNoSSR
+                      sensorData={allLight}
+                      limitData={packageLimits}
+                      id="Light"
+                      showXAxis={false}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                    />
+                  </div>
+                  <div data-cy="packageShockGraph" style={{ width: "100%" }}>
+                    <GraphAllWithNoSSR
+                      sensorData={allShock}
+                      limitData={packageLimits}
+                      id="Vibration"
+                      showXAxis={true}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                    />
+                  </div> */}
+                </div>
+              )}
+            </div>
+            {!showAll && (
+              <div className={groupDataStyle.graph}>
+                {temperatureData.length !== 0 && (
+                  <div data-cy="packageTempGraph" style={{ width: "100%" }}>
+                    <GraphWithNoSSR
+                      id="Temperature"
+                      sensorData={temperatureData}
+                      limitData={packageLimits}
+                      showXAxis={false}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                    />
+                  </div>
+                )}
+                {humidityData.length !== 0 && (
+                  <div data-cy="packageHumGraph" style={{ width: "100%" }}>
+                    <GraphWithNoSSR
+                      sensorData={humidityData}
+                      limitData={packageLimits}
+                      id="Humidity"
+                      showXAxis={false}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                    />
+                  </div>
+                )}
+                {lightData.length !== 0 && (
+                  <div data-cy="packageLightGraph" style={{ width: "100%" }}>
+                    <GraphWithNoSSR
+                      sensorData={lightData}
+                      limitData={packageLimits}
+                      id="Light"
+                      showXAxis={false}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                    />
+                  </div>
+                )}
+                {vibrationData.length !== 0 && (
+                  <div data-cy="packageShockGraph" style={{ width: "100%" }}>
+                    <GraphWithNoSSR
+                      sensorData={vibrationData}
+                      limitData={packageLimits}
+                      id="Vibration"
+                      showXAxis={true}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                    />
+                  </div>
+                )}
               </div>
             )}
           </div>
