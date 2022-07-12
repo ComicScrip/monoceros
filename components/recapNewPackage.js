@@ -38,7 +38,6 @@ export default function RecapNewPackage({
       products: packageInfos,
       sensor_id: sensorId,
     };
-    console.log(packageToPost);
     try {
       await createPackage(packageToPost);
     } catch (e) {
