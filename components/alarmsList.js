@@ -54,8 +54,6 @@ function AlarmsList() {
   const [numberOfAlarms, setNumberOfAlarms] = useState(null);
   const [openPopupAlert, setOpenPopupAlert] = useState(false);
   const [openPopupResolve, setOpenPopupResolve] = useState(false);
-  const [action, setAction] = useState("N");
-  const [message, setMessage] = useState("");
 
   const alarmsPerPage = 10;
 
@@ -111,25 +109,14 @@ function AlarmsList() {
     window.location.reload();
   }
 
-  const [checkedElement, setCheckedElement] = useState([]);
-
-  const handleChange = (item) => {
-    let tempCheckedElement = checkedElement;
-    if (tempCheckedElement.some((checked) => checked.id === item.id)) {
-      tempCheckedElement = tempCheckedElement.filter(
-        (checked) => checked.id === item.id
-      );
-    } else {
-      tempCheckedElement.push(item);
-    }
-    setCheckedElement(tempCheckedElement);
-    console.log(checkedElement);
-  };
+  const [alarmsList, setAlarmsList] = useState([]);
 
   async function handleSubmit(e) {
+    const warning_id = [];
+    alarmsList.forEach((element) => warning_id.push(element.id));
     e.preventDefault();
     try {
-      await postAlarmsSolveWarning([checkedElement.id]);
+      await postAlarmsSolveWarning(warning_id);
       toast.success("Action résolu", {
         style: {
           border: "1px solid #ff455a",
@@ -149,13 +136,15 @@ function AlarmsList() {
   return (
     <>
       <Toaster />
-      {checkedElement.map((alarm) => (
+      {alarmsList.map((alarm) => (
         <PopupResolve
           key={alarm.id}
           isOpen={openPopupResolve}
           setIsOpen={setOpenPopupResolve}
           deliveryNumber={alarm.delivery_id}
           packageId={alarm.package}
+          handleSubmit={handleSubmit}
+          message={""}
         />
       ))}
       {alarms
@@ -281,6 +270,12 @@ function AlarmsList() {
           keyOne={"id"}
           keyTwo={"name"}
         />
+        <button
+          className=" py-2 px-2 text-white bg-main_color"
+          onClick={() => console.log(alarmsList)}
+        >
+          alarms selected
+        </button>
       </div>
       {deliveryIdSelect !== "" && packageIdSelect !== "" ? (
         <>
@@ -327,9 +322,14 @@ function AlarmsList() {
                       className={alarmsStyle.checkbox}
                       id={`custom-checkbox-${alarm.id}`}
                       name={alarm.id}
-                      value={checkedElement}
-                      onChange={() => {
-                        handleChange(alarm);
+                      onChange={(e) => {
+                        e.target.checked
+                          ? setAlarmsList((prevState) => {
+                              return [...prevState, alarm];
+                            })
+                          : setAlarmsList(
+                              alarmsList.filter((a) => a.id !== alarm.id)
+                            );
                       }}
                     />
                   </td>

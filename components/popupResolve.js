@@ -6,9 +6,10 @@ import alarmsStyle from "../styles/alarms.module.css";
 function PopupResolve({
   isOpen,
   setIsOpen,
-  message,
   deliveryNumber,
   packageId,
+  handleSubmit,
+  message,
 }) {
   const router = useRouter();
   const { t } = useTranslation("alarms");
@@ -32,15 +33,10 @@ function PopupResolve({
             <p className="p-2">
               <strong>{t("messages")} :</strong>
             </p>
-            <textarea className="p-2"></textarea>
+            <textarea className="p-2">{message}</textarea>
             <button
               type="button"
-              onClick={() => {
-                router.push({
-                  pathname: "/deliveries/[delivery_id]",
-                  query: { delivery_id: deliveryNumber },
-                });
-              }}
+              onSubmit={handleSubmit}
               className={alarmsStyle.buttonResolve}
             >
               {t("solveAlert")}
