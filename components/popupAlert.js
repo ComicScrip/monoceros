@@ -64,7 +64,7 @@ function PopupAlert({
                   query: { delivery_id: deliveryNumber },
                 });
               }}
-              className={alarmsStyle.buttonResolve}
+              className={alarmsStyle.buttonShow}
             >
               {t("detail")}
             </button>

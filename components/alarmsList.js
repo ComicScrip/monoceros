@@ -270,12 +270,6 @@ function AlarmsList() {
           keyOne={"id"}
           keyTwo={"name"}
         />
-        <button
-          className=" py-2 px-2 text-white bg-main_color"
-          onClick={() => console.log(alarmsList)}
-        >
-          alarms selected
-        </button>
       </div>
       {deliveryIdSelect !== "" && packageIdSelect !== "" ? (
         <>
@@ -284,7 +278,7 @@ function AlarmsList() {
             {packageIdSelect}
           </p>
           <button
-            className={alarmsStyle.buttonResolve}
+            className={alarmsStyle.buttonShow}
             type="button"
             onClick={() => {
               handleClick();

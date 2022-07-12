@@ -87,9 +87,19 @@
   color: #ffffff;
 }
 
-.buttonResolve {
+.buttonShow {
   background-color: #ff455a;
   border: solid 1px #ff455a;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: block;
+  margin: 20px auto;
+}
+
+.buttonResolve {
+  background-color: gray;
+  border: solid 1px gray;
   color: #ffffff;
   border-radius: 5px;
   padding: 5px 10px;
