@@ -23,6 +23,7 @@ import {
 import CustomSelect from "./customSelect";
 import toast, { Toaster } from "react-hot-toast";
 import PopupAlert from "./popupAlert";
+import PopupResolve from "./popupResolve";
 
 function AlarmsList() {
   const { t } = useTranslation("alarms");
@@ -52,10 +53,11 @@ function AlarmsList() {
   );
   const [numberOfAlarms, setNumberOfAlarms] = useState(null);
   const [openPopupAlert, setOpenPopupAlert] = useState(false);
+  const [openPopupResolve, setOpenPopupResolve] = useState(false);
   const [action, setAction] = useState("N");
   const [message, setMessage] = useState("");
 
-  const alarmsPerPage = 50;
+  const alarmsPerPage = 10;
 
   useEffect(() => {
     router.replace({
@@ -115,7 +117,7 @@ function AlarmsList() {
     let tempCheckedElement = checkedElement;
     if (tempCheckedElement.some((checked) => checked.id === item.id)) {
       tempCheckedElement = tempCheckedElement.filter(
-        (checked) => checked.id !== item.id
+        (checked) => checked.id === item.id
       );
     } else {
       tempCheckedElement.push(item);
@@ -127,7 +129,7 @@ function AlarmsList() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await postAlarmsSolveWarning([alarms.id]);
+      await postAlarmsSolveWarning([checkedElement.id]);
       toast.success("Action résolu", {
         style: {
           border: "1px solid #ff455a",
@@ -147,6 +149,15 @@ function AlarmsList() {
   return (
     <>
       <Toaster />
+      {checkedElement.map((alarm) => (
+        <PopupResolve
+          key={alarm.id}
+          isOpen={openPopupResolve}
+          setIsOpen={setOpenPopupResolve}
+          deliveryNumber={alarm.delivery_id}
+          packageId={alarm.package}
+        />
+      ))}
       {alarms
         .filter((alarm) => alarm.id === alarmId)
         .map((alarm) => (
@@ -242,7 +253,6 @@ function AlarmsList() {
             messages={alarm.message}
           />
         ))}
-
       <div className="flex flex-col items-center w-[95] mb-10">
         <CustomSelect
           items={countriesList}
@@ -462,13 +472,17 @@ function AlarmsList() {
           currentPage={currentPage}
         />
       </div>
-      <button
-        type="submit"
-        onSubmit={handleSubmit}
-        className={alarmsStyle.buttonResolve}
-      >
-        {t("solveAlert")}
-      </button>
+      <div>
+        <button
+          type="button"
+          onClick={() => {
+            setOpenPopupResolve(true);
+          }}
+          className={alarmsStyle.buttonResolve}
+        >
+          {t("solveAlert")}
+        </button>
+      </div>
     </>
   );
 }
