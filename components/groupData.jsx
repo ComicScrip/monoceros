@@ -63,8 +63,12 @@ const GroupData = ({
               }}
               selected={new Date(datesPicker.startDate || null)}
               dateFormat="dd/MM/yyyy"
-              minDate={new Date(minDate?.replace("-", "/"))}
-              maxDate={new Date(maxDate?.replace("-", "/"))}
+              minDate={
+                new Date(
+                  temperatureData[0]?.date.slice(0, 10).replace(/-/g, "/")
+                )
+              }
+              maxDate={new Date(datesPicker.endDate || null)}
               className="p-[4px] w-[70vw] rounded"
             />
             <button
@@ -88,8 +92,10 @@ const GroupData = ({
               }}
               selected={new Date(datesPicker.endDate || null)}
               dateFormat="dd/MM/yyyy"
-              minDate={new Date(minDate?.replace("-", "/"))}
-              manDate={new Date(maxDate?.replace("-", "/"))}
+              minDate={new Date(datesPicker.startDate || null)}
+              maxDate={
+                new Date(temperatureData[temperatureData.length - 1]?.date)
+              }
               className="p-[4px] w-[70vw] rounded"
             />
             <button
