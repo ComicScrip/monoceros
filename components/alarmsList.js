@@ -317,16 +317,13 @@ function AlarmsList() {
                       type="checkbox"
                       className={alarmsStyle.checkbox}
                       onChange={(e) => {
-                        const { id, delivery_id } = alarm;
-                        if (e.target.checked) {
-                          setAlarmsList((prevState) => {
-                            return [...prevState, { id, delivery_id }];
-                          });
-                        } else if (!e.target.checked) {
-                          setAlarmsList(
-                            alarmsList.filter((a) => a.id !== alarm.id)
-                          );
-                        }
+                        e.target.checked
+                          ? setAlarmsList((prevState) => {
+                              return [...prevState, alarm.id];
+                            })
+                          : setAlarmsList(
+                              alarmsList.filter((a) => a !== alarm.id)
+                            );
                       }}
                     />
                   </td>
