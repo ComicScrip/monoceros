@@ -259,7 +259,12 @@ function AlarmsList() {
           keyOne={"id"}
           keyTwo={"name"}
         />
-        <button onClick={() => console.log(alarmsList)}>alarms selected</button>
+        <button
+          className=" py-2 px-2 text-white bg-main_color"
+          onClick={() => console.log(alarmsList)}
+        >
+          alarms selected
+        </button>
       </div>
       {deliveryIdSelect !== "" && packageIdSelect !== "" ? (
         <>
@@ -311,7 +316,6 @@ function AlarmsList() {
                     <input
                       type="checkbox"
                       className={alarmsStyle.checkbox}
-                      value={checkboxValue}
                       onChange={(e) => {
                         const { id, delivery_id } = alarm;
                         if (e.target.checked) {
