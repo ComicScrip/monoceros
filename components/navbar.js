@@ -108,27 +108,6 @@ export default function Navbar() {
         >
           {" "}
           <ul className={style.sectionContainer}>
-            <li className={style.navList}>
-              <ActiveLink activeClassName="active" href="/">
-                <div className={style.navitem}>
-                  <div className={style.navlogo}>
-                    <Image
-                      src="/images/sliders-logo.svg"
-                      alt="logo"
-                      width={20}
-                      height={20}
-                    />
-                  </div>
-                  <a
-                    className={style.navlink + " " + style.navlinkTitle}
-                    onClick={openMenu}
-                    style={{ opacity: "0.2" }}
-                  >
-                    {t("home")}
-                  </a>
-                </div>
-              </ActiveLink>
-            </li>
             <li
               className={
                 router.pathname.includes("product")
