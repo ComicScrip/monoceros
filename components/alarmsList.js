@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import {
   getAlarmsByCountryWarehouseAndProduct,
-  getAlarmsId,
   postAlarmsSolveWarning,
 } from "../lib/alarmsAPI";
 import { MdLightMode, MdWaterDrop } from "react-icons/md";
@@ -51,14 +50,12 @@ function AlarmsList() {
   const [currentPage, setCurrentPage] = useState(
     parseInt(router.query.page) || 1
   );
+  const [numberOfAlarms, setNumberOfAlarms] = useState(null);
+  const [openPopupAlert, setOpenPopupAlert] = useState(false);
+  const [action, setAction] = useState("N");
+  const [message, setMessage] = useState("");
 
   const alarmsPerPage = 50;
-  const [numberOfAlarms, setNumberOfAlarms] = useState(null);
-
-  const [openPopupAlert, setOpenPopupAlert] = useState(false);
-
-  const [action, setAction] = useState("");
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     router.replace({
@@ -112,6 +109,21 @@ function AlarmsList() {
     window.location.reload();
   }
 
+  const [checkedElement, setCheckedElement] = useState([]);
+
+  const handleChange = (item) => {
+    let tempCheckedElement = checkedElement;
+    if (tempCheckedElement.some((checked) => checked.id === item.id)) {
+      tempCheckedElement = tempCheckedElement.filter(
+        (checked) => checked.id !== item.id
+      );
+    } else {
+      tempCheckedElement.push(item);
+    }
+    setCheckedElement(tempCheckedElement);
+    console.log(checkedElement);
+  };
+
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -132,104 +144,104 @@ function AlarmsList() {
     }
   }
 
-  const filterAlarm = alarms.filter((alarm) => alarm.id === alarmId);
-
   return (
     <>
       <Toaster />
-      {filterAlarm.map((alarm) => (
-        <PopupAlert
-          key={alarm.id}
-          isOpen={openPopupAlert}
-          setIsOpen={setOpenPopupAlert}
-          deliveryNumber={alarm.delivery_id}
-          alertTemp={
-            alarm.issue_temp ? (
-              <RiTempColdLine
-                size={20}
-                style={{ color: "#ff455a", display: "inline-block" }}
-              />
-            ) : (
-              ""
-            )
-          }
-          alertHumidity={
-            alarm.issue_humidity ? (
-              <MdWaterDrop
-                size={20}
-                style={{ color: "#ff455a", display: "inline-block" }}
-              />
-            ) : (
-              ""
-            )
-          }
-          alertShock={
-            alarm.issue_shock ? (
-              <AiOutlineDashboard
-                size={20}
-                style={{ color: "#ff455a", display: "inline-block" }}
-              />
-            ) : (
-              ""
-            )
-          }
-          alertLight={
-            alarm.issue_light ? (
-              <MdLightMode
-                size={20}
-                style={{ color: "#ff455a", display: "inline-block" }}
-              />
-            ) : (
-              ""
-            )
-          }
-          alertOrientation={
-            alarm.issue_orientation ? (
-              <GiCardboardBoxClosed
-                size={20}
-                style={{ color: "#ff455a", display: "inline-block" }}
-              />
-            ) : (
-              ""
-            )
-          }
-          alertEta={
-            alarm.issue_eta ? (
-              <FaCalendarAlt
-                size={20}
-                style={{ color: "#ff455a", display: "inline-block" }}
-              />
-            ) : (
-              ""
-            )
-          }
-          alertExpdate={
-            alarm.issue_expdate ? (
-              <FaCalendarAlt
-                size={20}
-                style={{ color: "#ff455a", display: "inline-block" }}
-              />
-            ) : (
-              ""
-            )
-          }
-          alertTheft={
-            alarm.theft ? (
-              <GiHandcuffed
-                size={20}
-                style={{ color: "#ff455a", display: "inline-block" }}
-              />
-            ) : (
-              ""
-            )
-          }
-          date={moment(alarm.date).format("DD-MM-yyyy")}
-          time={moment(alarm.date).subtract(1, "hours").format("LT")}
-          action={alarm.action_taken === "N" ? t("no") : t("yes")}
-          contactName={alarm.contact_name}
-          messages={alarm.message}
-        />
-      ))}
+      {alarms
+        .filter((alarm) => alarm.id === alarmId)
+        .map((alarm) => (
+          <PopupAlert
+            key={alarm.id}
+            isOpen={openPopupAlert}
+            setIsOpen={setOpenPopupAlert}
+            deliveryNumber={alarm.delivery_id}
+            alertTemp={
+              alarm.issue_temp ? (
+                <RiTempColdLine
+                  size={20}
+                  style={{ color: "#ff455a", display: "inline-block" }}
+                />
+              ) : (
+                ""
+              )
+            }
+            alertHumidity={
+              alarm.issue_humidity ? (
+                <MdWaterDrop
+                  size={20}
+                  style={{ color: "#ff455a", display: "inline-block" }}
+                />
+              ) : (
+                ""
+              )
+            }
+            alertShock={
+              alarm.issue_shock ? (
+                <AiOutlineDashboard
+                  size={20}
+                  style={{ color: "#ff455a", display: "inline-block" }}
+                />
+              ) : (
+                ""
+              )
+            }
+            alertLight={
+              alarm.issue_light ? (
+                <MdLightMode
+                  size={20}
+                  style={{ color: "#ff455a", display: "inline-block" }}
+                />
+              ) : (
+                ""
+              )
+            }
+            alertOrientation={
+              alarm.issue_orientation ? (
+                <GiCardboardBoxClosed
+                  size={20}
+                  style={{ color: "#ff455a", display: "inline-block" }}
+                />
+              ) : (
+                ""
+              )
+            }
+            alertEta={
+              alarm.issue_eta ? (
+                <FaCalendarAlt
+                  size={20}
+                  style={{ color: "#ff455a", display: "inline-block" }}
+                />
+              ) : (
+                ""
+              )
+            }
+            alertExpdate={
+              alarm.issue_expdate ? (
+                <FaCalendarAlt
+                  size={20}
+                  style={{ color: "#ff455a", display: "inline-block" }}
+                />
+              ) : (
+                ""
+              )
+            }
+            alertTheft={
+              alarm.theft ? (
+                <GiHandcuffed
+                  size={20}
+                  style={{ color: "#ff455a", display: "inline-block" }}
+                />
+              ) : (
+                ""
+              )
+            }
+            date={moment(alarm.date).format("DD-MM-yyyy")}
+            time={moment(alarm.date).subtract(1, "hours").format("LT")}
+            action={alarm.action_taken === "N" ? t("no") : t("yes")}
+            contactName={alarm.contact_name}
+            messages={alarm.message}
+          />
+        ))}
 
       <div className="flex flex-col items-center w-[95] mb-10">
         <CustomSelect
@@ -296,22 +308,44 @@ function AlarmsList() {
             </thead>
             <tbody>
               {alarms.map((alarm) => (
-                <tr
-                  key={alarm.id}
-                  className="bg-white"
-                  onClick={() => {
-                    setAlarmId(alarm.id);
-                    setOpenPopupAlert(true);
-                  }}
-                >
+                <tr key={alarm.id} className={"bg-white"}>
                   <td
                     className={alarmsStyle.tCell + " " + alarmsStyle.tCellLeft}
                   >
-                    <input type="checkbox" className={alarmsStyle.checkbox} />
+                    <input
+                      type="checkbox"
+                      className={alarmsStyle.checkbox}
+                      id={`custom-checkbox-${alarm.id}`}
+                      name={alarm.id}
+                      value={checkedElement}
+                      onChange={() => {
+                        handleChange(alarm);
+                      }}
+                    />
                   </td>
-                  <td className={alarmsStyle.tCell}>{alarm.delivery_id}</td>
-                  <td className={alarmsStyle.tCell}>
-                    <div className="flex justify-center">
+                  <td
+                    className={alarmsStyle.tCell}
+                    onClick={() => {
+                      setAlarmId(alarm.id);
+                      setOpenPopupAlert(true);
+                    }}
+                  >
+                    {alarm.delivery_id}
+                  </td>
+                  <td
+                    className={alarmsStyle.tCell}
+                    onClick={() => {
+                      setAlarmId(alarm.id);
+                      setOpenPopupAlert(true);
+                    }}
+                  >
+                    <div
+                      className="flex justify-center"
+                      onClick={() => {
+                        setAlarmId(alarm.id);
+                        setOpenPopupAlert(true);
+                      }}
+                    >
                       {alarm.issue_temp ? (
                         <RiTempColdLine
                           size={20}
@@ -360,18 +394,46 @@ function AlarmsList() {
                   </td>
                   <td
                     className={alarmsStyle.tCell + " " + alarmsStyle.dateCell}
+                    onClick={() => {
+                      setAlarmId(alarm.id);
+                      setOpenPopupAlert(true);
+                    }}
                   >
                     {moment(alarm.date).format("DD-MM-yyyy")}
                   </td>
                   <td
                     className={alarmsStyle.tCell + " " + alarmsStyle.dateCell}
+                    onClick={() => {
+                      setAlarmId(alarm.id);
+                      setOpenPopupAlert(true);
+                    }}
                   >
                     {moment(alarm.date).subtract(1, "hours").format("LT")}
                   </td>
-                  <td className={alarmsStyle.tCell}>{alarm.action_taken}</td>
-                  <td className={alarmsStyle.tCell}>{alarm.contact_name}</td>
+                  <td
+                    className={alarmsStyle.tCell}
+                    onClick={() => {
+                      setAlarmId(alarm.id);
+                      setOpenPopupAlert(true);
+                    }}
+                  >
+                    {alarm.action_taken === "N" ? t("no") : t("yes")}
+                  </td>
+                  <td
+                    className={alarmsStyle.tCell}
+                    onClick={() => {
+                      setAlarmId(alarm.id);
+                      setOpenPopupAlert(true);
+                    }}
+                  >
+                    {alarm.contact_name}
+                  </td>
                   <td
                     className={alarmsStyle.tCell + " " + alarmsStyle.tCellRight}
+                    onClick={() => {
+                      setAlarmId(alarm.id);
+                      setOpenPopupAlert(true);
+                    }}
                   >
                     <div className="overflow-y-scroll h-8 min-w-[200px]">
                       {alarm.message}
@@ -412,41 +474,3 @@ function AlarmsList() {
 }
 
 export default AlarmsList;
-
-/*
-(alarm.issue_temp ? (
-              <RiTempColdLine size={20} style={{ color: "#ff455a" }} />
-            ) : (
-              ""
-            ),
-            alarm.issue_humidity ? (
-              <MdWaterDrop size={20} style={{ color: "#ff455a" }} />
-            ) : (
-              ""
-            ),
-            alarm.issue_shock ? (
-              <AiOutlineDashboard size={20} style={{ color: "#ff455a" }} />
-            ) : (
-              ""
-            ),
-            alarm.issue_light ? (
-              <MdLightMode size={20} style={{ color: "#ff455a" }} />
-            ) : (
-              ""
-            ),
-            alarm.issue_orientation ? (
-              <GiCardboardBoxClosed size={20} style={{ color: "#ff455a" }} />
-            ) : (
-              ""
-            ),
-            alarm.issue_eta || alarm.issue_expdate ? (
-              <FaCalendarAlt size={20} style={{ color: "#ff455a" }} />
-            ) : (
-              ""
-            ),
-            alarm.theft ? (
-              <GiHandcuffed size={20} style={{ color: "#ff455a" }} />
-            ) : (
-              ""
-            ))
-            */
