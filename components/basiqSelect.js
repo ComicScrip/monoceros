@@ -8,7 +8,7 @@ export default function BasiqSelect({
 }) {
   return (
     <select
-      onChange={(e) => setState(parseInt(e.target.value))}
+      onChange={(e) => setState(e.target.value)}
       value={value}
       className="bg-white p-[4px] w-[60vw] mt-2 rounded"
       required
