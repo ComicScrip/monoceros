@@ -52,11 +52,11 @@ function AlarmsList() {
     parseInt(router.query.page) || 1
   );
 
-  const alarmsPerPage = 50;
+  const alarmsPerPage = 10;
   const [numberOfAlarms, setNumberOfAlarms] = useState(null);
-
+  const [checkboxValue, setCheckboxValue] = useState(false);
+  const [alarmsList, setAlarmsList] = useState([]);
   const [openPopupAlert, setOpenPopupAlert] = useState(false);
-
   const [action, setAction] = useState("");
   const [message, setMessage] = useState("");
 
@@ -259,6 +259,7 @@ function AlarmsList() {
           keyOne={"id"}
           keyTwo={"name"}
         />
+        <button onClick={() => console.log(alarmsList)}>alarms selected</button>
       </div>
       {deliveryIdSelect !== "" && packageIdSelect !== "" ? (
         <>
@@ -307,7 +308,23 @@ function AlarmsList() {
                   <td
                     className={alarmsStyle.tCell + " " + alarmsStyle.tCellLeft}
                   >
-                    <input type="checkbox" className={alarmsStyle.checkbox} />
+                    <input
+                      type="checkbox"
+                      className={alarmsStyle.checkbox}
+                      value={checkboxValue}
+                      onChange={(e) => {
+                        const { id, delivery_id } = alarm;
+                        if (e.target.checked) {
+                          setAlarmsList((prevState) => {
+                            return [...prevState, { id, delivery_id }];
+                          });
+                        } else if (!e.target.checked) {
+                          setAlarmsList(
+                            alarmsList.filter((a) => a.id !== alarm.id)
+                          );
+                        }
+                      }}
+                    />
                   </td>
                   <td className={alarmsStyle.tCell}>{alarm.delivery_id}</td>
                   <td className={alarmsStyle.tCell}>
