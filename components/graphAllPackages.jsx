@@ -118,7 +118,7 @@ const GraphAllPackages = ({
           maxRotation: 90,
           minRotation: 90,
           labelOffset: -8,
-          maxTicksLimit: 12,
+          maxTicksLimit: 10,
         },
       },
       yAxis: {
