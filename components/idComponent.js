@@ -112,7 +112,6 @@ const IdComponent = () => {
   }
 
   useEffect(() => {
-    console.log(temperatureData);
     getData();
   }, [packageId]);
 
