@@ -45,6 +45,7 @@ const IdComponent = () => {
   const [humidityData, setHumidityData] = useState([]);
   const [lightData, setLightData] = useState([]);
   const [shockData, setShockData] = useState([]);
+  const [cache, setCache] = useState({});
   const [minDate, setMinDate] = useState(temperatureData[0]?.date);
   const [maxDate, setMaxDate] = useState(
     temperatureData[temperatureData.length - 1]?.date
