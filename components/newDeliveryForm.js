@@ -77,7 +77,7 @@ export default function NewDeliveryForm() {
         {t("mainTitle")}
       </h1>
       <div className="flex justify-center mt-5 w-[100vw]">
-        <div className="border-t-[0.5px] border-[#C5C5C5] w-[60vw] h-[100vh] flex flex-col items-center">
+        <div className="border-t-[0.5px] border-[#C5C5C5] w-[60vw] flex flex-col items-center">
           <p className="text-center mt-3 mb-5 font-bold">{t("title")}</p>
           <form onSubmit={handleSubmit} className="flex flex-col items-center">
             <div className="flex flex-col mb-5">
@@ -229,7 +229,6 @@ export default function NewDeliveryForm() {
           }}
         />
       </div>
-      {}
     </>
   );
 }
