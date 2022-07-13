@@ -208,7 +208,18 @@ const IdComponent = () => {
                 {colis.id}
               </div>
               {colis.alert ? (
-                <div className={idStyle.alertPackage}>
+                <div
+                  className={idStyle.alertPackage}
+                  onClick={() => {
+                    router.push({
+                      pathname: "/alarms/",
+                      query: {
+                        deliveryId: deliveryDetail.id,
+                        packageId: deliveryDetail.packages[0].id,
+                      },
+                    });
+                  }}
+                >
                   <Image
                     src="/images/alerts-active@3x.png"
                     alt="alarm"

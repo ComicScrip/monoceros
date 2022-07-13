@@ -24,7 +24,7 @@ export default function CustomSelect({
           type="search"
           onChange={(e) => handleSelectChange(e)}
           value={selectItem}
-          className="bg-white w-[90vw] h-7 mb-5 rounded"
+          className="bg-white w-[90vw] h-7 mb-5 rounded pl-2 border-r-8 border-white"
           style={{ fontSize: "13px" }}
         >
           <option value="" className="text-gray-300" disabled hidden>

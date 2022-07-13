@@ -1,0 +1,21 @@
+{
+  "title": "Alarms",
+  "pageTitle": "Monoceros - Alarms",
+  "product": "Product",
+  "country": "Country",
+  "warehouse": "Warehouse",
+  "noData": "No data",
+  "delivery": "Delivery ID",
+  "alarms": "Alarms",
+  "time": "Time",
+  "action": "Action taken",
+  "contactName": "Contact name",
+  "messages": "Notes",
+  "alertFor": "Alerts for delivery",
+  "package": "package",
+  "showAll": "Show all alerts",
+  "solveAlert": "Solve alert",
+  "detail": "Delivery detail",
+  "no": "No",
+  "yes": "Yes"
+}
