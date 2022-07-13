@@ -76,7 +76,7 @@ const GroupData = ({
           <input
             type="checkbox"
             id="allData-show"
-            className="mx-3"
+            className="mx-4"
             checked={showAll}
             onChange={() => setShowAll(!showAll)}
           />
