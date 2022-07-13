@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getDeliveryOverview } from "../lib/deliveriesAPI";
+import { getDeliveryOverview, getDeliveryData } from "../lib/deliveriesAPI";
 import { getSensorData } from "../lib/sensorDataAPI";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -45,11 +45,16 @@ const IdComponent = () => {
   const [humidityData, setHumidityData] = useState([]);
   const [lightData, setLightData] = useState([]);
   const [shockData, setShockData] = useState([]);
+  const [cache, setCache] = useState({});
   const [minDate, setMinDate] = useState(temperatureData[0]?.date);
   const [maxDate, setMaxDate] = useState(
     temperatureData[temperatureData.length - 1]?.date
   );
   const [alerts, setAlerts] = useState([]);
+  const [allTempData, setAllTempData] = useState([]);
+  const [allHumData, setAllHumData] = useState([]);
+  const [allLightData, setAllLightData] = useState([]);
+  const [allShockData, setAllShockData] = useState([]);
   const router = useRouter();
   const { id } = router.query;
 
@@ -66,6 +71,13 @@ const IdComponent = () => {
     getSensorData(id, packageId, "light")
       .then(setLightData)
       .catch(console.error);
+  }
+
+  function getAllData() {
+    getDeliveryData(id, "temperature").then(setAllTempData);
+    getDeliveryData(id, "humidity").then(setAllHumData);
+    getDeliveryData(id, "shock").then(setAllShockData);
+    getDeliveryData(id, "light").then(setAllLightData);
   }
 
   async function showDeliveryDetails(id) {
@@ -111,7 +123,13 @@ const IdComponent = () => {
   }
 
   useEffect(() => {
-    getData();
+    getAllData();
+  }, []);
+
+  useEffect(() => {
+    if (packageId) {
+      getData();
+    }
   }, [packageId]);
 
   useEffect(() => {
@@ -208,7 +226,18 @@ const IdComponent = () => {
                 {colis.id}
               </div>
               {colis.alert ? (
-                <div className={idStyle.alertPackage}>
+                <div
+                  className={idStyle.alertPackage}
+                  onClick={() => {
+                    router.push({
+                      pathname: "/alarms/",
+                      query: {
+                        deliveryId: deliveryDetail.id,
+                        packageId: deliveryDetail.packages[0].id,
+                      },
+                    });
+                  }}
+                >
                   <Image
                     src="/images/alerts-active@3x.png"
                     alt="alarm"
@@ -262,6 +291,10 @@ const IdComponent = () => {
               maxDate={maxDate}
               setMaxDate={setMaxDate}
               packageLimits={packageLimits}
+              allTemp={allTempData}
+              allHum={allHumData}
+              allLight={allLightData}
+              allShock={allShockData}
             />
           )}
         </div>
