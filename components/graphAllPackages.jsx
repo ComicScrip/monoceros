@@ -35,7 +35,7 @@ const GraphAllPackages = ({
 }) => {
   const [dataMin, setDataMin] = useState(0);
   const [dataMax, setDataMax] = useState(0);
-  const [filteredData, setFilteredData] = useState(sensorData);
+  const [filteredDate, setFilteredData] = useState(sensorData);
   let limitMin = 0;
   let limitMax = 0;
   let yAxisMin = -5;
@@ -76,12 +76,6 @@ const GraphAllPackages = ({
   useEffect(() => {
     const minDateIndex = sensorData.DatesList.indexOf(minDate);
     const maxDateIndex = sensorData.DatesList.indexOf(maxDate);
-    console.log(sensorData.DatesList[0]);
-    console.log("mindate", minDate);
-    console.log("index", minDateIndex);
-    console.log(sensorData.DatesList[sensorData.DatesList.length - 1]);
-    console.log("maxdate", maxDate);
-    console.log("index2", maxDateIndex);
     setFilteredData(
       sensorData.DatesList.filter((date) =>
         moment(date).isBetween(minDate, maxDate, undefined, "[]")
