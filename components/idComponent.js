@@ -45,6 +45,7 @@ const IdComponent = () => {
   const [humidityData, setHumidityData] = useState([]);
   const [lightData, setLightData] = useState([]);
   const [shockData, setShockData] = useState([]);
+  const [cache, setCache] = useState({});
   const [minDate, setMinDate] = useState(temperatureData[0]?.date);
   const [maxDate, setMaxDate] = useState(
     temperatureData[temperatureData.length - 1]?.date
@@ -225,7 +226,18 @@ const IdComponent = () => {
                 {colis.id}
               </div>
               {colis.alert ? (
-                <div className={idStyle.alertPackage}>
+                <div
+                  className={idStyle.alertPackage}
+                  onClick={() => {
+                    router.push({
+                      pathname: "/alarms/",
+                      query: {
+                        deliveryId: deliveryDetail.id,
+                        packageId: deliveryDetail.packages[0].id,
+                      },
+                    });
+                  }}
+                >
                   <Image
                     src="/images/alerts-active@3x.png"
                     alt="alarm"

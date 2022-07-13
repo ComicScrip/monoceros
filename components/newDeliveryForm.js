@@ -18,14 +18,16 @@ export default function NewDeliveryForm() {
   const [numberOfPackages, setNumberOfPackages] = useState(1);
   const [deliveryPath, setDeliveryPath] = useState("");
   const [deliveryPathOption, setDeliveryPathOption] = useState([]);
+
   const defaultInfoState = {
     start_date: "",
     end_date: "",
     tracking_number: "",
   };
+
   const [displayDates, setDisplayDates] = useState({});
 
-  const [infos, setInfos] = useState({});
+  const [infos, setInfos] = useState(defaultInfoState);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -46,7 +48,8 @@ export default function NewDeliveryForm() {
       setWarehouseDestination("");
       setWarehouseOrigin("");
       setDeliveryPath("");
-    } catch {
+    } catch (e) {
+      console.log(e);
       toast(t("toastError"));
     }
   }
@@ -74,7 +77,7 @@ export default function NewDeliveryForm() {
         {t("mainTitle")}
       </h1>
       <div className="flex justify-center mt-5 w-[100vw]">
-        <div className="border-t-[0.5px] border-[#C5C5C5] w-[60vw] h-[100vh] flex flex-col items-center">
+        <div className="border-t-[0.5px] border-[#C5C5C5] w-[60vw] flex flex-col items-center">
           <p className="text-center mt-3 mb-5 font-bold">{t("title")}</p>
           <form onSubmit={handleSubmit} className="flex flex-col items-center">
             <div className="flex flex-col mb-5">
@@ -132,6 +135,7 @@ export default function NewDeliveryForm() {
                     color: "var(--main-color)",
                     marginLeft: "-20px",
                     marginTop: "5px",
+                    zIndex: "100",
                   }}
                 />
               </div>
@@ -158,6 +162,7 @@ export default function NewDeliveryForm() {
                     color: "var(--main-color)",
                     marginLeft: "-20px",
                     marginTop: "5px",
+                    zIndex: "100",
                   }}
                 />
               </div>
@@ -224,7 +229,6 @@ export default function NewDeliveryForm() {
           }}
         />
       </div>
-      {}
     </>
   );
 }

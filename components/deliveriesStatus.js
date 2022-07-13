@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getDeliveriesStatus, getDeliveriesAlert } from "../lib/deliveriesAPI";
 import { useTranslation } from "next-i18next";
-import Loading from "./loading";
 
 export default function DeliveriesStatus({
   setStatus,
@@ -24,7 +23,6 @@ export default function DeliveriesStatus({
     t("delayed"),
     t("completed"),
     t("alerts"),
-    "Total",
   ];
   const categoriesRates = [
     inProgressWidth,
@@ -32,13 +30,7 @@ export default function DeliveriesStatus({
     completedWidth,
     alertsWidth,
   ];
-  const categoriesValues = [
-    in_progress,
-    delayed,
-    completed,
-    alertsCount,
-    total,
-  ];
+  const categoriesValues = [in_progress, delayed, completed, alertsCount];
   const categoriesString = [
     "In%20progress",
     "Delayed",
@@ -96,6 +88,19 @@ export default function DeliveriesStatus({
               </div>
             </div>
           ))}
+          <button
+            onClick={() => {
+              setStatus(categoriesString[4]);
+              setCurrentPage(1);
+            }}
+            className="text-white font-bold py-2 px-4 w-[30%] rounded text-[10px] bg-main_color min-w-[100px]"
+            style={{
+              color: status === categoriesString[4] ? "black" : null,
+              fontSize: status === categoriesString[4] ? "1em" : null,
+            }}
+          >
+            All
+          </button>
         </div>
       ) : null}
     </div>

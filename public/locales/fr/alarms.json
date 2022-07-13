@@ -1,0 +1,21 @@
+{
+  "title": "Alertes",
+  "pageTitle": "Monoceros - Alertes",
+  "product": "Produit",
+  "country": "Pays",
+  "warehouse": "Entrepôt",
+  "noData": "Pas de données",
+  "delivery": "N° de livraison",
+  "alarms": "Alertes",
+  "Time": "Heure",
+  "action": "Action prise",
+  "contactName": "Nom du contact",
+  "messages": "Commentaires",
+  "alertFor": "Alertes sur la livraison",
+  "package": "paquet",
+  "showAll": "Toutes les alertes",
+  "solveAlert": "Résoudre une alerte",
+  "detail": "Détail de la livraison",
+  "no": "Non",
+  "yes": "Oui"
+}

@@ -24,6 +24,9 @@ export default function Signin({ csrfToken }) {
     if (status === "authenticated") {
       router.push("/deliveries");
     }
+    if (router.query.error) {
+      setLoginIssues(true);
+    }
   });
   async function handleSubmit(e) {}
 
@@ -32,12 +35,10 @@ export default function Signin({ csrfToken }) {
   }
 
   function handleEmailChange(e) {
-    setLoginIssues(false);
     setEmail(e.target.value);
   }
 
   function handlePasswordChange(e) {
-    setLoginIssues(false);
     setPassword(e.target.value);
   }
   return (
