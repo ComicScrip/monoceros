@@ -54,7 +54,7 @@ const GroupData = ({
         <label htmlFor="minDate-select" className="my-2 text-sm">
           Choose the min date:
         </label>
-        <div className="flex h-7 m-2 w-[100%] justify-center items-center">
+        <div className="flex h-7 m-2 w-[100%] justify-center items-center z-[3000]">
           <div className="flex flex-initial items-center">
             <DatePicker
               onChange={(date) => {
@@ -84,7 +84,7 @@ const GroupData = ({
           Choose the max date:
         </label>
         <div className="flex h-7 m-2 w-[100%] justify-center">
-          <div className="flex flex-initial items-center">
+          <div className="flex flex-initial items-center z-[3000]">
             <DatePicker
               onChange={(date) => {
                 setDatePicker({ ...datesPicker, endDate: date });
