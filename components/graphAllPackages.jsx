@@ -31,6 +31,7 @@ const GraphAllPackages = ({
   showXAxis,
   minDate,
   maxDate,
+  showLabel,
 }) => {
   const [dataMin, setDataMin] = useState(0);
   const [dataMax, setDataMax] = useState(0);
@@ -40,19 +41,53 @@ const GraphAllPackages = ({
   let yAxisMin = -5;
   let yAxisMax = 5;
 
-  // useEffect(() => {
-  //   const Values = sensorData.map((o) => o.sensor_value);
-  //   setDataMax(Math.max(...Values));
-  //   setDataMin(Math.min(...Values));
-  // }, [sensorData]);
+  const color = [
+    { r: 229, g: 115, b: 155 },
+    { r: 213, g: 0, b: 0 },
+    { r: 77, g: 182, b: 172 },
+    { r: 136, g: 14, b: 79 },
+    { r: 255, g: 160, b: 0 },
+    { r: 41, g: 121, b: 255 },
+    { r: 63, g: 81, b: 181 },
+    { r: 139, g: 195, b: 74 },
+    { r: 206, g: 147, b: 216 },
+    { r: 100, g: 181, b: 246 },
+    { r: 212, g: 225, b: 87 },
+    { r: 124, g: 77, b: 255 },
+    { r: 64, g: 196, b: 255 },
+    { r: 156, g: 39, b: 176 },
+    { r: 0, g: 200, b: 83 },
+    { r: 3, g: 169, b: 244 },
+    { r: 83, g: 109, b: 254 },
+    { r: 255, g: 235, b: 59 },
+    { r: 240, g: 98, b: 146 },
+    { r: 76, g: 175, b: 80 },
+  ];
 
-  // useEffect(() => {
-  //   setFilteredData(
-  //     sensorData.filter((dataset) =>
-  //       moment(dataset.date).isBetween(minDate, maxDate, undefined, "[]")
-  //     )
-  //   );
-  // }, [minDate, maxDate, sensorData]);
+  useEffect(() => {
+    const Values = [];
+    sensorData.dataset.forEach((o) =>
+      o.data.map((datas) => Values.push(datas))
+    );
+    setDataMax(Math.max(...Values));
+    setDataMin(Math.min(...Values));
+  }, [sensorData]);
+
+  useEffect(() => {
+    const minDateIndex = sensorData.DatesList.indexOf(minDate);
+    const maxDateIndex = sensorData.DatesList.indexOf(maxDate);
+    console.log(sensorData.DatesList[0]);
+    console.log("mindate", minDate);
+    console.log("index", minDateIndex);
+    console.log(sensorData.DatesList[sensorData.DatesList.length - 1]);
+    console.log("maxdate", maxDate);
+    console.log("index2", maxDateIndex);
+    setFilteredData(
+      sensorData.DatesList.filter((date) =>
+        moment(date).isBetween(minDate, maxDate, undefined, "[]")
+      )
+    );
+  }, [minDate, maxDate, sensorData]);
 
   if (id === "Temperature") {
     limitMin = limitData.temp_min;
@@ -103,7 +138,7 @@ const GraphAllPackages = ({
     },
     plugins: {
       legend: {
-        display: false,
+        display: showLabel,
       },
       title: {
         display: true,
@@ -132,33 +167,19 @@ const GraphAllPackages = ({
       },
     },
   };
-  const labels = sensorData.DatesList.map((data) =>
-    moment(data.date).format("DD-MM-YY, hh:mm:ss")
+  const labels = sensorData.DatesList.map((date) =>
+    moment(date).format("DD-MM-YY, hh:mm:ss")
   );
-  // const labels = filteredData.map((data) =>
-  //   moment(data.date).format("DD-MM-YY, hh:mm:ss")
-  // );
-  const datasets = sensorData.dataset.map((pckg) => ({
+  const datasets = sensorData.dataset.map((pckg, i) => ({
     label: pckg.label,
     data: pckg.data,
-    borderColor: "rgb(176,224,230)",
-    backgroundColor: "rgba(176,224,230, 0.5)",
+    borderColor: `rgb(${color[i].r}, ${color[i].g}, ${color[i].b})`,
+    backgroundColor: `rgba(${color[i].r}, ${color[i].g}, ${color[i].b}, 0.5)`,
   }));
   const data = {
     labels,
     datasets: datasets,
   };
-  // const data = {
-  //   labels,
-  //   datasets: [
-  //     {
-  //       data: filteredData.map((data) => data.sensor_value),
-  //       borderColor: "rgb(255, 99, 132)",
-  //       backgroundColor: "rgba(255, 99, 132, 0.5)",
-  //     },
-  //   ],
-  // };
-  console.log(labels);
 
   return (
     <Line

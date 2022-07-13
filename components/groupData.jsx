@@ -29,17 +29,39 @@ const GroupData = ({
   });
 
   function handleClickMin() {
-    setMinDate(temperatureData[0]?.date);
+    if (showAll) {
+      setMinDate(allTemp.DatesList[0]);
+    }
+    if (!showAll) {
+      setMinDate(temperatureData[0]?.date);
+    }
   }
 
   function handleClickMax() {
-    setMaxDate(temperatureData[temperatureData.length - 1]?.date);
+    if (showAll) {
+      setMaxDate(allTemp.DatesList[allTemp.DatesList.length - 1]);
+    }
+    if (!showAll) {
+      setMaxDate(temperatureData[temperatureData.length - 1]?.date);
+    }
   }
 
   useEffect(() => {
-    setMinDate(temperatureData[0]?.date);
-    setMaxDate(temperatureData[temperatureData.length - 1]?.date);
+    console.log(allTemp);
+    if (!showAll) {
+      setMinDate(temperatureData[0]?.date);
+      setMaxDate(temperatureData[temperatureData.length - 1]?.date);
+    }
   }, [temperatureData]);
+
+  useEffect(() => {
+    if (showAll) {
+      if (allTemp.DatesList) {
+        setMaxDate(allTemp.DatesList[allTemp.DatesList.length - 1]);
+        setMinDate(allTemp.DatesList[0]);
+      }
+    }
+  }, [allTemp]);
 
   return (
     <>
@@ -49,6 +71,7 @@ const GroupData = ({
           <input
             type="checkbox"
             id="allData-show"
+            className="mx-3"
             checked={showAll}
             onChange={() => setShowAll(!showAll)}
           />
@@ -116,7 +139,7 @@ const GroupData = ({
             <div className={groupDataStyle.graph}>
               {showAll && (
                 <div>
-                  <div data-cy="packageTempGraph" style={{ width: "100%" }}>
+                  <div data-cy="packageTempGraph" style={{ width: "90vw" }}>
                     <GraphAllWithNoSSR
                       id="Temperature"
                       sensorData={allTemp}
@@ -124,9 +147,10 @@ const GroupData = ({
                       showXAxis={false}
                       minDate={minDate}
                       maxDate={maxDate}
+                      showLabel={true}
                     />
                   </div>
-                  {/* <div data-cy="packageHumGraph" style={{ width: "100%" }}>
+                  <div data-cy="packageHumGraph" style={{ width: "100%" }}>
                     <GraphAllWithNoSSR
                       sensorData={allHum}
                       limitData={packageLimits}
@@ -134,6 +158,7 @@ const GroupData = ({
                       showXAxis={false}
                       minDate={minDate}
                       maxDate={maxDate}
+                      showLabel={false}
                     />
                   </div>
                   <div data-cy="packageLightGraph" style={{ width: "100%" }}>
@@ -144,6 +169,7 @@ const GroupData = ({
                       showXAxis={false}
                       minDate={minDate}
                       maxDate={maxDate}
+                      showLabel={false}
                     />
                   </div>
                   <div data-cy="packageShockGraph" style={{ width: "100%" }}>
@@ -154,8 +180,9 @@ const GroupData = ({
                       showXAxis={true}
                       minDate={minDate}
                       maxDate={maxDate}
+                      showLabel={false}
                     />
-                  </div> */}
+                  </div>
                 </div>
               )}
             </div>
